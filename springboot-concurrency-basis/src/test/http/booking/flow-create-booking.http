@@ -1,0 +1,42 @@
+### Concert 추가
+POST {{host}}/concerts
+Content-Type: application/json
+
+{
+  "name": "아이유 콘서트 2021",
+  "performanceDate": "2021-07-01 18:00:00",
+  "viewingTime": 180,
+  "grade": "PG_12"
+}
+
+> {%
+client.global.set("concertId", response.body.id);
+ %}
+
+### 특정 Concert 에 티켓 추가
+POST {{host}}/tickets/concerts/{{concertId}}
+Content-Type: application/json
+
+{
+  "name": "아이유 콘서트 B좌석",
+  "initCount": 5,
+  "price": 20000,
+  "seatGrade": "B_CLASS"
+}
+
+> {%
+client.global.set("ticketId", response.body.id);
+ %}
+
+### 예약 건 추가
+POST {{host}}/bookings
+Content-Type: application/json
+
+{
+  "concertId": "{{concertId}}",
+  "ticketId": "{{ticketId}}"
+}
+
+
+
+

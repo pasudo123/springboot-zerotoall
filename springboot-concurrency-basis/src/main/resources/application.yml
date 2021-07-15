@@ -1,0 +1,24 @@
+server:
+  port: 18801
+
+spring:
+  redis:
+    host: localhost
+    port: 16380
+    password: ''
+    timeout: 3000
+
+  datasource:
+    url: jdbc:mysql://localhost:13311/testdb?useSSL=false&allowPublicKeyRetrieval=true&useTimezone=true&serverTimezone=Asia/Seoul
+    username: root
+    password: rootpass
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      auto-commit: true
+  jpa:
+    open-in-view: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    hibernate.ddl-auto: create-drop
+    properties:
+      hibernate.format_sql: true

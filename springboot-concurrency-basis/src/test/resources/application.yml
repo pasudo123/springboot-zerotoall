@@ -1,0 +1,44 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active:
+      - default
+      - test
+  redis:
+    host: localhost
+    port: ${random.int[20000,30000]}
+    password: ''
+    timeout: 3000
+
+  h2:
+    console:
+      enabled: true
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    initialization-mode: always
+    platform: h2
+    hikari:
+      auto-commit: true
+  jpa:
+    open-in-view: true
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    generate-ddl: true
+    show-sql: true
+    properties.hibernate.format_sql: true
+    properties.hibernate.use_sql_comments: false
+
+client:
+  ticket:
+    host: http://localhost:18801
+    use-dummy: false
+  concert:
+    host: http://localhost:18801
+    use-dummy: false

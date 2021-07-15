@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+  redis:
+    image: redis:5.0.3
+    labels:
+      - "name=redis"
+      - "mode=standalone"
+    environment:
+      - REDIS_REPLICATION_MODE=master
+    container_name: springboot-concurrency-basis-redis
+    ports:
+      - 16380:6379
+  db:
+    image: library/mysql:8.0
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpass
+      - MYSQL_ROOT_HOST=%
+      - MYSQL_DATABASE=testdb
+    container_name: springboot-concurrency-basis-mysql
+    ports:
+      - 13311:3306

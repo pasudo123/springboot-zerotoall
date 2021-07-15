@@ -6,7 +6,6 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.TestPropertySource
 
 @SpringBootTest
-@TestPropertySource(locations = ["classpath:application.yml"])
 class SpringbootConcurrencyBasisApplicationTests {
 
     @Test

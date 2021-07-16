@@ -1,8 +1,10 @@
 package com.example.springbootjpabasis.domain.library.model
 
+import com.example.springbootjpabasis.domain.BaseEntity
 import com.example.springbootjpabasis.domain.book.model.Book
 import com.example.springbootjpabasis.domain.library.api.dto.LibraryCreateDto
 import com.fasterxml.jackson.annotation.JsonManagedReference
+import org.hibernate.envers.Audited
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
@@ -12,6 +14,7 @@ import javax.persistence.Id
 import javax.persistence.OneToMany
 import javax.persistence.Table
 
+@Audited
 @Entity
 @Table(name = "library")
 class Library(
@@ -21,7 +24,7 @@ class Library(
 
     @Column(name = "address", columnDefinition = "VARCHAR(255)", length = 255, nullable = false)
     val address: String
-) {
+): BaseEntity() {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

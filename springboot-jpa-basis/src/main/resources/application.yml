@@ -2,17 +2,18 @@ spring:
   profiles: default
 
   datasource:
-    url: jdbc:mysql://localhost:13310/testdb?useSSL=false&allowPublicKeyRetrieval=true&useTimezone=true&serverTimezone=Asia/Seoul
     username: root
     password: rootpass
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       auto-commit: true
+    url: jdbc:mysql://localhost:13310/testdb?useSSL=false&allowPublicKeyRetrieval=true&useTimezone=true&serverTimezone=Asia/Seoul
+
   jpa:
     open-in-view: true
     database-platform: org.hibernate.dialect.MySQL57Dialect
     show-sql: true
-    hibernate.ddl-auto: update
+    hibernate.ddl-auto: create-drop
 
 server:
   port: 48081

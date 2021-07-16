@@ -1,0 +1,7 @@
+# 포스트를 생성한다.
+POST {{host}}/posts
+Content-Type: application/json
+
+{
+  "contents": "dsadssda"
+}

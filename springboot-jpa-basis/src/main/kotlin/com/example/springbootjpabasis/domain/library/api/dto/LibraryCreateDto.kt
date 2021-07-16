@@ -3,7 +3,7 @@ package com.example.springbootjpabasis.domain.library.api.dto
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 
-@ApiModel("LibraryCreateResources")
+@ApiModel("LibraryCreateDto")
 data class LibraryCreateDto (
     @ApiModelProperty("서점이름", example = "교보문고")
     val name: String,

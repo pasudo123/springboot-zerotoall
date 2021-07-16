@@ -3,7 +3,7 @@ package com.example.springbootjpabasis.domain.book.api.dto
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 
-@ApiModel("BookCreateResources")
+@ApiModel("BookCreateDto")
 data class BookCreateDto(
     @ApiModelProperty("책 이름", example = "고래")
     val name: String,

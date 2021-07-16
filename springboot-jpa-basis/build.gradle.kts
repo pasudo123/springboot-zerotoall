@@ -8,6 +8,14 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("mysql:mysql-connector-java")
 
+    // jpa envers
+    // https://mvnrepository.com/artifact/org.springframework.data/spring-data-envers
+     implementation("org.springframework.data:spring-data-envers:2.3.9.RELEASE")
+
+    // https://mvnrepository.com/artifact/org.hibernate/hibernate-envers
+    // implementation("org.hibernate:hibernate-envers:5.5.3.Final")
+
+
     // web
     implementation("org.springframework.boot:spring-boot-starter-web")
 

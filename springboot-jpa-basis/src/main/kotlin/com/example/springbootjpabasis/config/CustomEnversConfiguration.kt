@@ -1,18 +1,11 @@
 package com.example.springbootjpabasis.config
 
-import com.example.springbootjpabasis.domain.book.repository.BookRepository
-import com.example.springbootjpabasis.domain.library.repository.LibraryRepository
-import com.example.springbootjpabasis.domain.post.repository.PostRepository
-import org.hibernate.SessionFactory
-import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.jdbc.DataSourceBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.envers.repository.support.EnversRevisionRepositoryFactoryBean
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
-import org.springframework.data.jpa.repository.support.JpaMetamodelEntityInformation
-import org.springframework.orm.jpa.JpaDialect
 import org.springframework.orm.jpa.JpaTransactionManager
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean
 import org.springframework.orm.jpa.vendor.Database

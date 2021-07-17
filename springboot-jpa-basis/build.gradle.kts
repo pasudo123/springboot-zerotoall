@@ -10,11 +10,10 @@ dependencies {
 
     // jpa envers
     // https://mvnrepository.com/artifact/org.springframework.data/spring-data-envers
-     implementation("org.springframework.data:spring-data-envers:2.4.0")
+    implementation("org.springframework.data:spring-data-envers:2.4.0")
 
     // https://mvnrepository.com/artifact/org.hibernate/hibernate-envers
     // implementation("org.hibernate:hibernate-envers:5.5.3.Final")
-
 
     // web
     implementation("org.springframework.boot:spring-boot-starter-web")

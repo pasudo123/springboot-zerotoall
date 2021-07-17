@@ -15,12 +15,16 @@ import javax.persistence.Table
 @Table(name = "post")
 class Post(
     @Column(name = "contents", columnDefinition = "TEXT", nullable = true)
-    val contents: String
+    var contents: String? = null
 ): BaseEntity() {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
+
+    fun update(contents: String) {
+        this.contents = contents
+    }
 
     companion object {
         fun from(postCreateDto: PostCreateDto): Post {

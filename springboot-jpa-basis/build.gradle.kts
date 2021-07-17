@@ -10,7 +10,7 @@ dependencies {
 
     // jpa envers
     // https://mvnrepository.com/artifact/org.springframework.data/spring-data-envers
-     implementation("org.springframework.data:spring-data-envers:2.3.9.RELEASE")
+     implementation("org.springframework.data:spring-data-envers:2.4.0")
 
     // https://mvnrepository.com/artifact/org.hibernate/hibernate-envers
     // implementation("org.hibernate:hibernate-envers:5.5.3.Final")

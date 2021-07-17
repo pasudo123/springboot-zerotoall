@@ -6,4 +6,4 @@ import org.springframework.data.repository.history.RevisionRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface BookRepository : JpaRepository<Book, Long>, RevisionRepository<Book, Long, Long>
+interface BookRepository : JpaRepository<Book, Long>, RevisionRepository<Book, Long, Int>

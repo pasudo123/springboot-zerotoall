@@ -12,4 +12,4 @@ import org.springframework.stereotype.Repository
  *     세번째 : revision number
  */
 @Repository
-interface PostRepository : JpaRepository<Post, Long>, RevisionRepository<Post, Long, Long>
+interface PostRepository : JpaRepository<Post, Long>, RevisionRepository<Post, Long, Int>

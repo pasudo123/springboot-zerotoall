@@ -1,0 +1,12 @@
+###
+GET http://localhost:8090/messages
+
+###
+GET http://localhost:8090/messages/1
+
+###
+GET http://localhost:8090/messages/param?contents=hello
+
+###
+POST http://localhost:8090/messages
+Content-Type: application/x-www-form-urlencoded

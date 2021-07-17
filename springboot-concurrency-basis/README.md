@@ -1,3 +1,7 @@
+## 여기서 다루는 것
+* 레디스를 이용한 동시성 처리
+* retrofit 사용방식 (테스트코드)
+
 ## springboot-concurrency-basis
 동시성 이슈에 대해서 레디스로 극복하기 위함 <BR>
 

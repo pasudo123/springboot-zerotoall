@@ -28,6 +28,9 @@ class Snack : BaseEntity() {
     var name: String? = null
         private set
 
+    @Column(name = "price", columnDefinition = "BIGINT", nullable = false)
+    var price: Long? = null
+
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = ShoppingBag::class)
     @JoinColumn(name = "shopping_bag_id")
@@ -47,10 +50,15 @@ class Snack : BaseEntity() {
         this.name = name
     }
 
+    fun updatePrice(price: Long) {
+        this.price = price
+    }
+
     companion object {
         fun from(createRequest: SnackDto.CreateRequest): Snack {
             return Snack().apply {
                 name = createRequest.name
+                price = createRequest.price
             }
         }
     }

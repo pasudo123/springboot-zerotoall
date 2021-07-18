@@ -1,0 +1,28 @@
+### 쇼핑백 생성
+POST {{host}}/shopping-bags
+Content-Type: application/json
+
+{
+  "name": "pasudo 쇼핑백",
+  "holdCount": 5
+}
+
+> {%
+client.log("=====================================")
+client.log("response.id : " + response.body.id)
+client.log("=====================================")
+client.global.set("shoppingBagId", response.body.id);
+%}
+
+### 쇼핑백 조회
+GET {{host}}/shopping-bags/{{shoppingBagId}}
+
+
+### 스낵 추가
+POST {{host}}/shopping-bags/{{shoppingBagId}}/snack
+Content-Type: application/json
+
+{
+  "name": "{{$randomInt}} 스낵"
+}
+

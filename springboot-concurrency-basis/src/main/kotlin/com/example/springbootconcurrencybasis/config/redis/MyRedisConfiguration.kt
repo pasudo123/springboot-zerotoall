@@ -1,5 +1,6 @@
-package com.example.springbootconcurrencybasis.domain.config.redis
+package com.example.springbootconcurrencybasis.config.redis
 
+import com.example.springbootconcurrencybasis.domain.config.redis.MyRedisConnectionInfo
 import mu.KLogging
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties
 import org.springframework.context.annotation.Bean

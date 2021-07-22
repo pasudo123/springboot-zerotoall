@@ -1,22 +1,20 @@
 package com.example.springbootmongobasis.domain.student.model
 
+import com.example.springbootmongobasis.domain.BaseDocument
 import com.example.springbootmongobasis.domain.student.api.dto.StudentDto
-import com.fasterxml.jackson.annotation.JsonFormat
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
-import java.time.LocalDateTime
 
-@Document
+@Document(collection = "student")
 class Student private constructor(
     val name: String,
     val gender: Gender,
     val age: Int,
     @Indexed(unique = true)
     val email: String,
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-    val createdAt: LocalDateTime = LocalDateTime.now()
-) {
+): BaseDocument() {
+
     @Id
     private var id: String? = null
 

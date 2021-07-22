@@ -1,0 +1,12 @@
+### student 생성
+POST {{host}}/students
+Content-Type: application/json
+
+{
+  "name": "pasudo{{$randomInt}}",
+  "gender": "MALE",
+  "email": "pasudo{{$randomInt}}@naver.com",
+  "age": {{$randomInt}}
+}
+
+###

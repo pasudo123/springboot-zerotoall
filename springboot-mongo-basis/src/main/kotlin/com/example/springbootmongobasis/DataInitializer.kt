@@ -1,5 +1,6 @@
 package com.example.springbootmongobasis
 
+import com.example.springbootmongobasis.domain.student.api.dto.StudentDto
 import com.example.springbootmongobasis.domain.student.model.Gender
 import com.example.springbootmongobasis.domain.student.model.Student
 import com.example.springbootmongobasis.domain.student.repository.StudentRepository
@@ -24,13 +25,13 @@ class DataInitializer(
     override fun run(vararg args: String?) {
         val name = UUID.randomUUID().toString().replace("-", "").substring(0, 10)
         val email = "$name@naver.com"
-        val student = Student(
+        val request = StudentDto.CreateRequest(
             name = name,
             gender = if(Random.nextBoolean()) Gender.MALE else Gender.FEMALE,
             email = email,
             age = Random.nextInt(99)
         )
-        studentRepository.save(student)
+        val student = studentRepository.save(Student.from(request))
         logger.info { "===================================" }
         logger.info { "student : ${student.toJsonString()}" }
         findOneByEmailUseQuery(email)

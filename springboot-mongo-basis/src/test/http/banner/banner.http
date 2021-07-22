@@ -1,0 +1,10 @@
+### banner create
+POST {{host}}/banners
+Content-Type: application/json
+
+{
+  "name": "{{$randomInt}} 새로운 광고",
+  "desc": "description"
+}
+
+###

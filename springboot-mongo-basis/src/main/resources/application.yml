@@ -11,3 +11,7 @@ spring:
       host: localhost
       port: 27017
       auto-index-creation: true
+
+app:
+  schedule:
+    banner.enabled: false

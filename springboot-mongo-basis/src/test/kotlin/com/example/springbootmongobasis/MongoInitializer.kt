@@ -11,6 +11,7 @@ class MongoInitializer : ApplicationContextInitializer<ConfigurableApplicationCo
 
         val addedProperties = listOf(
             "spring.data.mongodb.authentication-database=admin",
+            "spring.data.mongodb.auto-index-creation=true",
             "spring.data.mongodb.uri=${MongoContainerSingleton.instance.replicaSetUrl}",
         )
         TestPropertyValues.of(addedProperties).applyTo(applicationContext.environment)

@@ -23,9 +23,14 @@ class DataStudentInitializer(
     companion object : KLogging()
 
     fun process() {
+        deleteAll()
         val student = insert()
         findOneByEmailUseQuery(student.email)
         findAllByGenderUseNamedQuery()
+    }
+
+    private fun deleteAll() {
+        studentRepository.deleteAll()
     }
 
     private fun insert(): Student {

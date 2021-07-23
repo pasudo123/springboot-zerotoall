@@ -19,10 +19,15 @@ class DataBannerInitializer(
     companion object : KLogging()
 
     fun process() {
+        deleteAll()
         val banners = insert()
         for((currentIndex, banner) in banners.withIndex()){
             logger.info { "banner[$currentIndex] : ${banner.toJsonString()}" }
         }
+    }
+
+    private fun deleteAll() {
+        bannerRepository.deleteAll()
     }
 
     private fun insert(): List<Banner> {

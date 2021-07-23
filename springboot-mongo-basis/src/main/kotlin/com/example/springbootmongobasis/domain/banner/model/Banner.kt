@@ -6,12 +6,14 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.index.HashIndexed
 import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
+import org.springframework.data.mongodb.core.mapping.Field
 
 @Document(collection = "banner")
 class Banner private constructor(
     @Indexed
     val name: String,
     @HashIndexed
+    @Field(name = "hash_name")
     val hashName: String,
     val desc: String
 ): BaseDocument() {

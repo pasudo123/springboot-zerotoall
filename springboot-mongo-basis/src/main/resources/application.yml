@@ -10,4 +10,4 @@ spring:
       database: mytestdb
       host: localhost
       port: 27017
-      auto-index-creation: false
+      auto-index-creation: true

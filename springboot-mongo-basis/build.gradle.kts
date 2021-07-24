@@ -28,7 +28,7 @@ dependencies {
     // test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
-    testImplementation("org.testcontainers:junit-jupiter")
+    testImplementation("org.testcontainers:junit-jupiter:1.15.3")
 
     // mock & kotest
     testImplementation("io.mockk:mockk:1.10.6")

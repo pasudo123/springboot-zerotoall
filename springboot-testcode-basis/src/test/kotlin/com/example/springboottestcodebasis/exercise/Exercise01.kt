@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import kotlin.random.Random
 
-@DisplayName("TestInstance 의 속성에 따라서 랜덤값을 각각의 테스트는 공유하거나 공유하지 않는다.")
+@DisplayName("TestInstance 의 속성에 따라서\n 랜덤값을 각각의 테스트는 공유하거나 공유하지 않는다.")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class Exercise01 {
 

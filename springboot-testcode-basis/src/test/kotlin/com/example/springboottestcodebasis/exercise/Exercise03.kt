@@ -9,8 +9,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestMethodOrder
 import kotlin.random.Random
 
-@Tag("banana")
-@DisplayName("@Tag 따라서 테스트코드를 수행시킬 수 있다.")
+@DisplayName("MethodOrder 를 통해서 순서대로 테스트코드를 수행할 수 있다.")
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class Exercise03 {
 

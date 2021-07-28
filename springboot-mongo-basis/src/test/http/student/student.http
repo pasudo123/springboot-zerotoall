@@ -11,5 +11,5 @@ Content-Type: application/json
 
 
 ### student 조회
-GET {{host}}/students/6100f70460176525e30927c0
+GET {{host}}/students/610114e3359b461690bb8a22
 Content-Type: application/json

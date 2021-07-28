@@ -16,10 +16,10 @@ class DataLectureInitializer(
     companion object : KLogging()
 
     fun process() {
-        val student = studentRepository.findAll().first()
         deleteAll()
-        val lectures = insert()
 
+        val student = studentRepository.findAll().first()
+        val lectures = insert()
         lectures.forEach { lecture ->
             student.addLecture(lecture)
         }

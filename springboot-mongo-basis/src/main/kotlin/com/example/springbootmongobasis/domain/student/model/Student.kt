@@ -4,7 +4,6 @@ import com.example.springbootmongobasis.domain.BaseDocument
 import com.example.springbootmongobasis.domain.lecture.model.Lecture
 import com.example.springbootmongobasis.domain.student.api.dto.StudentDto
 import org.springframework.data.annotation.Id
-import org.springframework.data.annotation.Reference
 import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.DBRef
 import org.springframework.data.mongodb.core.mapping.Document
@@ -22,13 +21,17 @@ class Student private constructor(
     var id: String? = null
         private set
 
-    @DBRef(lazy = true)
-    var lectures: MutableList<Lecture> = mutableListOf()
+    @DBRef(db = "mytestdb", lazy = true)
+    var lectures: MutableList<Lecture>? = null
         private set
 
     fun addLecture(lecture: Lecture) {
-        lectures.removeIf { it.id == lecture.id }
-        lectures.add(lecture)
+        if(lectures == null) {
+            lectures = mutableListOf()
+        }
+
+        lectures!!.removeIf { it.id == lecture.id }
+        lectures!!.add(lecture)
     }
 
     companion object {

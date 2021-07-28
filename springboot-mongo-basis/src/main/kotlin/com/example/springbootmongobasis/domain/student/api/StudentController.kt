@@ -1,5 +1,8 @@
 package com.example.springbootmongobasis.domain.student.api
 
+import com.example.springbootmongobasis.domain.lecture.api.dto.LectureDto
+import com.example.springbootmongobasis.domain.lecture.model.Lecture
+import com.example.springbootmongobasis.domain.lecture.repository.LectureRepository
 import com.example.springbootmongobasis.domain.student.api.dto.StudentDto
 import com.example.springbootmongobasis.domain.student.model.Student
 import com.example.springbootmongobasis.domain.student.repository.StudentRepository
@@ -16,7 +19,8 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("students")
 class StudentController(
-    private val studentRepository: StudentRepository
+    private val studentRepository: StudentRepository,
+    private val lectureRepository: LectureRepository
 ) {
 
     @PostMapping
@@ -27,12 +31,29 @@ class StudentController(
         return ResponseEntity.ok(studentRepository.save(student))
     }
 
+    @PostMapping("{id}/lecture")
+    fun addLecture(
+        @PathVariable("id") id: String,
+        @RequestBody lectureRequest: LectureDto.CreateRequest
+    ): ResponseEntity<Student> {
+        val student = this.findStudentById(id)
+        val lecture = lectureRepository.save(Lecture.from(lectureRequest))
+        student.addLecture(lecture)
+        studentRepository.save(student)
+
+        return ResponseEntity.ok(student)
+    }
+
     @GetMapping("{id}")
     fun findOneById(
         @PathVariable("id") id: String
     ): ResponseEntity<Student> {
-        val student = studentRepository.findByIdOrNull(id)
-            ?: throw DocumentNotFoundException("student 를 찾을 수 없습니다.")
+        val student = this.findStudentById(id)
         return ResponseEntity.ok(student)
+    }
+
+    private fun findStudentById(id: String): Student {
+        return studentRepository.findByIdOrNull(id)
+            ?: throw DocumentNotFoundException("student 를 찾을 수 없습니다.")
     }
 }

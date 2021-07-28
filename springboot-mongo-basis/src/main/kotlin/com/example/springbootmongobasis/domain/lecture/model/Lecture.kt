@@ -4,7 +4,6 @@ import com.example.springbootmongobasis.domain.BaseDocument
 import com.example.springbootmongobasis.domain.lecture.api.dto.LectureDto
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
-import org.springframework.data.mongodb.core.mapping.MongoId
 
 @Document(collection = "lecture")
 class Lecture private constructor(
@@ -12,7 +11,6 @@ class Lecture private constructor(
 ): BaseDocument() {
 
     @Id
-    @MongoId
     var id: String? = null
         private set
 

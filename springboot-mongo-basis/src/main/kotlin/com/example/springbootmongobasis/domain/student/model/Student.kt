@@ -21,9 +21,10 @@ class Student private constructor(
     var id: String? = null
         private set
 
-    @DBRef(db = "mytestdb", lazy = true)
+    @DBRef(db = "mytestdb", lazy = false)
     var lectures: MutableList<Lecture>? = null
         private set
+
 
     fun addLecture(lecture: Lecture) {
         if(lectures == null) {

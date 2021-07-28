@@ -20,6 +20,7 @@ $ ./docker-compose up -docker
 ## reference
 * https://youtu.be/ssj0CGxv60k
 * [mongo spring-data doc](https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/#reference)
+  * [mongo spring-data DBRefs 사용방법](https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/#mapping-usage-references)
 * [mongo doc : java driver](https://docs.mongodb.com/drivers/java/sync/current/)
 * [mongo db : if kakao](https://if.kakao.com/session/126)
 * [임베디드 몽고를 쓰지말고 테스트컨테이너를 쓰자](https://nexocode.com/blog/posts/fast-stable-mongodb-tests-spring/#introducing-flapdoodle-embedded-mongo)

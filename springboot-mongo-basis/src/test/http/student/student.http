@@ -9,4 +9,7 @@ Content-Type: application/json
   "age": {{$randomInt}}
 }
 
-###
+
+### student 조회
+GET {{host}}/students/6100f70460176525e30927c0
+Content-Type: application/json

@@ -1,9 +1,12 @@
 package com.example.springbootmongobasis.domain.student.model
 
 import com.example.springbootmongobasis.domain.BaseDocument
+import com.example.springbootmongobasis.domain.lecture.model.Lecture
 import com.example.springbootmongobasis.domain.student.api.dto.StudentDto
 import org.springframework.data.annotation.Id
+import org.springframework.data.annotation.Reference
 import org.springframework.data.mongodb.core.index.Indexed
+import org.springframework.data.mongodb.core.mapping.DBRef
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document(collection = "student")
@@ -16,7 +19,17 @@ class Student private constructor(
 ): BaseDocument() {
 
     @Id
-    private var id: String? = null
+    var id: String? = null
+        private set
+
+    @DBRef(lazy = true)
+    var lectures: MutableList<Lecture> = mutableListOf()
+        private set
+
+    fun addLecture(lecture: Lecture) {
+        lectures.removeIf { it.id == lecture.id }
+        lectures.add(lecture)
+    }
 
     companion object {
         fun from(request: StudentDto.CreateRequest): Student {

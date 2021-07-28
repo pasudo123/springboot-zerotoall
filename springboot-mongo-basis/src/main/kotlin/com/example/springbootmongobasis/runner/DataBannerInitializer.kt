@@ -22,7 +22,7 @@ class DataBannerInitializer(
         deleteAll()
         val banners = insert()
         for((currentIndex, banner) in banners.withIndex()){
-            logger.info { "banner[$currentIndex] : ${banner.toJsonString()}" }
+            logger.debug { "banner[$currentIndex] : ${banner.toJsonString()}" }
         }
     }
 

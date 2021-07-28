@@ -19,7 +19,8 @@ class Banner private constructor(
 ): BaseDocument() {
 
     @Id
-    private var id: String? = null
+    var id: String? = null
+        private set
 
     companion object {
         fun from(bannerDto: BannerDto.CreateRequest): Banner {

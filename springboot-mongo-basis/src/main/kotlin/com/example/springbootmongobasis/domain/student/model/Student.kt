@@ -21,7 +21,7 @@ class Student private constructor(
     var id: String? = null
         private set
 
-    @DBRef(db = "mytestdb", lazy = false)
+    @DBRef(lazy = true)
     var lectures: MutableList<Lecture>? = null
         private set
 

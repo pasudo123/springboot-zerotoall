@@ -51,7 +51,7 @@ internal class StudentControllerTest {
     }
 
     @Test
-    @DisplayName("[1] 특정 학생에 대한 수업을 추가하고, 해당 학생을 반환한다.")
+    @DisplayName("특정 학생에 대한 수업을 추가하고, 해당 학생을 바로 반환한다.")
     fun addLectureTest() {
 
         // init
@@ -79,8 +79,7 @@ internal class StudentControllerTest {
     }
 
     @Test
-    @DisplayName("[2] 특정 학생에 대한 수업을 추가하고, 해당 학생을 반환한다.")
-    @Disabled("이건 잘 안된다.? 왜??????")
+    @DisplayName("특정 학생에 대한 수업을 추가한다. 그리고 별도의 api 로 학생을 반환한다.")
     fun addLectureTest2() {
 
         // init

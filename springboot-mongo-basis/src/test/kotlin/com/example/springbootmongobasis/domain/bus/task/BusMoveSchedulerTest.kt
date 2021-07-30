@@ -19,7 +19,7 @@ import java.util.*
     locations = ["/application.yml", "/application-test.yml"],
     properties = [
         "app.schedule.banner.enabled=false",
-        "app.schedule.busmove.enabled=false"
+        "app.schedule.busmove.enabled=true"
     ]
 )
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -47,9 +47,6 @@ internal class BusMoveSchedulerTest {
             this.busMove()
             busMoveScheduler.findPossibleCallBusesTask()
         }
-
-        // 5 분간 스케줄링을 수행함
-        Thread.sleep(300000)
     }
 
     private fun busMove() {

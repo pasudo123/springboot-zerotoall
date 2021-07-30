@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component
     havingValue = "true",
     matchIfMissing = true
 )
-class BannerScheduleTask(
+class BannerScheduler(
     private val bannerRepository: BannerRepository
 ) {
 

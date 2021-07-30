@@ -10,7 +10,8 @@ import org.springframework.stereotype.Component
 class DataInitializer(
     private val dataStudentInitializer: DataStudentInitializer,
     private val dataBannerInitializer: DataBannerInitializer,
-    private val dataLectureInitializer: DataLectureInitializer
+    private val dataLectureInitializer: DataLectureInitializer,
+    private val dataBusInitializer: DataBusInitializer
 ) : CommandLineRunner{
 
     companion object : KLogging()
@@ -19,5 +20,6 @@ class DataInitializer(
         dataStudentInitializer.process()
         dataBannerInitializer.process()
         dataLectureInitializer.process()
+        dataBusInitializer.process()
     }
 }

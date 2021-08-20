@@ -110,7 +110,7 @@ internal class BookingControllerTest : IntegrationSupport() {
         )
 
         // when
-        val booking: Booking = bookingController.create(bookingCreateResource).body!!
+        val booking: Booking = bookingCreateBy(bookingCreateResource)
         booking shouldNotBe null
 
         runBlocking {
@@ -191,7 +191,7 @@ internal class BookingControllerTest : IntegrationSupport() {
         count shouldBe 5
     }
 
-    private fun bookingCreateBy(resource: BookingCreateDto) {
-        bookingController.create(resource).body!!
+    private fun bookingCreateBy(resource: BookingCreateDto): Booking {
+        return bookingController.create(resource).body!!
     }
 }

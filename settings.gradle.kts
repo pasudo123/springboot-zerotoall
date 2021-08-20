@@ -5,4 +5,4 @@ include("springboot-jpa-basis")
 include("springboot-mongo-basis")
 include("springboot-pageable-basis")
 include("springboot-testcode-basis")
-
+include("springboot-testcontainer-basis")

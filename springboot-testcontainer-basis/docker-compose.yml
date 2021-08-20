@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  db:
+    image: mysql:latest
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: testdb
+    container_name: springboot-testcontainer-basis-mysql
+    ports:
+      - 13888:3306

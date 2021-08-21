@@ -5,13 +5,17 @@ spring:
     username: root
     password: rootpass
     driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:13888/testdb?useSSL=false&allowPublicKeyRetrieval=true&useTimezone=true&serverTimezone=Asia/Seoul
     hikari:
       auto-commit: true
-    jdbc-url: jdbc:mysql://localhost:13888/testdb?useSSL=false&allowPublicKeyRetrieval=true&useTimezone=true&serverTimezone=Asia/Seoul
 
   jpa:
     open-in-view: true
-
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
 
 server:
   port: 48075

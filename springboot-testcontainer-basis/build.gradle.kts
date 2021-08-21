@@ -32,4 +32,7 @@ dependencies {
     // testcontainer
     testImplementation("org.testcontainers:testcontainers:1.16.0")
     testImplementation("org.testcontainers:junit-jupiter:1.16.0")
+
+    // testcontainer : mysql, https://www.testcontainers.org/modules/databases/mysql/
+    testImplementation("org.testcontainers:mysql:1.16.0")
 }

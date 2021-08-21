@@ -1,0 +1,17 @@
+spring:
+  profiles: default
+
+  datasource:
+    username: root
+    password: rootpass
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      auto-commit: true
+    jdbc-url: jdbc:mysql://localhost:13888/testdb?useSSL=false&allowPublicKeyRetrieval=true&useTimezone=true&serverTimezone=Asia/Seoul
+
+  jpa:
+    open-in-view: true
+
+
+server:
+  port: 48075

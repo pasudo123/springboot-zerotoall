@@ -1,6 +1,5 @@
 package com.example.springboottestcontainerbasis
 
-import io.kotest.matchers.shouldBe
 import mu.KotlinLogging
 import org.springframework.stereotype.Component
 import org.testcontainers.containers.MySQLContainer
@@ -9,7 +8,7 @@ import org.testcontainers.junit.jupiter.Testcontainers
 import javax.annotation.PostConstruct
 import javax.annotation.PreDestroy
 
-@Component
+@Component(value = "CustomMySqlContainer")
 @Testcontainers
 class CustomMysqlContainer {
 
@@ -22,19 +21,22 @@ class CustomMysqlContainer {
             .apply { withDatabaseName("testdb") }
             .apply { withUsername("testroot") }
             .apply { withPassword("testrootpass") }
+            .apply { withCommand("--character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci") }
+            .apply { withUrlParam("useTimezone", "true") }
+            .apply { withUrlParam("serverTimezone", "Asia/Seoul") }
             .apply { start() }
     }
 
     @PostConstruct
     fun init() {
-        MYSQL_CONTAINER.isRunning shouldBe true
         logger.info { "======== [started] mysql container ========" }
         logger.info { "======== imageName : ${MYSQL_CONTAINER.dockerImageName}" }
         logger.info { "======== databaseName : ${MYSQL_CONTAINER.databaseName}" }
         logger.info { "======== username : ${MYSQL_CONTAINER.username}" }
         logger.info { "======== password : ${MYSQL_CONTAINER.password}" }
+        logger.info { "======== jdbcUrl : ${MYSQL_CONTAINER.jdbcUrl}" }
         logger.info { "======== exposedPorts : ${MYSQL_CONTAINER.exposedPorts}" }
-        logger.info { "======== boundPortNumbers : ${MYSQL_CONTAINER.boundPortNumbers}" }
+        logger.info { "======== commandParts : ${MYSQL_CONTAINER.commandParts}" }
         logger.info { "==========================================" }
     }
 

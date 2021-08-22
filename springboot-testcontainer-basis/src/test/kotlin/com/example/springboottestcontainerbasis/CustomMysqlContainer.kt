@@ -1,6 +1,5 @@
 package com.example.springboottestcontainerbasis
 
-import io.mockk.InternalPlatformDsl.toArray
 import mu.KotlinLogging
 import org.springframework.stereotype.Component
 import org.testcontainers.containers.MySQLContainer

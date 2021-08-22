@@ -2,7 +2,6 @@ package com.example.springboottestcontainerbasis.domain.employee.api
 
 import com.example.springboottestcontainerbasis.IntergrationSupport
 import com.example.springboottestcontainerbasis.domain.employee.resources.EmployeeCreateResources
-import io.kotest.matchers.comparables.shouldBeEqualComparingTo
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import mu.KotlinLogging

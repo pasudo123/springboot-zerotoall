@@ -1,5 +1,6 @@
 package com.example.springboottestcontainerbasis
 
+import io.mockk.InternalPlatformDsl.toArray
 import mu.KotlinLogging
 import org.springframework.stereotype.Component
 import org.testcontainers.containers.MySQLContainer
@@ -24,6 +25,8 @@ class CustomMysqlContainer {
             .apply { withCommand("--character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci") }
             .apply { withUrlParam("useTimezone", "true") }
             .apply { withUrlParam("serverTimezone", "Asia/Seoul") }
+            // .testcontainers.properties 에 `testcontainers.reuse.enable=true` 로 설정해주어야 한다. 그리고 아직 알파단계이다.
+//            .apply { withReuse(true) }
             .apply { start() }
     }
 
@@ -36,7 +39,6 @@ class CustomMysqlContainer {
         logger.info { "======== password : ${MYSQL_CONTAINER.password}" }
         logger.info { "======== jdbcUrl : ${MYSQL_CONTAINER.jdbcUrl}" }
         logger.info { "======== exposedPorts : ${MYSQL_CONTAINER.exposedPorts}" }
-        logger.info { "======== commandParts : ${MYSQL_CONTAINER.commandParts}" }
         logger.info { "==========================================" }
     }
 

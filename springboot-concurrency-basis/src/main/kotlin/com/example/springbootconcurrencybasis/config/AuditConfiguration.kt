@@ -1,4 +1,4 @@
-package com.example.springbootconcurrencybasis.domain.config
+package com.example.springbootconcurrencybasis.config
 
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing

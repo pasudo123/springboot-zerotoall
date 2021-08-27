@@ -8,16 +8,19 @@ plugins {
 
     idea
 
-    id("org.springframework.boot") version springVersion apply false
-    id("io.spring.dependency-management") version springDependencyManagementVersion apply false
+    id("org.springframework.boot") version springVersion
+    id("io.spring.dependency-management") version springDependencyManagementVersion
 
-    kotlin("jvm") version kotlinVersion apply false
-    kotlin("plugin.spring") version kotlinVersion apply false
-    kotlin("kapt") version kaptVersion apply false
+    kotlin("jvm") version kotlinVersion
+    kotlin("plugin.spring") version kotlinVersion
+    kotlin("kapt") version kaptVersion
 
     // https://kotlinlang.org/docs/no-arg-plugin.html#jpa-support
     // kotlin jpa 사용 시, noargs 를 사용하기 위함 (하단에 apply kotlin-jpa 추가)
     id("org.jetbrains.kotlin.plugin.noarg") version kotlinVersion
+    // https://kotlinlang.org/docs/all-open-plugin.html
+    // kotlin jpa 사용 시, allopen final 키워드를 특정 애노테이션 기준으로 제거해주기 위함
+    id("org.jetbrains.kotlin.plugin.allopen") version kotlinVersion
 }
 
 allprojects {

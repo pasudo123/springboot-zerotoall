@@ -17,22 +17,39 @@ class MovieInteractor(
 ) {
 
     fun saveMovie(
-        actorId: Long,
-        songId: Long,
         request: MovieResources.Request
     ): Movie {
+        return movieRepository.save(Movie(request.title))
+    }
+
+    fun addActor(
+        actorId: Long,
+        movieId: Long
+    ): Movie {
         val actor = actorRepository.findByIdOrNull(actorId) ?: throw EntityNotFoundException("액터를 찾을 수 없습니다.")
-        val song = songRepository.findByIdOrNull(songId) ?: throw EntityNotFoundException("노래를 찾을 수 없습니다.")
-        val movie = movieRepository.save(Movie(request.title))
-
-        movie.updateSong(song)
-        movie.updateActor(actor)
-
+        val movie = movieCustomRepository.findOneWithActors(movieId).orElseThrow { throw EntityNotFoundException("영화를 찾을 수 없습니다.") }
+        movie.addActor(actor)
         return movie
     }
 
-    fun getMovieById(id: Long): Movie {
+    fun addSong(
+        songId: Long,
+        movieId: Long
+    ): Movie {
+        val song = songRepository.findByIdOrNull(songId) ?: throw EntityNotFoundException("노래를 찾을 수 없습니다.")
+        val movie = movieCustomRepository.findOneWithSongs(movieId).orElseThrow { throw EntityNotFoundException("영화를 찾을 수 없습니다.") }
+        movie.addSong(song)
+        return movie
+    }
+
+    fun getMovieByIdExpectedThrow(id: Long): Movie {
         return movieCustomRepository.findOneWithSongsAndActorsById(id)
-            .orElseThrow { throw EntityNotFoundException("노래를 찾을 수 없습니다.") }
+            .orElseThrow { throw EntityNotFoundException("영화를 찾을 수 없습니다.") }
+    }
+
+    fun getMovieById(id: Long): Movie {
+        var movie = movieCustomRepository.findOneWithSongs(id).orElseThrow { throw EntityNotFoundException("영화를 찾을 수 없습니다.") }
+        return movieCustomRepository.findOneWithActors(id).orElseThrow { throw EntityNotFoundException("영화를 찾을 수 없습니다.") }
+        return movie
     }
 }

@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.OneToMany
+import javax.persistence.OrderBy
 import javax.persistence.Table
 
 @Entity
@@ -25,21 +26,27 @@ class Movie(
     var id: Long? = null
         protected set
 
-    @OneToMany(targetEntity = Actor::class, fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @OneToMany(targetEntity = Actor::class, mappedBy = "movie", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @OrderBy("id ASC")
     var actors: MutableList<Actor> = mutableListOf()
 
-    @OneToMany(targetEntity = Song::class, fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @OneToMany(targetEntity = Song::class, mappedBy = "movie", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @OrderBy("id ASC")
     var songs: MutableList<Song> = mutableListOf()
 
-    fun updateActor(actor: Actor) {
-        actors.removeIf { currentActor -> currentActor.id == actor.id }
-        actors.add(actor)
-        actor.settingMovie(this)
+    fun addActor(actor: Actor) {
+        val actorIds = actors.map { currentActor -> currentActor.id }
+        if (actorIds.contains(actor.id).not()) {
+            actors.add(actor)
+            actor.settingMovie(this)
+        }
     }
 
-    fun updateSong(song: Song) {
-        songs.removeIf { currentSong -> currentSong.id == song.id }
-        songs.add(song)
-        song.settingMovie(this)
+    fun addSong(song: Song) {
+        val songIds = songs.map { currentSong -> currentSong.id }
+        if (songIds.contains(song.id).not()) {
+            songs.add(song)
+            song.settingMovie(this)
+        }
     }
 }

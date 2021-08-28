@@ -37,6 +37,5 @@ class Actor(
         }
 
         this.movie = movie
-        this.movie!!.updateActor(this)
     }
 }

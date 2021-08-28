@@ -12,22 +12,40 @@ import java.util.*
 @Transactional(readOnly = true)
 class MovieCustomRepository: QuerydslRepositorySupport(Movie::class.java) {
 
-    fun findOneWithSongsAndActorsById(id: Long): Optional<Movie> {
+    fun findOneWithSongs(id: Long): Optional<Movie> {
         return Optional.ofNullable(
             from(movie)
-                .innerJoin(movie.songs, song).fetchJoin()
-                .innerJoin(movie.actors, actor).fetchJoin()
+                .leftJoin(movie.songs, song).fetchJoin()
                 .where(
                     movie.id.eq(id)
                 )
+                .distinct()
                 .fetchOne()
         )
     }
 
-    fun findAllWithSongsAndActors(): List<Movie> {
-        return from(movie)
-            .innerJoin(movie.songs, song).fetchJoin()
-            .innerJoin(movie.actors, actor).fetchJoin()
-            .fetch()
+    fun findOneWithActors(id: Long): Optional<Movie> {
+        return Optional.ofNullable(
+            from(movie)
+                .leftJoin(movie.actors, actor).fetchJoin()
+                .where(
+                    movie.id.eq(id)
+                )
+                .distinct()
+                .fetchOne()
+        )
+    }
+
+    fun findOneWithSongsAndActorsById(id: Long): Optional<Movie> {
+        return Optional.ofNullable(
+            from(movie)
+                .leftJoin(movie.songs, song).fetchJoin()
+                .leftJoin(movie.actors, actor).fetchJoin()
+                .where(
+                    movie.id.eq(id)
+                )
+                .distinct()
+                .fetchOne()
+        )
     }
 }

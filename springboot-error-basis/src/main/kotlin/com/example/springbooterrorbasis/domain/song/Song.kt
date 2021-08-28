@@ -28,4 +28,13 @@ class Song(
     @ManyToOne(targetEntity = Movie::class, fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(name = "movie_id")
     var movie: Movie? = null
+
+    fun settingMovie(movie: Movie) {
+        if (this.movie != null) {
+            return
+        }
+
+        this.movie = movie
+        this.movie!!.updateSong(this)
+    }
 }

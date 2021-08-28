@@ -30,4 +30,16 @@ class Movie(
 
     @OneToMany(targetEntity = Song::class, fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     var songs: MutableList<Song> = mutableListOf()
+
+    fun updateActor(actor: Actor) {
+        actors.removeIf { currentActor -> currentActor.id == actor.id }
+        actors.add(actor)
+        actor.settingMovie(this)
+    }
+
+    fun updateSong(song: Song) {
+        songs.removeIf { currentSong -> currentSong.id == song.id }
+        songs.add(song)
+        song.settingMovie(this)
+    }
 }

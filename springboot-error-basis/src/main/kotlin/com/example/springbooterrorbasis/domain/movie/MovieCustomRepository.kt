@@ -48,4 +48,12 @@ class MovieCustomRepository: QuerydslRepositorySupport(Movie::class.java) {
                 .fetchOne()
         )
     }
+
+    fun findAllWithSongsAndActors(): List<Movie> {
+        return from(movie)
+            .leftJoin(movie.songs, song).fetchJoin()
+            .leftJoin(movie.actors, actor).fetchJoin()
+            .distinct()
+            .fetch()
+    }
 }

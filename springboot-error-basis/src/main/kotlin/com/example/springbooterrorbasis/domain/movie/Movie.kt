@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.OneToMany
-import javax.persistence.OrderBy
 import javax.persistence.Table
 
 @Entity
@@ -27,11 +26,9 @@ class Movie(
         protected set
 
     @OneToMany(targetEntity = Actor::class, mappedBy = "movie", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    @OrderBy("id ASC")
     var actors: MutableList<Actor> = mutableListOf()
 
     @OneToMany(targetEntity = Song::class, mappedBy = "movie", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    @OrderBy("id ASC")
     var songs: MutableList<Song> = mutableListOf()
 
     fun addActor(actor: Actor) {

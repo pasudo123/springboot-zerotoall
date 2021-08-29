@@ -48,8 +48,11 @@ class MovieInteractor(
     }
 
     fun getMovieById(id: Long): Movie {
-        var movie = movieCustomRepository.findOneWithSongs(id).orElseThrow { throw EntityNotFoundException("영화를 찾을 수 없습니다.") }
-        return movieCustomRepository.findOneWithActors(id).orElseThrow { throw EntityNotFoundException("영화를 찾을 수 없습니다.") }
-        return movie
+        val movie = movieCustomRepository.findOneWithSongs(id).orElseThrow { throw EntityNotFoundException("영화를 찾을 수 없습니다.") }
+        return movieCustomRepository.findOneWithActors(movie.id!!).orElseThrow { throw EntityNotFoundException("영화를 찾을 수 없습니다.") }
+    }
+
+    fun getAll(): List<Movie> {
+        return movieCustomRepository.findAllWithSongsAndActors()
     }
 }

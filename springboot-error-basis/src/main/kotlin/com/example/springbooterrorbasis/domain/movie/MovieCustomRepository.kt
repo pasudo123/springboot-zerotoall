@@ -56,4 +56,16 @@ class MovieCustomRepository: QuerydslRepositorySupport(Movie::class.java) {
             .distinct()
             .fetch()
     }
+
+    fun findOneById(id: Long): Optional<Movie> {
+        return Optional.ofNullable(
+            from(movie)
+                .join(movie.songs, song).fetchJoin()
+                .where(
+                    movie.id.eq(id)
+                )
+                .distinct()
+                .fetchOne()
+        )
+    }
 }

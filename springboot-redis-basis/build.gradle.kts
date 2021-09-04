@@ -17,6 +17,10 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
+    // redis
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive")
+
     // logging
     implementation("io.github.microutils:kotlin-logging:1.12.5")
 
@@ -29,4 +33,7 @@ dependencies {
     // testcontainer
     testImplementation("org.testcontainers:testcontainers:1.16.0")
     testImplementation("org.testcontainers:junit-jupiter:1.16.0")
+
+    // redis-reactive
+    testImplementation("io.projectreactor:reactor-test:3.2.3.RELEASE")
 }

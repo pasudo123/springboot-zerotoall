@@ -6,6 +6,7 @@ import mu.KotlinLogging
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory
 import org.springframework.data.redis.core.ReactiveRedisTemplate
 import org.springframework.data.redis.core.RedisTemplate
@@ -36,13 +37,9 @@ class CustomRedisConfiguration(
     }
 
     @Bean
-    fun reactiveRedisConnectionFactory(): ReactiveRedisTemplate<String, Coffee> {
-        val reactiveConnectionFactory = LettuceConnectionFactory(redisProperties.host, redisProperties.port)
-            .apply {
-                this.database = SAMPLE_REACTIVE_DARABASE
-                this.afterPropertiesSet()
-            }
-
+    fun reactiveRedisTemplate(
+        reactiveRedisConnectionFactory: ReactiveRedisConnectionFactory
+    ): ReactiveRedisTemplate<String, Coffee> {
 
         val keySerializer = StringRedisSerializer()
         val serializer: Jackson2JsonRedisSerializer<Coffee> = Jackson2JsonRedisSerializer(Coffee::class.java).apply {
@@ -56,11 +53,11 @@ class CustomRedisConfiguration(
             this.hashValue(serializer)
         }.build()
 
-        return ReactiveRedisTemplate(reactiveConnectionFactory, serializerContext)
+        return ReactiveRedisTemplate(reactiveRedisConnectionFactory, serializerContext)
     }
 
     companion object {
         private const val SAMPLE_DATABASE = 0
-        private const val SAMPLE_REACTIVE_DARABASE = 1
+        private const val SAMPLE_REACTIVE_DATABASE = 1
     }
 }

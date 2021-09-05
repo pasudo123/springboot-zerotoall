@@ -1,0 +1,13 @@
+
+server:
+  port: 9991
+
+spring:
+
+
+  redis:
+    host: localhost
+    port: 16379
+  jackson:
+    serialization:
+      indent_output: true

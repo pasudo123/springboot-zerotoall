@@ -3,9 +3,10 @@ package com.example.springbootredisbasis.config.domain.coffee
 import java.util.*
 
 data class Coffee(
-    val id: String = generateId(),
     val name: String
 ) {
+
+    val id: String = generateId()
 
     companion object {
         fun generateId(): String {

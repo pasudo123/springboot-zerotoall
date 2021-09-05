@@ -18,7 +18,6 @@ class CustomRedisContainer {
         @JvmStatic
         @Container
         var REDIS_CONTAINER = SpecifiedRedisContainer(DockerImageName.parse(REDIS_IMAGE_NAME)).apply {
-            this.getMappedPort(16380)
             this.withExposedPorts(REDIS_PORT)
             this.start()
         }

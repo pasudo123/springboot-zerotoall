@@ -2,6 +2,12 @@ plugins {
     kotlin("jvm")
 }
 
+allOpen {
+    annotation("javax.persistence.Entity")
+    annotation("javax.persistence.MappedSuperclass")
+    annotation("javax.persistence.Embeddable")
+}
+
 val junitJupiterVersion = "5.4.2"
 val kotestVersion = "4.6.1"
 val mockkVersion = "1.12.0"

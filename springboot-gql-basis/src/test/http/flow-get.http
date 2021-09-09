@@ -1,0 +1,7 @@
+### 상품 조회
+GET http://localhost:9992/items
+Accept: application/json
+
+### 상품 태그 조회
+GET http://localhost:9992/item-tags
+Accept: application/json

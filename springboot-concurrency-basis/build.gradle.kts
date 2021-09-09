@@ -59,6 +59,7 @@ dependencies {
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
 }
 
-sourceSets["main"].withConvention(org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet::class) {
-    kotlin.srcDir("$buildDir/generated/source/kapt/main")
+kotlin.sourceSets.main {
+    println("kotlin sourceSets buildDir :: $buildDir")
+    setBuildDir("$buildDir")
 }

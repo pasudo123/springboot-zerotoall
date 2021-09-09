@@ -1,6 +1,20 @@
 {
+  "name": "springboot-gql",
+  "scripts": {
+    "start:local": "NODE_ENV=development node index.js",
+    "start:dev": "NODE_ENV=development node dist/index.js",
+    "build:dev": "webpack --config webpack.development.js"
+  },
   "dependencies": {
     "apollo-server": "^3.3.0",
+    "apollo-server-core": "^3.3.0",
+    "dotenv": "^10.0.0",
     "graphql": "^15.5.3"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "^4.0.0",
+    "webpack-cli": "^4.8.0",
+    "webpack-merge": "^5.8.0",
+    "webpack-node-externals": "^3.0.0"
   }
 }

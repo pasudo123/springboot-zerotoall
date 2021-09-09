@@ -1,0 +1,10 @@
+# Book 타입은 두 개의 필드를 가지고 있는 상태 : title, author
+type Book {
+    title: String
+    author: Author
+}
+
+type Author {
+    name: String
+    books: [Book]
+}

@@ -1,6 +1,6 @@
 package com.example.springbootconcurrencybasis.lockdomain
 
-import com.example.springbootconcurrencybasis.domain.config.AuditConfiguration
+import com.example.springbootconcurrencybasis.config.AuditConfiguration
 import com.example.springbootconcurrencybasis.lockdomain.snack.api.dto.SnackDto
 import com.example.springbootconcurrencybasis.lockdomain.snack.model.Snack
 import com.example.springbootconcurrencybasis.lockdomain.snack.repository.SnackRepository
@@ -19,8 +19,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
 import org.springframework.context.annotation.Import
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.test.context.junit.jupiter.SpringExtension
-import org.springframework.transaction.annotation.Propagation
-import org.springframework.transaction.annotation.Transactional
 
 @ExtendWith(SpringExtension::class)
 @DataJpaTest

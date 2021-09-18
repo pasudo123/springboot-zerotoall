@@ -1,4 +1,4 @@
-const { RESTDataSource } = require('apollo-datasource-rest')
+const { RESTDataSource, RequestOptions } = require('apollo-datasource-rest')
 
 class SpringBootAPI extends RESTDataSource {
 
@@ -10,29 +10,26 @@ class SpringBootAPI extends RESTDataSource {
     }
 
     willSendRequest(request) {
-        request.headers.set('my-state', 'study-springboot-gql')
+        const today = new Date()
+        const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        request.headers.set('state', `study-springboot-gql : ${time}`)
     }
 
     async fetchItems() {
-        console.info('fetchItems Query')
         return await this.get(`items`)
 
     }
 
     async fetchItemById(id) {
-        console.info('fetchItemById Query')
-        const response = await this.get(`items/${id}`)
-        return response.content
+        return await this.get(`items/${id}`)
     }
 
     async fetchItemTags() {
-        const response = await this.get(`items-tags`)
-        return response.content
+        return await this.get(`items-tags`)
     }
 
     async fetchItemTagById(id) {
-        const response = await this.get(`items-tags/${id}`)
-        return response.content
+        return await this.get(`items-tags/${id}`)
     }
 }
 

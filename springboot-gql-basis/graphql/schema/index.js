@@ -29,6 +29,7 @@ const typeDefs = gql`
         "아이템 태그 명칭"
         name: String!
     }
+    
 `;
 
 module.exports = typeDefs

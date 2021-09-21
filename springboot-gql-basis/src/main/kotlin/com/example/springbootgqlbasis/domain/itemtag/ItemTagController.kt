@@ -21,9 +21,7 @@ class ItemTagController(
         @RequestHeader(value = "state", required = false) state: String?,
         @PathVariable id: Long
     ): ItemTag? {
-        state?.let {
-          logger.info { "getHeader [state]=${state}" }
-        }
+        state?.let { logger.info { "getHeader [state]=${state}" } }
         return itemTagRepository.findByIdOrNull(id)
     }
 
@@ -31,9 +29,7 @@ class ItemTagController(
     fun findAll(
         @RequestHeader(value = "state", required = false) state: String?
     ): List<ItemTag> {
-        state?.let {
-            logger.info { "getHeader [state]=${state}" }
-        }
+        state?.let { logger.info { "getHeader [state]=${state}" } }
         return itemTagRepository.findAll()
     }
 }

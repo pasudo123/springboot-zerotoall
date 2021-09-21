@@ -3,6 +3,8 @@ package com.example.springbootgqlbasis.domain.item
 import com.example.springbootgqlbasis.domain.itemtag.ItemTag
 import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.EnumType
+import javax.persistence.Enumerated
 import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
@@ -16,7 +18,10 @@ class Item (
     @Column(name = "name")
     val name: String,
     @Column(name = "price")
-    val price: Double
+    val price: Double,
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
+    private val type: Type
 ) {
 
     @Id
@@ -26,6 +31,13 @@ class Item (
 
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private val itemTags: MutableList<ItemTag> = mutableListOf()
+
+    enum class Type(desc: String) {
+        FOOD("음식"),
+        LIFE("생활"),
+        FASHION("패션"),
+        CAR("자동차")
+    }
 
     fun addItemTag(itemTag: ItemTag) {
         val itemTagIds = this.itemTags.map { it.id }

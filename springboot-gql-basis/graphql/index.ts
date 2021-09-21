@@ -6,9 +6,9 @@ const { ApolloServerPluginLandingPageGraphQLPlayground } = require('apollo-serve
 require("dotenv").config({path: `.env.${process.env.NODE_ENV}`});
 
 // restful api datasource 를 추가해준다.
-const SpringBootAPI = require("./api/springboot-api");
-const typeDefs = require('./schema/index');
-const resolvers = require('./resolvers/index');
+const SpringBootAPI = require("./api/springboot-api.ts");
+const typeDefs = require('./schema/index.ts');
+const resolvers = require('./resolvers/index.ts');
 
 const server = new ApolloServer({
     typeDefs,

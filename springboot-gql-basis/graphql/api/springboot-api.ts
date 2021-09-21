@@ -25,11 +25,11 @@ class SpringBootAPI extends RESTDataSource {
     }
 
     async fetchItemTags() {
-        return await this.get(`items-tags`)
+        return await this.get(`item-tags`)
     }
 
     async fetchItemTagById(id) {
-        return await this.get(`items-tags/${id}`)
+        return await this.get(`item-tags/${id}`)
     }
 }
 

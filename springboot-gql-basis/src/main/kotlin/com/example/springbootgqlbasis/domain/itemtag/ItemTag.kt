@@ -1,6 +1,7 @@
 package com.example.springbootgqlbasis.domain.itemtag
 
 import com.example.springbootgqlbasis.domain.item.Item
+import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
@@ -24,7 +25,7 @@ class ItemTag (
         protected set
 
     @JoinColumn(name = "item_id")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     var item: Item? = null
 
     fun set(item: Item) {

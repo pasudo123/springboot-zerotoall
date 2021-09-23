@@ -7,9 +7,10 @@ const typeDefs = gql`
     type Query {
         hello: String
         fetchItems: [Item!]!
-        fetchItem(id: ID!): Item
+        fetchItemById(id: ID!): Item
         fetchItemTags: [ItemTag!]!
-        fetchItemTag(id: ID!): ItemTag
+        fetchItemTagById(id: ID!): ItemTag
+        fetchItemWithItemTagById(id: ID!): ItemWithItemTag
     }
     
     "아이템"
@@ -30,6 +31,11 @@ const typeDefs = gql`
         name: String!
     }
     
+    "태그를 포함한 아이템"
+    type ItemWithItemTag {
+        item: Item
+        itemTags: [ItemTag!]!
+    }
 `;
 
 module.exports = typeDefs

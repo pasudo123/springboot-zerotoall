@@ -1,7 +1,7 @@
 {
   "name": "springboot-gql",
   "scripts": {
-    "start:local": "NODE_ENV=development node index.ts",
+    "start:local": "NODE_ENV=development node server.ts",
     "start:dev": "NODE_ENV=development node dist/index.ts",
     "build:dev": "webpack --config webpack.development.js"
   },

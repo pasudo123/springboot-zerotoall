@@ -21,7 +21,7 @@ class Item (
     val price: Double,
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
-    private val type: Type
+    val type: Type
 ) {
 
     @Id
@@ -30,7 +30,7 @@ class Item (
         protected set
 
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
-    private val itemTags: MutableList<ItemTag> = mutableListOf()
+    val itemTags: MutableList<ItemTag> = mutableListOf()
 
     enum class Type(desc: String) {
         FOOD("음식"),

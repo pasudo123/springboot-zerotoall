@@ -1,13 +1,7 @@
 const { RESTDataSource, RequestOptions } = require('apollo-datasource-rest')
 
 class SpringBootAPI extends RESTDataSource {
-
-    constructor() {
-        // 무조건 super 호출
-        super()
-        // 해당 api 에 알맞는 baseURL 설정
-        this.baseURL = `${process.env.SPRING_BOOT_API_PATH}`
-    }
+    baseURL = `${process.env.SPRING_BOOT_API_PATH}`
 
     willSendRequest(request) {
         const today = new Date()

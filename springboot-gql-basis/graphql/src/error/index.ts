@@ -4,7 +4,7 @@ import {ApolloError} from "apollo-server-core";
 
 export class CustomBadRequestError extends ApolloError {
     constructor(message: string, extensions?: Record<string, any>) {
-        super(message, 'B001', extensions)
+        super(message, 'GQL-B001', extensions)
         Object.defineProperty(this, 'name', {
             value: 'CustomBadRequestError',
             writable: false

@@ -9,6 +9,16 @@ export const formatterError = (error: ApolloError) => {
     console.error(`code :: ${error.extensions?.code}`)
     console.error(`path :: ${error.path}`)
     console.error(`time :: ${toYYYYMMddHHmmssFormat(new Date())}`)
+
+    // graphql 뒤의 백엔드에서 발생에러 체킹
+    if (error.extensions?.response) {
+        const response = error.extensions.response
+        console.error(`errorCode :: ${response.body.code}`)
+        console.error(`message :: ${response.body.message}`)
+        console.error(`requestURL :: ${response.body.requestURL}`)
+        return error
+    }
+
     console.error(`message :: ${error.message}`)
     console.error(`original error : ${error.originalError}`)
 

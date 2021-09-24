@@ -14,7 +14,7 @@ export const resolvers = {
                 )
             }
 
-            return context.dataSources.springbootAPI.fetchItemById(args.id)
+            return await context.dataSources.springbootAPI.fetchItemById(args.id)
         },
         fetchItemTags: async (parent: any, args: any, context: any, info: any) => {
             return context.dataSources.springbootAPI.fetchItemTags()
@@ -22,7 +22,7 @@ export const resolvers = {
         fetchItemTagById: async (parent: any, args: any, context: any, info: any) => {
             if (args.id < 1) {
                 throw new CustomBadRequestError(
-                    `유효하지 않은 id [${args.id}] 로 [아이템] 을 조회하고 있습니다.`,
+                    `유효하지 않은 id [${args.id}] E로 [아이템] 을 조회하고 있습니다.`,
                     { argumentName: 'id' }
                 )
             }

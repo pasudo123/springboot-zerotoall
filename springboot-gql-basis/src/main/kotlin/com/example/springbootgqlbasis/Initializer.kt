@@ -15,8 +15,8 @@ class Initializer(
 ) {
 
     fun save() {
-        this.saveCarItems()
         this.saveFoodItems()
+        this.saveCarItems()
     }
 
     private fun saveCarItems() {
@@ -58,10 +58,9 @@ class Initializer(
         )
 
         foodItems.forEachIndexed { index, item ->
-            val foundItem = itemRepository.findById(item.id!!).get()
             foodItemTags[index].forEach { itemTag ->
                 itemTagRepository.save(itemTag)
-                itemTag.set(foundItem)
+                itemTag.set(item)
             }
         }
     }

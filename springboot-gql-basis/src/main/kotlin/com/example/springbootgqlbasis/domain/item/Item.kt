@@ -30,7 +30,10 @@ class Item (
         protected set
 
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
-    val itemTags: MutableList<ItemTag> = mutableListOf()
+    private val _itemTags: MutableList<ItemTag> = mutableListOf()
+    val itemTags: List<ItemTag>
+        get() = _itemTags
+
 
     enum class Type(desc: String) {
         FOOD("음식"),
@@ -40,12 +43,12 @@ class Item (
     }
 
     fun addItemTag(itemTag: ItemTag) {
-        val itemTagIds = this.itemTags.map { it.id }
+        val itemTagIds = this._itemTags.map { it.id }
         if (itemTagIds.contains(itemTag.id)) {
             return
         }
 
-        this.itemTags.add(itemTag)
+        this._itemTags.add(itemTag)
         itemTag.set(this)
     }
 }

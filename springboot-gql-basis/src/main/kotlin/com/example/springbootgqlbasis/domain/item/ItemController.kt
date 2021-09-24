@@ -1,5 +1,6 @@
 package com.example.springbootgqlbasis.domain.item
 
+import com.example.springbootgqlbasis.domain.itemtag.ItemTagResources
 import mu.KLogging
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.ResponseEntity
@@ -38,6 +39,15 @@ class ItemController(
         val items = itemRepository.findAll()
         val responses = items.map { item ->
             ItemResources.Response.from(item)
+        }
+        return ResponseEntity.ok(responses)
+    }
+
+    @GetMapping("{id}/tags")
+    fun findTagsById(@PathVariable id: Long): ResponseEntity<List<ItemTagResources.Response>> {
+        val item = itemRepository.findByIdOrNull(id) ?: throw EntityNotFoundException("아이템을 찾을 수 없습니다.")
+        val responses = item.itemTags.map { itemTag ->
+            ItemTagResources.Response.from(itemTag)
         }
         return ResponseEntity.ok(responses)
     }

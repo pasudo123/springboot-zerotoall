@@ -3,7 +3,7 @@ const { gql } = require('apollo-server');
 // The GraphQL schema
 // type Query 는 데이터를 들고오기 위해서 필수 : https://www.apollographql.com/docs/tutorial/schema/#the-query-type
 // type Mutation 은 데이터를 수정하기 위해서 필수 : https://www.apollographql.com/docs/tutorial/schema/#the-mutation-type
-const typeDefs = gql`
+export const typeDefs = gql`
     type Query {
         hello: String
         fetchItems: [Item!]!
@@ -21,6 +21,8 @@ const typeDefs = gql`
         name: String!
         "아이템 가격"
         price: String!
+        "아이템 타입"
+        type: ItemType!
     }
     
     "아이템 태그"
@@ -35,6 +37,14 @@ const typeDefs = gql`
     type ItemWithItemTag {
         item: Item
         itemTags: [ItemTag!]!
+    }
+    
+    "아이템 타입"
+    enum ItemType {
+        FOOD
+        LIFE
+        FASHION
+        CAR
     }
 `;
 

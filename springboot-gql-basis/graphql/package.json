@@ -1,7 +1,7 @@
 {
   "name": "springboot-gql",
   "scripts": {
-    "start:local": "NODE_ENV=development node server.ts",
+    "start:local": "NODE_ENV=development nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/server.ts",
     "start:dev": "NODE_ENV=development node dist/index.ts",
     "build:dev": "webpack --config webpack.development.js"
   },
@@ -14,6 +14,9 @@
   },
   "devDependencies": {
     "clean-webpack-plugin": "^4.0.0",
+    "nodemon": "^2.0.12",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.3",
     "webpack-cli": "^4.8.0",
     "webpack-merge": "^5.8.0",
     "webpack-node-externals": "^3.0.0"

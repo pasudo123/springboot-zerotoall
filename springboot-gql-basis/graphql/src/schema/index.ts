@@ -11,6 +11,8 @@ export const typeDefs = gql`
         fetchItemTags: [ItemTag!]!
         fetchItemTagById(id: ID!): ItemTag
         fetchItemWithItemTagById(id: ID!): ItemWithItemTag
+        fetchNotices: [Notice!]!
+        fetchNoticeById(id: ID!): Notice
     }
     
     "아이템"
@@ -39,6 +41,12 @@ export const typeDefs = gql`
         itemTags: [ItemTag!]!
     }
     
+    "공지사항"
+    type Notice {
+        id: ID!
+        contents: String!
+    }
+    
     "아이템 타입"
     enum ItemType {
         FOOD
@@ -47,5 +55,3 @@ export const typeDefs = gql`
         CAR
     }
 `;
-
-module.exports = typeDefs

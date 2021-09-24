@@ -20,5 +20,3 @@ export class NoticeAPI extends RESTDataSource {
         return this.get(`notices/${id}`)
     }
 }
-
-// module.exports = NoticeAPI

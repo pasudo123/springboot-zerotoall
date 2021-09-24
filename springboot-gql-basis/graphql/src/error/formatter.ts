@@ -13,8 +13,8 @@ export const formatterError = (error: ApolloError) => {
     // graphql 뒤의 백엔드에서 발생에러 체킹
     if (error.extensions?.response) {
         const response = error.extensions.response
-        console.error(`errorCode :: ${response.body.code}`)
-        console.error(`message :: ${response.body.message}`)
+        console.error(`errorCode :: ${response.body.code ? response.body.code : JSON.stringify(response)}`)
+        console.error(`message :: ${response.body.message ? response.body.message : JSON.stringify(response)}`)
         console.error(`requestURL :: ${response.body.requestURL}`)
         return error
     }

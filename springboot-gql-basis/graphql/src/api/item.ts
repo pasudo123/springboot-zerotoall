@@ -25,5 +25,3 @@ export class ItemAPI extends RESTDataSource {
         return this.get(`items/${id}/tags`)
     }
 }
-
-// module.exports = ItemAPI

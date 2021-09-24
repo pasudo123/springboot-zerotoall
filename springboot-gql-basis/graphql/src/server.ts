@@ -1,4 +1,5 @@
 import {ServerInfo} from "apollo-server";
+import {formatterError} from "./error/formatter";
 
 const { ApolloServer } = require('apollo-server');
 const { ApolloServerPluginLandingPageGraphQLPlayground } = require('apollo-server-core')
@@ -13,6 +14,7 @@ const resolvers = require('./resolvers/index.ts');
 const server = new ApolloServer({
     typeDefs,
     resolvers,
+    formatError: formatterError,
     dataSources: () => {
         return {
             springbootAPI: new SpringBootAPI()
@@ -21,6 +23,7 @@ const server = new ApolloServer({
     plugins: [
         ApolloServerPluginLandingPageGraphQLPlayground(),
     ],
+    debug: false // 응답결과에 에러 스택트레이스 제외
 });
 
 server.listen().then((serverInfo:  ServerInfo) => {

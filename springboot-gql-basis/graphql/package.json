@@ -6,11 +6,13 @@
     "build:dev": "webpack --config webpack.development.js"
   },
   "dependencies": {
+    "@types/luxon": "^2.0.4",
     "apollo-datasource-rest": "^3.2.0",
     "apollo-server": "^3.3.0",
     "apollo-server-core": "^3.3.0",
     "dotenv": "^10.0.0",
-    "graphql": "^15.5.3"
+    "graphql": "^15.5.3",
+    "luxon": "^2.0.2"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^4.0.0",

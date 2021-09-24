@@ -1,6 +1,6 @@
 import {RequestOptions, RESTDataSource} from "apollo-datasource-rest";
 
-export class SpringBootAPI extends RESTDataSource {
+export class ItemTagAPI extends RESTDataSource {
     baseURL = `${process.env.SPRING_BOOT_API_PATH}`
 
     willSendRequest(request: RequestOptions) {
@@ -9,20 +9,7 @@ export class SpringBootAPI extends RESTDataSource {
          */
         const today = new Date()
         const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        request.headers.set('state', `study-springboot-gql : ${time}`)
-    }
-
-    async fetchItems() {
-        return this.get(`items`)
-
-    }
-
-    async fetchItemById(id: number) {
-        return this.get(`items/${id}`)
-    }
-
-    async fetchItemTagsByItemId(id: number) {
-        return this.get(`items/${id}/tags`)
+        request.headers.set('flow', `item-tag-api(gql) -> backend : ${time}`)
     }
 
     async fetchItemTags() {
@@ -34,4 +21,4 @@ export class SpringBootAPI extends RESTDataSource {
     }
 }
 
-module.exports = SpringBootAPI
+// module.exports = ItemTagAPI

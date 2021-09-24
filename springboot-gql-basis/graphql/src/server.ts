@@ -1,5 +1,8 @@
 import {ServerInfo} from "apollo-server";
 import {formatterError} from "./error/formatter";
+import {NoticeAPI} from "./api/notice";
+import {ItemTagAPI} from "./api/item-tag";
+import {ItemAPI} from "./api/item";
 
 const { ApolloServer } = require('apollo-server');
 const { ApolloServerPluginLandingPageGraphQLPlayground } = require('apollo-server-core')
@@ -7,7 +10,6 @@ const { ApolloServerPluginLandingPageGraphQLPlayground } = require('apollo-serve
 // dotenv 가 .env.{profile} 내 데이터를 읽게해준다.
 require("dotenv").config({path: `.env.${process.env.NODE_ENV}`});
 
-const SpringBootAPI = require("./api/springboot-api.ts");
 const typeDefs = require('./schema/index.ts');
 const resolvers = require('./resolvers/index.ts');
 
@@ -17,7 +19,9 @@ const server = new ApolloServer({
     formatError: formatterError,
     dataSources: () => {
         return {
-            springbootAPI: new SpringBootAPI()
+            noticeAPI: new NoticeAPI(),
+            itemTagAPI: new ItemTagAPI(),
+            itemAPI: new ItemAPI()
         }
     },
     plugins: [

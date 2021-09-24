@@ -4,7 +4,7 @@ export const resolvers = {
     Query: {
         hello: () => 'world !!!',
         fetchItems: async (parent: any, args: any, context: any, info: any) => {
-            return context.dataSources.springbootAPI.fetchItems()
+            return context.dataSources.itemAPI.fetchItems()
         },
         fetchItemById: async (parent: any, args: any, context: any, info: any) => {
             if (args.id < 1) {
@@ -14,10 +14,10 @@ export const resolvers = {
                 )
             }
 
-            return await context.dataSources.springbootAPI.fetchItemById(args.id)
+            return context.dataSources.itemAPI.fetchItemById(args.id)
         },
         fetchItemTags: async (parent: any, args: any, context: any, info: any) => {
-            return context.dataSources.springbootAPI.fetchItemTags()
+            return context.dataSources.itemTagAPI.fetchItemTags()
         },
         fetchItemTagById: async (parent: any, args: any, context: any, info: any) => {
             if (args.id < 1) {
@@ -27,7 +27,7 @@ export const resolvers = {
                 )
             }
 
-            return context.dataSources.springbootAPI.fetchItemTagById(args.id)
+            return context.dataSources.itemTagAPI.fetchItemTagById(args.id)
         },
         fetchItemWithItemTagById: async (parent: any, args: any, context: any, info: any) => {
             if (args.id < 1) {
@@ -38,15 +38,16 @@ export const resolvers = {
             }
 
             // merge
-            const item = await context.dataSources.springbootAPI.fetchItemById(args.id)
-            const itemTags = await context.dataSources.springbootAPI.fetchItemTagsByItemId(args.id)
+            const item = await context.dataSources.itemAPI.fetchItemById(args.id)
+            const itemTags = await context.dataSources.itemTagAPI.fetchItemTagsByItemId(args.id)
 
             let itemWithTags: { item: {}, itemTags: [] } = { item: null, itemTags: []}
             itemWithTags.item = item
             itemWithTags.itemTags = itemTags
 
             return itemWithTags
-        }
+        },
+
     },
 }
 

@@ -4,6 +4,8 @@ import com.example.springbootgqlbasis.domain.item.Item
 import com.example.springbootgqlbasis.domain.item.ItemRepository
 import com.example.springbootgqlbasis.domain.itemtag.ItemTag
 import com.example.springbootgqlbasis.domain.itemtag.ItemTagRepository
+import com.example.springbootgqlbasis.domain.notice.Notice
+import com.example.springbootgqlbasis.domain.notice.NoticeRepository
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 
@@ -11,12 +13,14 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 class Initializer(
     private val itemRepository: ItemRepository,
-    private val itemTagRepository: ItemTagRepository
+    private val itemTagRepository: ItemTagRepository,
+    private val noticeRepository: NoticeRepository
 ) {
 
     fun save() {
         this.saveFoodItems()
         this.saveCarItems()
+        this.saveNotices()
     }
 
     private fun saveCarItems() {
@@ -62,6 +66,20 @@ class Initializer(
                 itemTagRepository.save(itemTag)
                 itemTag.set(item)
             }
+        }
+    }
+
+    private fun saveNotices() {
+
+        val notices = listOf(
+            Notice("안녕하세요. 반갑습니다."),
+            Notice("오늘은 스프링부트를 공부할 것입니다."),
+            Notice("즐거운 하루였습니다."),
+            Notice("좋은 하루 보내세요."),
+        )
+
+        notices.forEach { notice ->
+            noticeRepository.save(notice)
         }
     }
 }

@@ -2,7 +2,7 @@ package com.example.springbootgqlbasis.domain.item
 
 import com.example.springbootgqlbasis.domain.itemtag.ItemTagResources
 import com.example.springbootgqlbasis.global.exception.ErrorCode
-import com.example.springbootgqlbasis.global.exception.detail.EntityNotFoundException
+import com.example.springbootgqlbasis.global.exception.detail.DomainEntityNotFoundException
 import mu.KLogging
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.ResponseEntity
@@ -24,19 +24,19 @@ class ItemController(
 
     @GetMapping("{id}")
     fun findOneById(
-        @RequestHeader(value = "state", required = false) state: String?,
+        @RequestHeader(value = "flow", required = false) flow: String?,
         @PathVariable id: Long
     ): ResponseEntity<ItemResources.Response> {
-        state?.let { logger.info { "getHeader [state]=${state}" } }
-        val item = itemRepository.findByIdOrNull(id) ?: throw EntityNotFoundException(ErrorCode.E100, "아이템을 찾을 수 없습니다.")
+        flow?.let { logger.info { "getHeader [flow]=${flow}" } }
+        val item = itemRepository.findByIdOrNull(id) ?: throw DomainEntityNotFoundException(ErrorCode.E100, "아이템을 찾을 수 없습니다.")
         return ResponseEntity.ok(ItemResources.Response.from(item))
     }
 
     @GetMapping
     fun findAll(
-        @RequestHeader(value = "state", required = false) state: String?
+        @RequestHeader(value = "flow", required = false) flow: String?,
     ): ResponseEntity<List<ItemResources.Response>> {
-        state?.let { logger.info { "getHeader [state]=${state}" } }
+        flow?.let { logger.info { "getHeader [flow]=${flow}" } }
         val items = itemRepository.findAll()
         val responses = items.map { item ->
             ItemResources.Response.from(item)
@@ -46,7 +46,7 @@ class ItemController(
 
     @GetMapping("{id}/tags")
     fun findTagsById(@PathVariable id: Long): ResponseEntity<List<ItemTagResources.Response>> {
-        val item = itemRepository.findByIdOrNull(id) ?: throw EntityNotFoundException(ErrorCode.E100, "아이템태그를 찾을 수 없습니다.")
+        val item = itemRepository.findByIdOrNull(id) ?: throw DomainEntityNotFoundException(ErrorCode.E100, "아이템태그를 찾을 수 없습니다.")
         val responses = item.itemTags.map { itemTag ->
             ItemTagResources.Response.from(itemTag)
         }

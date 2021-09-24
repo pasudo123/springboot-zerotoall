@@ -1,12 +1,18 @@
-const { gql } = require('apollo-server');
+import {gql} from "apollo-server-core";
 
 // The GraphQL schema
 // type Query 는 데이터를 들고오기 위해서 필수 : https://www.apollographql.com/docs/tutorial/schema/#the-query-type
 // type Mutation 은 데이터를 수정하기 위해서 필수 : https://www.apollographql.com/docs/tutorial/schema/#the-mutation-type
 export const typeDefs = gql`
+    
+    # https://www.apollographql.com/docs/apollo-server/schema/creating-directives/
+    directive @deprecatedss(
+        reason: String = "No longer supported"
+    ) on FIELD_DEFINITION | ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION | ENUM_VALUE
+    
     type Query {
         hello: String
-        fetchItems: [Item!]!
+        fetchItems: [Item!]! 
         fetchItemById(id: ID!): Item
         fetchItemTags: [ItemTag!]!
         fetchItemTagById(id: ID!): ItemTag
@@ -34,7 +40,7 @@ export const typeDefs = gql`
         "아이템 태그 명칭"
         name: String!
     }
-    
+        
     "태그를 포함한 아이템"
     type ItemWithItemTag {
         item: Item
@@ -44,7 +50,9 @@ export const typeDefs = gql`
     "공지사항"
     type Notice {
         id: ID!
+        title: String!
         contents: String!
+        votes: Int!
     }
     
     "아이템 타입"

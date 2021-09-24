@@ -8,6 +8,7 @@ import com.example.springbootgqlbasis.domain.notice.Notice
 import com.example.springbootgqlbasis.domain.notice.NoticeRepository
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
+import kotlin.random.Random
 
 @Component(value = "Initializer")
 @Transactional
@@ -72,13 +73,19 @@ class Initializer(
     private fun saveNotices() {
 
         val notices = listOf(
-            Notice("안녕하세요. 반갑습니다."),
-            Notice("오늘은 스프링부트를 공부할 것입니다."),
-            Notice("즐거운 하루였습니다."),
-            Notice("좋은 하루 보내세요."),
+            Notice("오늘 아침 공지", "안녕하세요. 반갑습니다."),
+            Notice("스프링부트 스터디 공지", "오늘은 스프링부트를 공부할 것입니다."),
+            Notice("오늘 하루 공지", "즐거운 하루였습니다."),
+            Notice("기분 좋은 하루 공지", "좋은 하루 보내세요."),
+            Notice("커피숍 공지", "오늘 아메리카노 10퍼센트 할인"),
+            Notice("옷가게 공지", "오늘 F/W 상품 20퍼센트 할인 및 양말 1+1"),
         )
 
         notices.forEach { notice ->
+            repeat(Random.nextInt(20)) {
+                notice.plusVotes()
+            }
+
             noticeRepository.save(notice)
         }
     }

@@ -1,4 +1,5 @@
-import {ServerInfo} from "apollo-server";
+import {ApolloServer, ServerInfo} from "apollo-server";
+import {ApolloServerPluginLandingPageGraphQLPlayground} from "apollo-server-core";
 import {formatterError} from "./error/formatter";
 import {NoticeAPI} from "./api/notice";
 import {ItemTagAPI} from "./api/item-tag";
@@ -6,8 +7,6 @@ import {ItemAPI} from "./api/item";
 import {typeDefs} from "./schema";
 import {resolvers} from "./resolvers";
 
-const { ApolloServer } = require('apollo-server');
-const { ApolloServerPluginLandingPageGraphQLPlayground } = require('apollo-server-core')
 
 // dotenv 가 .env.{profile} 내 데이터를 읽게해준다.
 require("dotenv").config({path: `.env.${process.env.NODE_ENV}`});

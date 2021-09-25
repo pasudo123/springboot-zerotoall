@@ -1,5 +1,5 @@
 import {ApolloServer, ServerInfo} from "apollo-server";
-import {ApolloServerPluginLandingPageGraphQLPlayground} from "apollo-server-core";
+import {ApolloServerPluginCacheControl, ApolloServerPluginLandingPageGraphQLPlayground} from "apollo-server-core";
 import {formatterError} from "./error/formatter";
 import {NoticeAPI} from "./api/notice";
 import {ItemTagAPI} from "./api/item-tag";
@@ -24,6 +24,12 @@ const server = new ApolloServer({
     },
     plugins: [
         ApolloServerPluginLandingPageGraphQLPlayground(),
+        ApolloServerPluginCacheControl({
+            // 1ms == 1000sec
+            defaultMaxAge: 5000,
+            // response 헤더에 cache-control 을 보내지 않는다.
+            // calculateHttpHeaders: false
+        })
     ],
     debug: false // 응답결과에 에러 스택트레이스 제외
 });

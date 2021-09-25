@@ -19,4 +19,8 @@ export class NoticeAPI extends RESTDataSource {
     async fetchNoticeById(id: number) {
         return this.get(`notices/${id}`)
     }
+
+    async updateVoteById(id: number) {
+        return this.patch(`notices/${id}/vote`)
+    }
 }

@@ -6,9 +6,16 @@ import {gql} from "apollo-server-core";
 export const typeDefs = gql`
     
     # https://www.apollographql.com/docs/apollo-server/schema/creating-directives/
-    directive @deprecatedss(
-        reason: String = "No longer supported"
-    ) on FIELD_DEFINITION | ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION | ENUM_VALUE
+    enum CacheControlScope {
+        PUBLIC
+        PRIVATE
+    }
+
+    directive @cacheControl(
+        maxAge: Int
+        scope: CacheControlScope
+        inheritMaxAge: Boolean
+    ) on FIELD_DEFINITION | OBJECT | INTERFACE | UNION
     
     type Query {
         hello: String
@@ -19,6 +26,10 @@ export const typeDefs = gql`
         fetchItemWithItemTagById(id: ID!): ItemWithItemTag
         fetchNotices: [Notice!]!
         fetchNoticeById(id: ID!): Notice
+    }
+    
+    type Mutation {
+        updateVoteById(id: ID!): Int!
     }
     
     "아이템"
@@ -49,10 +60,10 @@ export const typeDefs = gql`
     
     "공지사항"
     type Notice {
-        id: ID!
-        title: String!
-        contents: String!
-        votes: Int!
+        id: ID! @cacheControl(maxAge: 240)
+        title: String! @cacheControl(maxAge: 0)
+        contents: String! @cacheControl(maxAge: 0)
+        votes: Int! @cacheControl(maxAge: 240) 
     }
     
     "아이템 타입"

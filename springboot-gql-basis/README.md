@@ -23,4 +23,6 @@
 * https://www.apollographql.com/docs/apollo-server/schema/schema/
 * https://www.apollographql.com/docs/apollo-server/data/data-sources/#restdatasource-reference
 * https://www.apollographql.com/docs/federation/
+* https://www.apollographql.com/blog/backend/schema-design/modularizing-your-graphql-schema-code/
+   * 스키마 모듈화
     

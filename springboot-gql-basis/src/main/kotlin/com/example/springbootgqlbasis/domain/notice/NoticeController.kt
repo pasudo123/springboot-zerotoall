@@ -4,6 +4,7 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -26,5 +27,12 @@ class NoticeController(
     fun findOneById(@PathVariable id: Long): ResponseEntity<Notice> {
         val notice = noticeRepository.findByIdOrNull(id) ?: throw EntityNotFoundException("공지사항을 찾지 못했습니다.")
         return ResponseEntity.ok(notice)
+    }
+
+    @PatchMapping("{id}/vote")
+    fun updateVoteById(@PathVariable id: Long): ResponseEntity<Long> {
+        val notice = noticeRepository.findByIdOrNull(id) ?: throw EntityNotFoundException("공지사항을 찾지 못했습니다.")
+        notice.plusVotes()
+        return ResponseEntity.ok(notice.id!!)
     }
 }

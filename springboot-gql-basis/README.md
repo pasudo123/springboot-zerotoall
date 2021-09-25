@@ -15,8 +15,12 @@
 4. error handling 가능
     * ApolloError 을 상속받아서 별도의 커스텀한 에러클래스를 만들어줄 수 있다.
     * ApolloServer 에서 formatError 을 설정하여 에러를 포맷팅해서 다른 에러로 치환하거나 로깅할 수 있다.
+5. caching 은 잘 안되는듯?? 흠..
+
+## graphql : federation
 
 ## 읽을 목차
 * https://www.apollographql.com/docs/apollo-server/schema/schema/
 * https://www.apollographql.com/docs/apollo-server/data/data-sources/#restdatasource-reference
+* https://www.apollographql.com/docs/federation/
     

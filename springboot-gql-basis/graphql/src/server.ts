@@ -4,20 +4,33 @@ import {formatterError} from "./error/formatter";
 import {NoticeAPI} from "./api/notice";
 import {ItemTagAPI} from "./api/item-tag";
 import {ItemAPI} from "./api/item";
-import {typeDefs} from "./schema";
 import {merge} from 'lodash'
 import {itemResolver} from "./resolvers/item-resolver";
 import {itemTagResolver} from "./resolvers/item-tag-resolver";
 import {noticeResolver} from "./resolvers/notice-resolver";
 import {helloResolver} from "./resolvers/hello-resolver";
+import {itemTypeDefs} from "./schema/item-schema";
+import {itemTagTypeDefs} from "./schema/item-tag-schema";
+import {noticeTypeDefs} from "./schema/notice-schema";
+import {helloTypeDefs} from "./schema/hello-schema";
 
 
 // dotenv 가 .env.{profile} 내 데이터를 읽게해준다.
 require("dotenv").config({path: `.env.${process.env.NODE_ENV}`});
 
 const server = new ApolloServer({
-    typeDefs,
-    resolvers: merge(itemResolver, itemTagResolver, noticeResolver, helloResolver),
+    typeDefs: [
+        helloTypeDefs,
+        itemTypeDefs,
+        itemTagTypeDefs,
+        noticeTypeDefs
+    ],
+    resolvers: merge(
+        helloResolver,
+        itemResolver,
+        itemTagResolver,
+        noticeResolver
+    ),
     formatError: formatterError,
     dataSources: () => {
         return {

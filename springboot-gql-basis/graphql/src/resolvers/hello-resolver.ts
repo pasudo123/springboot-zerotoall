@@ -1,5 +1,6 @@
 export const helloResolver = {
     Query: {
-        hello: () => 'world !!!'
+        hello: () => 'world !!!',
+        me: () => ({ id: "1", username: "@ava" })
     }
 }

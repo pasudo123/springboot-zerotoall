@@ -16,8 +16,7 @@ import javax.persistence.Table
 @Entity
 @Table(name = "movie")
 class Movie(
-    @Column(name = "title", columnDefinition = "VARCHAR(50) not null")
-    val title: String
+    title: String
 ) : BaseEntity() {
 
     @Id
@@ -25,11 +24,19 @@ class Movie(
     var id: Long? = null
         protected set
 
+    @Column(name = "title", columnDefinition = "VARCHAR(50) not null")
+    var title: String = title
+        protected set
+
     @OneToMany(targetEntity = Actor::class, mappedBy = "movie", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     var actors: MutableList<Actor> = mutableListOf()
 
     @OneToMany(targetEntity = Song::class, mappedBy = "movie", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     var songs: MutableList<Song> = mutableListOf()
+
+    fun updateTitle(title: String) {
+        this.title = title
+    }
 
     fun addActor(actor: Actor) {
         val actorIds = actors.map { currentActor -> currentActor.id }

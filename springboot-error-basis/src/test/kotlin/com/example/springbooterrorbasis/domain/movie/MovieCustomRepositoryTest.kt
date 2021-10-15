@@ -23,6 +23,22 @@ class MovieCustomRepositoryTest : RepositoryTestSupport() {
     private val logger = KotlinLogging.logger {}
 
     @Test
+    fun dirtyCheckingTest() {
+
+        // given
+        val movie = Movie("스파이더맨")
+        testEntityManager.persistAndFlush(movie)
+        testEntityManager.clear()
+
+        // when
+        val currentMovie = testEntityManager.find(Movie::class.java, movie.id!!)
+
+        // then
+        currentMovie.updateTitle("스파이더맨2")
+        testEntityManager.flush()
+    }
+
+    @Test
     @DisplayName("innerJoin 쿼리를 확인한다.")
     fun innerJoinTest() {
 

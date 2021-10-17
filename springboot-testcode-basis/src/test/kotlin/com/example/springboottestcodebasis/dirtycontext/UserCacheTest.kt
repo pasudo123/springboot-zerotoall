@@ -6,20 +6,24 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.annotation.DirtiesContext
-import org.springframework.test.context.TestConstructor
+import javax.annotation.PostConstruct
 
 @DisplayName("UserCache 테스트는")
 @SpringBootTest(classes = [SpringbootTestcodeBasisApplication::class])
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
-class UserCacheTest(
-    private val userCache: UserCache
-) {
+class UserCacheTest {
+
+    @Autowired
+    private val userCache: UserCache = UserCache()
+
+    @PostConstruct
+    fun init() {
+        println("init UserCacheTest")
+    }
 
     @Test
     @DisplayName("(1) 유저를 추가한다.")
@@ -87,7 +91,7 @@ class UserCacheTest(
     }
 
     @Test
-    @DisplayName("(5) 유저를 한번 더 추가한다.")
+    @DisplayName("(5) 유저를 한번 더 추가하고, 테스트 콘텍스트를 초기화한다.")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     @Order(5)
     fun addUserOneMoreTimeTest() {

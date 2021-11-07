@@ -13,9 +13,22 @@ import org.springframework.test.context.TestConstructor
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 annotation class TestEnvironment
 
+/**
+ * jpa auditing 을 그대로 이용
+ */
 @TestEnvironment
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
 @DataJpaTest
 @Import(JpaAuditingBaseConfiguration::class)
 annotation class RepositorySupport
+
+/**
+ * jpa auditing 을 강제로 변경
+ */
+@TestEnvironment
+@Target(AnnotationTarget.CLASS)
+@Retention(AnnotationRetention.RUNTIME)
+@DataJpaTest
+@Import(JpaAuditingFakeConfiguration::class)
+annotation class RepositoryMockSupport

@@ -2,7 +2,22 @@ plugins {
     kotlin("jvm")
 }
 
+allOpen {
+    annotation("javax.persistence.Entity")
+    annotation("javax.persistence.MappedSuperclass")
+    annotation("javax.persistence.Embeddable")
+}
+
+kotlin.sourceSets.main {
+    println("kotlin sourceSets buildDir :: $buildDir")
+    setBuildDir("$buildDir")
+}
+
 dependencies {
+    // jpa & h2
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("com.h2database:h2")
+
     // web
     implementation("org.springframework.boot:spring-boot-starter-web")
 
@@ -17,4 +32,7 @@ dependencies {
     // mock & kotest
     testImplementation("io.mockk:mockk:1.10.6")
     testImplementation("io.kotest:kotest-assertions-core:4.4.3")
+
+    // h2
+    testImplementation("com.h2database:h2")
 }

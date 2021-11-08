@@ -27,4 +27,12 @@ class Member(
     @Column(name = "age")
     var age: Int? = paramAge
         protected set
+
+    fun updateName(name: String) {
+        this.name = name
+    }
+
+    fun updateAge(age: Int) {
+        this.age = age
+    }
 }

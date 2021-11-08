@@ -26,3 +26,6 @@ spring:
     show-sql: true
     properties.hibernate.format_sql: true
     properties.hibernate.use_sql_comments: false
+
+  main:
+    allow-bean-definition-overriding: true

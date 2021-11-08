@@ -52,6 +52,12 @@ class MemberRepositoryMockTest(
         const val DAYS = 5L
     }
 
+    /**
+     * 1. inner class 형태로 사용
+     * 2. 외부 class 로 만들어서 @import 해서 사용
+     * 특징 :
+     *  - 별도의 컴포넌트 스캐닝에서 제외된다는 점.
+     */
     @TestConfiguration
     class CustomTestConfiguration {
         @Bean

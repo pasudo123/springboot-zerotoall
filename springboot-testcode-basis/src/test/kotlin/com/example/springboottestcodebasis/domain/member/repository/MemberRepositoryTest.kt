@@ -1,7 +1,6 @@
 package com.example.springboottestcodebasis.domain.member.repository
 
 import com.example.FakeDateTimeProvider
-import com.example.RepositoryMockSupport
 import com.example.RepositorySupport
 import com.example.springboottestcodebasis.domain.member.model.Member
 import io.kotest.matchers.shouldBe
@@ -11,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.data.auditing.DateTimeProvider
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing
 import org.springframework.data.repository.findByIdOrNull
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -41,7 +41,7 @@ class MemberRepositoryTest(
     }
 }
 
-@RepositoryMockSupport
+@RepositorySupport
 @DisplayName("memberRepository 는")
 class MemberRepositoryMockTest(
     private val memberRepository: MemberRepository,
@@ -59,6 +59,7 @@ class MemberRepositoryMockTest(
      *  - 별도의 컴포넌트 스캐닝에서 제외된다는 점.
      */
     @TestConfiguration
+    @EnableJpaAuditing(dateTimeProviderRef = "fakeAuditingDateTimeProvider")
     class CustomTestConfiguration {
         @Bean
         fun fakeDateTimeProvider(): FakeDateTimeProvider {

@@ -4,6 +4,7 @@ import com.example.FakeDateTimeProvider
 import com.example.IntegrationSupport
 import com.example.springboottestcodebasis.domain.member.model.Member
 import com.example.springboottestcodebasis.domain.member.repository.MemberRepository
+import com.example.springboottestcodebasis.domain.member.service.MemberService
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -20,6 +21,7 @@ import java.time.LocalDateTime
 @DisplayName("memberController 는")
 internal class MemberControllerTest (
     private val memberController: MemberController,
+    private val memberService: MemberService,
     private val memberRepository: MemberRepository
 ) {
 

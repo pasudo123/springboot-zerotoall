@@ -4,7 +4,6 @@ import com.example.FakeDateTimeProvider
 import com.example.IntegrationSupport
 import com.example.springboottestcodebasis.domain.member.model.Member
 import com.example.springboottestcodebasis.domain.member.repository.MemberRepository
-import com.example.springboottestcodebasis.domain.member.service.MemberService
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -21,7 +20,6 @@ import java.time.LocalDateTime
 @DisplayName("memberController 는")
 internal class MemberControllerTest (
     private val memberController: MemberController,
-    private val memberService: MemberService,
     private val memberRepository: MemberRepository
 ) {
 
@@ -29,6 +27,9 @@ internal class MemberControllerTest (
         const val DAYS = 10L
     }
 
+    /**
+     * TestConfiguration 을 별도로 해당 클래스에서 사용
+     */
     @TestConfiguration
     @EnableJpaAuditing(dateTimeProviderRef = "fakeAuditingDateTimeProvider")
     class CustomTestConfiguration {

@@ -10,6 +10,13 @@ object MockMember {
 
     fun create(
         name: String,
+        age: Int
+    ): Member {
+        return Member(name, age)
+    }
+
+    fun createMock(
+        name: String,
         age: Int,
         createdAt: LocalDateTime = LocalDateTime.now(),
         modifiedAt: LocalDateTime = LocalDateTime.now(),

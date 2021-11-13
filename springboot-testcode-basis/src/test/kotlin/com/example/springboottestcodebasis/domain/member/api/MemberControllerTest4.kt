@@ -38,7 +38,7 @@ class MemberControllerTest4 {
         // given
         val member = Member("김아무개", 20)
         every { memberRepository.save(any()) } returns
-                MockMember.create(id = 1L, name = "김아무개", age = 20)
+                MockMember.createMock(id = 1L, name = "김아무개", age = 20)
 
         // when
         val savedMember = this.memberController.create(member).body!!

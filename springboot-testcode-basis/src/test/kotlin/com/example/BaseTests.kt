@@ -36,3 +36,9 @@ annotation class WebLayerSupport
 @DataJpaTest
 @Import(JpaAuditingBaseConfiguration::class)
 annotation class RepositorySupport
+
+@TestEnvironment
+@Target(AnnotationTarget.CLASS)
+@Retention(AnnotationRetention.RUNTIME)
+@Import(JpaAuditingBaseConfiguration::class)
+annotation class MockSupport

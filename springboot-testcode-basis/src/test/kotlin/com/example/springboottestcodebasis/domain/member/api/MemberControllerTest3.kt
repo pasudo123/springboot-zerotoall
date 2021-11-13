@@ -50,7 +50,7 @@ class MemberControllerTest3(
         given(this.memberRepository.save(any())).willReturn(member)
 
         // when
-        val resultAction = mockMvc.perform(post("http://localhost/members")
+        val resultAction = mockMvc.perform(post("/members")
             .content(jsonString)
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON)

@@ -26,7 +26,7 @@ annotation class TestEnvironment
 
 
 /**
- * @Controller, @Service, @Repository 를 TestContext 에 띄어놓고 테스트하기 위한 메타 애노테이션
+ * @Controller, @Service, @Repository 를 TestContext 에 띄어놓고 테스트하기 위한 메타애노테이션
  * - 각 테스트 컨텍스트마다 테스트 격리를 위한 @Transactional 을 붙여준다.
  * - TestRestTemplate 도 별도로 사용이 가능한다.
  */
@@ -40,7 +40,7 @@ annotation class IntegrationSupport
 
 
 /**
- * @Controller 계층만 테스트하기 위한 메타 애노테이션
+ * @Controller 계층만 테스트하기 위한 메타애노테이션
  * - 나머지 레이어 계층 영역은 mocking 해주어야 함
  */
 @TestEnvironment
@@ -52,7 +52,7 @@ annotation class WebLayerSupport
 
 
 /**
- * @Repository 를 테스트하기 위한 메타 애노테이션
+ * @Repository 를 테스트하기 위한 메타애노테이션
  * - 자동롤백된다.
  */
 @TestEnvironment
@@ -64,7 +64,7 @@ annotation class RepositorySupport
 
 
 /**
- * @Controller, @Service, @Repository 를 TestContext 에 띄어놓고 테스트하기 위한 메타 애노테이션
+ * @Controller, @Service, @Repository 를 TestContext 에 띄어놓고 테스트하기 위한 메타애노테이션
  * - 디스패처 서블릿 단위까지 테스트가 가능하기 때문에 필터, 인터셉터까지 확인할 수 있다.
  * - 각 테스트 컨텍스트마다 테스트 격리를 위한 @Transactional 을 붙여준다.
  * - @AutoConfigureMockMvc 를 통해서 MockMvc 에 대한 의존성을 받는다.
@@ -83,7 +83,7 @@ annotation class MockMvcSupport
 
 
 /**
- * 단순 mock 객체만을 만들어서 테스트하기 위한 애노테이션
+ * 단순 mock 객체만을 만들어서 테스트하기 위한 메타애노테이션
  */
 @TestEnvironment
 @Target(AnnotationTarget.CLASS)

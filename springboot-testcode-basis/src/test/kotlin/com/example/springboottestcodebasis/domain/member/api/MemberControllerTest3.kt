@@ -1,6 +1,5 @@
 package com.example.springboottestcodebasis.domain.member.api
 
-import com.example.TestObjectMapperConfiguration
 import com.example.WebLayerSupport
 import com.example.springboottestcodebasis.domain.member.model.Member
 import com.example.springboottestcodebasis.domain.member.repository.MemberRepository
@@ -14,7 +13,6 @@ import org.mockito.BDDMockito.any
 import org.mockito.BDDMockito.given
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.boot.test.mock.mockito.MockBeans
-import org.springframework.context.annotation.Import
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
@@ -26,9 +24,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @WebLayerSupport
 @DisplayName("memberController3 은")
-@Import(value = [
-    TestObjectMapperConfiguration::class
-])
 @MockBeans(value = [
     MockBean(MemberService::class),
     MockBean(MemberRepository::class),

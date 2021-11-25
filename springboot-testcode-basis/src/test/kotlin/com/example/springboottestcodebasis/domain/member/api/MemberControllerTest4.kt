@@ -1,6 +1,6 @@
 package com.example.springboottestcodebasis.domain.member.api
 
-import com.example.MockSupport
+import com.example.SimpleMockSupport
 import com.example.springboottestcodebasis.domain.member.model.Member
 import com.example.springboottestcodebasis.domain.member.model.MockMember
 import com.example.springboottestcodebasis.domain.member.repository.MemberRepository
@@ -9,12 +9,11 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.mockk.every
 import io.mockk.mockk
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 
-@MockSupport
+@SimpleMockSupport
 @DisplayName("MemberController4 는")
 class MemberControllerTest4 {
 
@@ -24,11 +23,6 @@ class MemberControllerTest4 {
         this.memberService,
         this.memberRepository
     )
-
-    @BeforeEach
-    fun init() {
-
-    }
 
     @Test
     @DisplayName("멤버를 생성한다.")

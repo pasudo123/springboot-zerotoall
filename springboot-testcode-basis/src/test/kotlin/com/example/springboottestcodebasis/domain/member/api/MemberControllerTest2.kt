@@ -3,27 +3,37 @@ package com.example.springboottestcodebasis.domain.member.api
 import com.example.IntegrationSupport
 import com.example.springboottestcodebasis.domain.member.model.Member
 import com.example.springboottestcodebasis.domain.member.repository.MemberRepository
+import io.kotest.assertions.asClue
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
+import org.springframework.boot.test.web.client.TestRestTemplate
+import org.springframework.boot.test.web.client.postForEntity
+import org.springframework.boot.web.server.LocalServerPort
+import org.springframework.http.HttpStatus
 import java.time.LocalDate
 
 @IntegrationSupport
 @DisplayName("memberController2 는")
 class MemberControllerTest2(
+    private val testRestTemplate: TestRestTemplate,
     private val memberController: MemberController,
-    private val memberRepository: MemberRepository
+    private val memberRepository: MemberRepository,
+
+    @LocalServerPort
+    private var port: Int
 ) {
 
     @BeforeEach
     fun init() {
-        memberRepository.deleteAll()
+        println("current port : $port")
     }
 
+
     @Test
-    @DisplayName("멤버를 생성한다.")
+    @DisplayName("[1] Controller 클래스를 통해 멤버를 생성한다.")
     @Order(1)
     fun createTest() {
 
@@ -35,9 +45,30 @@ class MemberControllerTest2(
 
         // then
         savedMember.id shouldBe 1L
-        savedMember.name shouldBe "세종대왕"
-        savedMember.age shouldBe 55
-        savedMember.createdAt!!.toLocalDate() shouldBe LocalDate.now()
-        savedMember.modifiedAt!!.toLocalDate() shouldBe LocalDate.now()
+        memberRepository.findAll().first().asClue {
+            it.name shouldBe "세종대왕"
+            it.age shouldBe 55
+            it.createdAt!!.toLocalDate() shouldBe LocalDate.now()
+            it.modifiedAt!!.toLocalDate() shouldBe LocalDate.now()
+        }
+    }
+
+    @Test
+    @DisplayName("[2] TestRestTemplate 을 통해 멤버를 생성한다.")
+    @Order(2)
+    fun createTestRestTemplateTest() {
+
+        // given
+        val memberRequest = Member("강감찬", 30)
+
+        // when
+        val memberResponse = testRestTemplate.postForEntity<Member>("/members", memberRequest)
+
+        // then
+        memberResponse.statusCode shouldBe HttpStatus.OK
+        memberResponse.body!!.asClue {
+            it.name shouldBe "강감찬"
+            it.age shouldBe 30
+        }
     }
 }

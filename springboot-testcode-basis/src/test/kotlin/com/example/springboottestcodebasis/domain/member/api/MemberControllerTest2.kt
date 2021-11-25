@@ -71,4 +71,17 @@ class MemberControllerTest2(
             it.age shouldBe 30
         }
     }
+
+    @Test
+    @DisplayName("[3] 따로 데이터를 넣지 않았지만 " +
+            "testRestTemplate 의 별도 스레드에서 데이터를 넣었기 때문에 롤백 동작이 안된다. " +
+            "그래서 데이터는 존재한다.")
+    fun findAllTest() {
+
+        // given
+        val members = memberRepository.findAll()
+
+        // then
+        members.isNotEmpty() shouldBe true
+    }
 }

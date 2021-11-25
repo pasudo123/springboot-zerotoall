@@ -27,6 +27,7 @@ annotation class TestEnvironment
  * @Controller, @Service, @Repository 를 TestContext 에 띄어놓고 테스트하기 위한 메타애노테이션
  * - 각 테스트 컨텍스트마다 테스트 격리를 위한 @Transactional 을 붙여준다.
  * - TestRestTemplate 도 별도로 사용이 가능한다.
+ *   - TestRestTemplate 은 별도의 서블릿 컨테이너 내에서 실행, 요청당 별도의 스레드가 만들어진다. (해당 테스트코드가 있을 시, 트랜잭션 롤백이 되지 않음)
  */
 @TestEnvironment
 @Target(AnnotationTarget.CLASS)
@@ -88,5 +89,4 @@ annotation class MockMvcSupport
 @Retention(AnnotationRetention.RUNTIME)
 @Import(JpaAuditingBaseConfiguration::class)
 annotation class SimpleMockSupport
-
 ```

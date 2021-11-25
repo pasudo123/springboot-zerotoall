@@ -58,6 +58,11 @@ class MemberControllerTest2(
     @Order(2)
     fun createTestRestTemplateTest() {
 
+        // 아래와 같이 서블릿 컨테이너가 실행된다. (별도 스레드에서 동작)
+        // 2021-11-25 21:59:38.158  INFO 63375 --- [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+        // 2021-11-25 21:59:38.158  INFO 63375 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+        // 2021-11-25 21:59:38.174  INFO 63375 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 16 ms
+
         // given
         val memberRequest = Member("강감찬", 30)
 

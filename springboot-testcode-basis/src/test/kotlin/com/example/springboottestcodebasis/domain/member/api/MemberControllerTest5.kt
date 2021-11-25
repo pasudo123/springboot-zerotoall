@@ -24,7 +24,7 @@ class MemberControllerTest5(
 ) {
 
     @Test
-    @DisplayName("멤버를 생성한다.")
+    @DisplayName("[1] 멤버를 생성한다.")
     @Order(1)
     fun createTest() {
 
@@ -51,5 +51,17 @@ class MemberControllerTest5(
             it.name shouldBe "강감찬"
             it.age shouldBe 30
         }
+    }
+
+    @Test
+    @DisplayName("[2] 데이터를 조회하지만 서블릿이 mock 이기 때문에 롤백이 정상동작, 데이터는 없다.")
+    @Order(2)
+    fun findAllTest() {
+
+        // when
+        val members = memberRepository.findAll()
+
+        // then
+        members.size shouldBe 0
     }
 }

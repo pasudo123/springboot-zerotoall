@@ -88,5 +88,10 @@ class MemberControllerTest2(
 
         // then
         members.isNotEmpty() shouldBe true
+        members.size shouldBe 1
+        members.first().asClue {
+            it.name shouldBe "강감찬"
+            it.age shouldBe 30
+        }
     }
 }

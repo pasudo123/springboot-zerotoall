@@ -34,7 +34,7 @@ class MemberControllerTest5(
         val jsonString = objectMapper.writeValueAsString(member)
 
         // when
-        val resultAction = mockMvc.perform(MockMvcRequestBuilders.post("/members")
+        mockMvc.perform(MockMvcRequestBuilders.post("/members")
             .content(jsonString)
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON)

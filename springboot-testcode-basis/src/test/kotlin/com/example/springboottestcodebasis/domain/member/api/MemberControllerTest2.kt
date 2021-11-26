@@ -98,8 +98,11 @@ class MemberControllerTest2(
         val memberRequest = Member("루피", 18)
 
         // when
-        val response = testRestTemplate
-            .postForEntity<Member>("/members", memberRequest)
+        val exception = testRestTemplate
+            .postForEntity<String>("/members", memberRequest)
+
+        // then
+        exception.statusCode shouldBe HttpStatus.INTERNAL_SERVER_ERROR
     }
 
     @Test

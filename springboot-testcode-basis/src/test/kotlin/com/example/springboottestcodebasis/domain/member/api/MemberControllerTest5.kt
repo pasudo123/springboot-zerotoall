@@ -1,6 +1,7 @@
 package com.example.springboottestcodebasis.domain.member.api
 
 import com.example.MockMvcSupport
+import com.example.springboottestcodebasis.constant.Constant
 import com.example.springboottestcodebasis.domain.member.model.Member
 import com.example.springboottestcodebasis.domain.member.repository.MemberRepository
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -37,6 +38,7 @@ class MemberControllerTest5(
             .content(jsonString)
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON)
+            .header(Constant.PermissionHeader.KEY, Constant.PermissionHeader.ADMIN.VALUE)
         )
             .andExpect(MockMvcResultMatchers.status().isOk)
             .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
@@ -54,8 +56,29 @@ class MemberControllerTest5(
     }
 
     @Test
-    @DisplayName("[2] 데이터를 조회하지만 서블릿이 mock 이기 때문에 롤백이 정상동작, 데이터는 없다.")
+    @DisplayName("[2] 멤버를 생성하려고 하지만 헤더 권한이 없어서 에러가 발생한다.")
     @Order(2)
+    fun createThrowTest() {
+
+        // given
+        val member = Member("강감찬", 30)
+        val jsonString = objectMapper.writeValueAsString(member)
+
+        // when
+        mockMvc.perform(MockMvcRequestBuilders.post("/members")
+            .content(jsonString)
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON)
+        )
+
+        // then
+            .andExpect(MockMvcResultMatchers.status().is5xxServerError)
+            .andDo(MockMvcResultHandlers.print())
+    }
+
+    @Test
+    @DisplayName("[100] 데이터를 조회하지만 서블릿이 mock 이기 때문에 롤백이 정상동작, 데이터는 없다.")
+    @Order(100)
     fun findAllTest() {
 
         // when

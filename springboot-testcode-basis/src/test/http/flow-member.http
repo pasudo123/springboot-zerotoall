@@ -1,0 +1,10 @@
+
+### member 추가
+POST {{host}}/members
+Content-Type: application/json
+Permission: ADMIN
+
+{
+  "name": "홍길동 {{$randomInt}}",
+  "age": 30
+}

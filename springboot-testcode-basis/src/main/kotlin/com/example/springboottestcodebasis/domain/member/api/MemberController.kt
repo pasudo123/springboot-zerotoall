@@ -3,6 +3,7 @@ package com.example.springboottestcodebasis.domain.member.api
 import com.example.springboottestcodebasis.domain.member.model.Member
 import com.example.springboottestcodebasis.domain.member.repository.MemberRepository
 import com.example.springboottestcodebasis.domain.member.service.MemberService
+import mu.KLoggable
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional
@@ -24,8 +25,14 @@ class MemberController(
     private val memberRepository: MemberRepository
 ) {
 
+    companion object : Any(), KLoggable {
+        override val logger = logger()
+    }
+
+
     @PostMapping
     fun create(@RequestBody member: Member): ResponseEntity<Member> {
+        logger.info { "[controller] :: create member controller" }
         val foundMember = memberRepository.save(member)
         return ResponseEntity.ok(foundMember)
     }

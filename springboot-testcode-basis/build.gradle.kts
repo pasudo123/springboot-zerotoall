@@ -27,7 +27,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
     // logging
-    implementation("io.github.microutils:kotlin-logging:1.12.5")
+    implementation("io.github.microutils:kotlin-logging-jvm:2.0.10")
 
     // mock & kotest
     testImplementation("io.mockk:mockk:1.10.6")

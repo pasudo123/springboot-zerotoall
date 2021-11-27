@@ -113,7 +113,7 @@ annotation class SimpleMockSupport
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class TruncateDbSupport(
-    val truncateCycle: TruncateCycle
+    val truncateCycle: TruncateCycle = TruncateCycle.AFTER_TEST_METHOD
 )
 
 /**

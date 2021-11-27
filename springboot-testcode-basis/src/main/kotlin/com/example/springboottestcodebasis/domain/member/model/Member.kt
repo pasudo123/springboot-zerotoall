@@ -8,11 +8,11 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.Table
 
-@Entity(name = "entity_member")
+@Entity
 @Table(name = "member")
 class Member(
-    paramName: String = "",
-    paramAge: Int = 0,
+    paramName: String,
+    paramAge: Int,
 ): BaseEntity() {
 
     @Id

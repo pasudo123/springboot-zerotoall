@@ -42,6 +42,17 @@ annotation class IntegrationSupport
 
 
 /**
+ * @IntegrationSupport 에 @Transactional 이 적용되지 않은 상태
+ */
+@TestEnvironment
+@Target(AnnotationTarget.CLASS)
+@Retention(AnnotationRetention.RUNTIME)
+@TruncateDbSupport(truncateCycle = TruncateCycle.BEFORE_TEST_METHOD)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Import(value = [TestObjectMapperConfiguration::class])
+annotation class IntegrationSupportWithTruncateDb
+
+/**
  * @Controller 계층만 테스트하기 위한 메타애노테이션
  * - 나머지 레이어 계층 영역은 mocking 해주어야 함
  */
@@ -96,6 +107,7 @@ annotation class SimpleMockSupport
 
 /**
  * test context 내 공유된 데이터를 초기화한다. : 테스트 격리를 위함
+ * BeforeEach 혹은 AfterEach 에서 truncate 가 동작될 수 있도록 한다.
  */
 @ExtendWith(value = [TruncateDbExtension::class])
 @Target(AnnotationTarget.CLASS)
@@ -104,6 +116,9 @@ annotation class TruncateDbSupport(
     val truncateCycle: TruncateCycle
 )
 
+/**
+ * TODO(Cycle 에 의해서 BeforeEach 혹은 AfterEach 에 진행할 것인지 결정 필요)
+ */
 enum class TruncateCycle {
     BEFORE_TEST_METHOD,
     AFTER_TEST_METHOD

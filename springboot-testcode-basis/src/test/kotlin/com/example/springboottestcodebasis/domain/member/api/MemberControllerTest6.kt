@@ -1,6 +1,6 @@
 package com.example.springboottestcodebasis.domain.member.api
 
-import com.example.IntegrationSupport
+import com.example.IntegrationSupportWithTruncateDb
 import com.example.springboottestcodebasis.domain.member.model.Member
 import com.example.springboottestcodebasis.domain.member.repository.MemberRepository
 import io.kotest.assertions.asClue
@@ -11,15 +11,12 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
-import org.springframework.test.annotation.Rollback
 import java.time.LocalDate
 
 /**
  * 테스트 코드 상에서 롤백을 허용하지 않도록 한다.
  */
-@IntegrationSupport
-//@TruncateDbSupport(truncateCycle = TruncateCycle.AFTER_TEST_METHOD)
-@Rollback(false)
+@IntegrationSupportWithTruncateDb
 @DisplayName("memberController6 은")
 class MemberControllerTest6(
     private val memberController: MemberController,
@@ -55,7 +52,7 @@ class MemberControllerTest6(
     }
 
     @Test
-    @DisplayName("[100] 데이터는 존재한다.")
+    @DisplayName("[100] 데이터는 테스트 라이프사이클에 의해 truncate 되어 존재하지 않는다.")
     @Order(100)
     fun findAllTest() {
 
@@ -63,12 +60,8 @@ class MemberControllerTest6(
         val members = memberRepository.findAll()
 
         // then
-        members.isNotEmpty() shouldBe true
-        members.size shouldBe 1
-        members.first().asClue {
-            it.name shouldBe "세종"
-            it.age shouldBe 55
-        }
+        members.isEmpty() shouldBe true
+        members.size shouldBe 0
     }
 
     @AfterEach

@@ -3,6 +3,7 @@ package com.example
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
@@ -91,3 +92,19 @@ annotation class MockMvcSupport
 @Retention(AnnotationRetention.RUNTIME)
 @Import(JpaAuditingBaseConfiguration::class)
 annotation class SimpleMockSupport
+
+
+/**
+ * test context 내 공유된 데이터를 초기화한다. : 테스트 격리를 위함
+ */
+@ExtendWith(value = [TruncateDbExtension::class])
+@Target(AnnotationTarget.CLASS)
+@Retention(AnnotationRetention.RUNTIME)
+annotation class TruncateDbSupport(
+    val truncateCycle: TruncateCycle
+)
+
+enum class TruncateCycle {
+    BEFORE_TEST_METHOD,
+    AFTER_TEST_METHOD
+}

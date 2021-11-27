@@ -8,6 +8,8 @@
 * @SpringBootTest 하기
 * @EnableJpaAuditing 을 테스트코드해서 특정 시간대로 넣어보기
   * DateTimeProvider 를 조작한다.
+* SpringBoot 에서 테스트코드를 위한 다양한 애노테이션을 메타애노테이션으로 관리하기
+* SpringBoot 에서 테스트컨텍스트 내 공유하는 데이터베이스 자원을 매 테스트 하기 이전에/이후에 deleteAll 또는 truncate (drop & create) 하기
 
 ## 테스트코드를를 위한 테스트 메타 애노테이션 작성
 ```kotlin

@@ -77,7 +77,7 @@ class MemberControllerTest5(
     }
 
     @Test
-    @DisplayName("[100] 데이터를 조회하지만 서블릿이 mock 이기 때문에 롤백이 정상동작, 데이터는 없다.")
+    @DisplayName("[100] 데이터를 조회하지만 서블릿이 mock 이기 때문에 롤백이 정상동작한다. 따라서 데이터는 없다.")
     @Order(100)
     fun findAllTest() {
 

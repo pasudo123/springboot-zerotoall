@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
-@DisplayName("PostControllerTest 는 osiv 를 꺼둔 상태이다.")
+@DisplayName("[IntegrationSupport] PostControllerTest 는 osiv 를 꺼둔 상태이다.")
 class PostControllerTest {
 
     @Nested

@@ -1,7 +1,6 @@
 package com.example.springboottestcodebasis.domain.post.api
 
 import com.example.IntegrationSupport
-import com.example.IntegrationSupportWithTruncateDb
 import com.example.springboottestcodebasis.domain.comment.CommentResources
 import com.example.springboottestcodebasis.domain.comment.api.CommentController
 import com.example.springboottestcodebasis.domain.post.PostResources
@@ -13,6 +12,8 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import org.springframework.transaction.annotation.Propagation
+import org.springframework.transaction.annotation.Transactional
 
 @DisplayName("[IntegrationSupport] PostControllerTest 는 osiv 를 꺼둔 상태이다.")
 class PostControllerTest {
@@ -56,8 +57,9 @@ class PostControllerTest {
     }
 
     @Nested
-    @DisplayName("트랜잭션 처리가 없는 통합테스트를 수행한다. : 별도 truncate 가 수행")
-    @IntegrationSupportWithTruncateDb
+    @DisplayName("트랜잭션 전파를 하지 않는 통합테스트를 수행한다.")
+    @IntegrationSupport
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
     inner class IntegrationSupportTestExcludeTx(
         private val postController: PostController,
         private val commentController: CommentController

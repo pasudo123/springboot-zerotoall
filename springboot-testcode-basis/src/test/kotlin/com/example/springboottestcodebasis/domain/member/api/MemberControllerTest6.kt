@@ -5,6 +5,7 @@ import com.example.springboottestcodebasis.domain.member.model.Member
 import com.example.springboottestcodebasis.domain.member.repository.MemberRepository
 import io.kotest.assertions.asClue
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 import mu.KLogging
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -42,13 +43,15 @@ class MemberControllerTest6(
         val savedMember = memberController.create(member).body!!
 
         // then
-        savedMember.id shouldBe 1L
-        memberRepository.findAll().first().asClue {
-            it.name shouldBe "세종대왕"
-            it.age shouldBe 55
-            it.createdAt!!.toLocalDate() shouldBe LocalDate.now()
-            it.modifiedAt!!.toLocalDate() shouldBe LocalDate.now()
-        }
+        savedMember.id shouldNotBe null
+        memberRepository.findAll()
+            .find { currentMember -> currentMember.id == savedMember.id }!!
+            .asClue {
+                it.name shouldBe "세종대왕"
+                it.age shouldBe 55
+                it.createdAt!!.toLocalDate() shouldBe LocalDate.now()
+                it.modifiedAt!!.toLocalDate() shouldBe LocalDate.now()
+            }
     }
 
     @Test

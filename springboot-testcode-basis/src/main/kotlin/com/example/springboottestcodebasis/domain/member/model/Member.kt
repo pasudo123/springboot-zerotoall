@@ -1,6 +1,7 @@
 package com.example.springboottestcodebasis.domain.member.model
 
 import com.example.springboottestcodebasis.domain.BaseEntity
+import com.fasterxml.jackson.annotation.JsonProperty
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -11,7 +12,9 @@ import javax.persistence.Table
 @Entity
 @Table(name = "member")
 class Member(
+    @JsonProperty("name")
     paramName: String,
+    @JsonProperty("age")
     paramAge: Int,
 ): BaseEntity() {
 

@@ -7,6 +7,7 @@ import com.example.springboottestcodebasis.domain.member.repository.MemberReposi
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.kotest.assertions.asClue
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Order
@@ -44,19 +45,21 @@ class MemberControllerTest2(
     fun createTest() {
 
         // given
-        val member = Member("세종대왕", 55)
+        val member = Member("광개토대왕", 65)
 
         // when
         val savedMember = memberController.create(member).body!!
 
         // then
-        savedMember.id shouldBe 1L
-        memberRepository.findAll().first().asClue {
-            it.name shouldBe "세종대왕"
-            it.age shouldBe 55
-            it.createdAt!!.toLocalDate() shouldBe LocalDate.now()
-            it.modifiedAt!!.toLocalDate() shouldBe LocalDate.now()
-        }
+        savedMember.id shouldNotBe null
+        memberRepository.findAll()
+            .find { currentMember -> currentMember.id == savedMember.id }!!
+            .asClue {
+                it.name shouldBe "광개토대왕"
+                it.age shouldBe 65
+                it.createdAt!!.toLocalDate() shouldBe LocalDate.now()
+                it.modifiedAt!!.toLocalDate() shouldBe LocalDate.now()
+            }
     }
 
     @Test

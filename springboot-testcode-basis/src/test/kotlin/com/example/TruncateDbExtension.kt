@@ -60,6 +60,7 @@ fun EntityManager.truncateAllTables() {
         .map { entity -> entity.name.replace("entity_", "") }
 
     tableNames.forEach { tableName ->
+        this.createNativeQuery("CREATE TABLE IF NOT EXISTS $tableName (id BIGINT NOT NULL)").executeUpdate()
         this.createNativeQuery("TRUNCATE TABLE $tableName").executeUpdate()
     }
 }

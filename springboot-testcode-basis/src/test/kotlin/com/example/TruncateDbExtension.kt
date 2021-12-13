@@ -1,5 +1,6 @@
 package com.example
 
+import com.example.CamelCaseUtil.toUnderscore
 import mu.KLogging
 import org.junit.jupiter.api.extension.AfterEachCallback
 import org.junit.jupiter.api.extension.BeforeEachCallback
@@ -57,7 +58,7 @@ class TruncateDbExtension: BeforeEachCallback, AfterEachCallback {
 fun EntityManager.truncateAllTables() {
     val tableNames = this.metamodel.entities
         .filter { entity -> entity.persistenceType == Type.PersistenceType.ENTITY  }
-        .map { entity -> entity.name.replace("entity_", "") }
+        .map { entity -> entity.name.toUnderscore() }
 
     tableNames.forEach { tableName ->
         this.createNativeQuery("CREATE TABLE IF NOT EXISTS $tableName (id BIGINT NOT NULL)").executeUpdate()

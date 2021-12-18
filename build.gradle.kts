@@ -1,12 +1,12 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    idea
+
     val kotlinVersion = "1.4.30"
     val kaptVersion = "1.5.20"
     val springVersion = "2.3.9.RELEASE"
     val springDependencyManagementVersion = "1.0.10.RELEASE"
-
-    idea
 
     id("org.springframework.boot") version springVersion
     id("io.spring.dependency-management") version springDependencyManagementVersion
@@ -44,6 +44,8 @@ subprojects {
     println("Enabling Spring Boot plugin in project ${project.name}...")
     println("Enabling Spring Boot Dependency Management in project ${project.name}...")
     println("Enabling Kotlin Spring plugin in project ${project.name}...")
+
+    println("[1]")
 
     tasks.withType<JavaCompile> {
         sourceCompatibility = "11"

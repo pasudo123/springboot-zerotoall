@@ -1,0 +1,7 @@
+server:
+  port: 22220
+
+logging:
+  level:
+    com.example.springbootswaggerbasis: INFO
+

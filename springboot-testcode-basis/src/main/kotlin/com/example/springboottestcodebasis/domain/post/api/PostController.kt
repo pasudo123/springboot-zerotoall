@@ -26,4 +26,6 @@ class PostController(
         val post = postService.findOneByIdOrThrow(id)
         return ResponseEntity.ok(PostResources.ResponseWithComment.from(post))
     }
+
+
 }

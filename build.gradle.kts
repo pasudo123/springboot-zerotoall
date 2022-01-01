@@ -45,8 +45,6 @@ subprojects {
     println("Enabling Spring Boot Dependency Management in project ${project.name}...")
     println("Enabling Kotlin Spring plugin in project ${project.name}...")
 
-    println("[1]")
-
     tasks.withType<JavaCompile> {
         sourceCompatibility = "11"
         targetCompatibility = "11"

@@ -37,7 +37,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
     MockBean(PostRepository::class),
     MockBean(CommentRepository::class),
 ])
-class MemberControllerTest3(
+class MemberControllerTest3WithWebMvc(
     private val mockMvc: MockMvc,
     private val objectMapper: ObjectMapper,
     private val memberRepository: MemberRepository,

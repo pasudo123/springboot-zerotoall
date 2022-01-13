@@ -64,7 +64,7 @@ class MemberController(
     @GetMapping("{id}")
     fun fetchOneById(@PathVariable("id") id: Long) : ResponseEntity<Member> {
         val memberOpt = memberRepository.findById(id)
-        if (memberOpt.isEmpty) {
+        if (memberOpt.isPresent.not()) {
             throw EntityNotFoundException("Does not exist member[$id]")
         }
 

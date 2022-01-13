@@ -24,14 +24,16 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        this.exclude(group ="org.junit.vintage", module = "junit-vintage-engine")
+    }
 
     // logging
     implementation("io.github.microutils:kotlin-logging-jvm:2.0.10")
 
     // mock & kotest
-    testImplementation("io.mockk:mockk:1.10.6")
-    testImplementation("io.kotest:kotest-assertions-core:4.4.3")
+    testImplementation("io.mockk:mockk:1.12.2")
+    testImplementation("io.kotest:kotest-assertions-core:5.0.3")
 
     // h2
     testImplementation("com.h2database:h2")

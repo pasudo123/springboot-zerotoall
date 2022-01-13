@@ -19,7 +19,7 @@ import java.time.LocalDate
  */
 @IntegrationSupportWithTruncateDb
 @DisplayName("memberController6 은")
-class MemberControllerTest6(
+class MemberControllerTest6WithTruncateDb(
     private val memberController: MemberController,
     private val memberRepository: MemberRepository,
 ) {

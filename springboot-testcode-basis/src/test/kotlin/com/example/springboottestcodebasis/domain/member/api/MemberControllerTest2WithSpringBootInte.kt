@@ -23,7 +23,7 @@ import java.time.LocalDate
 
 @IntegrationSupport
 @DisplayName("memberController2 는")
-class MemberControllerTest2(
+class MemberControllerTest2WithSpringBootInte(
     private val objectMapper: ObjectMapper,
     private val testRestTemplate: TestRestTemplate,
     private val memberController: MemberController,

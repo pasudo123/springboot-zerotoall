@@ -44,14 +44,14 @@ class MemberAuthFilter(
         }
 
         if (httpRequest.getHeader(Constant.PermissionHeader.KEY).isNullOrBlank()) {
-            response.apply {
+            httpResponse.apply {
                 this.status = HttpStatus.INTERNAL_SERVER_ERROR.value()
             }
             return
         }
 
         if (httpRequest.getHeader(Constant.PermissionHeader.KEY) != Constant.PermissionHeader.ADMIN.VALUE) {
-            response.apply {
+            httpResponse.apply {
                 this.status = HttpStatus.INTERNAL_SERVER_ERROR.value()
             }
             return

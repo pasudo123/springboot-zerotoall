@@ -18,7 +18,7 @@ import java.time.LocalDateTime
 
 @IntegrationSupport
 @DisplayName("memberController 는")
-internal class MemberControllerTest (
+internal class MemberControllerTest1WithSpringBootInte (
     private val memberController: MemberController,
     private val memberRepository: MemberRepository
 ) {

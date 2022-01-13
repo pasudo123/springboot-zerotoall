@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 
 @MockMvcSupport
 @DisplayName("MemberController5 는")
-class MemberControllerTest5(
+class MemberControllerTest5WithMockInte(
     private val mockMvc: MockMvc,
     private val objectMapper: ObjectMapper,
     private val memberRepository: MemberRepository

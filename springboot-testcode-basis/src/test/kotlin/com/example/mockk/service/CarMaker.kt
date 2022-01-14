@@ -1,4 +1,4 @@
-package com.example.mockk.model
+package com.example.mockk.service
 
 data class Car(
     val name: String

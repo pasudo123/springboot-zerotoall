@@ -66,7 +66,7 @@ class MockkProdTest {
                 // when
                 val result = orderService.orderWithPayAmount()
 
-                // then
+                // then : string 의 경우에 empty 가 반환된다.
                 verify { orderClient.order() }
                 result shouldBe ""
             },

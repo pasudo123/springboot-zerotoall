@@ -19,7 +19,9 @@ springboot-kotlin-zerotoall
 
 ## single module project
 ```
-springboot-kotlin-zerotoall 
+springboot-kotlin-zerotoall
+    |
+    |-- springboot-query-perf-basis 
     |
     |-- springboot-reactive-basis
 ```

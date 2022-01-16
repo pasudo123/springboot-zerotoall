@@ -1,10 +1,10 @@
 logging:
   level:
-    # org.hibernate.type: trace
+    org.hibernate.type: ERROR
 
 spring:
   datasource:
-    url: jdbc:mysql://dockerhost:13312/testdb?useSSL=false&allowPublicKeyRetrieval=true&useTimezone=true&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://dockerhost:13312/testdb?useSSL=false&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true&useTimezone=true&serverTimezone=Asia/Seoul
     username: root
     password: rootpass
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -15,8 +15,9 @@ spring:
     show-sql: false
     hibernate.ddl-auto: validate
     properties:
+      hibernate.show_sql: false
       hibernate.format_sql: false
-      hibernate.jdbc.batch_size: 5
+      hibernate.jdbc.batch_size: 200
 
   sql:
     init:

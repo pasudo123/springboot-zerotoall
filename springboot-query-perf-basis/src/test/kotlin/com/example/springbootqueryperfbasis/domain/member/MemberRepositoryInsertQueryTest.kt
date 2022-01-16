@@ -40,7 +40,7 @@ class MemberRepositoryInsertQueryTest(
         log.info("jpa elapsed : ${(elapsed / 1000.0)}sec")
 
         /**
-         * []10만건] 넣는것 기준
+         * [10만건] 넣는것 기준
          *  hibernate.jdbc.batch_size: 5   로 했을 때 소요시간 :: 27.024sec
          *  hibernate.jdbc.batch_size: 10  로 했을 때 소요시간 :: 27.024sec
          *  hibernate.jdbc.batch_size: 50  로 했을 때 소요시간 :: 31.009sec
@@ -61,10 +61,6 @@ class MemberRepositoryInsertQueryTest(
 
         val memberGroup = mutableListOf<Member>()
 
-        repeat(100000) {
-            memberGroup.add(MemberFixture.aEntity())
-        }
-
         val insertQuery = "INSERT INTO member (member_uniq_id, name) VALUES (?, ?)"
         log.info("query ==> $insertQuery")
 
@@ -75,26 +71,40 @@ class MemberRepositoryInsertQueryTest(
 
         val elapsed = measureTimeMillis {
 
-            // INSERT INTO member (member_uniq_id, name) VALUES ('45c3a70b-de09-4ee1-9038-68798c386f01','홍길동858892451'),('97577df1-6517-47df-8758-52310e17d6f3','홍길동843203773')
-            // 쿼리상에 멀티라인으로 찍힌다.
-            jdbcTemplate.batchUpdate(insertQuery, object : BatchPreparedStatementSetter {
-                override fun setValues(ps: PreparedStatement, i: Int) {
-                    ps.setString(1, memberGroup[i].memberUniqId)
-                    ps.setString(2, memberGroup[i].name)
+            repeat(100) {
+                repeat(10000) {
+                    memberGroup.add(MemberFixture.aEntity())
                 }
 
-                override fun getBatchSize(): Int {
-                    // batchSize 를 임의로 설정하면 setValues() 가 size 만큼 호출되니 유의한다.
-                    return memberGroup.size
-                }
+                // INSERT INTO member (member_uniq_id, name) VALUES ('45c3a70b-de09-4ee1-9038-68798c386f01','홍길동858892451'),('97577df1-6517-47df-8758-52310e17d6f3','홍길동843203773')
+                // 쿼리상에 멀티라인으로 찍힌다.
+                jdbcTemplate.batchUpdate(insertQuery, object : BatchPreparedStatementSetter {
+                    override fun setValues(ps: PreparedStatement, i: Int) {
+                        ps.setString(1, memberGroup[i].memberUniqId)
+                        ps.setString(2, memberGroup[i].name)
+                    }
 
-            })
+                    override fun getBatchSize(): Int {
+                        // batchSize 를 임의로 설정하면 setValues() 가 size 만큼 호출되니 유의한다.
+                        return memberGroup.size
+                    }
+                })
+
+                log.info("execute batchInsert ==> size : ${memberGroup.size}")
+                memberGroup.clear()
+            }
         }
 
         log.info("jdbcTemplate elapsed : ${(elapsed / 1000.0)}sec")
 
         /**
-         * 10만건 : 5.811sec 소요
+         * 10만건
+         *  - 5.811sec 소요 (batch size : 10만)
+         *  - 5.904sec 소요 (batch size : 10만)
+         *  - 14.586sec 소요 (batch size : 1만)
+         *
+         * 100만건
+         *  - 117.841sec (batch size : 10만)
          */
     }
 }

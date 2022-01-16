@@ -27,7 +27,7 @@ class MemberRepositoryInsertQueryTest(
     fun saveQueryPerfTest() {
         val memberGroup = mutableListOf<Member>()
 
-        repeat(20) {
+        repeat(100) {
             memberGroup.add(MemberFixture.aEntity())
         }
 
@@ -40,6 +40,9 @@ class MemberRepositoryInsertQueryTest(
         log.info("jpa elapsed : ${(elapsed / 1000.0)}sec")
 
         /**
+         * [100건] 넣는것 기준
+         *  - 0.252sec
+         *
          * [10만건] 넣는것 기준
          *  hibernate.jdbc.batch_size: 5   로 했을 때 소요시간 :: 27.024sec
          *  hibernate.jdbc.batch_size: 10  로 했을 때 소요시간 :: 27.024sec
@@ -71,8 +74,8 @@ class MemberRepositoryInsertQueryTest(
 
         val elapsed = measureTimeMillis {
 
-            repeat(100) {
-                repeat(10000) {
+            repeat(1) {
+                repeat(100) {
                     memberGroup.add(MemberFixture.aEntity())
                 }
 
@@ -98,6 +101,9 @@ class MemberRepositoryInsertQueryTest(
         log.info("jdbcTemplate elapsed : ${(elapsed / 1000.0)}sec")
 
         /**
+         * 100건
+         *  - 0.022sec
+         *
          * 10만건
          *  - 5.811sec 소요 (batch size : 10만)
          *  - 5.904sec 소요 (batch size : 10만)

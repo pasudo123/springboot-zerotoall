@@ -12,7 +12,7 @@ import java.sql.PreparedStatement
 import kotlin.system.measureTimeMillis
 
 @RepositorySupport
-@DisplayName("쿼리 속도 개선 테스트")
+@DisplayName("[insert] 쿼리 속도 개선 테스트")
 class MemberRepositoryInsertQueryTest(
     private val entityManager: TestEntityManager,
     private val memberRepository: MemberRepository,
@@ -77,7 +77,7 @@ class MemberRepositoryInsertQueryTest(
                 }
 
                 // INSERT INTO member (member_uniq_id, name) VALUES ('45c3a70b-de09-4ee1-9038-68798c386f01','홍길동858892451'),('97577df1-6517-47df-8758-52310e17d6f3','홍길동843203773')
-                // 쿼리상에 멀티라인으로 찍힌다.
+                // mysql 로그로 보면 멀티라인으로 찍힌다.
                 jdbcTemplate.batchUpdate(insertQuery, object : BatchPreparedStatementSetter {
                     override fun setValues(ps: PreparedStatement, i: Int) {
                         ps.setString(1, memberGroup[i].memberUniqId)

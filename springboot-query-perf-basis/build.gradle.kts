@@ -37,12 +37,14 @@ repositories {
     mavenCentral()
 }
 
+val queryDslVersion: String = System.getProperty("version.queryDslVersion")
+
 dependencies {
 
     // querydsl : kapt 를 gradle.build.kts 에 추가
     kapt("org.springframework.boot:spring-boot-configuration-processor")
-    kapt("com.querydsl:querydsl-apt:4.4.0")
-    implementation("com.querydsl:querydsl-jpa")
+    kapt("com.querydsl:querydsl-apt:${queryDslVersion}:jpa")
+    implementation("com.querydsl:querydsl-jpa:${queryDslVersion}")
 
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -71,4 +73,9 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+kotlin.sourceSets.main {
+    // querydsl QClass
+    setBuildDir("$buildDir")
 }

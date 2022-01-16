@@ -1,10 +1,15 @@
 package com.example.springbootqueryperfbasis
 
+import com.example.springbootqueryperfbasis.config.QuerydslConfiguration
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
+import org.springframework.context.annotation.ComponentScan
+import org.springframework.context.annotation.FilterType
+import org.springframework.context.annotation.Import
+import org.springframework.stereotype.Repository
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.TestConstructor
 
@@ -27,6 +32,9 @@ annotation class TestEnvironment
 @TestEnvironment
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
-@DataJpaTest
+@DataJpaTest(includeFilters = [
+    ComponentScan.Filter(type = FilterType.ANNOTATION, classes = [Repository::class])
+])
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Import(value = [QuerydslConfiguration::class])
 annotation class RepositorySupport

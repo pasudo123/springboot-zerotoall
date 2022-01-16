@@ -1,6 +1,6 @@
 logging:
   level:
-    org.hibernate.type: trace
+    # org.hibernate.type: trace
 
 spring:
   datasource:
@@ -12,10 +12,11 @@ spring:
   jpa:
     open-in-view: false
     database-platform: org.hibernate.dialect.MySQL8Dialect
-    show-sql: true
+    show-sql: false
     hibernate.ddl-auto: validate
     properties:
       hibernate.format_sql: false
+      hibernate.jdbc.batch_size: 5
 
   sql:
     init:

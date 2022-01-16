@@ -31,10 +31,10 @@ internal class MemberRepositoryTest(
             },
             DynamicTest.dynamicTest("entityManager Proxy는 persist 할 때 entityManager 를 만든다.") {
                 // Persist 할 시에, 프록시 SharedEntityManagerCreator.invoke() 호출. -> EntityManagerFactoryUtils.doGetTransactionalEntityManager() 이 호출
-                entityManager.persist(Member("홍길동", 0))
-                entityManager01.persist(Member("홍길동", 1))
-                entityManager02.persist(Member("홍길동", 2))
-                entityManager03.persist(Member("홍길동", 3))
+                entityManager.persist(Member("홍길동"))
+                entityManager01.persist(Member("홍길동"))
+                entityManager02.persist(Member("홍길동"))
+                entityManager03.persist(Member("홍길동"))
             }
         )
     }
@@ -43,7 +43,7 @@ internal class MemberRepositoryTest(
     fun findTest() {
 
         // given
-        val member = Member("홍길동", 1)
+        val member = Member("홍길동")
         entityManager.persist(member)
         entityManager.flush()
         entityManager.clear()

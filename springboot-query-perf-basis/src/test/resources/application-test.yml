@@ -1,6 +1,7 @@
 logging:
   level:
     org.hibernate.type: ERROR
+    com.mysql.jdbc.log.Slf4JLogger: DEBUG
 
 spring:
   datasource:
@@ -17,7 +18,8 @@ spring:
     properties:
       hibernate.show_sql: false
       hibernate.format_sql: false
-      hibernate.jdbc.batch_size: 200
+      hibernate.order_updates: true
+      hibernate.order_inserts: true
 
   sql:
     init:

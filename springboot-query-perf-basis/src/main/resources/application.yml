@@ -1,0 +1,30 @@
+server:
+  port: 22900
+
+logging:
+  level:
+    org.hibernate.type: trace
+
+spring:
+  datasource:
+    url: jdbc:mysql://dockerhost:13312/testdb?useSSL=false&allowPublicKeyRetrieval=true&useTimezone=true&serverTimezone=Asia/Seoul
+    username: root
+    password: rootpass
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    open-in-view: false
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    hibernate.ddl-auto: validate
+    properties:
+      hibernate.format_sql: false
+
+  sql:
+    init:
+      platform: mysql
+      encoding: UTF-8
+      schema-locations: classpath:/schema/schema-mysql.sql
+      # data-locations: classpath:/data/
+      mode: always
+

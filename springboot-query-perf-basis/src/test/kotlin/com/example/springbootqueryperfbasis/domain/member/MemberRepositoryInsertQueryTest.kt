@@ -44,16 +44,15 @@ class MemberRepositoryInsertQueryTest(
          *  - 0.252sec
          *
          * [10만건] 넣는것 기준
-         *  hibernate.jdbc.batch_size: 5   로 했을 때 소요시간 :: 27.024sec
-         *  hibernate.jdbc.batch_size: 10  로 했을 때 소요시간 :: 27.024sec
-         *  hibernate.jdbc.batch_size: 50  로 했을 때 소요시간 :: 31.009sec
-         *  hibernate.jdbc.batch_size: 100 로 했을 때 소요시간 :: 34.017sec
-         *  hibernate.jdbc.batch_size: 200 로 했을 때 소요시간 :: 26.737sec
+         *  - 27.024sec
+         *  - 27.024sec
+         *  - 31.009sec
+         *  - 34.017sec
+         *  - 26.737sec
          *
          * **** @@@중요@@@ ***
-         * - 사실 위에 내용은 소용없음
-         * @GeneratedValue(strategy = GenerationType.IDENTITY) 로 선언된 아이디의 경우에는 batch_size 가 작동하지 않는다.
-         * 결국 위에 테스트는 무의미
+         * 엔티티의 아이디가 @GeneratedValue(strategy = GenerationType.IDENTITY) 로 선언된 경우에는 batch_size 가 작동하지 않는다.
+         * 그래서 jdbcTemplate 을 이용한다.
          */
     }
 

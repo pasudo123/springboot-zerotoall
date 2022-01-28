@@ -2,7 +2,7 @@
 * 코틀린 관련 공부를 하기 위함
 
 # 질문과 답변들
-> reified (리이파이드) 어떻게 쓰는건지, 그리고 이거 역할이 뭔지.
+### reified (리이파이드) 어떻게 쓰는건지, 그리고 이거 역할이 뭔지.
 * reified 는 제네릭과 다르다. 
   * 제네릭은 컴파일 단계에서 버그를 일찍 감지할 수 있다. 근데 런타임에서는 문제가 될 수 있다.
   * 제네릭은 런타임에서 실제 원인과 멀리 떨어진 프로그램 한 지점에서 문제가 될 수 있다.
@@ -12,7 +12,6 @@
   * inline 은 함수 호출부에 모든 코드를 다 넣는다. 함수의 내용을 호출되는 위치에 복사하게 된다.
   * inline 을 이용하면 대신 컴파일 되는 바이트 코드양이 많아진다. -> 함수를 별도로 호출하거나 추가적인 객체 생성은 없다. (메모리 오버헤드는 줄어듬)
   * inline 키워드는 1~3 줄 되는 길이의 함수에 사용하는 것이 효과적일 수 있다.
-
 * reference
   * [generic](https://docs.oracle.com/javase/tutorial/java/generics/index.html)
   * [reified](https://codechacha.com/ko/kotlin-reified-keyword/)

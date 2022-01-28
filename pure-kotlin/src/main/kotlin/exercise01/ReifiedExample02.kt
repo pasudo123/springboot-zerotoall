@@ -32,3 +32,25 @@ inline fun <reified T : Any> T.printTypeWithReified() {
         else -> { println("else : ${T::class.java}") }
     }
 }
+
+fun main() {
+
+    val intDummies = Dummies<Int>()
+    intDummies.addItem(1)
+    intDummies.addItem(2)
+
+    val stringDummies = Dummies<String>()
+    stringDummies.addItem("1")
+    stringDummies.addItem("2")
+}
+
+class Dummies<T> private constructor (
+    private val items: MutableList<T> = mutableListOf()
+) {
+
+    constructor(): this(mutableListOf<T>())
+
+    fun addItem(item: T) {
+        items.add(item)
+    }
+}

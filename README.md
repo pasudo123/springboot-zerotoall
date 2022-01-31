@@ -24,7 +24,10 @@ springboot-kotlin-zerotoall
     |-- springboot-query-perf-basis 
     |
     |-- springboot-reactive-basis
+    |
+    |-- springboot-retrofit-basis
 ```
+
 ### 참고
 > 싱글 모듈 프로젝트는 build.gradle.kts 깨진다.
 > *  intellij 기준, 해당 프로젝트 gradle 외에 springboot-kotlin-zerotoall 우클릭. 

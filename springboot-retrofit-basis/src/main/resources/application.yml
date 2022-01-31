@@ -1,0 +1,16 @@
+server:
+  port: 44401
+  undertow:
+    # 수식확인 :: (undertow.threads.worker) = (undertow.threads.io) * 8
+    threads:
+      io: 8
+      worker: 64
+
+app:
+  # client.*.host 에 마지막은 '/' 를 붙여준다. : 그렇지 않으면 retrofit 에서 에러를 뱉어낸다.
+  client:
+    short-news:
+      host: https://inshortsapi.vercel.app/
+      connection-timeout: 6000
+      read-timeout: 6000
+      write-timeout: 6000

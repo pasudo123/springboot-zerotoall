@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus
 import java.nio.charset.Charset
 
 @DisplayName("ShortNewsClient 는")
-internal class ShortNewsClientTest: MockWebServerSupport() {
+internal class ShortNewsClientTest : MockWebServerSupport() {
 
     private val baseUrl = "http://$HOST:$PORT"
 

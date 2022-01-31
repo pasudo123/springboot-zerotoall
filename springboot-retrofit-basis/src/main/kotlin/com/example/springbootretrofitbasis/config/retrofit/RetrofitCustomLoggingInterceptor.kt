@@ -5,7 +5,7 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import java.nio.charset.Charset
 
-class RetrofitCustomLoggingInterceptor : Interceptor{
+class RetrofitCustomLoggingInterceptor : Interceptor {
 
     companion object : Any(), KLoggable {
         override val logger = logger()

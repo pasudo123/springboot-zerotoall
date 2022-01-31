@@ -44,6 +44,8 @@ dependencies {
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
+    // kotlin coroutine reactor
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
     // retrofit2 : for api communicate
@@ -85,8 +87,4 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
-}
-
-configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
-
 }

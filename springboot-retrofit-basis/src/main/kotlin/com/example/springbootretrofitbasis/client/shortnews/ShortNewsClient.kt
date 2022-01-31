@@ -14,11 +14,20 @@ interface ShortNewsClient {
         SPORTS("sports"),
         WORLD("worlds"),
         TECHNOLOGY("technology"),
-        SCIENCE("science")
+        SCIENCE("science");
+
+        companion object {
+            fun random(): String {
+                return values().toList().shuffled().first().param
+            }
+        }
     }
 
     @GET("news")
     fun getNewsByCategory(@Query("category") category: String): Call<ShortNewsResponse>
+
+    @GET("news")
+    suspend fun getNewsByCategoryWithCoroutine(@Query("category") category: String): Call<ShortNewsResponse>
 
     @GET("result-200")
     fun result200(): Call<SampleResponse>

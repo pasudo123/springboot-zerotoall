@@ -1,0 +1,5 @@
+### 동기로 외부 api 호출
+GET {{host}}/dev/sync
+Accept: application/json
+
+### 비동기로 외부 api 호출

@@ -64,14 +64,20 @@ abstract class MockWebServerSupport {
             .connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
             .readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
             .writeTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
-            .addInterceptor(HttpLoggingInterceptor().apply {
-                this.level = HttpLoggingInterceptor.Level.NONE
-            })
+            .addInterceptor(
+                HttpLoggingInterceptor().apply {
+                    this.level = HttpLoggingInterceptor.Level.NONE
+                }
+            )
             .addInterceptor { chain ->
                 val builder = chain.request().newBuilder().headers(
-                    Headers.of(mapOf(
-                        "Content-Type" to "application/json",
-                        "Accept" to "application/json")))
+                    Headers.of(
+                        mapOf(
+                            "Content-Type" to "application/json",
+                            "Accept" to "application/json"
+                        )
+                    )
+                )
                 val request = builder.build()
                 chain.proceed(request)
             }.build()

@@ -42,10 +42,12 @@ class ClientDiConfiguration(
     }
 
     companion object {
-        private val defaultHeaders = Headers.of(mapOf(
-            "Content-Type" to "application/json",
-            "Accept" to "application/json"
-        ))
+        private val defaultHeaders = Headers.of(
+            mapOf(
+                "Content-Type" to "application/json",
+                "Accept" to "application/json"
+            )
+        )
 
         private fun generateHttpClient(client: Client): OkHttpClient {
 

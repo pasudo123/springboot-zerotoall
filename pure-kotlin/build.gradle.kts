@@ -23,6 +23,11 @@ dependencies {
     // https://mockk.io/ & https://kotest.io/
     testImplementation("io.mockk:mockk:1.12.2")
     testImplementation("io.kotest:kotest-assertions-core:5.1.0")
+
+    // coroutine
+    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+    testImplementation("io.projectreactor:reactor-test")
 }
 
 tasks.getByName<Test>("test") {

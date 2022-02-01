@@ -1,5 +1,38 @@
 ## [Coroutine basics](https://kotlinlang.org/docs/coroutines-basics.html)
-### Your First Coroutine
+
+
+---
+### 1. [Your First Coroutine](https://kotlinlang.org/docs/coroutines-basics.html#your-first-coroutine)
+* coroutine 은 인스턴스다. suspendable computation 인스턴스다.
+  * `suspendable computation` 은 뭘까? -> `유예계산`
+* coroutine 은 개념적으로는 thread 와 유사한데, 나머지 코드와 동시에 실행되기 위해서 필요하다.
+  * `하지만` coroutine 은 thread 에 종속되지 않는다. ⭐
+  * coroutine 은 thread 에 의해 중지(suspend) 될 수 있고, 또 다른 thread 에 의해 재개(resume) 될 수 있다.
+* coroutine 은 경량 thread 로 생각할 수 있다.
+  * `하지만` thread 와는 다르게 중요한 `차이점`이 존재한다.
+```kotlin
+// 코루틴을 사용 -> 정상동작
+fun main() = runBlocking {
+    repeat(10_000) {
+      launch {
+        delay(10000L)
+        print(".")
+    }
+  }
+}
+
+// 스레드를 사용 -> oom 발생
+fun main() {
+  repeat(10_000) {
+    thread {
+      Thread.sleep(1000L)
+      print(".")
+    }
+  }
+}
+```
+
+---
 * runBlocking {}
     * 코루틴 빌더로 선언했을 시 내부 블럭은 코루틴 스코프가 생긴다.
     * 현재 컨텍스트 내 실행되는 스레드는 내부의 코루틴을 수행이 완료될 때가지 block 된다.
@@ -11,9 +44,14 @@
 * structure concurrency ⭐⭐⭐
     * structure concurrency 란 코루틴 스코프 내에서 또 다른 코루틴 스코프를 만들 수 있는 것을 의미한다.
 
-### Extract function refactoring
-* suspend keyword
-    * 코루틴 스코프 내에 있는 코드로직을 별도의 함수로 추출한다. 그리고 해당 함수에 suspend 키워드를 붙일 수 있다.
+---  
+### 2. [Extract function refactoring](https://kotlinlang.org/docs/coroutines-basics.html#extract-function-refactoring)
+#### 2.1 suspend
+* 코루틴 스코프 내에 있는 코드로직을 별도의 함수로 추출한다. 그리고 해당 함수에 suspend 키워드를 붙일 수 있다.
+  * 결과적으로 일반적인 함수에 suspend 키워드를 붙임으로써 해당 함수는 코루틴 블럭에서 사용할 수 있다.
+* suspend 를 붙임으로써 비동기 실행을 위한 중단점으로 사용할 수 있다. 그리고 그 중단점은 다시 재개(resume) 된다.
+* suspend function 는 코루틴 블럭에서 호출되거나 또는 다른 suspend function 으로부터 호출되어야 한다.
+
 
 ### Scope Builder
 * 코루틴 스코프는 다른 빌더를 제공하고 있다. coroutineScope 빌더를 사용해서 자신만의 빌더를 선언할 수 있다. 실행된 자식이 모두 실행될 때까지 완료되지 않는다.
@@ -102,7 +140,7 @@
     * `flowOf` builder
     * `asFlow()` builder
 
-## [TIP](#)
+### 100. [TIP](#)
 * 코루틴 스코프 내의 코루틴 이름을 알고 싶다면 intellij vm option 을 `-Dkotlinx.coroutines.debug` 로 준다
     * `println(Thread.currentThread.name())` 으로 작성한다
 
@@ -111,3 +149,5 @@
 * [인프런 코루틴 무료 강의](https://www.inflearn.com/course/%EC%83%88%EC%B0%A8%EC%9B%90-%EC%BD%94%ED%8B%80%EB%A6%B0-%EC%BD%94%EB%A3%A8%ED%8B%B4/dashboard)
 * [kotlin flow api 살펴보기 naver d2](https://youtu.be/D8rUDoYCZlo)
 * https://proandroiddev.com/structured-concurrency-in-action-97c749a8f755
+* [Introduction to Kotlin coroutine](https://youtu.be/VPTcj1mU-5c)
+* [Difference between a "coroutine" and a "thread"?](https://stackoverflow.com/questions/1934715/difference-between-a-coroutine-and-a-thread)

@@ -3,3 +3,9 @@ GET {{host}}/dev/sync
 Accept: application/json
 
 ### 비동기로 외부 api 호출
+GET {{host}}/dev/async-with-coroutine
+Accept: application/json
+
+### 비동기로 외부 api 호출 -> 에러 발생인데 200으로 떨어짐.
+GET {{host}}/dev/async-with-coroutine-error-handling
+Accept: application/json

@@ -23,6 +23,8 @@ import java.util.concurrent.TimeUnit
 @BaseTestEnvironment
 abstract class MockWebServerSupport {
 
+    val baseUrl = "http://$HOST:$PORT"
+
     companion object {
         val mapper = ObjectMapper().apply {
             this.registerModule(KotlinModule())

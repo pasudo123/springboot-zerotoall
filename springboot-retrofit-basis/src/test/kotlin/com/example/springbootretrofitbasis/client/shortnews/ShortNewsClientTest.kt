@@ -1,140 +1,90 @@
 package com.example.springbootretrofitbasis.client.shortnews
 
 import com.example.springbootretrofitbasis.MockWebServerSupport
-import com.example.springbootretrofitbasis.MockWebServerSupport.RetrofitTestApi.buildRetrofitClient
-import io.kotest.assertions.asClue
+import io.kotest.matchers.ints.shouldBeGreaterThanOrEqual
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.shouldNotBe
+import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpStatus
-import java.nio.charset.Charset
 
 @DisplayName("ShortNewsClient 는")
-internal class ShortNewsClientTest : MockWebServerSupport() {
-
-    private val baseUrl = "http://$HOST:$PORT"
+class ShortNewsClientTest : MockWebServerSupport() {
 
     @Test
-    @DisplayName("200 결과를 테스트한다.")
-    fun result200Test() {
+    @DisplayName("카테고리별 뉴스를 들고온다. 200 코드가 떨어진다.")
+    fun getNewsByCategoryTest() {
 
         // given
-        val mockClient = buildRetrofitClient(baseUrl, ShortNewsClient::class.java)
-
-        // when
-        val response = mockClient.result200()
-        val basic = response.execute().body()!!
-
-        // then
-        basic shouldNotBe null
-        basic.message shouldBe "Hi Hello"
-    }
-
-    @Test
-    @DisplayName("200 결과에 body empty 를 테스트한다.")
-    fun result200BodyEmptyTest() {
-
-        // given
-        val mockClient = buildRetrofitClient(baseUrl, ShortNewsClient::class.java)
-
-        // when
-        val response = mockClient.result200BodyEmpty()
-        val basic = response.execute().body()!!
-
-        // then : 해당 값은 NullOrEmptyConverterFactory 에서 반환해준다.
-        basic.message shouldBe "body is empty"
-    }
-
-    @Test
-    @DisplayName("204 결과를 테스트한다.")
-    fun result204Test() {
-
-        // given
-        val mockClient = buildRetrofitClient(baseUrl, ShortNewsClient::class.java)
-
-        // when
-        val response = mockClient.result204()
-        val basic = response.execute().body()
-
-        // then
-        basic shouldBe null
-    }
-
-    @Test
-    @DisplayName("404 결과를 테스트한다.")
-    fun result404Test() {
-
-        // given
-        val mockClient = buildRetrofitClient(baseUrl, ShortNewsClient::class.java)
-
-        // when
-        val response = mockClient.result404().execute()
-
-        // then
-        response.isSuccessful shouldBe false
-        response.code() shouldBe HttpStatus.NOT_FOUND.value()
-        response.errorBody()!!.asClue {
-            it.source().buffer.request(Long.MAX_VALUE)
-            it.source().buffer.clone().readString(Charset.forName("UTF-8")) shouldBe "{ \"message\": \"404 NOT FOUND\" }"
-        }
-    }
-
-    @Test
-    @DisplayName("500 결과를 테스트한다.")
-    fun result500Test() {
-
-        // given
-        val mockClient = buildRetrofitClient(baseUrl, ShortNewsClient::class.java)
-
-        // when
-        val response = mockClient.result500().execute()
-
-        // then
-        response.isSuccessful shouldBe false
-        response.code() shouldBe HttpStatus.INTERNAL_SERVER_ERROR.value()
-        response.errorBody()!!.asClue {
-            it.source().buffer.request(Long.MAX_VALUE)
-            it.source().buffer.clone().readString(Charset.forName("UTF-8")) shouldBe "{ \"message\": \"INTERNAL SERVER ERROR\" }"
-        }
-    }
-
-    @Test
-    @DisplayName("500 결과지만, 별도의 mockWebServer enqueue() 를 추가하여 별도의 body 로 작성할 수 있도록 한다.")
-    fun result500TestOnBodyAnother() {
-
-        // given
-        val mockClient = buildRetrofitClient(baseUrl, ShortNewsClient::class.java)
+        val json = """
+            {
+            	"category": "all",
+            	"data": [{
+            		"author": "Sakshi Sharma",
+            		"content": "Maharashtra government further relaxed COVID-19 restrictions, allowing all tourist spots to remain open as per regular timings for visitors who have been fully vaccinated. Additional relaxations were given to 11 districts, including Mumbai, where over 90% population has been vaccinated with the first dose and 70% is fully vaccinated. Beaches, garden and parks will remain open in these districts.",
+            		"date": "01 Feb 2022,Tuesday",
+            		"imageUrl": "https://static.inshorts.com/inshorts/images/v1/variants/jpg/m/2022/02_feb/1_tue/img_1643685105131_863.jpg?",
+            		"readMoreUrl": "https://twitter.com/ANI/status/1488225660464398337?utm_campaign=fullarticle&utm_medium=referral&utm_source=inshorts ",
+            		"time": "09:18 am",
+            		"title": "Maharashtra relaxes COVID curbs, parks & beaches to open in 11 districts",
+            		"url": "https://www.inshorts.com/en/news/maharashtra-relaxes-covid-curbs-parks-beaches-to-open-in-11-districts-1643687308052"
+            	}],
+                "success": "true"
+            }
+        """.trimIndent()
+        val mockClient = RetrofitTestApi.buildRetrofitClient(baseUrl, ShortNewsClient::class.java)
         server.enqueue(
             MockResponse()
                 .setResponseCode(HttpStatus.OK.value())
-                .setBody("{ \"message\": \"force enqueue()\" }")
+                .setBody(json)
         )
 
         // when
-        val response = mockClient.result500().execute().body()!!
+        val response = mockClient.getNewsByCategory(ShortNewsClient.Category.random()).execute().body()!!
 
         // then
-        response.message shouldBe "force enqueue()"
+        response.category shouldBe "all"
+        response.data.size shouldBeGreaterThanOrEqual 1
+        response.success shouldBe true
     }
 
     @Test
-    @DisplayName("resultXXX 를 테스트한다. : 별도의 MockResponse() 를 만들어본다.")
-    fun resultXXXTest() {
+    @DisplayName("async 로 suspend 가 붙은 카테고리별 뉴스를 들고온다.")
+    fun getNewsByCategoryWithCoroutineTest() {
 
         // given
-        val mockClient = buildRetrofitClient(baseUrl, ShortNewsClient::class.java)
+        val json = """
+            {
+            	"category": "all",
+            	"data": [{
+            		"author": "Sakshi Sharma",
+            		"content": "Maharashtra government further relaxed COVID-19 restrictions, allowing all tourist spots to remain open as per regular timings for visitors who have been fully vaccinated. Additional relaxations were given to 11 districts, including Mumbai, where over 90% population has been vaccinated with the first dose and 70% is fully vaccinated. Beaches, garden and parks will remain open in these districts.",
+            		"date": "01 Feb 2022,Tuesday",
+            		"imageUrl": "https://static.inshorts.com/inshorts/images/v1/variants/jpg/m/2022/02_feb/1_tue/img_1643685105131_863.jpg?",
+            		"readMoreUrl": "https://twitter.com/ANI/status/1488225660464398337?utm_campaign=fullarticle&utm_medium=referral&utm_source=inshorts ",
+            		"time": "09:18 am",
+            		"title": "Maharashtra relaxes COVID curbs, parks & beaches to open in 11 districts",
+            		"url": "https://www.inshorts.com/en/news/maharashtra-relaxes-covid-curbs-parks-beaches-to-open-in-11-districts-1643687308052"
+            	}],
+                "success": "true"
+            }
+        """.trimIndent()
+        val mockClient = RetrofitTestApi.buildRetrofitClient(baseUrl, ShortNewsClient::class.java)
         server.enqueue(
             MockResponse()
                 .setResponseCode(HttpStatus.OK.value())
-                .setBody("{ \"message\": \"sample ok\" }")
+                .setBody(json)
         )
 
-        // when
-        val response = mockClient.resultXXX().execute().body()!!
+        runBlocking {
+            // when
+            val response = mockClient.getNewsByCategoryWithCoroutine(ShortNewsClient.Category.random())
 
-        // then
-        response.message shouldBe "sample ok"
+            // then
+            response.category shouldBe "all"
+            response.data.size shouldBeGreaterThanOrEqual 1
+            response.success shouldBe true
+        }
     }
 }

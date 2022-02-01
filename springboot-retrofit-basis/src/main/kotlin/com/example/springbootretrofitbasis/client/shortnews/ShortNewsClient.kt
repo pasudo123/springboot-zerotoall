@@ -12,7 +12,7 @@ interface ShortNewsClient {
         ALL("all"),
         BUSINESS("business"),
         SPORTS("sports"),
-        WORLD("worlds"),
+        WORLD("world"),
         TECHNOLOGY("technology"),
         SCIENCE("science");
 
@@ -27,7 +27,7 @@ interface ShortNewsClient {
     fun getNewsByCategory(@Query("category") category: String): Call<ShortNewsResponse>
 
     @GET("news")
-    suspend fun getNewsByCategoryWithCoroutine(@Query("category") category: String): Call<ShortNewsResponse>
+    suspend fun getNewsByCategoryWithCoroutine(@Query("category") category: String): ShortNewsResponse
 
     @GET("result-200")
     fun result200(): Call<SampleResponse>

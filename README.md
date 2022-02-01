@@ -21,10 +21,9 @@ springboot-kotlin-zerotoall
 ```
 springboot-kotlin-zerotoall
     |
+    |-- pure-kotlin
     |-- springboot-query-perf-basis 
-    |
     |-- springboot-reactive-basis
-    |
     |-- springboot-retrofit-basis
 ```
 

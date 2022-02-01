@@ -3,7 +3,8 @@ package com.example.springbootretrofitbasis.client.shortnews.model
 data class ShortNewsResponse(
     val category: String,
     val data: List<DataResponse>,
-    val success: String
+    val success: Boolean,
+    val error: String?
 ) {
 
     data class DataResponse(

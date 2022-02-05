@@ -40,8 +40,11 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-mail")
 
     // quartz 에서 사용하기 위함
+    // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
+    // java version 에 따라서 HikariCP 버전을 맞게 써주어야 함
     implementation("org.springframework.boot:spring-boot-starter-quartz")
-    implementation("com.zaxxer:HikariCP:4.0.3")
+    implementation("com.zaxxer:HikariCP:5.0.1")
+
 
     // implementation("org.springframework.boot:spring-boot-starter-jdbc")
 

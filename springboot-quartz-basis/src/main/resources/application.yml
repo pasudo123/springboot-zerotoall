@@ -8,18 +8,16 @@ server:
   port: 44440
 
 spring:
-  datasource:
-    url: jdbc:mysql://dockerhost:13350/testdb
-    username: root
-    password: rootpass
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
-    # https://github.com/brettwooldridge/HikariCP#configuration-knobs-baby
-    hikari:
-      # quartz 의 hikari cp 는 해당 속성을 가진다.
-      maximum-pool-size: 5 # hikari 가 커넥션 풀에 최대로 가질 수 있는 사이즈
-      max-lifetime: 30000 # 30sec
-
+  # 별도 스프링에서 데이터 소스를 정의할 필요가 없다. : 사용하지 않아서 hikari 만 의존성 추가. 왜 jdbc 를 추가했을까...
+#  datasource:
+#    url: jdbc:mysql://dockerhost:13350/testdb
+#    username: root
+#    password: rootpass
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    hikari:
+#      # https://github.com/brettwooldridge/HikariCP#configuration-knobs-baby
+#      maximum-pool-size: 8
+#      connection-timeout: 25000 # 25sec
 
   quartz:
     jdbc:
@@ -29,6 +27,8 @@ spring:
     # job-store-type: memory
     job-store-type: jdbc
     scheduler-name: pasudo-scheduler-1
+    overwrite-existing-jobs: true
+
     properties:
       # http://www.quartz-scheduler.org/documentation/quartz-2.3.0/configuration/#choose-a-topic: 참고
       org.quartz.threadPool.threadCount: 5
@@ -49,14 +49,20 @@ spring:
       # dataSource
       org.quartz.dataSource.quartzDataSource.driver: com.mysql.cj.jdbc.Driver
       org.quartz.dataSource.quartzDataSource.URL: jdbc:mysql://dockerhost:13350/testdb
-      org.quartz.dataSource.quartzDataSource.username: root
+      org.quartz.dataSource.quartzDataSource.user: root
       org.quartz.dataSource.quartzDataSource.password: rootpass
+
+      # https://github.com/quartz-scheduler/quartz/wiki/How-to-Use-DB-Connection-Pool
+      # datasource connection pool hikari 사용
       org.quartz.dataSource.quartzDataSource.provider: hikaricp # hikaricp 없으면 다른 provider 를 임포트 해주던가 해야함. (아니면 기본으로 C3p0Pooling 이 필요함)
 
-      # dataSource 를 hikari 로 사용하면 관련 설정도 같이 쓸 수 있다. : https://github.com/brettwooldridge/HikariCP#configuration-knobs-baby
       # http://www.quartz-scheduler.org/documentation/quartz-2.3.0/configuration/ConfigDataSources.html
-      # dataSource 가 connection pool 에서 생성할 수 있는 최대 커넥션 개수. (threadCount * 3) 를 추천한다.
-      org.quartz.dataSource.quartzDataSource.maxConnections: 15
+      # hikari 사용시, 관련 속성 사용 가능. https://github.com/brettwooldridge/HikariCP#configuration-knobs-baby
+      # hikari 속성 카멜케이스 그대로 기입해야한다.
+      org.quartz.dataSource.quartzDataSource.maximumPoolSize: 11
+      org.quartz.dataSource.quartzDataSource.connectionTimeout: 20000 # 20sec (default : 30sec)
+      org.quartz.dataSource.quartzDataSource.validationTimeout: 5000 # 5sec
+
 
   mail:
     host: smtp.naver.com

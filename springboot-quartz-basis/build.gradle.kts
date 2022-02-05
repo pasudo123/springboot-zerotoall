@@ -14,6 +14,7 @@ plugins {
     versions.appendLine("springboot-management = $springBootManagementVersion")
     versions.appendLine("default = $default")
     versions.appendLine("=======================")
+    println(versions.toString())
 
     id("org.springframework.boot") version springBootVersion
     id("io.spring.dependency-management") version springBootManagementVersion
@@ -38,8 +39,11 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-mail")
 
+    // quartz 에서 사용하기 위함
     implementation("org.springframework.boot:spring-boot-starter-quartz")
-    implementation("org.springframework.boot:spring-boot-starter-jdbc")
+    implementation("com.zaxxer:HikariCP:4.0.3")
+
+    // implementation("org.springframework.boot:spring-boot-starter-jdbc")
 
     runtimeOnly("mysql:mysql-connector-java")
 

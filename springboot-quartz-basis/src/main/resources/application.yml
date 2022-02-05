@@ -1,0 +1,83 @@
+
+logging:
+  level:
+    org.quartz: INFO
+    com.zaxxer.hikari: DEBUG
+
+server:
+  port: 44440
+
+spring:
+  datasource:
+    url: jdbc:mysql://dockerhost:13350/testdb
+    username: root
+    password: rootpass
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+    # https://github.com/brettwooldridge/HikariCP#configuration-knobs-baby
+    hikari:
+      # quartz 의 hikari cp 는 해당 속성을 가진다.
+      maximum-pool-size: 5 # hikari 가 커넥션 풀에 최대로 가질 수 있는 사이즈
+      max-lifetime: 30000 # 30sec
+
+
+  quartz:
+    jdbc:
+      initialize-schema: always
+      platform: mysql
+
+    # job-store-type: memory
+    job-store-type: jdbc
+    scheduler-name: pasudo-scheduler-1
+    properties:
+      # http://www.quartz-scheduler.org/documentation/quartz-2.3.0/configuration/#choose-a-topic: 참고
+      org.quartz.threadPool.threadCount: 5
+
+      # scheduler
+      org.quartz.scheduler.threadName: psd-thr
+      org.quartz.scheduler.instanceName: psd-ins
+      org.quartz.scheduler.instanceId: AUTO
+
+      # jobStore
+      org.quartz.jobStore.class: org.quartz.impl.jdbcjobstore.JobStoreTX
+      org.quartz.jobStore.driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+      org.quartz.jobStore.useProperties: true # jobDetail 의 jobData 컬럼을 텍스트로 넣기 위한 옵션 (유연성이 더 큼)
+      org.quartz.jobStore.isClustered: true # 쿼츠 클러스터 설정 여부
+      org.quartz.jobStore.clusterCheckinInterval: 10000 # milli sec 주기로 클러스터 상태여부 체크
+      org.quartz.jobStore.dataSource: quartzDataSource
+
+      # dataSource
+      org.quartz.dataSource.quartzDataSource.driver: com.mysql.cj.jdbc.Driver
+      org.quartz.dataSource.quartzDataSource.URL: jdbc:mysql://dockerhost:13350/testdb
+      org.quartz.dataSource.quartzDataSource.username: root
+      org.quartz.dataSource.quartzDataSource.password: rootpass
+      org.quartz.dataSource.quartzDataSource.provider: hikaricp # hikaricp 없으면 다른 provider 를 임포트 해주던가 해야함. (아니면 기본으로 C3p0Pooling 이 필요함)
+
+      # dataSource 를 hikari 로 사용하면 관련 설정도 같이 쓸 수 있다. : https://github.com/brettwooldridge/HikariCP#configuration-knobs-baby
+      # http://www.quartz-scheduler.org/documentation/quartz-2.3.0/configuration/ConfigDataSources.html
+      # dataSource 가 connection pool 에서 생성할 수 있는 최대 커넥션 개수. (threadCount * 3) 를 추천한다.
+      org.quartz.dataSource.quartzDataSource.maxConnections: 15
+
+  mail:
+    host: smtp.naver.com
+    port: 587
+    username: pasudo123@naver.com
+    # naver password 참고 : https://help.naver.com/support/contents/contents.help?serviceNo=532&categoryNo=11047
+    password:
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+## job 식별 아이덴티티
+custom-worker:
+  simple-cron-worker:
+    id: simple-test-03
+    job-group: simple-job-group
+    job-desc: "테스트를 위한 잡명세"
+    trigger-group: simple-trigger-group
+    trigger-desc: "테스트를 위한 트리거 명세"
+    cron-expression: "0/5 * * * * ?"
+
+
+
+

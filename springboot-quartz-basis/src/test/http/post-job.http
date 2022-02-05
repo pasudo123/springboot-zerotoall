@@ -1,0 +1,22 @@
+### send email with schedule
+POST {{host}}/email
+Content-Type: application/json
+
+{
+  "email": "pasudo123@naver.com",
+  "subject": "hello quartz~~~",
+  "body": "hello quartz test : {{$uuid}}"
+}
+
+### logging push with scehdule
+POST {{host}}/push
+Content-Type: application/json
+
+{
+  "message": "Hello!! {{$uuid}}"
+}
+
+
+### retry job
+GET {{host}}/index/ex/hi
+Content-Type: application/json

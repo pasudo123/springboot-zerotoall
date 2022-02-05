@@ -3,8 +3,8 @@ server:
   undertow:
     # 수식확인 :: (undertow.threads.worker) = (undertow.threads.io) * 8
     threads:
-      io: 8
-      worker: 64
+      io: 8 # 워커를 생성할 io thread 개수.
+      worker: 64 # 워커 thread 개수. io thread 의 8배로 측정된다.
 
 app:
   # client.*.host 에 마지막은 '/' 를 붙여준다. : 그렇지 않으면 retrofit 에서 에러를 뱉어낸다.

@@ -39,13 +39,20 @@ val mockkVersion: String = System.getProperty("version.mocckVersion")
 dependencies {
 
     // implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
-    implementation("org.springframework.boot:spring-boot-starter-webflux")
+    // implementation("org.springframework.boot:spring-boot-starter-webflux")
+
+    // springboot-web tomcat exclude using undertow
+    implementation("org.springframework.boot:spring-boot-starter-web") {
+        exclude("org.springframework.boot", "spring-boot-starter-tomcat")
+    }
+    implementation("org.springframework.boot:spring-boot-starter-undertow")
+
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
     // kotlin coroutine reactor
+    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
     // retrofit2 : for api communicate

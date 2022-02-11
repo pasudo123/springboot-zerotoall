@@ -9,9 +9,7 @@ import org.springframework.context.annotation.Configuration
 @ConfigurationProperties(prefix = "custom-worker")
 class QuartzJobProps {
 
-    val simpleCronWorker = SimpleCronWorker()
-
-    class SimpleCronWorker {
+    class WorkerProps {
         var id: String? = null
         var jobGroup: String = "default-group"
         var jobDesc: String = "default-desc"
@@ -19,4 +17,7 @@ class QuartzJobProps {
         var triggerDesc: String = "default-trigger-desc"
         var cronExpression: String? = null
     }
+
+    val simpleCronWorker = WorkerProps()
+    val simpleWriteWorker = WorkerProps()
 }

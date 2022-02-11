@@ -1,7 +1,9 @@
 package com.example.springbootquartzbasis.config
 
+import com.example.springbootquartzbasis.listener.CommonJobListener
+import com.example.springbootquartzbasis.listener.CommonTriggerListener
 import com.example.springbootquartzbasis.sample.SampleJobVersion01
-import com.example.springbootquartzbasis.util.seoulTimeZone
+import com.example.springbootquartzbasis.util.asiaSeoulTimeZone
 import org.quartz.CronScheduleBuilder
 import org.quartz.CronTrigger
 import org.quartz.JobBuilder
@@ -9,23 +11,19 @@ import org.quartz.JobDetail
 import org.quartz.Scheduler
 import org.quartz.Trigger
 import org.quartz.TriggerBuilder
+import org.quartz.impl.matchers.EverythingMatcher.allJobs
+import org.quartz.impl.matchers.EverythingMatcher.allTriggers
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.scheduling.quartz.SchedulerFactoryBean
-import javax.annotation.PostConstruct
 
 @Configuration
 class QuartzConfiguration(
-    private val quartzProps: QuartzJobProps
+    quartzProps: QuartzJobProps
 ) {
 
-    private lateinit var simpleCronWorker: QuartzJobProps.SimpleCronWorker
-
-    @PostConstruct
-    fun init() {
-        simpleCronWorker = quartzProps.simpleCronWorker
-    }
+    private val simpleCronWorker = quartzProps.simpleCronWorker
 
     @Bean("simpleJobDetail")
     fun simpleJobDetail(): JobDetail {
@@ -50,7 +48,7 @@ class QuartzConfiguration(
                 // 크론 실행 (한국시간)
                 CronScheduleBuilder
                     .cronSchedule(simpleCronWorker.cronExpression)
-                    .inTimeZone(seoulTimeZone())
+                    .inTimeZone(asiaSeoulTimeZone())
             )
             .build()
     }
@@ -72,23 +70,29 @@ class QuartzConfiguration(
         factory.scheduler.apply {
             // 참고 : http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/tutorial-lesson-07.html
             // 잡과 트리거에 대해서 리스너를 등록할 수 있다.
-//            this.listenerManager.addJobListener(CommonJobListener(), allJobs())
-//            this.listenerManager.addTriggerListener(CommonTriggerListener(), allTriggers())
+            this.listenerManager.addJobListener(CommonJobListener(), allJobs())
+            this.listenerManager.addTriggerListener(CommonTriggerListener(), allTriggers())
         }
+
+        factory.scheduler.apply {
+            this.deleteJob(jobDetail.key)
+        }
+
+        return factory.scheduler
 
         // 잡 키 검사
-        if (factory.scheduler.checkExists(jobDetail.key)) {
-
-            if (factory.scheduler.isEqualCronExpression(jobDetail, simpleCronWorker.cronExpression!!)) {
-                return factory.scheduler
-            }
-
-            factory.scheduler.deleteJob(jobDetail.key)
-        }
-
-        return factory.scheduler.apply {
-            this.scheduleJob(jobDetail, trigger)
-        }
+//        if (factory.scheduler.checkExists(jobDetail.key)) {
+//
+//            if (factory.scheduler.isEqualCronExpression(jobDetail, simpleCronWorker.cronExpression!!)) {
+//                return factory.scheduler
+//            }
+//
+//            factory.scheduler.deleteJob(jobDetail.key)
+//        }
+//
+//        return factory.scheduler.apply {
+//            this.scheduleJob(jobDetail, trigger)
+//        }
     }
 }
 

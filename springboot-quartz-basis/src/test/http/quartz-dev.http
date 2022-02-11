@@ -1,0 +1,6 @@
+
+### 파일에 데이터를 쓰는 동일한 잡을 5번 수행한다.
+POST {{host}}/quartz/write?size=5
+Content-Type: application/json
+
+###

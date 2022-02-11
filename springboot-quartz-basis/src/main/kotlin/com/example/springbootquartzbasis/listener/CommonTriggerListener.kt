@@ -54,7 +54,7 @@ class CommonTriggerListener : TriggerListener {
             lines.appendLine("- triggerKey :: ${trigger.key}")
             lines.appendLine("- triggerDesc :: ${trigger.description}")
             lines.appendLine("- triggerData :: ${trigger.jobDataMap.toMap()}")
-            lines.appendLine("- triggerNextFireTime :: ${trigger.nextFireTime.convertLocalDateTime()}")
+            lines.appendLine("- triggerNextFireTime :: ${trigger.nextFireTime?.convertLocalDateTime()}")
         }
 
         lines.appendLine("====> Trigger listener [completed] end ====>")

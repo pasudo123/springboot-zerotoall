@@ -44,11 +44,10 @@ dependencies {
     // java version 에 따라서 HikariCP 버전을 맞게 써주어야 함
     implementation("org.springframework.boot:spring-boot-starter-quartz")
     implementation("com.zaxxer:HikariCP:5.0.1")
-
-
-    // implementation("org.springframework.boot:spring-boot-starter-jdbc")
-
     runtimeOnly("mysql:mysql-connector-java")
+
+    // coroutine
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")

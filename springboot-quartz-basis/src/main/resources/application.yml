@@ -10,7 +10,7 @@ server:
 spring:
   quartz:
     jdbc:
-      initialize-schema: always
+      initialize-schema: never
       platform: mysql
 
     # job-store-type: memory
@@ -47,7 +47,7 @@ spring:
 
       # http://www.quartz-scheduler.org/documentation/quartz-2.3.0/configuration/ConfigDataSources.html
       # hikari 사용시, 관련 속성 사용 가능. https://github.com/brettwooldridge/HikariCP#configuration-knobs-baby
-      # hikari 속성 카멜케이스 그대로 기입해야한다.
+      ##########  hikari 속성 카멜케이스 그대로 기입해야한다. ##########
       org.quartz.dataSource.quartzDataSource.maximumPoolSize: 11
       org.quartz.dataSource.quartzDataSource.connectionTimeout: 20000 # 20sec (default : 30sec)
       org.quartz.dataSource.quartzDataSource.validationTimeout: 5000 # 5sec

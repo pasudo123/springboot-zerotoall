@@ -13,7 +13,7 @@ class WriteJob : QuartzJobBean() {
 
     // 절대경로로 가자. 클래스패스에 안써짐.
     private val log = LoggerFactory.getLogger(javaClass)
-    private val fileWriter = FileWriter("/Users/pasudo.dev/pasudo-study/quartz/job-execute.log", true)
+    private val fileWriter = FileWriter("./springboot-quartz-basis/job-execute.log", true)
 
     override fun executeInternal(context: JobExecutionContext) {
 

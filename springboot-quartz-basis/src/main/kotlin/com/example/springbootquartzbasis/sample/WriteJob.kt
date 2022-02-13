@@ -1,5 +1,8 @@
 package com.example.springbootquartzbasis.sample
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import org.quartz.DisallowConcurrentExecution
 import org.quartz.JobExecutionContext
 import org.slf4j.LoggerFactory
@@ -20,16 +23,18 @@ class WriteJob : QuartzJobBean() {
 
     override fun executeInternal(context: JobExecutionContext) {
 
-        log.info("[call] [call] [call] [call] >>>>>>>>>>>>")
+        CoroutineScope(Dispatchers.IO).async {
+            log.info("[call] [call] [call] [call] >>>>>>>>>>>>")
 
-        val jobDataMap = context.mergedJobDataMap
-        val data = jobDataMap["data"]
+            val jobDataMap = context.mergedJobDataMap
+            val data = jobDataMap["data"]
 
-        try {
-            fileWriter.appendLine("====> $data")
-        } catch (exception: Exception) {
-        } finally {
-            fileWriter.close()
+            try {
+                fileWriter.appendLine("====> $data")
+            } catch (exception: Exception) {
+            } finally {
+                fileWriter.close()
+            }
         }
     }
 }

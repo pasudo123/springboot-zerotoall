@@ -1,9 +1,9 @@
 
-### 파일에 데이터를 쓰는 동일한 잡을 5번 수행한다.
-POST {{host}}/quartz/write?size=1
+### 파일에 데이터를 쓰는 동일한 잡을 n번 수행한다.
+POST {{host}}/quartz/write?size=300
 Content-Type: application/json
 
-### 파일에 데이터를 쓰는 동일한 잡을 코루틴으로 처리
+### 파일에 데이터를 쓰는 동일한 잡을 코루틴으로 처리 : 코루틴 가지고 트리거를 만드는거라, 성능측정에 연관이 없음, 실제 execute 구문 내 사용이 더 중요할 것 같다.
 POST {{host}}/quartz/write-async?size=500
 Content-Type: application/json
 

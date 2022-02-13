@@ -40,6 +40,7 @@ class WriteJobService(
 
     fun processWithAsync(size: Int) {
         for (seq in 1..size) {
+            // trigger 하는 건 코루틴과 연관이 없음!! -> 사실 잡 execute 할 때에 네트워크 호출시에 필요할 수 있는거지.
             CoroutineScope(Dispatchers.IO).async {
                 doTrigger(seq, size)
             }

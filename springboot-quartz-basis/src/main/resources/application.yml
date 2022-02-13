@@ -21,7 +21,7 @@ spring:
 
     properties:
       # http://www.quartz-scheduler.org/documentation/quartz-2.3.0/configuration/#choose-a-topic: 참고
-      org.quartz.threadPool.threadCount: 5
+      org.quartz.threadPool.threadCount: 5 # 동시에 job 이 실행할 수 있는 개수 : 트리거가 여러개라도 하나의 잡 으로 실행될 수 있기 때문에 해당 값이 큰거랑 무관
 
       # scheduler
       org.quartz.scheduler.threadName: psd-thr
@@ -49,7 +49,7 @@ spring:
       # http://www.quartz-scheduler.org/documentation/quartz-2.3.0/configuration/ConfigDataSources.html
       # hikari 사용시, 관련 속성 사용 가능. https://github.com/brettwooldridge/HikariCP#configuration-knobs-baby
       ##########  hikari 속성 카멜케이스 그대로 기입해야한다. ##########
-      org.quartz.dataSource.quartzDataSource.maximumPoolSize: 11
+      org.quartz.dataSource.quartzDataSource.maximumPoolSize: 15
       org.quartz.dataSource.quartzDataSource.connectionTimeout: 20000 # 20sec (default : 30sec)
       org.quartz.dataSource.quartzDataSource.validationTimeout: 5000 # 5sec
 

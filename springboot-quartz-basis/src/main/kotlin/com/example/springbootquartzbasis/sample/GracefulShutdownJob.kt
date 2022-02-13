@@ -18,12 +18,20 @@ class GracefulShutdownJob : QuartzJobBean() {
     }
     private val fileWriter = FileWriter(file.path, true)
 
+    /**
+     * 아래 잡을 수행하면서, 중간에 shutdown 이 되는 경우
+     * - 셧다운 잘된다. (디비에 해당 트리거가 남겨져서 실행이 잘되는걸로 보임.)
+     *
+     * 다만 출력내용이 클러스터 여부에 따라 다르다.
+     * - org.quartz.jobStore.isClustered:true
+     *  - ClusterManager: ......Scheduled 1 recoverable job(s) for recovery
+     *
+     * - org.quartz.jobStore.isClustered:false
+     *  - Recovering 1 jobs that were in-progress at the time of the last shut-down
+     *
+     */
     override fun executeInternal(context: JobExecutionContext) {
 
-        /**
-         * 하나의 잡 수행이 오래걸리게 되는 경우 -> graceful shutdown 은 어떻게 동작해야 하는가?
-         * -> 종료되고 재실행되어도 수행이 잘 되고 있음 -> 해당 트리거가 db 에 남아서 그런것도 있는듯 하다.
-         */
         try {
             while(true) {
                 log.info("+++++ [call] [call] [call] [call] +++++")

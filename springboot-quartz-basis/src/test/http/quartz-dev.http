@@ -7,4 +7,10 @@ Content-Type: application/json
 POST {{host}}/quartz/write-async?size=500
 Content-Type: application/json
 
-### 에러발생
+### 에러발생 (O)
+POST {{host}}/quartz/job-execute-error?condition=true
+Content-Type: application/json
+
+### 에러발생 (X)
+POST {{host}}/quartz/job-execute-error?condition=false
+Content-Type: application/json

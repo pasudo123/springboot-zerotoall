@@ -1,8 +1,8 @@
 
 logging:
   level:
-    org.quartz: DEBUG
-    com.zaxxer.hikari: DEBUG
+    org.quartz: INFO
+    com.zaxxer.hikari: INFO
 
 server:
   port: 44440
@@ -78,6 +78,12 @@ custom-worker:
     job-desc: "파일쓰는 잡"
     trigger-group: simple-trigger-group
     trigger-desc: "요청올때마다 파일쓰는 트리거"
+  simple-error-worker:
+    id: simple-error-ver01
+    job-group: simple-error-group
+    job-desc: "에러가 조건에 따라 발생되는 잡"
+    trigger-group: simple-trigger-group
+    trigger-desc: "요청올때마다 조건에 따라 에러 발생 트리거"
 
 
 

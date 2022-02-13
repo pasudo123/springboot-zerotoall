@@ -9,18 +9,24 @@ import java.io.FileWriter
 
 @Component
 @DisallowConcurrentExecution
-class WriteJob : QuartzJobBean() {
+class ErrorJob : QuartzJobBean() {
 
-    // 절대경로로 가자. 클래스패스에 안써짐.
     private val log = LoggerFactory.getLogger(javaClass)
-    private val fileWriter = FileWriter("./springboot-quartz-basis/file/write-job-execute.log", true)
+    private val fileWriter = FileWriter("./springboot-quartz-basis/file/error-job-execute.log", true)
 
     override fun executeInternal(context: JobExecutionContext) {
 
         log.info("[call] [call] [call] [call] >>>>>>>>>>>>")
 
         val jobDataMap = context.mergedJobDataMap
+        val condition = (jobDataMap["condition"] as String).toBoolean()
         val data = jobDataMap["data"]
+
+        if (condition) {
+            // jobDurably 가 false 임에도, 일단 에러가 발생되고 거기서 끝나버림 (QRTZ_TRRIGERS 테이블은 비워짐)
+            // jobDurably 가 true 임에도, 일단 에러가 발생하고 거기서 끝나버림 (QRTZ_TRRIGERS, QRTZ_JOB_DETAILS 테이블은 비워짐)
+            throw RuntimeException("강제 에러 발생")
+        }
 
         try {
             fileWriter.appendLine("====> $data")

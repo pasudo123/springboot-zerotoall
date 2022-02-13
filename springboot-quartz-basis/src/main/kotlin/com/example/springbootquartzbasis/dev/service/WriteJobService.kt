@@ -60,9 +60,6 @@ class WriteJobService(
             this["data"] = data
         }
 
-        // 10초 뒤에 트리거를 수행한다.
-        val startAt = nowLocalDateTime().plusSeconds(5)
-
         // QRTZ_TRIGGERS 에 데이터 남기고, TRIGGERS 가 다 실행되면 데이터 남기지 않음
         val trigger = TriggerBuilder.newTrigger()
             .forJob(jobDetail) // 해당 트리거는 어떤 잡에 동작할 것인지가, forJob() 구문에 추가된다.
@@ -77,7 +74,7 @@ class WriteJobService(
                         // jobStoreSupport 내 removeTrigger(Connection conn, TriggerKey key) 가 호출되면서 해당 트리거는 실행후에 이후 삭제된다.
                     .withMisfireHandlingInstructionFireNow()
             )
-            .startAt(startAt.convertDate())
+            .startAt(nowLocalDateTime().plusSeconds(5).convertDate())
             .build()
 
         if (scheduler.checkExists(jobDetail.key)

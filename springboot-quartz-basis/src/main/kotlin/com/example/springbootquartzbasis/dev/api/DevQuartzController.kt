@@ -33,7 +33,9 @@ class DevQuartzController(
     }
 
     @PostMapping("job-execute-error")
-    fun jobExecuteError() {
-
+    fun jobExecuteError(
+        @RequestParam("condition") condition: Boolean
+    ) {
+        errorJobService.process(condition)
     }
 }

@@ -1,7 +1,6 @@
 package com.example.springbootquartzbasis.sample
 
 import org.quartz.DisallowConcurrentExecution
-import org.quartz.InterruptableJob
 import org.quartz.JobExecutionContext
 import org.slf4j.LoggerFactory
 import org.springframework.scheduling.quartz.QuartzJobBean
@@ -11,7 +10,7 @@ import java.io.FileWriter
 
 @Component
 @DisallowConcurrentExecution
-class GracefulShutdownJob : QuartzJobBean(), InterruptableJob {
+class GracefulShutdownJob : QuartzJobBean() {
 
     private val log = LoggerFactory.getLogger(javaClass)
     private val file = File("./springboot-quartz-basis/file/graceful-shutdown-job-execute.log").also {
@@ -21,21 +20,23 @@ class GracefulShutdownJob : QuartzJobBean(), InterruptableJob {
 
     override fun executeInternal(context: JobExecutionContext) {
 
-        log.info("+++++ [call] [call] [call] [call] +++++")
-
-        val jobDataMap = context.mergedJobDataMap
-        val data = jobDataMap["data"]
-
+        /**
+         * 하나의 잡 수행이 오래걸리게 되는 경우 -> graceful shutdown 은 어떻게 동작해야 하는가?
+         * -> 종료되고 재실행되어도 수행이 잘 되고 있음 -> 해당 트리거가 db 에 남아서 그런것도 있는듯 하다.
+         */
         try {
-            Thread.sleep(500)
-            fileWriter.appendLine("====> $data")
+            while(true) {
+                log.info("+++++ [call] [call] [call] [call] +++++")
+
+                val jobDataMap = context.mergedJobDataMap
+                val data = jobDataMap["data"]
+                Thread.sleep(5000)
+                fileWriter.appendLine("====> $data")
+            }
         } catch (exception: Exception) {
+            log.error("error : ${exception.message}")
         } finally {
             fileWriter.close()
         }
-    }
-
-    override fun interrupt() {
-        log.error("스케줄 인터럽트")
     }
 }

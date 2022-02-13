@@ -14,3 +14,7 @@ Content-Type: application/json
 ### 에러발생 (X)
 POST {{host}}/quartz/job-execute-error?condition=false
 Content-Type: application/json
+
+### graceful shutdown quartz 확인 : 종료요청이 와도 현재 들어온 잡은 모두 다 수행되고 종료할 수 있도록 한다.
+POST {{host}}/quartz/graceful-shutdown?size=30
+Content-Type: application/json

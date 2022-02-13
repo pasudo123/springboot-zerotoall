@@ -1,6 +1,7 @@
 package com.example.springbootquartzbasis.dev.api
 
 import com.example.springbootquartzbasis.dev.service.ErrorJobService
+import com.example.springbootquartzbasis.dev.service.GracefulShutdownJobService
 import com.example.springbootquartzbasis.dev.service.WriteJobService
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController
 class DevQuartzController(
     private val writeJobService: WriteJobService,
     private val errorJobService: ErrorJobService,
+    private val gracefulShutdownJobService: GracefulShutdownJobService
 ) {
 
     @PostMapping("write")
@@ -37,5 +39,12 @@ class DevQuartzController(
         @RequestParam("condition") condition: Boolean
     ) {
         errorJobService.process(condition)
+    }
+
+    @PostMapping("graceful-shutdown")
+    fun gracefulShutdown(
+        @RequestParam("size") size: Int
+    ) {
+        gracefulShutdownJobService.process(size)
     }
 }

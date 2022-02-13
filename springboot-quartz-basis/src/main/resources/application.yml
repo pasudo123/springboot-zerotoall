@@ -3,6 +3,7 @@ logging:
   level:
     org.quartz: INFO
     com.zaxxer.hikari: INFO
+    com.example.springbootquartzbasis: INFO
 
 server:
   port: 44440
@@ -84,6 +85,12 @@ custom-worker:
     job-desc: "에러가 조건에 따라 발생되는 잡"
     trigger-group: simple-trigger-group
     trigger-desc: "요청올때마다 조건에 따라 에러 발생 트리거"
+  simple-graceful-shutdown-worker:
+    id: simple-graceful-shutdown-ver01
+    job-group: simple-graceful-shutdown-group
+    job-desc: "graceful shutdown 이 잘되는지 확인하는 잡"
+    trigger-group: simple-trigger-group
+    trigger-desc: "graceful shutdown 이 잘되는지 확인하는 트리거"
 
 
 

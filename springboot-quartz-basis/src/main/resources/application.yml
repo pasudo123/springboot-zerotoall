@@ -1,8 +1,8 @@
 
 logging:
   level:
-    org.quartz: INFO
-    com.zaxxer.hikari: INFO
+    org.quartz: DEBUG
+    com.zaxxer.hikari: DEBUG
 
 server:
   port: 44440

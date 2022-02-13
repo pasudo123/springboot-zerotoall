@@ -51,7 +51,7 @@ class WriteJobService(
      */
     fun doTrigger(seq: Int, size: Int) {
         val data = if (seq == size) {
-            "${nowLocalDateTime()}-$seq----- end -----"
+            "${nowLocalDateTime()}-$seq ----- end -----"
         } else {
             "${nowLocalDateTime()}-$seq"
         }
@@ -73,7 +73,8 @@ class WriteJobService(
                 SimpleScheduleBuilder
                     .simpleSchedule()
                         // 실행불발 시, thread 를 다 쓰고있거나 그러는와중,
-                        // 실행이 가능한 상태가 되면, 바로 트리거를 다시 실행한다.
+                        // 실행이 가능한 상태가 되면, 바로 트리거를 다시 실행한다. -> 그리고 db 에서 삭제
+                        // jobStoreSupport 내 removeTrigger(Connection conn, TriggerKey key) 가 호출되면서 해당 트리거는 실행후에 이후 삭제된다.
                     .withMisfireHandlingInstructionFireNow()
             )
             .startAt(startAt.convertDate())

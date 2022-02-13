@@ -5,6 +5,7 @@ import org.quartz.JobExecutionContext
 import org.slf4j.LoggerFactory
 import org.springframework.scheduling.quartz.QuartzJobBean
 import org.springframework.stereotype.Component
+import java.io.File
 import java.io.FileWriter
 
 @Component
@@ -12,7 +13,10 @@ import java.io.FileWriter
 class ErrorJob : QuartzJobBean() {
 
     private val log = LoggerFactory.getLogger(javaClass)
-    private val fileWriter = FileWriter("./springboot-quartz-basis/file/error-job-execute.log", true)
+    private val file = File("./springboot-quartz-basis/file/error-job-execute.log").also {
+        it.parentFile.mkdirs()
+    }
+    private val fileWriter = FileWriter(file.path, true)
 
     override fun executeInternal(context: JobExecutionContext) {
 

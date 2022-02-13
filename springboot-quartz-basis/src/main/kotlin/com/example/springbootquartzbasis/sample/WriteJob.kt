@@ -5,15 +5,18 @@ import org.quartz.JobExecutionContext
 import org.slf4j.LoggerFactory
 import org.springframework.scheduling.quartz.QuartzJobBean
 import org.springframework.stereotype.Component
+import java.io.File
 import java.io.FileWriter
 
 @Component
 @DisallowConcurrentExecution
 class WriteJob : QuartzJobBean() {
 
-    // 절대경로로 가자. 클래스패스에 안써짐.
     private val log = LoggerFactory.getLogger(javaClass)
-    private val fileWriter = FileWriter("./springboot-quartz-basis/file/write-job-execute.log", true)
+    private val file = File("./springboot-quartz-basis/file/write-job-execute.log").also {
+        it.parentFile.mkdirs()
+    }
+    private val fileWriter = FileWriter(file.path, true)
 
     override fun executeInternal(context: JobExecutionContext) {
 

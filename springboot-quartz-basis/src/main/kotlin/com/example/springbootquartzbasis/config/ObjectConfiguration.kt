@@ -17,4 +17,4 @@ class ObjectConfiguration {
 
 inline fun <reified T: Any> T.toJson(): String = mapper.writeValueAsString(this)
 inline fun <reified T: Any> String.toObject(): T = mapper.readValue(this, T::class.java)
-inline fun <reified T: Any> String.toList(): List<T> = mapper.readValue(this, object: TypeReference<List<T>>() {})
+inline fun <reified T: Any> String.jsonToList(): List<T> = mapper.readValue(this, object: TypeReference<List<T>>() {})

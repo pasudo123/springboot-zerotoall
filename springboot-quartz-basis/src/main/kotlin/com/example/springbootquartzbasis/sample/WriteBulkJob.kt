@@ -1,6 +1,6 @@
 package com.example.springbootquartzbasis.sample
 
-import com.example.springbootquartzbasis.config.toList
+import com.example.springbootquartzbasis.config.jsonToList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -26,7 +26,7 @@ class WriteBulkJob : QuartzJobBean() {
             log.info("[call] [call] [call] [call] >>>>>>>>>>>>")
 
             val jobDataMap = context.mergedJobDataMap
-            val lines = (jobDataMap["lines"] as String).toList<String>()
+            val lines = (jobDataMap["lines"] as String).jsonToList<String>()
 
             try {
                 lines.forEach { line ->

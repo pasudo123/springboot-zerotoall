@@ -2,6 +2,7 @@ package com.example.springbootquartzbasis.dev.api
 
 import com.example.springbootquartzbasis.dev.service.ErrorJobService
 import com.example.springbootquartzbasis.dev.service.GracefulShutdownJobService
+import com.example.springbootquartzbasis.dev.service.WriteJobBulkService
 import com.example.springbootquartzbasis.dev.service.WriteJobService
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/quartz")
 class DevQuartzController(
     private val writeJobService: WriteJobService,
+    private val writeJobBulkService: WriteJobBulkService,
     private val errorJobService: ErrorJobService,
     private val gracefulShutdownJobService: GracefulShutdownJobService
 ) {
@@ -23,6 +25,15 @@ class DevQuartzController(
         // 하나의 잡에 여러개 트리거
         // 트리거 하는 순간에는 디비에 남지만, 이후에는 디비에서 자동으로 삭제처리
         writeJobService.process(size)
+    }
+
+    @PostMapping("write-bulk")
+    fun writeBulkJobCreate(
+        @RequestParam("bulk") bulk: Int,
+        @RequestParam("size") size: Int
+    ) {
+        // 특정 개수를 기준으로 bulk trigger 를 수행한다.
+        writeJobBulkService.process(bulk, size)
     }
 
     @PostMapping("write-async")

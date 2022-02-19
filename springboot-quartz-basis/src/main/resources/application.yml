@@ -79,6 +79,12 @@ custom-worker:
     job-desc: "파일쓰는 잡"
     trigger-group: simple-trigger-group
     trigger-desc: "요청올때마다 파일쓰는 트리거"
+  simple-write-bulk-worker:
+    id: simple-write-bulk-ver01
+    job-group: simple-write-bulk-group
+    job-desc: "파일쓰는 잡 (벌크)"
+    trigger-group: simple-trigger-group
+    trigger-desc: "요청올때마다 파일쓰는 트리거 (벌크)"
   simple-error-worker:
     id: simple-error-ver01
     job-group: simple-error-group

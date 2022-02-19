@@ -1,7 +1,10 @@
 
 ### 파일에 데이터를 쓰는 동일한 잡을 n번 수행한다.
-POST {{host}}/quartz/write?size=300
+POST {{host}}/quartz/write?size=500
 Content-Type: application/json
+
+### 파일 에 데이터 쓰는 잡을 한번 수행한다. trigger 가 n번 내부적으로 처리하도록 함
+POST {{host}}/quartz/write-bulk?bulk=500&size=500
 
 ### 파일에 데이터를 쓰는 동일한 잡을 코루틴으로 처리 : 코루틴 가지고 트리거를 만드는거라, 성능측정에 연관이 없음, 실제 execute 구문 내 사용이 더 중요할 것 같다.
 POST {{host}}/quartz/write-async?size=500

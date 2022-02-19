@@ -20,6 +20,7 @@ class QuartzJobProps {
 
     val simpleCronWorker = WorkerProps()
     val simpleWriteWorker = WorkerProps()
+    val simpleWriteBulkWorker = WorkerProps()
     val simpleErrorWorker = WorkerProps()
     val simpleGracefulShutdownWorker = WorkerProps()
 }

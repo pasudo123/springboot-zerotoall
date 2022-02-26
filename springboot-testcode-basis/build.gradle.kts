@@ -46,6 +46,7 @@ repositories {
 
 val kotestVersion: String = System.getProperty("version.kotestVersion")
 val mockkVersion: String = System.getProperty("version.mocckVersion")
+val springmockkVersion: String = System.getProperty("version.springmockkVersion")
 
 dependencies {
     // jpa & h2
@@ -66,8 +67,9 @@ dependencies {
     implementation("io.github.microutils:kotlin-logging-jvm:2.0.10")
 
     // mock & kotest
-    testImplementation("io.mockk:mockk:1.12.2")
-    testImplementation("io.kotest:kotest-assertions-core:5.0.3")
+    testImplementation("io.mockk:mockk:${mockkVersion}")
+    testImplementation("io.kotest:kotest-assertions-core:${kotestVersion}")
+    testImplementation("com.ninja-squad:springmockk:${springmockkVersion}")
 
     // h2
     testImplementation("com.h2database:h2")

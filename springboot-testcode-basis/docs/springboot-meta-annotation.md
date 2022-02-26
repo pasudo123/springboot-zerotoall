@@ -1,9 +1,12 @@
-# springboot-testcode-basis
-
-## 여기서 다룰 것
-* [Kotlin 에서 테스트코드를 잘 짜는법](https://phauer.com/2018/best-practices-unit-testing-kotlin)
-* [spring 기반의 테스트를 위한 메타애노테이션](./docs/springboot-meta-annotation.md)
-
+## 확인사항
+* @DataJpaTest 하기
+* @MockMvcTest 하기
+    * response 응답 필드내, 한글인코딩 문제 해결하기
+* @SpringBootTest 하기
+* @EnableJpaAuditing 을 테스트코드해서 특정 시간대로 넣어보기
+    * DateTimeProvider 를 조작한다.
+* SpringBoot 에서 테스트코드를 위한 다양한 애노테이션을 메타애노테이션으로 관리하기
+* SpringBoot 에서 테스트컨텍스트 내 공유하는 데이터베이스 자원을 매 테스트 하기 이전에/이후에 deleteAll 또는 truncate (drop & create) 하기
 
 ## 테스트코드를를 위한 테스트 메타 애노테이션 작성
 ```kotlin
@@ -33,6 +36,17 @@ annotation class TestEnvironment
 @Import(value = [TestObjectMapperConfiguration::class])
 annotation class IntegrationSupport
 
+
+/**
+ * @IntegrationSupport 에 @Transactional 이 적용되지 않은 상태
+ */
+@TestEnvironment
+@Target(AnnotationTarget.CLASS)
+@Retention(AnnotationRetention.RUNTIME)
+@TruncateDbSupport(truncateCycle = TruncateCycle.BEFORE_TEST_METHOD)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Import(value = [TestObjectMapperConfiguration::class])
+annotation class IntegrationSupportWithTruncateDb
 
 /**
  * @Controller 계층만 테스트하기 위한 메타애노테이션

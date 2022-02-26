@@ -1,5 +1,28 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
-    kotlin("jvm")
+    val kotlinVersion = System.getProperty("version.kotlinVersion")
+    val springBootVersion = System.getProperty("version.springBootVersion")
+    val springBootManagementVersion = System.getProperty("version.springDependencyManagementVersion")
+    val klintVersion = System.getProperty("version.ktlintVersion")
+
+    id("org.springframework.boot") version springBootVersion
+    id("io.spring.dependency-management") version springBootManagementVersion
+
+    kotlin("jvm") version kotlinVersion
+    kotlin("plugin.spring") version kotlinVersion
+    kotlin("plugin.jpa") version kotlinVersion
+    kotlin("kapt") version kotlinVersion
+
+    // https://kotlinlang.org/docs/no-arg-plugin.html#jpa-support
+    // kotlin jpa 사용 시, noargs 를 사용하기 위함 : 프록시 생성 시 필요.
+    id("org.jetbrains.kotlin.plugin.noarg") version kotlinVersion
+    // https://kotlinlang.org/docs/all-open-plugin.html
+    // kotlin jpa 사용 시, allopen final 키워드를 특정 애노테이션 기준으로 제거해주기 위함
+    id("org.jetbrains.kotlin.plugin.allopen") version kotlinVersion
+
+    // kotlin lint
+    id("org.jlleitschuh.gradle.ktlint") version klintVersion
 }
 
 allOpen {
@@ -12,6 +35,17 @@ kotlin.sourceSets.main {
     println("kotlin sourceSets buildDir :: $buildDir")
     setBuildDir("$buildDir")
 }
+
+group = "com.example"
+version = "0.0.1-SNAPSHOT"
+java.sourceCompatibility = JavaVersion.VERSION_11
+
+repositories {
+    mavenCentral()
+}
+
+val kotestVersion: String = System.getProperty("version.kotestVersion")
+val mockkVersion: String = System.getProperty("version.mocckVersion")
 
 dependencies {
     // jpa & h2
@@ -37,4 +71,15 @@ dependencies {
 
     // h2
     testImplementation("com.h2database:h2")
+}
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs = listOf("-Xjsr305=strict")
+        jvmTarget = "11"
+    }
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }

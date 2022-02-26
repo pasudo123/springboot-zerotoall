@@ -13,7 +13,6 @@ springboot-kotlin-zerotoall
     |-- springboot-pageable-basis
     |-- springboot-redis-basis
     |-- springboot-swagger-basis
-    |-- springboot-testcode-basis
     |-- springboot-testcontainer-basis
 ```
 
@@ -25,6 +24,7 @@ springboot-kotlin-zerotoall
     |-- springboot-query-perf-basis 
     |-- springboot-reactive-basis
     |-- springboot-retrofit-basis
+    |-- springboot-testcode-basis
 ```
 
 ### 참고

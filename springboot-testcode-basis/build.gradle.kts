@@ -76,6 +76,7 @@ dependencies {
     testImplementation("mysql:mysql-connector-java")
 
     // testcontainer : mysql, https://www.testcontainers.org/modules/databases/mysql/
+    // @TestContainer 및 @Container 를 사용할 수 있도록 해줌
     testImplementation("org.testcontainers:mysql:1.16.3")
     testImplementation("org.testcontainers:junit-jupiter:1.16.3")
 }

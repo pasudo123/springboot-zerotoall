@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.web.filter.CharacterEncodingFilter
 
 @TestConfiguration
-class TestObjectMapperConfiguration {
+class BaseTestConfiguration {
 
     @Bean
     fun objectMapper(): ObjectMapper {

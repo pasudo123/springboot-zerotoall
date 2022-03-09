@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.Import
 import org.springframework.test.context.ActiveProfiles
+import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.TestConstructor
 import org.springframework.transaction.annotation.Transactional
 
@@ -30,27 +31,44 @@ annotation class TestEnvironment
  * @Controller, @Service, @Repository 를 TestContext 에 띄어놓고 테스트하기 위한 메타애노테이션
  * - 각 테스트 컨텍스트마다 테스트 격리를 위한 @Transactional 을 붙여준다.
  * - TestRestTemplate 도 별도로 사용이 가능한다.
- *   - TestRestTemplate 은 별도의 서블릿 컨테이너 내에서 실행, 요청당 별도의 스레드가 만들어진다. (해당 테스트코드가 있을 시, 트랜잭션 롤백이 되지 않음)
+ *   - TestRestTemplate 은 별도의 서블릿 컨테이너 내에서 실행, 요청당 별도의 스레드가 만들어진다.
+ *   - TestRestTemplate 으로 테스트코드가 있을 시, 트랜잭션 롤백이 되지 않음
  */
 @TestEnvironment
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Import(value = [TestObjectMapperConfiguration::class])
+@Import(value = [BaseTestConfiguration::class])
 annotation class IntegrationSupport
 
 
 /**
  * @IntegrationSupport 에 @Transactional 이 적용되지 않은 상태
+ * - TruncateDbSupport 유무에 따라 테스트 성공/실패 여부가 결정된다.
  */
 @TestEnvironment
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
 @TruncateDbSupport(truncateCycle = TruncateCycle.BEFORE_TEST_METHOD)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Import(value = [TestObjectMapperConfiguration::class])
+@Import(value = [BaseTestConfiguration::class])
 annotation class IntegrationSupportWithTruncateDb
+
+
+/**
+ * @IntegrationSupport 에 @Transactional 이 적용되지 않은 상태 + TestContainer 포함된 상태
+ * - TruncateDbSupport 유무에 따라 테스트 성공/실패 여부가 결정된다.
+ */
+@TestEnvironment
+@Target(AnnotationTarget.CLASS)
+@Retention(AnnotationRetention.RUNTIME)
+@TruncateDbSupport(truncateCycle = TruncateCycle.BEFORE_TEST_METHOD)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ContextConfiguration(classes = [BaseTestConfiguration::class, BaseTestContainerConfiguration::class])
+@ActiveProfiles("testcontainer")
+annotation class IntegrationSupportWithTestContainers
+
 
 /**
  * @Controller 계층만 테스트하기 위한 메타애노테이션
@@ -60,7 +78,7 @@ annotation class IntegrationSupportWithTruncateDb
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
 @WebMvcTest
-@Import(value = [TestObjectMapperConfiguration::class])
+@Import(value = [BaseTestConfiguration::class])
 annotation class WebLayerSupport
 
 
@@ -90,7 +108,7 @@ annotation class RepositorySupport
 @Transactional
 @Import(value = [
     JpaAuditingBaseConfiguration::class,
-    TestObjectMapperConfiguration::class
+    BaseTestConfiguration::class
 ])
 annotation class MockMvcSupport
 

@@ -71,8 +71,13 @@ dependencies {
     testImplementation("io.kotest:kotest-assertions-core:${kotestVersion}")
     testImplementation("com.ninja-squad:springmockk:${springmockkVersion}")
 
-    // h2
+    // h2 & mysql
     testImplementation("com.h2database:h2")
+    testImplementation("mysql:mysql-connector-java")
+
+    // testcontainer : mysql, https://www.testcontainers.org/modules/databases/mysql/
+    testImplementation("org.testcontainers:mysql:1.16.3")
+    testImplementation("org.testcontainers:junit-jupiter:1.16.3")
 }
 
 tasks.withType<KotlinCompile> {

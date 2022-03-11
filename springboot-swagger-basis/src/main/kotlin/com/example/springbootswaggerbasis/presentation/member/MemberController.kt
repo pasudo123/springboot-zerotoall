@@ -44,12 +44,14 @@ class MemberController {
         val memberResponses: MutableList<MemberResponse> = mutableListOf()
 
         repeat(10) { seq ->
-            MemberResponse(
-                id = seq.toLong(),
-                name = "홍길동-$seq",
-                age = seq,
-                createdAt = LocalDateTime.now(),
-                modifiedAt = LocalDateTime.now(),
+            memberResponses.add(
+                MemberResponse(
+                    id = seq.toLong(),
+                    name = "홍길동-$seq",
+                    age = seq,
+                    createdAt = LocalDateTime.now(),
+                    modifiedAt = LocalDateTime.now(),
+                )
             )
         }
 

@@ -38,6 +38,10 @@ class SwaggerConfiguration(
     private val typeResolver: TypeResolver
 ) {
 
+    object Header {
+        const val name = "header"
+    }
+
     @Bean
     fun objectMapper(): ObjectMapper {
         return ObjectMapper()
@@ -68,8 +72,9 @@ class SwaggerConfiguration(
 
             // auth 관련
             .securitySchemes(listOf(
-                ApiKey("user-header", "유저헤더", "authorize"),
-                ApiKey("user-header", "유저헤더", "authorize"),
+                // header 안에 user-header 를 넣도록 한다. : swagger ui 에 자물쇠 모양이 생김
+                ApiKey("user-header", "user-header", Header.name),
+                ApiKey("admin-header", "admin-header", Header.name),
             ))
     }
 

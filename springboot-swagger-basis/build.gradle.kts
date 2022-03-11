@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     idea
 
@@ -17,6 +19,14 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version klintVersion
 }
 
+group = "com.example"
+version = "0.0.1-SNAPSHOT"
+java.sourceCompatibility = JavaVersion.VERSION_11
+
+repositories {
+    mavenCentral()
+}
+
 dependencies {
 
     // web
@@ -34,4 +44,15 @@ dependencies {
 
     // logging
     implementation("io.github.microutils:kotlin-logging:1.12.5")
+}
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs = listOf("-Xjsr305=strict")
+        jvmTarget = "11"
+    }
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }

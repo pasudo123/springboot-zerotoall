@@ -16,7 +16,9 @@ import springfox.documentation.builders.ApiInfoBuilder
 import springfox.documentation.builders.PathSelectors
 import springfox.documentation.builders.RequestHandlerSelectors
 import springfox.documentation.service.ApiInfo
+import springfox.documentation.service.ApiKey
 import springfox.documentation.service.Contact
+import springfox.documentation.service.SecurityScheme
 import springfox.documentation.spi.DocumentationType
 import springfox.documentation.spring.web.plugins.Docket
 import java.time.LocalDate
@@ -56,12 +58,19 @@ class SwaggerConfiguration(
             .groupName("스프링부트 스웨서 학습 프로젝트 GROUP")
             .select()
             .apis(RequestHandlerSelectors.basePackage("com.example.springbootswaggerbasis"))
+
             // paths 는 모두 등록
-                // "/teams" path 로 시작되는 경로는 제외
+            // "/teams" path 로 시작되는 경로는 제외
             .paths(PathSelectors.any()
                 .and(PathSelectors.ant("/teams").negate())
             )
             .build()
+
+            // auth 관련
+            .securitySchemes(listOf(
+                ApiKey("user-header", "유저헤더", "authorize"),
+                ApiKey("user-header", "유저헤더", "authorize"),
+            ))
     }
 
     fun apiInfo(): ApiInfo {

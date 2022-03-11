@@ -15,15 +15,14 @@ class TeamController {
 
     @GetMapping
     fun findAll(): ResponseEntity<List<TeamResponse>> {
-        val TeamResponses: MutableList<TeamResponse> = mutableListOf()
+        val teamResponses: MutableList<TeamResponse> = mutableListOf()
 
         repeat(10) { seq ->
-            TeamResponse(
-                id = seq.toLong(),
-                name = "드림팀-$seq"
+            teamResponses.add(
+                TeamResponse(id = seq.toLong(), name = "드림팀-$seq")
             )
         }
 
-        return ResponseEntity.ok(TeamResponses)
+        return ResponseEntity.ok(teamResponses)
     }
 }

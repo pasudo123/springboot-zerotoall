@@ -72,7 +72,7 @@ fun main() {
 ### 2.4 An explicit job
 * launch {} 코루틴 빌더는 job 을 반환한다.
 * `val job = launch {}` 을 통해 받고, `job.join()` 을 수행하면 launch {} 을 포함한 내 자식 코루틴이 완료될 때까지 기다리게 된다.
-* * [LaunchJobExample0.kt](./src/main/kotlin/coroutine/example02/LaunchJobExample01.kt)
+* * [LaunchJobExample01.kt](./src/main/kotlin/coroutine/example02/LaunchJobExample01.kt)
 * https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/index.html
 * https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html
 
@@ -83,6 +83,7 @@ fun main() {
   * 전달받은 job 을 이후에 join() 시켜서 해당 코루틴(+ 자식 코루틴)이 완료될때까지 기다린다.
   * 이후에 cancel() 을 호출하여도 종료되지 않는다. -> join() 을 통해서 코루틴(+자식 코루틴) 이 완료될때까지 기다린다고 선언했기 때문에
   * `job.cancel() -> job.join() (= job.cancelAndJoin() 도 가능)` 순으로 호출하는 것은 취소가 완료될때까지 기디리는 것.
+* [LaunchJobCancelExample01.kt.kt](./src/main/kotlin/coroutine/example02/LaunchJobCancelExample01.kt)
 
 #### 3.1.1 왜? join() -> cancel() 을 먼저 호출하면 안될까?
 * https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/index.html
@@ -97,9 +98,11 @@ fun main() {
 * 코루틴은 취소가 되는 경우에 `CancellationException` 을 throw 한다. 근데 코루틴 로직이 실행중이고 `Cancellation` 을 체크하지 않은 경우에 취소되지 않는다.
 * 코루틴을 취소가능하게 하기
     * yield() 를 넣어준다. yield() 는 suspend function 인데 코루틴을 취소가능토록 해준다.
-    * 명시적으로 상태를 체크하도록 한다. coroutine scope 내에 `isActive` 를 넣어준다.
+    * 명시적으로 상태를 체크하도록 한다. coroutine scope 내에 [isActive](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/is-active.html) 를 넣어준다.
+      * [LaunchJobCancelExample02.kt.kt](./src/main/kotlin/coroutine/example02/LaunchJobCancelExample02.kt)
+      * 코루틴 스코프 내에서 사용가능, 현재 코루틴 콘텍스트 내 job 활성여부를 체크.
 
-### Closing resources with finally
+### 3.3 [Closing resources with finally](https://kotlinlang.org/docs/cancellation-and-timeouts.html#closing-resources-with-finally)
 * finally {} 에서 resources 를 closing 할 수 있다.
 
 ### Run non-cancellable block

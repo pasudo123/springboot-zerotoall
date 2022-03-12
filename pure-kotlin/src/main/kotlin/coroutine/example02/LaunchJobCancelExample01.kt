@@ -20,10 +20,13 @@ suspend fun doSomethingV1() = coroutineScope {
         }
     }
 
-    delay(1600L)
+    delay(1300L)
     println("main : tired of waiting")
     // job.cancelAndJoin()
+    println("job isActive. : ${job.isActive}, job isCompleted. : ${job.isCompleted}")
     job.cancel()
+    println("job isActive.. : ${job.isActive}, job isCompleted.. : ${job.isCompleted}")
     job.join()
+    println("job isActive... : ${job.isActive}, job isCompleted... : ${job.isCompleted}")
     println("main : quit")
 }

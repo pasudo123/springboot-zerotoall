@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
@@ -40,7 +41,9 @@ class MemberController {
     }
 
     @GetMapping
-    fun findAll(): ResponseEntity<List<MemberResponse>> {
+    fun findAll(
+        @RequestHeader(name = "admin-header", required = false) adminHeader: String
+    ): ResponseEntity<List<MemberResponse>> {
         val memberResponses: MutableList<MemberResponse> = mutableListOf()
 
         repeat(10) { seq ->

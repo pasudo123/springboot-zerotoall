@@ -72,9 +72,10 @@ class SwaggerConfiguration(
 
             // auth 관련
             .securitySchemes(listOf(
-                // header 안에 user-header 를 넣도록 한다. : swagger ui 에 자물쇠 모양이 생김
-                ApiKey("user-header", "user-header", Header.name),
-                ApiKey("admin-header", "admin-header", Header.name),
+                // swagger ui 인증관련 내용을 추가할 수 있도록 한다. : swagger ui 에 자물쇠 모양이 생김
+                // api 단에서 @RequestHeader 를 붙이면 api 단에 자동으로 header 넣는 공간이 생김
+                ApiKey("유저 헤더", "user-header", Header.name),
+                ApiKey("어드민 헤더", "admin-header", Header.name),
             ))
     }
 

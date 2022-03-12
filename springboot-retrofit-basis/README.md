@@ -16,7 +16,7 @@ interface ShortNewsClient {
 * suspend 를 붙일 수 있지만 그렇게 되면 `Call` 키워드를 제거해주어야 함
   * Call 키워드를 붙여주면, Call 생성자 에러가 떨어짐 
   * 추가적으로 에러 핸들링을 하기에 한번더 호출객체에서 try catch 문으로 감싸주어야 하는 문제가 있다.
-* suspend 를 안 붙이고 retrofit 의 kotlin-extension 을 이용하는게 더 좋을듯 하다.
+* suspend 를 안 붙이고 retrofit 의 kotlin-extension 을 이용하는데, 코드 이용면 측에서 더 좋아보임.
   * `.await()`, `.awaitResponse()` 등
 
 ---

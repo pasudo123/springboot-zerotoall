@@ -81,12 +81,19 @@ fun main() {
 * 백그라운드로 돌아가는 coroutine 에 대해서 세밀한 컨트롤이 필요할 때가 있다.
 * `val job = launch {}` 을 통해 job 을 전달받는다.
   * 전달받은 job 을 이후에 join() 시켜서 해당 코루틴(+ 자식 코루틴)이 완료될때까지 기다린다.
-  * 이후에 ?? 
+  * 이후에 cancel() 을 호출하여도 종료되지 않는다. -> join() 을 통해서 코루틴(+자식 코루틴) 이 완료될때까지 기다린다고 선언했기 때문에
+  * `job.cancel() -> job.join() (= job.cancelAndJoin() 도 가능)` 순으로 호출하는 것은 취소가 완료될때까지 기디리는 것.
+
+#### 3.1.1 왜? join() -> cancel() 을 먼저 호출하면 안될까?
+* https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/index.html
+  * 위의 job 의 coroutineContext 를 살펴보면 join() 은 coroutineContext 의 `Completed` 가 될 때까지 대기함을 의미
+  * 결과적으로 join() -> cancel() 순으로 하게되면, join() 이 먼저 호출되게 되서, `Completed` 상태가 강제되게 되는거 아닐까?
+* https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/join.html
 
 ### 3.2 [Cancellation is cooperative](https://kotlinlang.org/docs/cancellation-and-timeouts.html#cancellation-is-cooperative)
 * coroutine cancellation 은 cooperative 하다고 한다. (취소에 협조적이라고 함)
-* kotlinx.coroutines 에 있는 일시정지 함수 (suspend function) 은 취소가 가능하다.
-    * `suspend` function 은 coroutine 을 취소시키기 위해서 필요하다. coroutine scope 내에 `suspend` function 이 있어야 한다.
+* kotlinx.coroutines 에 있는 suspend function 은 취소가 가능하다.
+    * suspend function 은 coroutine 을 취소시키기 위해서 필요하다. coroutine scope 내에 `suspend` function 이 있어야 한다.
 * 코루틴은 취소가 되는 경우에 `CancellationException` 을 throw 한다. 근데 코루틴 로직이 실행중이고 `Cancellation` 을 체크하지 않은 경우에 취소되지 않는다.
 * 코루틴을 취소가능하게 하기
     * yield() 를 넣어준다. yield() 는 suspend function 인데 코루틴을 취소가능토록 해준다.

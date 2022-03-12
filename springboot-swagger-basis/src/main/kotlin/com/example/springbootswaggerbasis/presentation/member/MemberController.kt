@@ -2,6 +2,8 @@ package com.example.springbootswaggerbasis.presentation.member
 
 import com.example.springbootswaggerbasis.presentation.member.model.MemberRequest
 import com.example.springbootswaggerbasis.presentation.member.model.MemberResponse
+import io.swagger.annotations.Api
+import io.swagger.annotations.ApiOperation
 import org.slf4j.LoggerFactory
 import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.http.HttpStatus
@@ -22,6 +24,7 @@ import java.util.concurrent.atomic.AtomicLong
 
 @RestController
 @RequestMapping("members")
+@Api(tags = ["멤버"])
 class MemberController {
 
     private val log = LoggerFactory.getLogger(javaClass)
@@ -40,6 +43,7 @@ class MemberController {
         )
     }
 
+    @ApiOperation(value = "멤버 전체 조회 api", notes = "멤버를 전체 조회한다.")
     @GetMapping
     fun findAll(
         @RequestHeader(name = "admin-header", required = false) adminHeader: String

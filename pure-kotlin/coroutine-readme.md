@@ -33,45 +33,57 @@ fun main() {
 ```
 
 ---
-* runBlocking {}
+* `runBlocking {}`
     * 코루틴 빌더로 선언했을 시 내부 블럭은 코루틴 스코프가 생긴다.
     * 현재 컨텍스트 내 실행되는 스레드는 내부의 코루틴을 수행이 완료될 때가지 block 된다.
         * 응용 프로그램 최상위에서 runBlocking 이 사용되는 것을 확인할 수 있다.
 * launch {}
     * 코루틴 빌더이고 새로운 코루틴 스코프의 시작이다.
+    * `단독으로 사용할 수 없고`, 동시성을 수행하기 위한 코루틴 스코프 내에서 설정되어야 한다.
 * delay()
     * 코루틴 스코프 내에서 일시중지할 수 있는 특별한 함수
 * structure concurrency ⭐⭐⭐
     * structure concurrency 란 코루틴 스코프 내에서 또 다른 코루틴 스코프를 만들 수 있는 것을 의미한다.
 
 ---  
-### 2. [Extract function refactoring](https://kotlinlang.org/docs/coroutines-basics.html#extract-function-refactoring)
-#### 2.1 suspend
-* 코루틴 스코프 내에 있는 코드로직을 별도의 함수로 추출한다. 그리고 해당 함수에 suspend 키워드를 붙일 수 있다.
+### 2.1 [Extract function refactoring](https://kotlinlang.org/docs/coroutines-basics.html#extract-function-refactoring)
+#### 2.1.1 `suspend`
+* 코루틴 스코프 내에 있는 코드로직을 별도의 함수로 추출할 수 있다.
+  * 그리고 해당 함수에 suspend 키워드를 붙일 수 있다.
   * 결과적으로 일반적인 함수에 suspend 키워드를 붙임으로써 해당 함수는 코루틴 블럭에서 사용할 수 있다.
 * suspend 를 붙임으로써 비동기 실행을 위한 중단점으로 사용할 수 있다. 그리고 그 중단점은 다시 재개(resume) 된다.
-* suspend function 는 코루틴 블럭에서 호출되거나 또는 다른 suspend function 으로부터 호출되어야 한다.
+* suspend function 는 `CoroutineScope` 에서 호출되거나 또는 `다른 suspend function` 으로부터 호출되어야 한다.
 
 
-### Scope Builder
+### 2.2 Scope Builder
 * 코루틴 스코프는 다른 빌더를 제공하고 있다. coroutineScope 빌더를 사용해서 자신만의 빌더를 선언할 수 있다. 실행된 자식이 모두 실행될 때까지 완료되지 않는다.
-* runBlocking 과 coroutineScope 는 자식이 끝날 때까지 기다리는 부분이 비슷하게 보인다. 근데 가장 큰 차이점이 있다.
+* runBlocking 과 coroutineScope 는 자식이 끝날 때까지 기다리는 부분이 유사하다. 근데 차이점이 있다.
     * runBlocking 은 current thread 를 block 한다. current thread 가 waiting 하기 위해서.
-    * coroutineScope 는 단지 suspend (일시중지) 한다. 그리고 기본 스레드는 waiting 하지 않는다.
-    * 이러한 차이점으로 runBlocking 은 `일반함수` 이고 `coroutineScope` 는 `일시정지 함수` 이다.
+    * coroutineScope 는 suspend (일시중지) 한다. 그리고 기본 스레드는 waiting 하지않고 다른 일을 수행한다.
+    * 이러한 차이점으로 runBlocking 은 `일반함수` 이고 `coroutineScope` 는 `일시정지(suspend) 함수` 이다.
+* coroutineScope 는 suspend function 에 같이 붙여서 쓸 수 있다.
+* [CoroutineBuilderExample01.kt](./src/main/kotlin/coroutine/example01/CoroutineBuilderExample01.kt)
 
-### Scope Builder And Concurrency
-* coroutineScope 빌더는 여러 작업을 동시에 처리하기 위해 suspend function 을 이용할 수 있다.
+### 2.3 Scope Builder And Concurrency
+* coroutineScope 빌더는 여러 작업을 `동시에` 처리하기 위해 내부적으로 여러 suspend function 을 이용할 수 있다.
+* coroutineScope 빌더 안에 `동시에 실행시키고 싶은 내용들을 여러 launch {} 을 넣어 실행시킨다 : 동시성 수행 가능`
+* [CoroutineBuilderExample02.kt](./src/main/kotlin/coroutine/example01/CoroutineBuilderExample02.kt)
 
-### An explicit job
-* launch {} 코루틴 빌더는 job 을 리턴한다.
-* job 은 실행된 코루틴이고 완료할 때까지 기다릴 수 있다.
-* 예를들어 자식 코루틴이 완료될 때까지 기다릴 수 있다.
+### 2.4 An explicit job
+* launch {} 코루틴 빌더는 job 을 반환한다.
+* `val job = launch {}` 을 통해 받고, `job.join()` 을 수행하면 launch {} 을 포함한 내 자식 코루틴이 완료될 때까지 기다리게 된다.
+* * [LaunchJobExample0.kt](./src/main/kotlin/coroutine/example02/LaunchJobExample01.kt)
+* https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/index.html
+* https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html
 
-## [Cancelling coroutine execution](https://kotlinlang.org/docs/cancellation-and-timeouts.html)
+## 3. [cancellation-and-timeouts](https://kotlinlang.org/docs/cancellation-and-timeouts.html)
+### 3.1 [Cancelling coroutine execution](https://kotlinlang.org/docs/cancellation-and-timeouts.html)
 * 백그라운드로 돌아가는 coroutine 에 대해서 세밀한 컨트롤이 필요할 때가 있다.
+* `val job = launch {}` 을 통해 job 을 전달받는다.
+  * 전달받은 job 을 이후에 join() 시켜서 해당 코루틴(+ 자식 코루틴)이 완료될때까지 기다린다.
+  * 이후에 ?? 
 
-### Cancellation is cooperative
+### 3.2 [Cancellation is cooperative](https://kotlinlang.org/docs/cancellation-and-timeouts.html#cancellation-is-cooperative)
 * coroutine cancellation 은 cooperative 하다고 한다. (취소에 협조적이라고 함)
 * kotlinx.coroutines 에 있는 일시정지 함수 (suspend function) 은 취소가 가능하다.
     * `suspend` function 은 coroutine 을 취소시키기 위해서 필요하다. coroutine scope 내에 `suspend` function 이 있어야 한다.

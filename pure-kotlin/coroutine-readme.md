@@ -119,10 +119,15 @@ fun main() {
     * 주어진 coroutineContext 가지고 suspending block 을 만든다.
 
 ---
-### Timeout
+## 4 [Timeout](https://kotlinlang.org/docs/cancellation-and-timeouts.html#timeout)
 * 코루틴 실행을 취소하는 현실적인 방법은 제한시간이 초과되었을 때 취소하는 방법이다.
+* withTimeout(1300L) 을 통해서 `TimeoutCancellationException` 에러가 발생한다.
+  * `TimeoutCancellationException` 은 `CancellationException` 의 서브클래스이다.
+* withTimeoutOrNull(1300L) 을 사용하면 익셉션이 발생하느 대신 null 을 반환한다.
+  * [withTimeoutOrNull](https://kotlinlang.org/docs/cancellation-and-timeouts.html#timeout)
 
-## [Composing suspending functions](https://kotlinlang.org/docs/composing-suspending-functions.html)
+---
+## 5. [Composing suspending functions](https://kotlinlang.org/docs/composing-suspending-functions.html)
 * suspending functions 을 구성하는 여러방식들을 확인한다.
 
 ### Sequential by default

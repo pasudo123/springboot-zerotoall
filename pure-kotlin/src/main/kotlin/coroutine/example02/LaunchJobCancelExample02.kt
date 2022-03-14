@@ -21,7 +21,7 @@ suspend fun doSomethingV2() = coroutineScope {
         var next = startTime
         var i = 0
 
-        // cancelAndJoin() 을 호출했음에도 불구하고 계속 작동함 : cpu 자원 소모.
+        // cancelAndJoin() 을 호출했음에도 불구하고 계속 작동함 : cpu 자원 소모. -> isActive 를 사용해주어야 함
         // while (i < 5) {
         while (isActive) {
             if (System.currentTimeMillis() >= next) {

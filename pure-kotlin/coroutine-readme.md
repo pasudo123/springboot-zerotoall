@@ -46,8 +46,8 @@ fun main() {
     * structure concurrency 란 코루틴 스코프 내에서 또 다른 코루틴 스코프를 만들 수 있는 것을 의미한다.
 
 ---  
-### 2.1 [Extract function refactoring](https://kotlinlang.org/docs/coroutines-basics.html#extract-function-refactoring)
-#### 2.1.1 `suspend`
+### 2 [Extract function refactoring](https://kotlinlang.org/docs/coroutines-basics.html#extract-function-refactoring)
+#### 2.1 `suspend`
 * 코루틴 스코프 내에 있는 코드로직을 별도의 함수로 추출할 수 있다.
   * 그리고 해당 함수에 suspend 키워드를 붙일 수 있다.
   * 결과적으로 일반적인 함수에 suspend 키워드를 붙임으로써 해당 함수는 코루틴 블럭에서 사용할 수 있다.
@@ -76,6 +76,7 @@ fun main() {
 * https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/index.html
 * https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html
 
+---
 ## 3. [cancellation-and-timeouts](https://kotlinlang.org/docs/cancellation-and-timeouts.html)
 ### 3.1 [Cancelling coroutine execution](https://kotlinlang.org/docs/cancellation-and-timeouts.html)
 * 백그라운드로 돌아가는 coroutine 에 대해서 세밀한 컨트롤이 필요할 때가 있다.
@@ -99,15 +100,25 @@ fun main() {
 * 코루틴을 취소가능하게 하기
     * yield() 를 넣어준다. yield() 는 suspend function 인데 코루틴을 취소가능토록 해준다.
     * 명시적으로 상태를 체크하도록 한다. coroutine scope 내에 [isActive](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/is-active.html) 를 넣어준다.
-      * [LaunchJobCancelExample02.kt.kt](./src/main/kotlin/coroutine/example02/LaunchJobCancelExample02.kt)
+      * [LaunchJobCancelExample02.kt](./src/main/kotlin/coroutine/example02/LaunchJobCancelExample02.kt)
       * 코루틴 스코프 내에서 사용가능, 현재 코루틴 콘텍스트 내 job 활성여부를 체크.
 
 ### 3.3 [Closing resources with finally](https://kotlinlang.org/docs/cancellation-and-timeouts.html#closing-resources-with-finally)
-* finally {} 에서 resources 를 closing 할 수 있다.
+* finally {} 를 통해 리소스를 닫을 수 있다.
+  * launch {} 로 반환된 `job` 에 대해서 `job.cancelAndJoin()` 이 호출되더라도 finally 구문을 필히 실행된다.
+  * [LaunchJobCancelFinallyExample01.kt](./src/main/kotlin/coroutine/example02/LaunchJobCancelFinallyExample01.kt)
+  
+## 3.4 [Run non-cancellable block](https://kotlinlang.org/docs/cancellation-and-timeouts.html#run-non-cancellable-block)
+* finally {} 에서 별도 suspend function 를 만들 수 없다.
+* `cancelAndJoin()` 을 수행하면 `CancellationException` 에러가 발생한다.
+  * 해당 코드를 실행하는 코루틴이 취소되었기 때문. 
+* 간혹 finally {} 에서 별도 suspend function 이 필요할 수 있다.
+  * `withContext(NonCancellable)` 를 이용한다.
+  * [LaunchJobCancelFinallyExample02.kt](./src/main/kotlin/coroutine/example02/LaunchJobCancelFinallyExample02.kt)
+  * [withContext](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/with-context.html)
+    * 주어진 coroutineContext 가지고 suspending block 을 만든다.
 
-### Run non-cancellable block
-* finally {} 에서 별도의 취소가 불가능한 코루틴 블럭을 만들 수 있다. `withContext(NonCancellable)`
-
+---
 ### Timeout
 * 코루틴 실행을 취소하는 현실적인 방법은 제한시간이 초과되었을 때 취소하는 방법이다.
 

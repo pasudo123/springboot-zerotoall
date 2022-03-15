@@ -130,26 +130,36 @@ fun main() {
 ## 5. [Composing suspending functions](https://kotlinlang.org/docs/composing-suspending-functions.html)
 * suspending functions 을 구성하는 여러방식들을 확인한다.
 
-### Sequential by default
+### 5.1 [Sequential by default](https://kotlinlang.org/docs/composing-suspending-functions.html#sequential-by-default)
 * 순차적인 함수 호출을 통해서도 코루틴을 수행할 수 있다.
+* 순차 실행이기 때문에 `시간이 오래걸림`
 
-### Concurrent using async
+### 5.2 [Concurrent using async](https://kotlinlang.org/docs/composing-suspending-functions.html#concurrent-using-async)
 * 순차적인 함수 호출이 아닌 동시에 수행하여 좀 더 빠르게 하고자 한다면 `async` 를 이용하여야 한다.
-* `async` 는 개념적으로 `launch` 와 유사하다. 경량화된 스레드, 코루틴이 분리되는데 다른 코루틴과 함께 동시에 실행된다.
-* 차이점으로는 `launch 는 job 을 반환한다. 그리고 결과값을 가지고 있지 않는다.` `async 는 deferred` 를 반환한다.
-    * async deferred 는 결과값을 추후에 제공할 수 있다.
-    * deferred 도 결국 job 인데 필요에 따라서 취소가 가능하다.
+* `async` 는 개념적으로 `launch` 와 유사하다. 경량화된 스레드, 코루틴이 분리되는데 `다른 코루틴과 함께 동시에 실행` 된다.
+* 차이점으로는
+  * launch 는 job 을 반환 : 결과값 미존재.
+  * async 는 deffered 를 반환 : 결과값 존재.
+    * deffered 도 결국 job 의 일종, 취소가 가능하다.
+    * deffered.await() 를 해서 결과값을 획득한다.
+    * [CoroutineAsyncExample01.kt](./src/main/kotlin/coroutine/example03/CoroutineAsyncExample01.kt)
 
-### Lazily started async
+### 5.3 [Lazily started async](https://kotlinlang.org/docs/composing-suspending-functions.html#lazily-started-async)
 * async 를 조금은 느리게 실행하는 방법
 * `async(start = CoroutineStart.LAZY)` 를 작성하게 되면 비동기 코루틴을 조금 느리게 실행할 수 있다. deferred 는 이후에 start() 를 해주어야 한다.
-* deferred.start() 가 없이 await() 만 설정하면 비동기 코루틴은 블락되어 순차적으로 수행된다.
+* deferred.start() 가 없는 상태로, await() 만 설정하면 비동기 코루틴은 블락되어 순차적으로 수행된다.
+* [CoroutineAsyncLazyExample01.kt](./src/main/kotlin/coroutine/example03/CoroutineAsyncLazyExample01.kt)
+  * > 위 코드에서 one.start() 만 주석처리하고 two 는 넌블락이라 실행속도는 여전히 빠르다.
 
-### Async-style functions
+### 5.3 [Async-style functions](https://kotlinlang.org/docs/composing-suspending-functions.html#async-style-functions)
 * 코틀린에서 하지 말라는 형태
     * async block 을 코루틴 블럭 외부에서 쓰지 말기. 별도의 함수로 추출해서 쓰지 말기. 그렇게 쓰면 익셉션 발생 시, 서브 코루틴들은 중간에 종료되지 못한다.
-* GlobalScope launch 하는 형태로 함수를 감싸서 사용하지 말기.
-    * suspend 형태로 코루틴을 조합해서 쓰는 것이 좋다.
+* GlobalScope 내부에 suspend 함수를 감싸지 말라.
+  * [GlobalScope](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-global-scope/index.html)
+* suspend 함수를 그 자체로 존재하도록 해서, 다른 코루틴 블럭에서 호출하도록 하자. 
+
+### 5.4 [Structured concurrency with async](https://kotlinlang.org/docs/composing-suspending-functions.html#structured-concurrency-with-async)
+* async 를 효율적으로 사용해야 한다.
 
 ### coroutine under the hood
 > 코루틴은 마법이 아니다. 일반 코드처럼 실행된다.

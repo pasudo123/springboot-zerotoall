@@ -108,7 +108,7 @@ fun main() {
   * launch {} 로 반환된 `job` 에 대해서 `job.cancelAndJoin()` 이 호출되더라도 finally 구문을 필히 실행된다.
   * [LaunchJobCancelFinallyExample01.kt](./src/main/kotlin/coroutine/example02/LaunchJobCancelFinallyExample01.kt)
   
-## 3.4 [Run non-cancellable block](https://kotlinlang.org/docs/cancellation-and-timeouts.html#run-non-cancellable-block)
+### 3.4 [Run non-cancellable block](https://kotlinlang.org/docs/cancellation-and-timeouts.html#run-non-cancellable-block)
 * finally {} 에서 별도 suspend function 를 만들 수 없다.
 * `cancelAndJoin()` 을 수행하면 `CancellationException` 에러가 발생한다.
   * 해당 코드를 실행하는 코루틴이 취소되었기 때문. 

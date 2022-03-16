@@ -171,27 +171,46 @@ fun main() {
 * top-level 코드에서 `suspend` 키워드 없이 동시에 작업을 해야하는 경우는 아래를 참고한다.
   * [GlobalScopeExample03.kt](./src/main/kotlin/coroutine/example03/GlobalScopeExample03.kt)
 * Global scope 는 top-level application 단에서 동작할경우에는 유용하게 쓰일 수 있다. (이런 경우가 있으려나 : 스케줄러?)
+  * 해당내용은 [GlobalScope](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-global-scope/index.html) 도큐먼트를 확인한다.
 
 ### 5.4 [Structured concurrency with async](https://kotlinlang.org/docs/composing-suspending-functions.html#structured-concurrency-with-async)
 * async 를 효율적으로 사용해야 한다.
+* 위의 링크를 확인하면 coroutineScope 로 감싼 async block 내 에러가 발생 시, top-level catch 문에서 잡히는 걸 알 수 있다.
 
-### coroutine under the hood
+---
+## 6. [Coroutine context and dispatchers](https://kotlinlang.org/docs/coroutine-context-and-dispatchers.html)
+### 6.0.1 coroutine under the hood
 > 코루틴은 마법이 아니다. 일반 코드처럼 실행된다.
 * state machine (sm)
     * 현재의 호출 상태를 의미한다. `몇 번째 label 로 가야하는지` 정보도 여기 담긴다.
 
-## [Coroutine context and dispatchers](https://kotlinlang.org/docs/coroutine-context-and-dispatchers.html)
-* 코루틴은 항상 코루틴 컨텍스트 내에서 실행된다.
-* 코루틴 컨텍스트는 코루틴 디스패처를 포함하고 있다.
-    * 코루틴 디스패처는 해당 코루틴이 실행되는 스레드를 결정한다.
-    * 코루틴 디스패처는 코루틴을 특정 스레드로 제한하거나 스레드풀에 디스패치하도록 할 수 있다.
-    * 모든 코루틴 빌더(launch, async) 등은 코루틴 컨텍스트를 파라미터로 가지게 할 수 있다.
+### 6.1 [Dispatchers and Thread](https://kotlinlang.org/docs/coroutine-context-and-dispatchers.html#dispatchers-and-threads)
+* 코루틴은 항상 코루틴 컨텍스트(coroutine-context) 내에서 실행된다.
+* 코루틴 컨텍스트(coroutine-context) 는 코루틴 디스패처(dispatcher) 를 포함하고 있다.
+  * [CoroutineDispatcher](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-dispatcher/index.html) 
+  * `코루틴 디스패처는 해당 코루틴이 실행되는 스레드를 결정` 한다.
+  * 코루틴 디스패처는 코루틴을 특정 스레드로 제한하거나 스레드풀에 디스패치하도록 할 수 있다.
+  * 모든 코루틴 빌더(launch, async) 등은 코루틴 컨텍스트를 파라미터로 가지게 할 수 있다.
+* `launch {}` 를 통해 여러개 콘텍스트 파라미터를 줄 수 있다.
+  * `newSingleThreadContext` 이건 쓰지말자 : 매우 비싼 리소스가 소모됨
 
-### Coroutine scope
+### 6.2 [Job in the context](https://kotlinlang.org/docs/coroutine-context-and-dispatchers.html#job-in-the-context)
+* 코루틴 의 job 은 context 의 일부이다.
+* [JobInContextExample01.kt](./src/main/kotlin/coroutine/example04/JobInContextExample01.kt)
+
+### 6.3 [Children of a coroutine](https://kotlinlang.org/docs/coroutine-context-and-dispatchers.html#children-of-a-coroutine)
+* 코루틴 다른 코루틴의 코루틴 스코프 내에서 시작되면, context 와 job 을 상속받는다.
+  * 부모 코루틴이 취소가 되어버린다면, 모든 자식 코루틴도 취소가 된다.
+* 부모와 자식 코루틴의 관계는 두가지 방식으로 재정의될 수 있다.
+  * (1) 코루틴을 시작할 때 명시적으로 범위가 다른 경우 (ex. GlobalScope.launch {}), 이런 경우에는 부모 scope 로부터 job 을 상속받지 않는다.
+  * (2) 다른 Job 객체사 서브 코루틴으로 전달되는 경우
+  
+### 6.10 [Coroutine scope](#)
 * 코루틴 스코프를 이용해서 앱의 라이프사이클을 관리할 수 있다.
     * 앱의 오퍼레이션이 다 끝나더라도 코루틴이 계속 동작한다면 메모리 누수가 발생할 수 있다.
     * 코루틴 스코프는 이를 방지하게 한다.
 
+---
 ## [Asynchronous Flow](https://kotlinlang.org/docs/flow.html)
 * 비동기 suspend 함수는 단일 값을 반환한다. 하지만 비동기 연산에 의해서 다수 값을 반환은 어떻게 할 것인가?
 * `List<Int>` 를 이용한다면, 모든 값들을 한번에 획득할 수 있다. 근데 비동기적으로 계산되는 값들을 스트림으로 표현하려고 하면 `Flow<Int>` 를 사용해주어야 한다.

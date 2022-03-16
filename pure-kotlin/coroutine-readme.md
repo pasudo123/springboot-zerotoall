@@ -154,9 +154,23 @@ fun main() {
 ### 5.3 [Async-style functions](https://kotlinlang.org/docs/composing-suspending-functions.html#async-style-functions)
 * 코틀린에서 하지 말라는 형태
     * async block 을 코루틴 블럭 외부에서 쓰지 말기. 별도의 함수로 추출해서 쓰지 말기. 그렇게 쓰면 익셉션 발생 시, 서브 코루틴들은 중간에 종료되지 못한다.
-* GlobalScope 내부에 suspend 함수를 감싸지 말라.
+* GlobalScope block 안에 suspend 함수를 감싸지 말라.
   * [GlobalScope](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-global-scope/index.html)
-* suspend 함수를 그 자체로 존재하도록 해서, 다른 코루틴 블럭에서 호출하도록 하자. 
+
+#### 5.3.1 GlobalScope (도큐먼트 해석)
+* 어떤 잡에도 바인딩되지 않는다.
+* Global scope 는 탑레벨 코루틴에 유용하게 사용된다.
+  * Global scope 는 전체 애플리케이션 라이프타입으로 작동한다.
+  * Global scope 는 취소할 수 없다.
+* Global scope 에 실행된 코루틴은 프로세스 alive 를 유지하지 않는다. 마치 데몬 스레드와 같다.
+  * Global scope 를 사용하면 리소스 낭비 또는 메모리 누수가 발생되기 쉽다.
+  * [GlobalScopeExample01.kt](./src/main/kotlin/coroutine/example03/GlobalScopeExample01.kt)
+* Global scope 를 쓰지 않으려면 어떻게 하는게 좋을까?
+  * 대부분의 경우에는 `Global scope` 를 없애고 `suspend` 형태로 쓴다.
+  * [GlobalScopeExample02.kt](./src/main/kotlin/coroutine/example03/GlobalScopeExample02.kt)
+* top-level 코드에서 `suspend` 키워드 없이 동시에 작업을 해야하는 경우는 아래를 참고한다.
+  * [GlobalScopeExample03.kt](./src/main/kotlin/coroutine/example03/GlobalScopeExample03.kt)
+* Global scope 는 top-level application 단에서 동작할경우에는 유용하게 쓰일 수 있다. (이런 경우가 있으려나 : 스케줄러?)
 
 ### 5.4 [Structured concurrency with async](https://kotlinlang.org/docs/composing-suspending-functions.html#structured-concurrency-with-async)
 * async 를 효율적으로 사용해야 한다.

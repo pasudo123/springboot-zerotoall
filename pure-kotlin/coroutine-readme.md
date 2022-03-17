@@ -187,8 +187,8 @@ fun main() {
 ### 6.1 [Dispatchers and Thread](https://kotlinlang.org/docs/coroutine-context-and-dispatchers.html#dispatchers-and-threads)
 * 코루틴은 항상 코루틴 컨텍스트(coroutine-context) 내에서 실행된다.
 * 코루틴 컨텍스트(coroutine-context) 는 코루틴 디스패처(dispatcher) 를 포함하고 있다.
+  * 코루틴 디스패처는 해당 코루틴이 실행되는 스레드를 결정
   * [CoroutineDispatcher](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-dispatcher/index.html) 
-  * `코루틴 디스패처는 해당 코루틴이 실행되는 스레드를 결정` 한다.
   * 코루틴 디스패처는 코루틴을 특정 스레드로 제한하거나 스레드풀에 디스패치하도록 할 수 있다.
   * 모든 코루틴 빌더(launch, async) 등은 코루틴 컨텍스트를 파라미터로 가지게 할 수 있다.
 * `launch {}` 를 통해 여러개 콘텍스트 파라미터를 줄 수 있다.
@@ -203,12 +203,20 @@ fun main() {
   * 부모 코루틴이 취소가 되어버린다면, 모든 자식 코루틴도 취소가 된다.
 * 부모와 자식 코루틴의 관계는 두가지 방식으로 재정의될 수 있다.
   * (1) 코루틴을 시작할 때 명시적으로 범위가 다른 경우 (ex. GlobalScope.launch {}), 이런 경우에는 부모 scope 로부터 job 을 상속받지 않는다.
-  * (2) 다른 Job 객체사 서브 코루틴으로 전달되는 경우
+  * (2) 다른 Job 객체가 서브 코루틴으로 전달되는 경우
   
-### 6.10 [Coroutine scope](#)
-* 코루틴 스코프를 이용해서 앱의 라이프사이클을 관리할 수 있다.
+### 6.4 [Parental responsibilities](https://kotlinlang.org/docs/coroutine-context-and-dispatchers.html#parental-responsibilities)
+* 부모 코루틴은 자식 코루틴이 모두 완료될 때까지 기다린다.
+  * `job.join()` 을 쓴 경우에 해당한다.
+    * 부모가 먼저 실행되더라도, 자식이 종료될때까지 기다린다.
+    * [ParentCoroutineExample01.kt](./src/main/kotlin/coroutine/example04/ParentCoroutineExample01.kt)
+
+### 6.5 [Coroutine scope](https://kotlinlang.org/docs/coroutine-context-and-dispatchers.html#coroutine-scope)
+* 코루틴 스코프를 이용해서 앱의 라이프사이클내에 코루틴 스코프를 관리할 수 있다.
     * 앱의 오퍼레이션이 다 끝나더라도 코루틴이 계속 동작한다면 메모리 누수가 발생할 수 있다.
-    * 코루틴 스코프는 이를 방지하게 한다.
+    * 따라서 앱의 라이프 사이클에 맞게 앱이 종료되는 경우에 코루틴도 같이 중단시키면 좋다.
+    * 코루틴 스코프는 이를 방지하게 한다. `cancel()` 을 통해서 더이상 코루틴 내 오퍼레이션이 동작하지 않도록 한다.
+  * [CoroutineScopeExample01.kt](./src/main/kotlin/coroutine/example04/CoroutineScopeExample01.kt)
 
 ---
 ## [Asynchronous Flow](https://kotlinlang.org/docs/flow.html)

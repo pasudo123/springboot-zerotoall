@@ -38,15 +38,23 @@
   * 자기자신 + 자식객체를 허용 (하위자식 포함)
   * Java : <? extends T>
   * Kotlin : <out T>
-  * produce : 자기자신 또는 자식객체를 리턴
+  * produce : 자기자신 또는 자식객체를 리턴 : read only
 * 반공변성 (contravariant)
   * 자기자신 + 부모객체를 허용 (상위부모 포함)
   * Java : <? super T>
   * Kotlin : <in T>
-  * consume : 자기자신 또는 부모객체를 이용함
+  * consume : 자기자신 또는 부모객체를 이용함 : write only 
 * kotlin 에서 `in` & `out` 의 표기는 중심객체(가장 최상위 객체를 기준)
   * 바깥쪽방향의 타입을 허용할지 (나와 자식들)
   * 안쪽방향의 타입을 허용할지 (나와 부모들)
+함수 인자 타입 : In Position, Out Position
+```kotlin
+interface Transformer<T> {
+    // 인자 T : 인 포지션
+    // 반환타입 T : 아웃 포지션
+    fun transform(t: T): T
+}
+```
 * [GenericExample01](./src/main/kotlin/generic/GenericExample01.kt)
 * [참고 : 블로그](https://deep-dive-dev.tistory.com/39)
 * [참고 : C#](https://docs.microsoft.com/ko-kr/dotnet/csharp/programming-guide/concepts/covariance-contravariance/)

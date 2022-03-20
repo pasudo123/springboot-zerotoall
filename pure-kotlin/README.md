@@ -17,4 +17,15 @@
   * [generic](https://docs.oracle.com/javase/tutorial/java/generics/index.html)
   * [reified](https://codechacha.com/ko/kotlin-reified-keyword/)
   * [inline](https://codechacha.com/ko/kotlin-inline-functions/)
+* [ReifiedExample01](./src/main/kotlin/reified/ReifiedExample01.kt)
+* [ReifiedExample02](./src/main/kotlin/reified/ReifiedExample02.kt)
 
+---
+### backing field & backing property
+* backing field
+  * 직역하면 뒷받침하는 필드
+  * kotlin class 의 property 를 조회/수정할 시에 이용한다. 
+  * `field` 키워드를 이용한다.
+* backing property
+  * `field` 키워드를 노출하지 않으려면 backing properties 를 이용할 수 있다.
+  * [Example01](./src/main/kotlin/encapsulation/Example01.kt)

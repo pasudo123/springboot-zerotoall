@@ -1,4 +1,4 @@
-package exercise01
+package reified
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule

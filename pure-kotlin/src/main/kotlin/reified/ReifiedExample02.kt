@@ -1,4 +1,4 @@
-package exercise01
+package reified
 
 class ReifiedExample02
 

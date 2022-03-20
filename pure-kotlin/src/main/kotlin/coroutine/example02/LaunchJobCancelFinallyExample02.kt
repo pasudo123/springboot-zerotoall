@@ -1,7 +1,7 @@
 package coroutine.example02
 
-import exercise01.printTypeWithReified
-import exercise01.toJson
+import reified.printTypeWithReified
+import reified.toJson
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.coroutineScope

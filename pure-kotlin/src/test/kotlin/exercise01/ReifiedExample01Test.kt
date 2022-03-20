@@ -6,6 +6,9 @@ import io.kotest.matchers.shouldNotBe
 import model.Coffee
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import reified.toJson
+import reified.toObjectVersion1
+import reified.toObjectVersion2
 
 class ReifiedExample01Test {
 

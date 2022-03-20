@@ -2,6 +2,8 @@ package exercise01
 
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import reified.printTypeWithGenericAdvanced
+import reified.printTypeWithReified
 
 internal class ReifiedExample02Test {
 

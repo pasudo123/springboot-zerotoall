@@ -26,9 +26,11 @@ fun <T> T.printTypeWithGenericAdvanced(type: Class<T>) {
 inline fun <reified T : Any> T.printTypeWithReified() {
     // 런타임에서도 어느 타입인지 명시적으로 전달하고 있다. 따라서 별도의 타입을 전달할 필요가 없다.
     when (T::class.java) {
-        String::class.java -> { println("String") }
-        Int::class.java -> { println("Int") }
-        Long::class.java -> { println("Long") }
+        String::class.java -> { println("String 입니다.") }
+        Int::class.java -> { println("Int 입니다.") }
+        Long::class.java -> { println("Long 입니다.") }
+        java.lang.Long::class.java -> { println("ava.lang.Long 입니다.") }
+        java.lang.Integer::class.java -> { println("Integer 입니다.") }
         else -> { println("else : ${T::class.java}") }
     }
 }

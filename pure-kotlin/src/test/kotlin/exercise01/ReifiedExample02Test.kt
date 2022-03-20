@@ -24,8 +24,12 @@ internal class ReifiedExample02Test {
 
         // given
         val param = 1L
+        val paramString = "Hello"
+        val paramInteger = 5
 
         // when & then
         param.printTypeWithReified()
+        paramString.printTypeWithReified()
+        paramInteger.printTypeWithReified()
     }
 }

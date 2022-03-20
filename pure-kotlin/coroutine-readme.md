@@ -220,7 +220,29 @@ fun main() {
 
 ---
 ## 7. [Coroutine exceptions handling](https://kotlinlang.org/docs/exception-handling.html)
+* 코루틴은 익셉션이 발생하면, [CancellationException](https://kotlinlang.org/docs/exception-handling.html) 을 발생시킨다.
+* 코루틴 취소가 발생하면 어떤 일이 발생하는지 그리고 동일 코루틴에서 다수 자식 코루틴에게 익셉션이 발생하면 어떻게 되는지 살펴봐야 한다.
 
+### 7.1 [Exception Propagation](https://kotlinlang.org/docs/exception-handling.html#exception-propagation)
+* `launch {}` 와 `actor {}` 는 익셉션을 자동으로 전파한다.
+* `async {}` 와 `produce {}` 는 익셉션을 사용자에게 노출한다.
+* [ExceptionPropagationExample01.kt](./src/main/kotlin/coroutine/example05/ExceptionPropagationExample01.kt)
+
+### 7.2 [CoroutineExceptionHandler](https://kotlinlang.org/docs/exception-handling.html#coroutineexceptionhandler)
+* CoroutineExceptionHandler 를 통해서 코루틴 내 에러를 핸들링 할 수 있다.
+* CoroutineExceptionHandler 를 만들고, 해당 블럭 내에서 익셉션을 전달받아 후처리를 할 수 있도록 한다.
+* [ExceptionPropagationExample02.kt](./src/main/kotlin/coroutine/example05/ExceptionPropagationExample02.kt)
+
+### 7.3 [Cancellation and exception](https://kotlinlang.org/docs/exception-handling.html#cancellation-and-exceptions)
+* Cancellation 은 exception 과 연관이 있다.
+* Coroutine 은 내부적으로 취소건에 대해 CancellationException 을 사용한다.
+* 자식 코루틴이 모두 끝나야, 이후에 부모 코루틴이 취소된다.
+* [CancellationExceptionExample01.kt](./src/main/kotlin/coroutine/example05/CancellationExceptionExample01.kt)
+
+### 7.4 [Exception Aggregation](https://kotlinlang.org/docs/exception-handling.html#exceptions-aggregation)
+* 코루틴 내 여러개 자식 코루틴이 익셉션 떨어질 때, 기본적인 규칙은 `첫번째 익셉션이 우선이다.` 원칙이다.
+  * 따라서 첫번째 익셉션이 핸들링 되면, 나머지 익셉션은 첫번째 익셉션에 억제된 예외로 첨부된다.
+* 
 
 ---
 ## [Asynchronous Flow](https://kotlinlang.org/docs/flow.html)

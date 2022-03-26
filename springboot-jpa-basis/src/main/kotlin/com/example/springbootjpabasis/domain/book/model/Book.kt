@@ -6,6 +6,7 @@ import com.example.springbootjpabasis.domain.library.model.Library
 import com.fasterxml.jackson.annotation.JsonBackReference
 import org.hibernate.envers.Audited
 import java.util.*
+import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
@@ -42,7 +43,12 @@ class Book(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
 
-    @OneToOne(fetch = FetchType.LAZY, targetEntity = BookDetail::class, optional = true)
+    @OneToOne(
+        mappedBy = "book",
+        fetch = FetchType.LAZY,
+        targetEntity = BookDetail::class,
+        optional = true,
+    )
     var detail: BookDetail? = null
 
     @JsonBackReference
@@ -57,6 +63,10 @@ class Book(
         }
 
         this.library!!.addBook(this)
+    }
+
+    fun setBy(detail: BookDetail) {
+        this.detail = detail
     }
 
     companion object {

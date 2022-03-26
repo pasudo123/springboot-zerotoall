@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.FilterType
+import org.springframework.context.annotation.Import
 import org.springframework.stereotype.Repository
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
@@ -35,8 +36,9 @@ annotation class TestEnvironment
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
 @DataJpaTest(includeFilters = [
-    ComponentScan.Filter(type = FilterType.ANNOTATION, classes = [Repository::class])
+    ComponentScan.Filter(type = FilterType.ANNOTATION, classes = [Repository::class]),
 ])
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ContextConfiguration(classes = [CustomEnversTestConfiguration::class, QuerydslConfiguration::class, AuditConfiguration::class])
+@Import(value = [QuerydslConfiguration::class, AuditConfiguration::class])
+@ContextConfiguration(classes = [CustomEnversTestConfiguration::class])
 annotation class RepositorySupport

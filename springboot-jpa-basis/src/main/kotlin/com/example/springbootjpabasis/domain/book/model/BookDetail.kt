@@ -27,5 +27,10 @@ class BookDetail(
     @OneToOne(targetEntity = Book::class)
     @MapsId
     var book: Book? = null
+        protected set
 
+    fun setBy(book: Book) {
+        this.book = book
+        book.setBy(this)
+    }
 }

@@ -1,6 +1,6 @@
-logging:
-  level:
-    org.hibernate.type.descriptor.sql: TRACE
+#logging:
+#  level:
+#    org.hibernate.type.descriptor.sql: TRACE
 
 server:
   port: 8080

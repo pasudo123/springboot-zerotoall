@@ -13,7 +13,8 @@ import kotlin.random.Random
 @RepositorySupport
 internal class BookRepositoryTest(
     private val entityManager: TestEntityManager,
-    private val bookRepository: BookRepository
+    private val bookRepository: BookRepository,
+    private val bookCustomRepository: BookCustomRepository
 ) {
 
     private val log = LoggerFactory.getLogger(javaClass)
@@ -29,17 +30,46 @@ internal class BookRepositoryTest(
             ))
             entityManager.persist(book)
             val detail = BookDetail("책상세-${Random.nextLong(10000, 99999)}")
-            detail.book = book
+            detail.setBy(book)
             entityManager.persist(detail)
         }
 
+        log.info("flush & clear start ========================================================================")
         entityManager.flush()
         entityManager.clear()
-        log.info("flush & clear ========================================================================")
+        log.info("flush & clear end ========================================================================")
 
         // when
-        val books = bookRepository.findAll()
         log.info("findAll() ========================================================================")
+        val books = bookRepository.findAll()
+
+        // then
+        books.size shouldBe 5
+    }
+
+    @Test
+    fun findAllWithDetailTest() {
+        repeat(5) {
+            val book = Book.from(BookCreateDto(
+                "책이름-${Random.nextLong(10, 99)}",
+                "작가-${Random.nextLong(10, 99)}",
+                "출발판-${Random.nextLong(10, 99)}",
+                Random.nextLong(10000, 99999)
+            ))
+            entityManager.persist(book)
+            val detail = BookDetail("책상세-${Random.nextLong(10000, 99999)}")
+            detail.setBy(book)
+            entityManager.persist(detail)
+        }
+
+        log.info("flush & clear start ========================================================================")
+        entityManager.flush()
+        entityManager.clear()
+        log.info("flush & clear end ========================================================================")
+
+        // when
+        log.info("findAll() ========================================================================")
+        val books = bookCustomRepository.findAllWithDetail()
 
         // then
         books.size shouldBe 5

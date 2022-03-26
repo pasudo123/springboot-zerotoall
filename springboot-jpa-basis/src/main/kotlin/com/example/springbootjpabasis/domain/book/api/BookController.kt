@@ -34,7 +34,7 @@ class BookController(
         }
 
         val book = bookRepository.save(Book.from(bookCreateDto))
-        book.setLibrary(libraryOpt.get())
+        book.setByLibrary(libraryOpt.get())
         return ResponseEntity.ok(book)
     }
 

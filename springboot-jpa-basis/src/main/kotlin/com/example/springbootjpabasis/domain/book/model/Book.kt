@@ -46,9 +46,9 @@ class Book(
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "library_id")
     var library: Library? = null
-        private set
+        protected set
 
-    fun setLibrary(library: Library) {
+    fun setByLibrary(library: Library) {
         if(this.library == null) {
             this.library = library
         }

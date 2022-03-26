@@ -1,6 +1,6 @@
 package com.example.springbootqueryperfbasis.domain.member
 
-import com.example.springbootqueryperfbasis.domain.member.QMember.member
+import com.example.springbootqueryperfbasis.domain.membeQMember.member
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 import org.springframework.stereotype.Repository

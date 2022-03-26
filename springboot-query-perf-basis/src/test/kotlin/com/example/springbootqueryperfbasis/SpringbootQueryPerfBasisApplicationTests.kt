@@ -7,5 +7,4 @@ class SpringbootQueryPerfBasisApplicationTests {
     @Test
     fun contextLoads() {
     }
-
 }

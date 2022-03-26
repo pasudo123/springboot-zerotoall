@@ -16,22 +16,22 @@ import java.util.*
 import javax.persistence.EntityManagerFactory
 import javax.sql.DataSource
 
-
-/**
- * https://docs.spring.io/spring-data/envers/docs/2.3.9.RELEASE/reference/html/#reference
- */
 @Configuration
 @EnableJpaRepositories(
     repositoryFactoryBeanClass = EnversRevisionRepositoryFactoryBean::class,
     basePackages = ["com.example.springbootjpabasis"]
 )
 @EnableTransactionManagement
-class CustomEnversConfiguration {
+class CustomEnversTestConfiguration {
 
     @Bean
-    @ConfigurationProperties(prefix = "spring.datasource")
     fun dataSource(): DataSource {
-        return DataSourceBuilder.create().build()
+        return DataSourceBuilder.create()
+            .url("jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE")
+            .driverClassName("org.h2.Driver")
+            .username("sa")
+            .password("")
+            .build()
     }
 
     @Bean
@@ -40,8 +40,8 @@ class CustomEnversConfiguration {
         val vendorAdapter = HibernateJpaVendorAdapter().apply {
                 this.setGenerateDdl(true)
                 this.setShowSql(true)
-                this.setDatabasePlatform("org.hibernate.dialect.MySQL57Dialect")
-                this.setDatabase(Database.MYSQL)
+                this.setDatabasePlatform("org.hibernate.dialect.H2Dialect")
+                this.setDatabase(Database.H2)
             }
 
         /**
@@ -49,7 +49,7 @@ class CustomEnversConfiguration {
          */
         val properties = Properties().apply {
             this.setProperty("hibernate.show_sql", "true")
-            this.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL57Dialect")
+            this.setProperty("hibernate.format_sql", "true")
             this.setProperty("hibernate.hbm2ddl.auto", "create-drop")
             this.setProperty("org.hibernate.envers.revision_field_name", "rev_num")
             this.setProperty("org.hibernate.envers.audit_table_suffix", "_history")

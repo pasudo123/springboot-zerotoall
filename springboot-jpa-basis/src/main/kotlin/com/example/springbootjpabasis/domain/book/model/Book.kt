@@ -15,6 +15,7 @@ import javax.persistence.Id
 import javax.persistence.Index
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
+import javax.persistence.OneToOne
 import javax.persistence.Table
 
 @Audited
@@ -41,6 +42,8 @@ class Book(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
 
+    @OneToOne(fetch = FetchType.LAZY, targetEntity = BookDetail::class, optional = true)
+    var detail: BookDetail? = null
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)

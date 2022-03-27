@@ -242,13 +242,41 @@ fun main() {
 ### 7.4 [Exception Aggregation](https://kotlinlang.org/docs/exception-handling.html#exceptions-aggregation)
 * 코루틴 내 여러개 자식 코루틴이 익셉션 떨어질 때, 기본적인 규칙은 `첫번째 익셉션이 우선이다.` 원칙이다.
   * 따라서 첫번째 익셉션이 핸들링 되면, 나머지 익셉션은 첫번째 익셉션에 억제된 예외로 첨부된다.
-* 
 
 ---
-## [Asynchronous Flow](https://kotlinlang.org/docs/flow.html)
-* 비동기 suspend 함수는 단일 값을 반환한다. 하지만 비동기 연산에 의해서 다수 값을 반환은 어떻게 할 것인가?
-* `List<Int>` 를 이용한다면, 모든 값들을 한번에 획득할 수 있다. 근데 비동기적으로 계산되는 값들을 스트림으로 표현하려고 하면 `Flow<Int>` 를 사용해주어야 한다.
-    * 사용방식은 `Sequence<Int>` 와 비슷하게 사용하면 된다.
+## 8. [Asynchronous Flow](https://kotlinlang.org/docs/flow.html)
+* suspend 함수는 비동기적으로 단일 값을 반환한다. 하지만 비동기 연산에 의해서 멀티 값을 반환은 어떻게 할 것인가?
+
+### 8.1 [Representing multiple values : Sequence](https://kotlinlang.org/docs/flow.html#sequences)
+* 여러 개의 값은 코틀린에서 collections 를 사용해서 나타낼 수 있다.
+* 만약 일부 CPU 를 사용하는 블럭킹 코드를 계산하겠다고 한다면, 100ms 가 걸리는 처리건에 대해서 `sequence` 를 이용해서 처리할 수 있다.
+  * 각각 별도로 처리되고 해당 결과가 별도로 반환된다.
+* [FlowExample01.kt](./src/main/kotlin/coroutine/example06/FlowExample01.kt)
+
+### 8.2 [Suspending Function](https://kotlinlang.org/docs/flow.html#suspending-functions)
+* 계산은 코드를 실행하는 주 스레드를 차단한다.
+* 이런 값이 비동기 코드로 계산될 때, suspend 키워드를 가지고 간단한 함수를 표시할 수 있고 별도 블럭킹 없이 작업을 수행하고 결과목록을 반환할 수 있다.
+* [FlowExample02.kt](./src/main/kotlin/coroutine/example06/FlowExample02.kt)
+
+### 8.3 [Flow](https://kotlinlang.org/docs/flow.html#flows)
+* List<Int> 를 사용하면, 딱 한번 모든 값을 반환한다.
+* 값에 대한 비동기적인 계산이 되려면, Flow<Int> 를 사용한다.
+* Sequence<Int> 는 동기식 계산된 값에 사용하는 것이 유용하다.
+* [FlowExample03.kt](./src/main/kotlin/coroutine/example06/FlowExample03.kt)
+  * Flow builder function 에서의 타입은 flow 타입이다.
+  * `flow { }` 빌더 블럭은 일시중지(suspend) 될 수 있다.
+  * simpleFlow() 에 suspend 키워드를 붙여주지 않아도 된다.
+  * 값들은 `emitted` 된다. : flow {} 에서 `emit` 함수를 통해서 된다.
+  * 값들은 `collected`  된다 : flow {} 에서 `collect` 함수를 통해서 된다.
+
+### 8.4 [Flows are cold](https://kotlinlang.org/docs/flow.html#flows-are-cold)
+* Flows 는 Sequences 와 유사한 콜드스트림이다.
+* flow builder 수행되지 않는다. flow collected 가 되기 전까지.
+  * Flow<T>.collect() 가 호출되어야 한다.
+* [FlowExample04.kt](./src/main/kotlin/coroutine/example06/FlowExample04.kt)
+* 위에서 출력되는 주요 이유는 `coldStreamFlow()` 이 suspend 로 처리되어있지 않기 때문이다.
+  * `coldStreamFlow()` 는 빠르게 값을 반환하고, 어떤 것도 기다리지 않는다.
+  * flow 는 매시간 collected 처리될 수 있다. 해당 부분이 `collect` 를 재호출하면 Flow started 가 출력되는 이유다. 
 
 ### Flow Builder
 * `flow { ... }` builder 는 가장 기본적인 플로우 빌더다. flow { } builder 형태로 선언하기 쉬운 다른 빌더들도 살펴본다.

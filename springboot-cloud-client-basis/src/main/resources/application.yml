@@ -1,0 +1,13 @@
+server:
+  port: 28081
+
+spring:
+  application.name: springboot-config
+  config.import: optional:configserver:http://localhost:28080
+
+## refresh endpoint enable
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

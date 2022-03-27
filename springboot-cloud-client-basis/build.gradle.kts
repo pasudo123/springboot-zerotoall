@@ -18,6 +18,12 @@ repositories {
 extra["springCloudVersion"] = "2021.0.1"
 
 dependencies {
+    // web
+    implementation("org.springframework.boot:spring-boot-starter-web")
+
+    // actuator
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.springframework.cloud:spring-cloud-starter-config")

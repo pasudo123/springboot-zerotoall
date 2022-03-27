@@ -18,15 +18,15 @@ repositories {
 extra["springCloudVersion"] = "2021.0.1"
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("org.springframework.cloud:spring-cloud-bus")
     implementation("org.springframework.cloud:spring-cloud-config-server")
     implementation("org.springframework.cloud:spring-cloud-starter")
-    implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j")
-    implementation("org.springframework.cloud:spring-cloud-stream")
+
+//    implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j")
+//    implementation("org.springframework.cloud:spring-cloud-bus")
+//    implementation("org.springframework.cloud:spring-cloud-stream")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

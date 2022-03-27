@@ -1,0 +1,4 @@
+GET http://localhost:28081/index
+
+###
+POST http://localhost:28081/actuator/refresh

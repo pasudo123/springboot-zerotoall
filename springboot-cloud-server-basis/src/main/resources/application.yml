@@ -1,0 +1,12 @@
+server:
+  port: 28080
+
+spring:
+  cloud:
+    config:
+      server:
+        bootstrap: true
+        git:
+          uri: https://github.com/pasudo123/software-zero-to-all
+          search-paths: springboot-config
+          timeout: 5

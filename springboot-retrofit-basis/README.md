@@ -45,6 +45,15 @@ suspend fun <T> Call<T>.awaitResponse(): Response<T> {
 
 ## 2.2 kotlinx-coroutine-reactor, [링크](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-reactor/index.html)
 
+---
+## 3 실험
+### 3.1 DevVersion2Controller
+* `dev/v2/sync` & `dev/v2/async` 각각을 jmeter 로 테스트 수행
+  * 비즈니스 로직이나 어떤 외부 호출이 500ms 걸린다고 가정했을때 동일 was 자원에서 retrofit2 이 없는 쪽이 timeout 이 많이 발생함
+  * 결과적으로 was 내 요청 스레드가 가 이용되고 있어서 스레드 풀에 남은 스레드가 없어서 그런걸로 보인다.
+
+### 3.2 
+
 ## reference
 * [coroutine 과 continuation 이 차이는 무엇인가요?](https://stackoverflow.com/questions/50598519/in-kotlin-whats-the-difference-between-the-terms-coroutine-and-continuation/50598570)
 * [spring-framework-coroutine](https://docs.spring.io/spring-framework/docs/5.2.0.M1/spring-framework-reference/languages.html#coroutines)

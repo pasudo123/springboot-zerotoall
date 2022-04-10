@@ -24,7 +24,7 @@ class DevVersion2Controller(
         val response = shortNewsClient
             .getNewsByCategory(ShortNewsClient.Category.random())
             .execute()
-            .body()!!
+            .body()
 
         Thread.sleep(500)
 

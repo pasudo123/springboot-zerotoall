@@ -3,6 +3,7 @@ package rsync
 import com.github.fracpete.processoutput4j.output.ConsoleOutputProcessOutput
 import com.github.fracpete.processoutput4j.output.StreamingProcessOutput
 import com.github.fracpete.rsync4j.RSync
+import com.github.fracpete.rsync4j.Ssh
 
 class Rsync4jEx {
 
@@ -59,8 +60,41 @@ class Rsync4jEx {
         val dest = "/Users/pasudo.dev/pasudo-study/rsyncdir/two"
 
         val rsync = RSync()
+            .outputCommandline(true)
             .source(sour)
             .destination(dest)
+            .recursive(true)
+            .verbose(true)
+
+        val output = StreamingProcessOutput(CustomOutput())
+        output.monitor(rsync.builder())
+    }
+
+    fun sshCommand() {
+        val user = ""
+        val host = ""
+
+        val ssh = Ssh()
+            .outputCommandline(true)
+            // remote 서버와의 host 체크 무시 : 키가 다르더라도 서버 접속을 수행토록 한다.
+            .option("StrictHostKeyChecking=no")
+            .hostname("$user@$host")
+            .command("cd test; ls -al")
+
+        val output = ConsoleOutputProcessOutput()
+        output.monitor(ssh.builder())
+    }
+
+    fun remoteRsync() {
+        val user = ""
+        val host = ""
+        val sour = "$user@$host:test/"
+        val dest = "/Users/pasudo.dev/pasudo-study/rsyncdir/remote"
+
+        val rsync = RSync()
+            .source(sour)
+            .destination(dest)
+            .archive(true)
             .recursive(true)
             .verbose(true)
 

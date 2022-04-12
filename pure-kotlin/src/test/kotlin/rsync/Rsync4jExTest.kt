@@ -54,4 +54,28 @@ internal class Rsync4jExTest {
 
         // then
     }
+
+    @Test
+    @DisplayName("sshCommand ")
+    fun sshCommandTest() {
+
+        // given
+        rsync4jEx.sshCommand()
+
+        // when
+
+        // then
+    }
+
+    @Test
+    @DisplayName("remoteRsync ")
+    fun remoteRsyncTest() {
+
+        // given
+        rsync4jEx.remoteRsync()
+
+        // when
+
+        // then
+    }
 }

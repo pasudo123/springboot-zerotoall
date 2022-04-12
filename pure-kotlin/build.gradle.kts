@@ -26,6 +26,11 @@ dependencies {
 
     // coroutine
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
+
+    // rsync
+    // https://mvnrepository.com/artifact/com.github.fracpete/rsync4j-pom
+    implementation("com.github.fracpete:rsync4j-all:3.2.3-9")
+
 }
 
 tasks.getByName<Test>("test") {

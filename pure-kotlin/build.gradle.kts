@@ -31,6 +31,15 @@ dependencies {
     // https://mvnrepository.com/artifact/com.github.fracpete/rsync4j-pom
     implementation("com.github.fracpete:rsync4j-all:3.2.3-9")
 
+    // hibernate-core
+    // https://mvnrepository.com/artifact/org.hibernate/hibernate-core
+    implementation("org.hibernate:hibernate-core:5.6.7.Final")
+
+    // h2
+    // https://mvnrepository.com/artifact/com.h2database/h2
+    implementation("com.h2database:h2:2.1.212")
+
+
 }
 
 tasks.getByName<Test>("test") {

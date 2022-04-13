@@ -49,7 +49,9 @@ class CustomEnversConfiguration {
          */
         val properties = Properties().apply {
             this.setProperty("hibernate.show_sql", "true")
+            this.setProperty("hibernate.format_sql", "true")
             this.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL57Dialect")
+            this.setProperty("hibernate.use_sql_comments", "true")
             this.setProperty("hibernate.hbm2ddl.auto", "create-drop")
             this.setProperty("org.hibernate.envers.revision_field_name", "rev_num")
             this.setProperty("org.hibernate.envers.audit_table_suffix", "_history")

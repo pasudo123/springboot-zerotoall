@@ -78,4 +78,16 @@ internal class Rsync4jExTest {
 
         // then
     }
+
+    @Test
+    @DisplayName("sshCommandWithPath")
+    fun sshCommandWithPathTest() {
+
+        // given
+        rsync4jEx.sshCommandWithPath()
+
+        // when
+
+        // then
+    }
 }

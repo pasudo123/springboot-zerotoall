@@ -4,6 +4,7 @@ import com.github.fracpete.processoutput4j.output.ConsoleOutputProcessOutput
 import com.github.fracpete.processoutput4j.output.StreamingProcessOutput
 import com.github.fracpete.rsync4j.RSync
 import com.github.fracpete.rsync4j.Ssh
+import com.github.fracpete.rsync4j.SshPass
 
 class Rsync4jEx {
 
@@ -70,6 +71,9 @@ class Rsync4jEx {
         output.monitor(rsync.builder())
     }
 
+    /**
+     * 해당 호스트로 로그인은 최소 1번 수행되어야 한다.
+     */
     fun sshCommand() {
         val user = ""
         val host = ""
@@ -85,6 +89,27 @@ class Rsync4jEx {
         output.monitor(ssh.builder())
     }
 
+    fun sshCommandWithPath() {
+        val sshPass = SshPass()
+            .password("")
+
+        val user = ""
+        val host = ""
+
+        val ssh = Ssh()
+            .outputCommandline(true)
+            .sshPass(sshPass)
+            .option("StrictHostKeyChecking=no")
+            .hostname("$user@$host")
+            .command("cd test; ls -al")
+
+        val output = ConsoleOutputProcessOutput()
+        output.monitor(ssh.builder())
+    }
+
+    /**
+     * 해당 호스트로 로그인은 최소 1번 수행되어야 한다.
+     */
     fun remoteRsync() {
         val user = ""
         val host = ""

@@ -24,6 +24,6 @@ class CustomBeanPostProcessor : BeanPostProcessor {
     }
 
     private fun checkBeanName(beanName: String): Boolean {
-        return (beanName == "springbootBasisApplication" || beanName.contains("KService"))
+        return (beanName == "springbootBasisApplication")
     }
 }

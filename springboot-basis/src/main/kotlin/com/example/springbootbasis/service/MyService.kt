@@ -4,7 +4,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Scope
 import javax.annotation.PostConstruct
 
-@Scope("prototype")
+//@Scope("prototype")
 class MyService {
 
     private val log = LoggerFactory.getLogger(javaClass)

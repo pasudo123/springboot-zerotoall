@@ -36,7 +36,8 @@ class CustomBeanDefRegistryPostProcessor : BeanDefinitionRegistryPostProcessor, 
 
             val beanDef = RootBeanDefinition(MyService::class.java).apply {
                 this.targetType = MyService::class.java
-                this.role = BeanDefinition.ROLE_APPLICATION
+                this.role = BeanDefinition.ROLE_APPLICATION // 사용자 정의 빈으로 간주
+                this.scope = BeanDefinition.SCOPE_PROTOTYPE // 싱글톤이 아닌 프로토타입
                 this.propertyValues = propertyValues
             }
 

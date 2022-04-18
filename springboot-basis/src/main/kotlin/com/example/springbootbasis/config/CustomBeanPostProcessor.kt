@@ -1,6 +1,5 @@
 package com.example.springbootbasis.config
 
-import com.example.springbootbasis.service.MyService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.config.BeanPostProcessor
 import org.springframework.stereotype.Component

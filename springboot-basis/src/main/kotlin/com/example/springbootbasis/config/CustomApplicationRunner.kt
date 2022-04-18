@@ -23,22 +23,9 @@ class CustomApplicationRunner(
         val services = serviceArgs.first().split(COMMA)
 
         services.forEach { service ->
-            // bean name + type
+            // bean name + type : getBean 을 통해서 내부적으로 빈을 생성할 수 있음
             val currentBean = context.getBean(createBeanName(service), MyService::class.java)
             log.info("bean :: $currentBean")
         }
-
-//        println(context.getBean("appleKService"))
-//        println(context.getBean("appleKService"))
-//        println(context.getBean("appleKService"))
-//        println(context.getBean("bananaKService"))
-//        println(context.getBean("bananaKService"))
-//        println(context.getBean("bananaKService"))
-//
-//        val appleService = context.getBean("appleKService") as MyService
-//        appleService.doSomething()
-//
-//        val bananaService = context.getBean("bananaKService") as MyService
-//        bananaService.doSomething()
     }
 }

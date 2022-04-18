@@ -16,6 +16,17 @@ repositories {
 }
 
 dependencies {
+
+    // https://github.com/lukas-krecan/ShedLock
+    // https://mvnrepository.com/artifact/net.javacrumbs.shedlock/shedlock-spring
+    // https://mvnrepository.com/artifact/net.javacrumbs.shedlock/shedlock-provider-redis-spring
+    // redis lock
+    implementation("net.javacrumbs.shedlock:shedlock-spring:4.34.0")
+    implementation("net.javacrumbs.shedlock:shedlock-provider-redis-spring:4.34.0")
+
+    // redis
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")

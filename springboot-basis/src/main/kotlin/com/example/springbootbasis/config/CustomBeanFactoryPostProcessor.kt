@@ -19,7 +19,6 @@ class CustomBeanFactoryPostProcessor : BeanFactoryPostProcessor {
         }
 
         for (beanName in beanFactory.beanDefinitionNames) {
-            log.info("beanName : $beanName")
             val beanDefinition = beanFactory.getBeanDefinition(beanName!!)
             // 여기에서 빈에 대한 조작을 수행할 수 있다.
         }

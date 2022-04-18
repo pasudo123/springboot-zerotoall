@@ -1,1 +1,13 @@
+server:
+  port: 8080
+
+spring:
+  redis:
+    host: localhost
+    port: 6379
+
+logging:
+  level:
+    net.javacrumbs.shedlock: DEBUG
+
 

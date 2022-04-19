@@ -1,7 +1,6 @@
 package com.example.springbootbasis.config.redis
 
-import com.example.springbootbasis.constant.Constant.COMMA
-import com.example.springbootbasis.constant.Constant.SERVICES
+import com.example.springbootbasis.util.EnvUtil.getFirstElementByProperty
 import net.javacrumbs.shedlock.core.LockProvider
 import net.javacrumbs.shedlock.provider.redis.spring.RedisLockProvider
 import org.springframework.context.annotation.Bean
@@ -25,7 +24,7 @@ class ShedLockConfiguration(
         // --services=grape
         // --services=melon
         // 각각이 appleShedKey, grapeShedKey, melonShedKey 를 가진다고 가정.
-        this.envKey = "${env.getProperty(SERVICES)?.split(COMMA)?.first()}ShedKey" ?: throw RuntimeException("error")
+        this.envKey = "${env.getFirstElementByProperty()}ShedKey"
     }
 
     @Bean

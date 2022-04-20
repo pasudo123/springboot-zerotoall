@@ -8,8 +8,6 @@ springboot-kotlin-zerotoall
     |-- springboot-concurrency-basis
     |-- springboot-error-basis
     |-- springboot-gql-basis
-    |-- springboot-jpa-basis
-    |-- springboot-mongo-basis
     |-- springboot-pageable-basis
     |-- springboot-redis-basis
     |-- springboot-swagger-basis
@@ -21,10 +19,14 @@ springboot-kotlin-zerotoall
 springboot-kotlin-zerotoall
     |
     |-- pure-kotlin
+    |-- springboot-cloud-client-basis 
+    |-- springboot-cloud-server-basis
     |-- springboot-query-perf-basis 
     |-- springboot-reactive-basis
     |-- springboot-retrofit-basis
     |-- springboot-testcode-basis
+    |-- springboot-mongo-basis
+    |-- springboot-jpa-basis
 ```
 
 ### 참고

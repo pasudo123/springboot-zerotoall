@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
 
     val kotlinVersion = System.getProperty("version.kotlinVersion")
@@ -20,15 +22,13 @@ plugins {
     id("org.jetbrains.kotlin.plugin.allopen") version kotlinVersion
 }
 
-allOpen {
-    annotation("javax.persistence.Entity")
-    annotation("javax.persistence.MappedSuperclass")
-    annotation("javax.persistence.Embeddable")
-}
-
 group = "com.example"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
+
+repositories {
+    mavenCentral()
+}
 
 dependencies {
 

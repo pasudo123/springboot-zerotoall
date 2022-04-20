@@ -27,7 +27,7 @@ class MemberRepositoryInsertQueryTest(
     fun saveQueryPerfTest() {
         val memberGroup = mutableListOf<Member>()
 
-        repeat(100) {
+        repeat(50) {
             memberGroup.add(MemberFixture.aEntity())
         }
 

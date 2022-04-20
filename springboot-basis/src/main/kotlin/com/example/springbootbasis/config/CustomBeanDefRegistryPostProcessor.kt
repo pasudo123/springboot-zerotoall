@@ -2,6 +2,7 @@ package com.example.springbootbasis.config
 
 import com.example.springbootbasis.constant.Constant
 import com.example.springbootbasis.constant.Constant.Service.createBeanName
+import com.example.springbootbasis.service.MyHolder
 import com.example.springbootbasis.service.MyService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.MutablePropertyValues
@@ -40,6 +41,7 @@ class CustomBeanDefRegistryPostProcessor : BeanDefinitionRegistryPostProcessor, 
                 this.role = BeanDefinition.ROLE_APPLICATION // 사용자 정의 빈으로 간주
                 this.scope = BeanDefinition.SCOPE_PROTOTYPE // 싱글톤이 아닌 프로토타입
                 this.propertyValues = propertyValues
+
             }
 
             registry.registerBeanDefinition(createBeanName(serviceName), beanDef)

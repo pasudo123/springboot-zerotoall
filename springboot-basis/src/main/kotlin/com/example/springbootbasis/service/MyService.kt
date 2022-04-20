@@ -2,7 +2,6 @@ package com.example.springbootbasis.service
 
 import net.javacrumbs.shedlock.spring.annotation.SchedulerLock
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.scheduling.annotation.Scheduled
 import java.time.LocalDateTime
 import javax.annotation.PostConstruct
@@ -18,27 +17,27 @@ open class MyService(
 
     private val log = LoggerFactory.getLogger(javaClass)
 
-    private lateinit var name: String
+    private var name: String? = null
+        get() = field ?: "empty"
 
     @PostConstruct
     fun postConstruct() {
         log.info("postConstruct ... :: $name")
-        this.myHolder.addKeyAndValue(name, "${name}KTask")
+        this.myHolder.addKeyAndValue(name!!, "${name}KTask")
     }
 
     @Scheduled(initialDelay = 3000, fixedDelay = 3000, zone = "Asia/Seoul")
     @SchedulerLock(
-        name = "#{ myHolder.store['\${name}'] }",
+        name = "#{ @myHolder.store(\${this.name}) }",
         lockAtMostFor = "PT3S",     // 최소 실행노드가 죽었을 때, 락을 얼만큼 유지할 건지
         lockAtLeastFor = "PT2S"     // 최소 얼만큼 락을 유지할 건지
     )
     open fun task() {
         log.info("task... :: $name :: ${LocalDateTime.now()}")
-        myDetailService.process(name)
+        myDetailService.process(name!!)
     }
 
     fun setName(name: String) {
-        log.info("setName : $name")
         this.name = name
     }
 }

@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "1.5.10"
+    kotlin("jvm") version "1.5.30"
     java
 }
 
@@ -39,7 +39,7 @@ dependencies {
     // https://mvnrepository.com/artifact/com.h2database/h2
     implementation("com.h2database:h2:2.1.212")
 
-
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2")
 }
 
 tasks.getByName<Test>("test") {

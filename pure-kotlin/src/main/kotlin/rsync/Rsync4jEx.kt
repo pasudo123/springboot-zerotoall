@@ -10,8 +10,8 @@ class Rsync4jEx {
 
     fun simpleRsync() {
         val rsync = RSync()
-            .source("/Users/pasudo.dev/pasudo-study/rsyncdir/one/")
-            .destination("/Users/pasudo.dev/pasudo-study/rsyncdir/two")
+            .source("/Users/account/pasudo-study/rsyncdir/one/")
+            .destination("/Users/account/pasudo-study/rsyncdir/two")
             .recursive(true)
 
         val output = rsync.execute()
@@ -25,8 +25,8 @@ class Rsync4jEx {
     }
 
     fun simpleRsyncWithOption() {
-        val sour = "/Users/pasudo.dev/pasudo-study/rsyncdir/one/"
-        val dest = "/Users/pasudo.dev/pasudo-study/rsyncdir/two"
+        val sour = "/Users/account/pasudo-study/rsyncdir/one/"
+        val dest = "/Users/account/pasudo-study/rsyncdir/two"
 
         val rsync = RSync().also {
             it.setOptions(arrayOf("-r", sour, dest))
@@ -43,8 +43,8 @@ class Rsync4jEx {
     }
 
     fun simpleRsyncWithConsole() {
-        val sour = "/Users/pasudo.dev/pasudo-study/rsyncdir/one/"
-        val dest = "/Users/pasudo.dev/pasudo-study/rsyncdir/two"
+        val sour = "/Users/account/pasudo-study/rsyncdir/one/"
+        val dest = "/Users/account/pasudo-study/rsyncdir/two"
 
         val rsync = RSync()
             .source(sour)
@@ -57,8 +57,8 @@ class Rsync4jEx {
     }
 
     fun simpleRsyncWithStreaming() {
-        val sour = "/Users/pasudo.dev/pasudo-study/rsyncdir/one/"
-        val dest = "/Users/pasudo.dev/pasudo-study/rsyncdir/two"
+        val sour = "/Users/account/pasudo-study/rsyncdir/one/"
+        val dest = "/Users/account/pasudo-study/rsyncdir/two"
 
         val rsync = RSync()
             .outputCommandline(true)
@@ -114,7 +114,7 @@ class Rsync4jEx {
         val user = ""
         val host = ""
         val sour = "$user@$host:test/"
-        val dest = "/Users/pasudo.dev/pasudo-study/rsyncdir/remote"
+        val dest = "/Users/account/pasudo-study/rsyncdir/remote"
 
         val rsync = RSync()
             .source(sour)

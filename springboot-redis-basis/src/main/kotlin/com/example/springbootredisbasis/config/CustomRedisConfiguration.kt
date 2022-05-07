@@ -2,6 +2,7 @@ package com.example.springbootredisbasis.config
 
 import com.example.springbootredisbasis.config.domain.coffee.Coffee
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.ser.std.StdKeySerializers
 import mu.KotlinLogging
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties
 import org.springframework.context.annotation.Bean
@@ -23,15 +24,17 @@ class CustomRedisConfiguration(
     private val logger = KotlinLogging.logger {}
 
     @Bean
-    fun redisTemplate(): RedisTemplate<String, Any> {
+    fun redisTemplate(): RedisTemplate<String, String> {
         val connectionFactory = LettuceConnectionFactory(redisProperties.host, redisProperties.port)
             .apply {
                 this.database = SAMPLE_DATABASE
                 this.afterPropertiesSet()
             }
 
-        return RedisTemplate<String, Any>().apply {
+        return RedisTemplate<String, String>().apply {
             this.setConnectionFactory(connectionFactory)
+            this.keySerializer = StringRedisSerializer()
+            this.valueSerializer = StringRedisSerializer()
             this.afterPropertiesSet()
         }
     }

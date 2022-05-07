@@ -46,7 +46,6 @@ dependencies {
 
     // mock & kotest & springboot-test
     testImplementation("io.mockk:mockk:${mockkVersion}")
-    testImplementation("io.kotest:kotest-runner-junit5:${kotestVersion}")
     testImplementation("io.kotest:kotest-assertions-core:${kotestVersion}")
     testImplementation("io.kotest:kotest-property:${kotestVersion}")
     testImplementation("com.ninja-squad:springmockk:${springmockkVersion}")
@@ -70,6 +69,6 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     }
 }
 
-tasks.withType<Test> {
+tasks.withType<Test>().configureEach {
     useJUnitPlatform()
 }

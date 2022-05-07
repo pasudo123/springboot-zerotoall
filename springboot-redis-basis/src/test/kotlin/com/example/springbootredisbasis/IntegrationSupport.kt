@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 
-@ActiveProfiles("test")
+@TestEnvironment
 @SpringBootTest(
     classes = [SpringbootRedisBasisApplication::class],
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
@@ -22,7 +22,8 @@ class IntegrationSupport {
     fun redisContainerCheckTest() {
         REDIS_CONTAINER shouldNotBe null
         logger.info { "redis host : ${REDIS_CONTAINER.host}" }
-        logger.info { "redis port[1] : ${REDIS_CONTAINER.firstMappedPort}" }
-        logger.info { "redis port[2] : ${REDIS_CONTAINER.exposedPorts}" }
+        logger.info { "redis firstMappedPort : ${REDIS_CONTAINER.firstMappedPort}" }
+        logger.info { "redis exposedPorts : ${REDIS_CONTAINER.exposedPorts}" }
+        logger.info { "redis portBindings : ${REDIS_CONTAINER.portBindings}" }
     }
 }

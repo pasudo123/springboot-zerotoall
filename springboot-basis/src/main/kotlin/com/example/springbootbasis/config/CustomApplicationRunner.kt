@@ -22,10 +22,11 @@ class CustomApplicationRunner(
         val serviceArgs = args?.getOptionValues(SERVICES) ?: throw RuntimeException("아규먼트가 없음")
         val services = serviceArgs.first().split(COMMA)
 
-        services.forEach { service ->
-            // bean name + type : getBean 을 통해서 내부적으로 빈을 생성할 수 있음
-            val currentBean = context.getBean(createBeanName(service), MyService::class.java)
-            log.info("bean :: $currentBean")
-        }
+        // 동적으로 빈을 만든상태로 불러오는 형태.
+//        services.forEach { service ->
+//            // bean name + type : getBean 을 통해서 내부적으로 빈을 생성할 수 있음
+//            val currentBean = context.getBean(createBeanName(service), MyService::class.java)
+//            log.info("bean :: $currentBean")
+//        }
     }
 }

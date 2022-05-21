@@ -1,16 +1,32 @@
 plugins {
     kotlin("jvm") version "1.5.30"
     java
+
+    // benchmark
+    id("org.jetbrains.kotlinx.benchmark") version "0.4.0"
+    id("org.jetbrains.kotlin.plugin.allopen") version "1.5.30"
 }
 
 group = "org.example"
 version = "1.0-SNAPSHOT"
+
+sourceSets.all {
+    java.setSrcDirs(listOf("$name/src"))
+    resources.setSrcDirs(listOf("$name/resources"))
+}
+
+allOpen {
+    annotation("org.openjdk.jmh.annotations.State")
+}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    // benchmark : plugins {} 에 benchmark 버전과 일치시킨다.
+    implementation("org.jetbrains.kotlinx:kotlinx-benchmark-runtime-jvm:0.4.0")
+
     implementation(kotlin("stdlib"))
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -49,4 +65,21 @@ tasks.getByName<Test>("test") {
 tasks.withType<JavaCompile> {
     sourceCompatibility = "11"
     targetCompatibility = "11"
+}
+
+benchmark {
+    configurations {
+        named("main") {
+            iterationTime = 5
+            iterationTimeUnit = "sec"
+        }
+    }
+    targets {
+        register("main") {
+            this as kotlinx.benchmark.gradle.JvmBenchmarkTarget
+            jmhVersion = "1.21"
+        }
+        register("macosX64")
+        register("macosArm64")
+    }
 }

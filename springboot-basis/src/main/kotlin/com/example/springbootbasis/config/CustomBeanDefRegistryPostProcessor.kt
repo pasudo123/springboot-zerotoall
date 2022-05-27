@@ -2,8 +2,7 @@ package com.example.springbootbasis.config
 
 import com.example.springbootbasis.constant.Constant
 import com.example.springbootbasis.constant.Constant.Service.createBeanName
-import com.example.springbootbasis.service.MyHolder
-import com.example.springbootbasis.service.MyService
+import com.example.springbootbasis.service.MyScheduler
 import org.slf4j.LoggerFactory
 import org.springframework.beans.MutablePropertyValues
 import org.springframework.beans.factory.config.BeanDefinition
@@ -36,8 +35,8 @@ class CustomBeanDefRegistryPostProcessor : BeanDefinitionRegistryPostProcessor, 
                 this.add("name", serviceName)
             }
 
-            val beanDef = RootBeanDefinition(MyService::class.java).apply {
-                this.targetType = MyService::class.java
+            val beanDef = RootBeanDefinition(MyScheduler::class.java).apply {
+                this.targetType = MyScheduler::class.java
                 this.role = BeanDefinition.ROLE_APPLICATION // 사용자 정의 빈으로 간주
                 this.scope = BeanDefinition.SCOPE_PROTOTYPE // 싱글톤이 아닌 프로토타입
                 this.propertyValues = propertyValues

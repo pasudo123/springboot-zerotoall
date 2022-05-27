@@ -2,9 +2,6 @@ package com.example.springbootbasis.config
 
 import com.example.springbootbasis.constant.Constant.COMMA
 import com.example.springbootbasis.constant.Constant.SERVICES
-import com.example.springbootbasis.constant.Constant.Service.createBeanName
-import com.example.springbootbasis.service.MyDetailService
-import com.example.springbootbasis.service.MyService
 import org.slf4j.LoggerFactory
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner

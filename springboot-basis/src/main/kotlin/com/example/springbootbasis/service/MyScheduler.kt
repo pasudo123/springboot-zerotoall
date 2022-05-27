@@ -10,10 +10,7 @@ import javax.annotation.PostConstruct
  * AOP 기반으로 동작하기 위해 해당 클래스에 open 키워드 필요.
  * https://github.com/lukas-krecan/ShedLock#modes-of-spring-integration
  */
-open class MyService(
-    private val myDetailService: MyDetailService,
-    private val myHolder: MyHolder,
-) {
+open class MyScheduler {
 
     private val log = LoggerFactory.getLogger(javaClass)
 
@@ -23,7 +20,6 @@ open class MyService(
     @PostConstruct
     fun postConstruct() {
         log.info("postConstruct ... :: $name")
-        this.myHolder.addKeyAndValue(name!!, "${name}KTask")
     }
 
     @Scheduled(initialDelay = 3000, fixedDelay = 3000, zone = "Asia/Seoul")
@@ -34,7 +30,6 @@ open class MyService(
     )
     open fun task() {
         log.info("task... :: $name :: ${LocalDateTime.now()}")
-        myDetailService.process(name!!)
     }
 
     fun setName(name: String) {

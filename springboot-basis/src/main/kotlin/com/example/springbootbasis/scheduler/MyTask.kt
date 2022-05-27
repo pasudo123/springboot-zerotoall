@@ -1,13 +1,19 @@
-package com.example.springbootbasis.task
+package com.example.springbootbasis.scheduler
 
 import com.example.springbootbasis.exception.AppleException
 import com.example.springbootbasis.exception.BananaException
 import org.slf4j.LoggerFactory
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import kotlin.random.Random
 
 @Component
+@ConditionalOnProperty(
+    value = ["app.scheduler.use.default"],
+    havingValue = "true",
+    matchIfMissing = false
+)
 class MyTask {
 
     private val log = LoggerFactory.getLogger(javaClass)

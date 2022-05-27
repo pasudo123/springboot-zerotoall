@@ -2,7 +2,7 @@ package com.example.springbootbasis.config
 
 import com.example.springbootbasis.constant.Constant
 import com.example.springbootbasis.constant.Constant.Service.createBeanName
-import com.example.springbootbasis.service.MyScheduler
+import com.example.springbootbasis.scheduler.MyScheduler
 import org.slf4j.LoggerFactory
 import org.springframework.beans.MutablePropertyValues
 import org.springframework.beans.factory.config.BeanDefinition
@@ -10,11 +10,17 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory
 import org.springframework.beans.factory.support.BeanDefinitionRegistry
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor
 import org.springframework.beans.factory.support.RootBeanDefinition
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.EnvironmentAware
 import org.springframework.core.env.Environment
 import org.springframework.stereotype.Component
 
 @Component
+@ConditionalOnProperty(
+    value = ["app.scheduler.use.args"],
+    havingValue = "true",
+    matchIfMissing = false
+)
 class CustomBeanDefRegistryPostProcessor : BeanDefinitionRegistryPostProcessor, EnvironmentAware {
 
     private lateinit var env: Environment
@@ -40,7 +46,6 @@ class CustomBeanDefRegistryPostProcessor : BeanDefinitionRegistryPostProcessor, 
                 this.role = BeanDefinition.ROLE_APPLICATION // 사용자 정의 빈으로 간주
                 this.scope = BeanDefinition.SCOPE_PROTOTYPE // 싱글톤이 아닌 프로토타입
                 this.propertyValues = propertyValues
-
             }
 
             registry.registerBeanDefinition(createBeanName(serviceName), beanDef)

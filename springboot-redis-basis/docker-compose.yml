@@ -1,13 +1,33 @@
 version: "3.7"
 
 services:
-  redis-single:
+
+  redis-single-01:
     image: redis:5.0.3
     labels:
       - "name=redis"
       - "mode=standalone"
     environment:
       - REDIS_REPLICATION_MODE=master
-    container_name: redis-single
     ports:
       - "16379:6379"
+
+  redis-single-02:
+    image: redis:5.0.3
+    labels:
+      - "name=redis"
+      - "mode=standalone"
+    environment:
+      - REDIS_REPLICATION_MODE=master
+    ports:
+      - "16380:6379"
+
+  redis-single-03:
+    image: redis:5.0.3
+    labels:
+      - "name=redis"
+      - "mode=standalone"
+    environment:
+      - REDIS_REPLICATION_MODE=master
+    ports:
+      - "16381:6379"

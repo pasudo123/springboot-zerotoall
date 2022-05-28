@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.data.redis.RedisProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory
 import org.springframework.data.redis.core.ReactiveRedisTemplate
 import org.springframework.data.redis.core.RedisTemplate
@@ -17,17 +18,30 @@ import org.springframework.data.redis.serializer.StringRedisSerializer
 
 @Configuration
 class CustomRedisConfiguration(
+    private val multipleRedisProps: CustomMultipleRedisProps,
     private val redisProperties: RedisProperties,
-    private val objectMapper: ObjectMapper
+    private val objectMapper: ObjectMapper,
 ) {
 
     private val logger = KotlinLogging.logger {}
 
     @Bean
     fun redisTemplate(): RedisTemplate<String, String> {
-        val connectionFactory = LettuceConnectionFactory(redisProperties.host, redisProperties.port)
+
+        logger.info { "redis props size : ${multipleRedisProps.redisGroup.size}" }
+
+        val node = multipleRedisProps.redisGroup.first()
+
+        val standaloneConfiguration = RedisStandaloneConfiguration(
+            node.host!!,
+            node.port!!,
+        ).apply {
+            this.password = node.getRedisPassword()
+            this.database = node.database!!
+        }
+
+        val connectionFactory = LettuceConnectionFactory(standaloneConfiguration)
             .apply {
-                this.database = SAMPLE_DATABASE
                 this.afterPropertiesSet()
             }
 
@@ -57,10 +71,5 @@ class CustomRedisConfiguration(
         }.build()
 
         return ReactiveRedisTemplate(reactiveRedisConnectionFactory, serializerContext)
-    }
-
-    companion object {
-        private const val SAMPLE_DATABASE = 0
-        private const val SAMPLE_REACTIVE_DATABASE = 1
     }
 }

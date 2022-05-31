@@ -4,6 +4,7 @@ import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import kotlin.math.max
 
+@Deprecated("어렵다.")
 class `2289` {
 
     @Test

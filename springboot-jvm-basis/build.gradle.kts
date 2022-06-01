@@ -15,6 +15,8 @@ plugins {
 
     // kotlin lint
     id("org.jlleitschuh.gradle.ktlint") version klintVersion
+
+    application
 }
 
 group = "com.example"
@@ -64,4 +66,30 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+// https://docs.spring.io/spring-boot/docs/current/gradle-plugin/reference/htmlsingle/#running-your-application
+tasks.named<org.springframework.boot.gradle.tasks.run.BootRun>("bootRun") {
+    println("[bootRun] START @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+
+    // args 리스트 형태로 전달
+    args("--spring.profiles.active=kts", "--spring.main.banner-mode=off")
+
+    // JVM 구성 최적화를 끈다.
+    isOptimizedLaunch = false
+
+    // heap size 설정
+//    minHeapSize = "2048m"
+//    maxHeapSize = "2048m"
+
+    // jvmArguments
+    jvmArgs = listOf(
+        "-Xms3072m",
+        "-Xmx3072m",
+        "-XX:MaxMetaspaceSize=512m",
+        "-XX:+HeapDumpOnOutOfMemoryError",
+        "-Dfile.encoding=UTF-8"
+    )
+
+    println("[bootRun] END   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
 }

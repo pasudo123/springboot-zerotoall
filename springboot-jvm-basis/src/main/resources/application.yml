@@ -1,0 +1,6 @@
+server:
+  port: 9301
+
+spring:
+  main:
+    banner-mode: off

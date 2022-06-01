@@ -1,0 +1,6 @@
+### POST coffee
+POST http://localhost:9301/coffee?size=10000000
+Content-Type: application/json
+
+### GET coffee memory
+GET http://localhost:9301/coffee/memory

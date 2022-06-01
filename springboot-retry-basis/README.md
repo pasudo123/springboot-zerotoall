@@ -152,6 +152,13 @@ class DefaultListenerSupport : RetryListenerSupport() {
 * retryTemplate.setListeners() 을 통해서 등록할 수 있다.
 * @Retryable 의 attr 값으로 등록할 수 있다. (대신 빈으로 등록이 되어야 함)
 
+## 고려사항
+* retry 수행시에, 대상 서버가 회복할 시간을 주는 것이 좋다.
+  * 짧은 지연시간의 retry 요청은 대상서버에 부하를 줄 수 있다.
+  * 대상서버가 클라이언트로부터 받는 요청이 나 뿐만 아니라 다른 클라이언트 서버들도 있을 수 있다는 사실음 염두한다.
+* api 재시도 처리또한 대상 서버가 여러번 중복호출 될 수 있다는 사실을 염두에 둔다.
+
 ## 참고
 * https://www.baeldung.com/spring-retry
 * https://daddyprogrammer.org/post/12091/spring-retry-review/
+* https://brunch.co.kr/@springboot/580

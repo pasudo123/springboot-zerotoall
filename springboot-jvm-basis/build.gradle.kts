@@ -30,19 +30,13 @@ val mockkVersion: String = System.getProperty("version.mocckVersion")
 val springmockkVersion: String = System.getProperty("version.springmockkVersion")
 
 dependencies {
-
     // springboot-web
-    implementation("org.springframework.boot:spring-boot-starter-web")
-
-    // spring-retry : https://mvnrepository.com/artifact/org.springframework.retry/spring-retry
-    implementation("org.springframework.retry:spring-retry:1.3.3")
-
-    // @Retryable 를 이용하기 위해 필요함 : https://github.com/spring-projects/spring-retry#-additional-dependencies
-    implementation("org.springframework.boot:spring-boot-starter-aop")
-
     implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 

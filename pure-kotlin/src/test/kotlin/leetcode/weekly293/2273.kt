@@ -9,6 +9,7 @@ class `2273` {
     fun leetcodeTest() {
         removeAnagrams(arrayOf("abba","baba","bbaa","cd","cd")) shouldBe listOf("abba","cd")
         removeAnagrams(arrayOf("a","b","c","d","e")) shouldBe listOf("a","b","c","d","e")
+        removeAnagrams(arrayOf("a","b","a")) shouldBe listOf("a","b","a")
     }
 }
 
@@ -35,18 +36,26 @@ fun removeAnagrams(words: Array<String>): List<String> {
             continue
         }
 
-        var isNewGroup = true
+        var groupMatched = false
 
         group.forEach { subGroup ->
+            var isMatched = true
+
             subGroup.keys.forEach { key ->
                 if (subGroup[key] == currentGroup[key]) {
-                    isNewGroup = false
-                    return@forEach
+                    isMatched = isMatched && true
+                } else {
+                    isMatched = false
                 }
+            }
+
+            if (isMatched) {
+                groupMatched = true
             }
         }
 
-        if (isNewGroup) {
+        if (groupMatched.not()) {
+            group.add(currentGroup)
             result.add(word)
         }
     }

@@ -20,7 +20,8 @@ tasks.named<org.springframework.boot.gradle.tasks.run.BootRun>("bootRun") {
 
     // jvmArguments
     jvmArgs = listOf(
-        "-Xmx2g",
+        "-Xms3072m",
+        "-Xmx3072m",
         "-XX:MaxPermSize=256m",
         "-XX:MaxMetaspaceSize=512m",
         "-XX:+HeapDumpOnOutOfMemoryError",

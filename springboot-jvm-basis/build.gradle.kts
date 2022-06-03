@@ -84,11 +84,9 @@ tasks.named<org.springframework.boot.gradle.tasks.run.BootRun>("bootRun") {
 
     // jvmArguments
     jvmArgs = listOf(
-        "-Xms3072m",
-        "-Xmx3072m",
-        "-XX:MaxMetaspaceSize=512m",
-        "-XX:+HeapDumpOnOutOfMemoryError",
-        "-Dfile.encoding=UTF-8"
+        "-Xms15m",
+        "-Xmx15m",
+        "-XX:+UseSerialGC"
     )
 
     println("[bootRun] END   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")

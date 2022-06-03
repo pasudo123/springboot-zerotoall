@@ -44,7 +44,7 @@ fun insertCoffeeWithRecover(
 @Recover
 private fun recoverByInsertCoffee(
     exception: CoffeeInsertException,
-    firstMessage: String,
+    firstMessage: String,x
     secondMessage: String? = null
 
 ) {
@@ -61,6 +61,8 @@ private fun recoverByInsertCoffee(
 * 메소드 레벨에서 붙이고 이후에 retry 까지 모두 수행했음에도 불구하고 실패된 경우 리커버리를 수행한다.
 * `위의 코드처럼` 첫번째 파람으로 익셉션 인자를 받고, 두번째는 @Retryable 의 메소드(`insertCoffeeWithRecover`) 인자를 순서대로 받는다.
 * @Recover 에서 에러가 발생하는 경우? -> 그냥 익셉션이 일어난다. 이건 그 앞단에서 try catch 로 잡아서 별도 처리해줘야 할듯?
+* @Retryable 붙은 메소드의 접근지정자는 public 만 가능하다. 프록시 객체에 대한 aop 를 적용시키기 위함인 걸로 보임.
+* @Recover 에 붙은 메소드의 접근지정자는 public, private 상관없음
 
 ## retryTemplate 이용
 ```kotlin
@@ -152,6 +154,12 @@ class DefaultListenerSupport : RetryListenerSupport() {
 * retryTemplate.setListeners() 을 통해서 등록할 수 있다.
 * @Retryable 의 attr 값으로 등록할 수 있다. (대신 빈으로 등록이 되어야 함)
 
+## @Retryable 에서 현재 시도횟수 획득
+```kotlin
+val retry = RetrySynchronizationManager.getContext().getRetryCount();
+```
+* 별도 리스너를 사용하지 않고 위처럼 사용할 수 있다.
+
 ## 고려사항
 * retry 수행시에, 대상 서버가 회복할 시간을 주는 것이 좋다.
   * 짧은 지연시간의 retry 요청은 대상서버에 부하를 줄 수 있다.
@@ -162,3 +170,4 @@ class DefaultListenerSupport : RetryListenerSupport() {
 * https://www.baeldung.com/spring-retry
 * https://daddyprogrammer.org/post/12091/spring-retry-review/
 * https://brunch.co.kr/@springboot/580
+* https://stackoverflow.com/questions/53079908/how-do-i-access-current-retry-attempt-when-using-retryable-approach

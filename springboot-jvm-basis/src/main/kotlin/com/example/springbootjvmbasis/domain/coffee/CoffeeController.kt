@@ -9,21 +9,26 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("coffee")
-class CoffeeController {
+class CoffeeController(
+    private val coffeeService: CoffeeService
+) {
 
     private val log = LoggerFactory.getLogger(javaClass)
 
     @PostMapping
     fun addCoffees(
         @RequestParam("size") size: Int
-    ) {
+    ): List<Coffee> {
+        log.info("POST /coffee?size=$size")
+        return coffeeService.addCoffees(size)
+    }
 
-        log.info("POST /coffee?size=${size}")
-        val coffees = mutableListOf<Coffee>()
-
-        repeat(size) {
-            coffees.add(Coffee())
-        }
+    @PostMapping("complex")
+    fun addCoffeeWithComplex(
+        @RequestParam("size") size: Int
+    ): List<Coffee> {
+        log.info("POST /coffee/complex?size=$size")
+        return coffeeService.addCoffeesComplex(size)
     }
 
     @GetMapping("memory")

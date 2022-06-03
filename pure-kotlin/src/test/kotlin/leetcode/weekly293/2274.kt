@@ -4,7 +4,6 @@ import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import kotlin.math.max
 
-@Deprecated("잘 모르겠음")
 class `2274` {
 
     @Test
@@ -16,24 +15,19 @@ class `2274` {
 
 fun maxConsecutive(bottom: Int, top: Int, special: IntArray): Int {
 
-    val group = mutableSetOf<Int>()
-    special.forEach { element ->
-        group.add(element)
-    }
+    var maxCount = 0
+    special.sort()
 
-    var result = 0
-    var start = bottom
-
-    for(floor in bottom..top) {
-        if (group.contains(floor)) {
-            result = max((floor - 1) - start + 1, result)
-            start = floor + 1
+    for (index in special.indices) {
+        if (index == 0 || special[index] - special[index - 1] == 1) {
+            continue
         }
 
-        if (floor == top) {
-            result = max(floor - start + 1, result)
-        }
+        maxCount = max(maxCount, special[index] - special[index - 1] - 1)
     }
 
-    return result
+    maxCount = max(maxCount, special.first() - bottom)
+    maxCount = max(maxCount, top - special.last())
+
+    return maxCount
 }

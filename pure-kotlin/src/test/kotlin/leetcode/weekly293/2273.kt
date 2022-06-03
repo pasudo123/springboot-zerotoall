@@ -7,18 +7,33 @@ class `2273` {
 
     @Test
     fun leetcodeTest() {
-        removeAnagrams(arrayOf("abba","baba","bbaa","cd","cd")) shouldBe listOf("abba","cd")
-        removeAnagrams(arrayOf("a","b","c","d","e")) shouldBe listOf("a","b","c","d","e")
-        removeAnagrams(arrayOf("a","b","a")) shouldBe listOf("a","b","a")
+//        removeAnagrams(arrayOf("abba","baba","bbaa","cd","cd")) shouldBe listOf("abba","cd")
+//        removeAnagrams(arrayOf("a","b","c","d","e")) shouldBe listOf("a","b","c","d","e")
+//        removeAnagrams(arrayOf("a","b","a")) shouldBe listOf("a","b","a")
+        removeAnagrams(arrayOf("z","z","z","gsw","wsg","gsw","krptu")) shouldBe listOf("z","gsw","krptu")
     }
 }
 
 fun removeAnagrams(words: Array<String>): List<String> {
 
-    val group = mutableListOf<MutableMap<Char, Int>>()
-    val result = mutableListOf<String>()
+    if (words.count() == 1) {
+        return words.toList()
+    }
 
-    for (index in words.indices) {
+    var prevGroup = mutableMapOf<Char, Int>()
+
+    words.first().forEach { element ->
+        if (prevGroup[element] == null) {
+            prevGroup[element] = 1
+        } else {
+            prevGroup[element] = prevGroup[element]!! + 1
+        }
+    }
+
+    val result = mutableListOf<String>()
+    result.add(words.first())
+
+    for (index in 1 until words.size) {
         val word = words[index]
         val currentGroup = mutableMapOf<Char, Int>()
 
@@ -30,34 +45,28 @@ fun removeAnagrams(words: Array<String>): List<String> {
             }
         }
 
-        if (index == 0) {
-            group.add(currentGroup)
+        if (prevGroup.keys.size != currentGroup.keys.size) {
+            prevGroup = currentGroup
             result.add(word)
             continue
         }
 
-        var groupMatched = false
+        var isAnagram = true
 
-        group.forEach { subGroup ->
-            var isMatched = true
+        prevGroup.keys.forEach { key ->
+            if (prevGroup[key] == currentGroup[key]) {
 
-            subGroup.keys.forEach { key ->
-                if (subGroup[key] == currentGroup[key]) {
-                    isMatched = isMatched && true
-                } else {
-                    isMatched = false
-                }
-            }
-
-            if (isMatched) {
-                groupMatched = true
+            } else {
+                isAnagram = false
             }
         }
 
-        if (groupMatched.not()) {
-            group.add(currentGroup)
-            result.add(word)
+        if (isAnagram) {
+            continue
         }
+
+        result.add(word)
+        prevGroup = currentGroup
     }
 
     return result

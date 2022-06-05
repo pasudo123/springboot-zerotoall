@@ -1,5 +1,5 @@
 ### POST coffee
-POST http://localhost:9301/coffee?size=100000
+POST http://localhost:9301/coffee?size=30000
 Content-Type: application/json
 
 ### POST coffee-complex

@@ -18,9 +18,10 @@ class CoffeeController(
     @PostMapping
     fun addCoffees(
         @RequestParam("size") size: Int
-    ): List<Coffee> {
+    ): String {
         log.info("POST /coffee?size=$size")
-        return coffeeService.addCoffees(size)
+        val coffees = coffeeService.addCoffees(size)
+        return "커피 ${coffees.size}잔 완성!"
     }
 
     @PostMapping("complex")

@@ -84,11 +84,11 @@ tasks.named<org.springframework.boot.gradle.tasks.run.BootRun>("bootRun") {
 
     // jvmArguments
     jvmArgs = listOf(
-        "-Xms200m",
-        "-Xmx200m",
+        "-Xms30m",
+        "-Xmx30m",
         "-verbose:gc",
-        "-XX:+PrintGCDetails",
-        "-Xlog:gc*::time",
+//        "-XX:+PrintGCDetails",
+//        "-Xlog:gc*::time",
     )
 
     println("[bootRun] END   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")

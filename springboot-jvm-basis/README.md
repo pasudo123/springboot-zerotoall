@@ -80,7 +80,7 @@ __G1 Garbage Collector__
 
 ## GC 튜닝이 필요한 경우?
 * STW 가 잦게 발생해서, 애플리케이션 단에서 타임아웃이 잦은 경우
-* Xms, Xmx 옵션을 설정한 경우
+* Xms, Xmx 옵션을 설정하지 않았다.
 
 ## GC Logging
 ```shell
@@ -95,7 +95,15 @@ __G1 Garbage Collector__
 * 추가적인 세부정보를 더 보기위해선, `-XX:+PrintGCDetails` 를 같이 이용한다.
 * 날짜와 시간정보 추가 `-XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps` java9 부터는 제거되었다.
   * `-Xlog:gc*::time` 로 대체
-* 
+
+## Xms & Xmx 를 동일하게 세팅하는 이유
+* jvm 기반 애플리케이션이 띄어질 때, 초기 Xms 사이즈만큼의 힙메모리 사이즈를 취하고 더 필요한 경우에는 os 로부터 메모리를 추가요청한다.
+  * os 로 추가요청하는 시점에서도 어느정도 딜레이가 발생한다.
+  * 결국 jvm 은 Xmx 만큼 힙메모리 사이즈를 취하게 될 것이므로 동일하게 가져가는 것이 좋다.
+* GC 의 발생빈도가 잦아지는 부분을 해소 (Young GC 부분)
+  * Xms 값을 낮게하면 GC 가 자주 발생한다. 대신 GC 수행 속도는 짧다. (GC 는 여러번, 수행속도는 짧게)
+  * Xms == Xmx 로 하면 GC 가 적게 발생한다. 대신 GC 수행 속도는 상대적으로 길다.
+  * ex) [32.719s][info][gc] GC(147) Pause Young (Normal) (G1 Evacuation Pause) 17M->16M(22M) 0.712ms
 
 ## 참고자료
 * https://www.baeldung.com/spring-boot-heap-size
@@ -105,4 +113,5 @@ __G1 Garbage Collector__
 * https://www.baeldung.com/jvm-parameters
 * https://docs.oracle.com/en/java/javase/11/gctuning/introduction-garbage-collection-tuning.html
 * https://docs.oracle.com/en/java/javase/18/gctuning/introduction-garbage-collection-tuning.html
+* [Garbage Collection 튜닝](https://d2.naver.com/helloworld/37111)
 * [우아한 형제들 메모리릭 글](https://techblog.woowahan.com/2628/)

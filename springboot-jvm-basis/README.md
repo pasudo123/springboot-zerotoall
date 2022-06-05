@@ -26,7 +26,7 @@ tasks.named<org.springframework.boot.gradle.tasks.run.BootRun>("bootRun") {
     jvmArgs = listOf(
         "-Xms3072m",
         "-Xmx3072m",
-        "-XX:+UseSerialGC"
+        "-verbose:gc"
     )
 
     println("[bootRun] END   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
@@ -34,14 +34,14 @@ tasks.named<org.springframework.boot.gradle.tasks.run.BootRun>("bootRun") {
 ```
 
 ## GC 설정
-Serial Garbage Collector
+__Serial Garbage Collector__
 ```shell
 -XX:+UseSerialGC
 ```
 * 싱글스레드로 동작한다.
 * GC 가 수행되는 동안 애플리케이션을 멈춘다. 서버환경에 적합하지 않음
 
-Parallel Garbage Collector
+__Parallel Garbage Collector__
 ```shell
 -XX:+UseParallelGC
 -XX:ParallelGCThreads={N}
@@ -54,21 +54,55 @@ Parallel Garbage Collector
 * `-XX:MaxGCPauseMillis={N}` 을 통해 GC 수행 시, 최대로 멈추는 시간을 정의할 수 있다.
 * `-XX:GCTimeRatio={N}` 을 통해 GC 수행 시, 최대 처리량을 정의할 수 있다.
 
-CMS Garbage Collector
+__CMS Garbage Collector__
 ```shell
 -XX:+UseParNewGC
 ```
 * Concurrent Mark & Sweep 을 수행한다.
   * [Mark & Sweep 개념](https://imasoftwareengineer.tistory.com/103)
+* `java SE 8` 에서 deprecated 될 예정이었고, 더이상 쓰이지 않게 될 수 있다.
+* `java 9` 에서는 deprecated 되었다.
+* `java 14` 에서는 완전히 사라졌다.
 
+__G1 Garbage Collector__
+```shell
+-XX:+UseG1GC
+```
+* 다른 GC 와는 다르게 힙공간을 일정한 크기의 힙 region 으로 파티셔닝한다.
+* CMS Garbage Collector 의 대체로 쓰인다.
+* JDK11 부터 default GC 이다.
 
-## 테스트 해본 것.
-* heap memory 를 min/max 동일하게 15M 정도 만들고, 동시에 api 호출 (GC 는 다르게 설정)
-  * GC 를 Serial, Parallel 서로 다르게 헀는데, 잘 모르겠음. 속도차이도 없는듯. 너무 작게 하면 앱 띄어질 때 OOM 이 발생한다.
+## Stop The World (STW)
+* GC 를 수행하기 위해 GC 수행을 위한 스레드만 작동하고 나머지 애플리케이션에서 동작중인 스레드는 모두 작업을 멈춘다.
+* 어떤 GC 알고리즘을 사용하더라도 STW 는 발생한다.
+* 대개 GC 튜닝이란 STW 의 소요시간을 줄이는 것이다.
+* https://stophyun.tistory.com/37
+
+## GC 튜닝이 필요한 경우?
+* STW 가 잦게 발생해서, 애플리케이션 단에서 타임아웃이 잦은 경우
+* Xms, Xmx 옵션을 설정한 경우
+
+## GC Logging
+```shell
+-verbose:gc
+-XX:+PrintGCDetails
+-XX:+PrintGCDateStamps # java9 부터는 제거
+-XX:+PrintGCTimeStamps # java9 부터는 제거
+-Xlog:gc*::time # java9 이후부터 이용
+```
+* application gc 로그를 출력할 수 있다.
+* jvm args 옵션에 `-verbose:gc` 표기
+* 추가적인 세부정보를 더 보기위해선, `-XX:+PrintGCDetails` 를 같이 이용한다.
+* 날짜와 시간정보 추가 `-XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps` java9 부터는 제거되었다.
+  * `-Xlog:gc*::time` 로 대체
+* 
 
 ## 참고자료
 * https://www.baeldung.com/spring-boot-heap-size
 * https://www.baeldung.com/spring-boot-command-line-arguments
 * https://www.baeldung.com/jvm-garbage-collectors
 * https://www.baeldung.com/java-verbose-gc
-* https://docs.oracle.com/en/java/javase/11/gctuning/introduction-garbage-collection-tuning.html#GUID-326EB4CF-8C8C-4267-8355-21AB04F0D304
+* https://www.baeldung.com/jvm-parameters
+* https://docs.oracle.com/en/java/javase/11/gctuning/introduction-garbage-collection-tuning.html
+* https://docs.oracle.com/en/java/javase/18/gctuning/introduction-garbage-collection-tuning.html
+* [우아한 형제들 메모리릭 글](https://techblog.woowahan.com/2628/)

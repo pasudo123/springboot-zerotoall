@@ -3,7 +3,7 @@ POST http://localhost:9301/coffee?size=100000
 Content-Type: application/json
 
 ### POST coffee-complex
-POST http://localhost:9301/coffee/complex?size=100000
+POST http://localhost:9301/coffee/complex?size=10000
 Content-Type: application/json
 
 ### GET coffee memory

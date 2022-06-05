@@ -102,6 +102,7 @@ __G1 Garbage Collector__
   * 결국 jvm 은 Xmx 만큼 힙메모리 사이즈를 취하게 될 것이므로 동일하게 가져가는 것이 좋다.
 * GC 의 발생빈도가 잦아지는 부분을 해소 (Young GC 부분)
   * Xms 값을 낮게하면 GC 가 자주 발생한다. 대신 GC 수행 속도는 짧다. (GC 는 여러번, 수행속도는 짧게)
+    * 초기에 할당받은 힙메모리가 작기 때문에 young generation 에서 자주 발생 (eden, s0, s1)
   * Xms == Xmx 로 하면 GC 가 적게 발생한다. 대신 GC 수행 속도는 상대적으로 길다.
   * ex) [32.719s][info][gc] GC(147) Pause Young (Normal) (G1 Evacuation Pause) 17M->16M(22M) 0.712ms
 

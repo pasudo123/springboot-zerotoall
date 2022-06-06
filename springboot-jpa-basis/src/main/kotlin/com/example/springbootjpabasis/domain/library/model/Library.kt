@@ -24,7 +24,7 @@ class Library(
 
     @Column(name = "address", columnDefinition = "VARCHAR(255)", length = 255, nullable = false)
     val address: String
-): BaseEntity() {
+) : BaseEntity() {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

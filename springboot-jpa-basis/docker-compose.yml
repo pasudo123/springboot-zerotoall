@@ -10,4 +10,4 @@ services:
       - MYSQL_DATABASE=testdb
     container_name: springboot-jpa-basis-mysql
     ports:
-      - 13310:3306
+      - "13310:3306"

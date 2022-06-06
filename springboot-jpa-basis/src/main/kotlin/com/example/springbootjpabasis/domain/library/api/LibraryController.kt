@@ -25,23 +25,23 @@ class LibraryController(
 
     @ApiOperation(value = "서점을 추가한다.")
     @PostMapping
-    fun create(@RequestBody libraryCreateDto: LibraryCreateDto) : ResponseEntity<Library> {
+    fun create(@RequestBody libraryCreateDto: LibraryCreateDto): ResponseEntity<Library> {
         val library = libraryRepository.save(Library.from(libraryCreateDto))
         return ResponseEntity.ok(library)
     }
 
     @ApiOperation(value = "서점을 전체 조회한다.")
     @GetMapping
-    fun fetchAll() : ResponseEntity<List<Library>> {
+    fun fetchAll(): ResponseEntity<List<Library>> {
         val libraries = libraryRepository.findAll()
         return ResponseEntity.ok(libraries)
     }
 
     @ApiOperation(value = "서점을 단일 조회한다.")
     @GetMapping("{id}")
-    fun fetchOnById(@PathVariable("id") id: Long) : ResponseEntity<Library> {
+    fun fetchOnById(@PathVariable("id") id: Long): ResponseEntity<Library> {
         val libraryOpt = libraryRepository.findById(id)
-        if(libraryOpt.isEmpty) {
+        if (libraryOpt.isEmpty) {
             throw EntityNotFoundException("Does not exist library[$id]")
         }
 

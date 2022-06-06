@@ -1,8 +1,8 @@
 package com.example.springbootjpabasis
 
-import com.example.springbootjpabasis.config.AuditConfiguration
+import com.example.springbootjpabasis.config.AuditTestConfiguration
 import com.example.springbootjpabasis.config.CustomEnversTestConfiguration
-import com.example.springbootjpabasis.config.QuerydslConfiguration
+import com.example.springbootjpabasis.config.QuerydslTestConfiguration
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
@@ -35,10 +35,12 @@ annotation class TestEnvironment
 @TestEnvironment
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
-@DataJpaTest(includeFilters = [
-    ComponentScan.Filter(type = FilterType.ANNOTATION, classes = [Repository::class]),
-])
+@DataJpaTest(
+    includeFilters = [
+        ComponentScan.Filter(type = FilterType.ANNOTATION, classes = [Repository::class])
+    ]
+)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Import(value = [QuerydslConfiguration::class, AuditConfiguration::class])
+@Import(value = [QuerydslTestConfiguration::class, AuditTestConfiguration::class])
 @ContextConfiguration(classes = [CustomEnversTestConfiguration::class])
 annotation class RepositorySupport

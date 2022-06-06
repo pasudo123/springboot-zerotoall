@@ -1,12 +1,11 @@
 package com.example.springbootjpabasis.domain.book.model
 
 import com.example.springbootjpabasis.domain.BaseEntity
-import  com.example.springbootjpabasis.domain.book.api.dto.BookCreateDto
+import com.example.springbootjpabasis.domain.book.api.dto.BookCreateDto
 import com.example.springbootjpabasis.domain.library.model.Library
 import com.fasterxml.jackson.annotation.JsonBackReference
 import org.hibernate.envers.Audited
-import java.util.*
-import javax.persistence.CascadeType
+import java.util.UUID
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
@@ -21,9 +20,12 @@ import javax.persistence.Table
 
 @Audited
 @Entity
-@Table(name = "book", indexes = [
-    Index(name = "isbn_idx", columnList = "isbn")
-])
+@Table(
+    name = "book",
+    indexes = [
+        Index(name = "isbn_idx", columnList = "isbn")
+    ]
+)
 class Book(
 
     @Column(name = "name", columnDefinition = "VARCHAR(80)", length = 80, nullable = false)
@@ -37,7 +39,7 @@ class Book(
 
     @Column(name = "isbn", columnDefinition = "VARCHAR(80)", length = 80, nullable = false)
     val isbn: String
-): BaseEntity() {
+) : BaseEntity() {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,7 +60,7 @@ class Book(
         protected set
 
     fun setByLibrary(library: Library) {
-        if(this.library == null) {
+        if (this.library == null) {
             this.library = library
         }
 

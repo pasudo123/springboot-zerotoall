@@ -18,7 +18,7 @@ import javax.persistence.Table
 class BookDetail(
     @Column(columnDefinition = "TEXT")
     var content: String
-) : BaseEntity(){
+) : BaseEntity() {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

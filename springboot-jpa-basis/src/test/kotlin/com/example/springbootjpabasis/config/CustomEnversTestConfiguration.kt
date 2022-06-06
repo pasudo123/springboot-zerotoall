@@ -1,6 +1,5 @@
 package com.example.springbootjpabasis.config
 
-import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.jdbc.DataSourceBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -12,7 +11,7 @@ import org.springframework.orm.jpa.vendor.Database
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter
 import org.springframework.transaction.PlatformTransactionManager
 import org.springframework.transaction.annotation.EnableTransactionManagement
-import java.util.*
+import java.util.Properties
 import javax.persistence.EntityManagerFactory
 import javax.sql.DataSource
 
@@ -38,11 +37,11 @@ class CustomEnversTestConfiguration {
     fun entityManagerFactory(): LocalContainerEntityManagerFactoryBean {
 
         val vendorAdapter = HibernateJpaVendorAdapter().apply {
-                this.setGenerateDdl(true)
-                this.setShowSql(true)
-                this.setDatabasePlatform("org.hibernate.dialect.H2Dialect")
-                this.setDatabase(Database.H2)
-            }
+            this.setGenerateDdl(true)
+            this.setShowSql(true)
+            this.setDatabasePlatform("org.hibernate.dialect.H2Dialect")
+            this.setDatabase(Database.H2)
+        }
 
         /**
          * https://docs.jboss.org/hibernate/orm/5.4/userguide/html_single/Hibernate_User_Guide.html

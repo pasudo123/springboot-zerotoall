@@ -27,7 +27,7 @@ class BookController(
 
     @ApiOperation(value = "책을 추가한다.")
     @PostMapping
-    fun create(@RequestBody bookCreateDto: BookCreateDto) : ResponseEntity<Book> {
+    fun create(@RequestBody bookCreateDto: BookCreateDto): ResponseEntity<Book> {
         val libraryOpt = libraryRepository.findById(bookCreateDto.libraryId)
         if (libraryOpt.isEmpty) {
             throw EntityNotFoundException("There is no library[${bookCreateDto.libraryId}] for adding book")
@@ -40,14 +40,14 @@ class BookController(
 
     @ApiOperation(value = "책을 전체 조회한다.")
     @GetMapping
-    fun fetchAll() : ResponseEntity<List<Book>> {
+    fun fetchAll(): ResponseEntity<List<Book>> {
         val books = bookRepository.findAll()
         return ResponseEntity.ok(books)
     }
 
     @ApiOperation(value = "책을 단일 조회한다.")
     @GetMapping("{id}")
-    fun fetchOneById(@PathVariable("id") id: Long) : ResponseEntity<Book> {
+    fun fetchOneById(@PathVariable("id") id: Long): ResponseEntity<Book> {
         val bookOpt = bookRepository.findById(id)
         if (bookOpt.isEmpty) {
             throw EntityNotFoundException("Does not exist book[$id]")

@@ -12,10 +12,9 @@ import org.springframework.orm.jpa.vendor.Database
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter
 import org.springframework.transaction.PlatformTransactionManager
 import org.springframework.transaction.annotation.EnableTransactionManagement
-import java.util.*
+import java.util.Properties
 import javax.persistence.EntityManagerFactory
 import javax.sql.DataSource
-
 
 /**
  * https://docs.spring.io/spring-data/envers/docs/2.3.9.RELEASE/reference/html/#reference
@@ -38,11 +37,11 @@ class CustomEnversConfiguration {
     fun entityManagerFactory(): LocalContainerEntityManagerFactoryBean {
 
         val vendorAdapter = HibernateJpaVendorAdapter().apply {
-                this.setGenerateDdl(true)
-                this.setShowSql(true)
-                this.setDatabasePlatform("org.hibernate.dialect.MySQL57Dialect")
-                this.setDatabase(Database.MYSQL)
-            }
+            this.setGenerateDdl(true)
+            this.setShowSql(true)
+            this.setDatabasePlatform("org.hibernate.dialect.MySQL57Dialect")
+            this.setDatabase(Database.MYSQL)
+        }
 
         /**
          * https://docs.jboss.org/hibernate/orm/5.4/userguide/html_single/Hibernate_User_Guide.html

@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 
 plugins {
     val kotlinVersion = System.getProperty("version.kotlinVersion")
@@ -62,16 +62,16 @@ dependencies {
 
     // querydsl : kapt 를 gradle.build.kts 에 추가
     kapt("org.springframework.boot:spring-boot-configuration-processor")
-    kapt("com.querydsl:querydsl-apt:${queryDslVersion}:jpa")
-    implementation("com.querydsl:querydsl-jpa:${queryDslVersion}")
+    kapt("com.querydsl:querydsl-apt:$queryDslVersion:jpa")
+    implementation("com.querydsl:querydsl-jpa:$queryDslVersion")
 
     // web
     implementation("org.springframework.boot:spring-boot-starter-web")
 
     // swagger
-    //https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
-    implementation ("io.springfox:springfox-swagger-ui:2.9.2")
-    implementation ("io.springfox:springfox-swagger2:2.9.2")
+    // https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
+    implementation("io.springfox:springfox-swagger-ui:2.9.2")
+    implementation("io.springfox:springfox-swagger2:2.9.2")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -85,9 +85,9 @@ dependencies {
     implementation("io.github.microutils:kotlin-logging-jvm:2.0.10")
 
     // mock & kotest
-    testImplementation("io.mockk:mockk:${mockkVersion}")
-    testImplementation("io.kotest:kotest-assertions-core:${kotestVersion}")
-    testImplementation("com.ninja-squad:springmockk:${springmockkVersion}")
+    testImplementation("io.mockk:mockk:$mockkVersion")
+    testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
+    testImplementation("com.ninja-squad:springmockk:$springmockkVersion")
 
     testImplementation("mysql:mysql-connector-java")
 }

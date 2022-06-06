@@ -3,6 +3,9 @@ package leetcode.weekly291
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
+/**
+ * https://leetcode.com/contest/weekly-contest-291/
+ */
 class `2259` {
     @Test
     fun leetcodeTest() {

@@ -44,6 +44,7 @@
   * Query 로 SELECT ... FOR UPDATE 가 날라간다. (=@SelectBeforeUpdate)
   * 현재 수행중인 세션이 작업을 완료하기 이전까지 데이터 로우를 수정하지 못한다.
   * 동시에 업데이트 수행 시 에러는 발생하지 않음.
+  * row exclusive lock
 
 ---
 ### JPA Lock Error & Retry

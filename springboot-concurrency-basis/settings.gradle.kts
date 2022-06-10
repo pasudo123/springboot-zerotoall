@@ -1,1 +1,1 @@
-rootProject.name = "springboot-jpa-basis"
+rootProject.name = "springboot-concurrency-basis"

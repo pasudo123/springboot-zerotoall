@@ -22,11 +22,11 @@ class Snack : BaseEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
-        private set
+        protected set
 
     @Column(name = "name", columnDefinition = "VARCHAR(50)", nullable = false)
     var name: String? = null
-        private set
+        protected set
 
     @Column(name = "price", columnDefinition = "BIGINT", nullable = false)
     var price: Long? = null
@@ -35,12 +35,12 @@ class Snack : BaseEntity() {
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = ShoppingBag::class)
     @JoinColumn(name = "shopping_bag_id")
     var shoppingBag: ShoppingBag? = null
-        private set
+        protected set
 
     @Version
     @Column(name = "opt_lock")
     var version: Long? = null
-        private set
+        protected set
 
     fun into(shoppingBag: ShoppingBag) {
         this.shoppingBag = shoppingBag

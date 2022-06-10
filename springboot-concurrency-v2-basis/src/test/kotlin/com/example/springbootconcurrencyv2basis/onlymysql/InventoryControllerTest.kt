@@ -26,7 +26,7 @@ internal class InventoryControllerTest {
         val stopWatch = measureTimeMillis {
             runBlocking(Dispatchers.IO) {
                 // inventory 의 size 보다 더 큰 값을 요청
-                (1..15).map {
+                (1..10).map {
                     async {
                         khttp.post("$inventoryV1Host/$id")
                     }
@@ -40,7 +40,7 @@ internal class InventoryControllerTest {
     }
 
     @Test
-    @DisplayName("낙관적락(옵티미스틱락) : InventoryController 로 동시에 요청을 보낸다 -> 에러 발생")
+    @DisplayName("낙관적락(옵티미스틱락) : InventoryController 로 동시에 요청을 보낸다")
     fun concurrenyToInventoryControllerV2Test() {
 
         val inventory = khttp.post(inventoryV2Host)
@@ -50,7 +50,7 @@ internal class InventoryControllerTest {
         val stopWatch = measureTimeMillis {
             runBlocking(Dispatchers.IO) {
                 // inventory 의 size 보다 더 큰 값을 요청
-                (1..2).map {
+                (1..10).map {
                     async {
                         khttp.post("$inventoryV2Host/$id")
                     }
@@ -74,7 +74,7 @@ internal class InventoryControllerTest {
         val stopWatch = measureTimeMillis {
             runBlocking(Dispatchers.IO) {
                 // inventory 의 size 보다 더 큰 값을 요청
-                (1..3).map {
+                (1..10).map {
                     async {
                         khttp.post("$inventoryV3Host/$id/ps-read")
                     }
@@ -98,7 +98,7 @@ internal class InventoryControllerTest {
         val stopWatch = measureTimeMillis {
             runBlocking(Dispatchers.IO) {
                 // inventory 의 size 보다 더 큰 값을 요청
-                (1..3).map {
+                (1..10).map {
                     async {
                         khttp.post("$inventoryV3Host/$id/ps-write")
                     }

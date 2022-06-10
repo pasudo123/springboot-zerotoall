@@ -35,9 +35,8 @@ class InventoryV3Controller(
     @Transactional
     @PostMapping("{id}/ps-write")
     fun addItemByInventoryIdWithPsWrite(@PathVariable id: Long): InventoryV3 {
-        val inventoryV3 = entityManager.find(InventoryV3::class.java, id)
+        val inventoryV3 = entityManager.find(InventoryV3::class.java, id, LockModeType.PESSIMISTIC_WRITE)
             ?: throw RuntimeException("인벤토리 미확인 : $id")
-        entityManager.lock(inventoryV3, LockModeType.PESSIMISTIC_WRITE)
 
         inventoryV3.addItemIfPossibleOrThrow()
         return inventoryV3

@@ -2,6 +2,9 @@ package leetcode.weekly290
 
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
+import kotlin.math.abs
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 @Deprecated("다시 풀기")
 class `2249` {
@@ -22,35 +25,16 @@ fun countLatticePoints(circles: Array<IntArray>): Int {
         val x = circle[1]
         val r = circle[2]
 
-        group.add("$y&$x")
+        for (currentY in (y-r)..(y+r)) {
+            for (currentX in (x-r)..(x+r)) {
+                val diagonal = abs(currentY - y).toDouble().pow(2) + abs(currentX - x).toDouble().pow(2)
 
-        if (r == 1) {
-            group.add("${x}&${y - 1}")
-            group.add("${x}&${y + 1}")
-            group.add("${x - 1}&${y}")
-            group.add("${x + 1}&${y}")
-            return@forEach
-        }
-
-        for (size in 1 until r) {
-            val pairs = listOf(
-                Pair(size, 0), Pair(-size, 0),
-                Pair(0, size), Pair(0, -size),
-                Pair(size, size), Pair(size, -size),
-                Pair(-size, size), Pair(-size, -size)
-            )
-
-            pairs.forEach { pair ->
-                group.add("${y + pair.first}&${x + pair.second}")
+                if (sqrt(diagonal) <= r) {
+                    group.add("$currentY&$currentX")
+                }
             }
         }
-
-        group.add("${y - r}&$x")
-        group.add("${y + r}&$x")
-        group.add("${y}&${x-r}")
-        group.add("${y}&${x+r}")
     }
 
     return group.size
 }
-

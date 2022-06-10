@@ -1,0 +1,8 @@
+### 인벤토리 생성
+POST localhost:18801/inventory/v1
+
+### 아이템 추가
+POST localhost:18801/inventory/v1/1
+
+### 인벤토리 조회
+GET localhost:18801/inventory/v1/1

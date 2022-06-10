@@ -1,4 +1,5 @@
 package com.example.springbootconcurrencyv2basis.onlymysql
 
-class InventoryV2Repository {
-}
+import org.springframework.data.jpa.repository.JpaRepository
+
+interface InventoryV2Repository : JpaRepository<InventoryV2, Long>

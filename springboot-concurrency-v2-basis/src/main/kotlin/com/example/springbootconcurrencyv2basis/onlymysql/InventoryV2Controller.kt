@@ -9,20 +9,20 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("inventory/v1")
-class InventoryV1Controller(
-    private val inventoryV1Repository: InventoryV1Repository
+@RequestMapping("inventory/v2")
+class InventoryV2Controller(
+    private val inventoryV2Repository: InventoryV2Repository
 ) {
 
     @PostMapping
-    fun createInventory(): InventoryV1 {
-        return inventoryV1Repository.save(InventoryV1())
+    fun createInventory(): InventoryV2 {
+        return inventoryV2Repository.save(InventoryV2())
     }
 
     @Transactional
     @PostMapping("{id}")
-    fun addItemByInventoryId(@PathVariable id: Long): InventoryV1 {
-        inventoryV1Repository.findByIdOrNull(id)?.let {
+    fun addItemByInventoryId(@PathVariable id: Long): InventoryV2 {
+        inventoryV2Repository.findByIdOrNull(id)?.let {
             it.addItemIfPossibleOrThrow()
             return it
         }
@@ -31,7 +31,8 @@ class InventoryV1Controller(
     }
 
     @GetMapping("{id}")
-    fun getInventoryById(@PathVariable id: Long): InventoryV1 {
-        return inventoryV1Repository.findByIdOrNull(id) ?: throw RuntimeException("인벤토리 미확인 : $id")
+    fun getInventoryById(@PathVariable id: Long): InventoryV2 {
+        println()
+        return inventoryV2Repository.findByIdOrNull(id) ?: throw RuntimeException("인벤토리 미확인 : $id")
     }
 }

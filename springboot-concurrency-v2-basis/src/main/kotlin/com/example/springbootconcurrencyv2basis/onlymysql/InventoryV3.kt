@@ -8,8 +8,8 @@ import javax.persistence.Table
 import javax.persistence.Version
 
 @Entity
-@Table(name = "inventory_v2")
-class InventoryV2 {
+@Table(name = "inventory_v3")
+class InventoryV3 {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,10 +26,6 @@ class InventoryV2 {
 
         size += 1
     }
-
-    @Version
-    var version: Long? = null
-        protected set
 
     companion object {
         private const val MAX_SIZE = 10L

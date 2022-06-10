@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("inventory/v1")
-class InventoryController(
+class InventoryV1Controller(
     private val inventoryV1Repository: InventoryV1Repository
 ) {
 

@@ -25,6 +25,11 @@
 * @OptimisticLocking(type = OptimisticLockType.DIRTY) 이용 시, @SelectBeforeUpdate 를 같이 사용한다.
   * @SelectBeforeUpdate 는 update query 를 수행한 디비 세션객체가 commit 하기 이전에 타 세션에서 해당 데이터 로우를 수정하지 못하도록 한다.
 
+### OptimisticLock with Redis
+* WATCH command 를 이용해 레디스 트랜잭션 내에서 CAS (compare and set) 를 수행할 수 있도록 도와준다.
+  * redis key 값이 변경되는 것을 exec() 되는 시점에 탐지한다. 그리고 그 사이에 key 값이 변경 되었다면 트랜잭션을 실패한다.
+* watch -> multi -> {operation} -> exec 순으로 동작시킨다.
+
 ---
 ### PessimisticLock : 비관적 락
 * 데이터베이스 Lock 이용
@@ -58,3 +63,4 @@
 * [JPA Lock 이해하기](https://reiphiel.tistory.com/entry/understanding-jpa-lock)
 * [@SelectBeforeUpdate](https://dololak.tistory.com/446)
 * https://dev.mysql.com/doc/refman/8.0/en/innodb-locking-reads.html
+* https://redis.io/docs/manual/transactions/#optimistic-locking-using-check-and-set

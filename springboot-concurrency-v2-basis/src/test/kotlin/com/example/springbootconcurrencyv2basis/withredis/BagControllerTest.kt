@@ -17,7 +17,7 @@ internal class BagControllerTest {
 
         // given
         val bag = khttp.post(itemHost)
-        val id = bag.jsonObject["id"]
+        val id = 1
         println("bag id : $id")
 
         // when

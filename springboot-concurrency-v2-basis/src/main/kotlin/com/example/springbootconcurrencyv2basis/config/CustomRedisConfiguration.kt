@@ -28,7 +28,8 @@ class CustomRedisConfiguration(
             setConnectionFactory(connectionFactory)
             this.keySerializer = StringRedisSerializer()
             this.valueSerializer = StringRedisSerializer()
+            this.hashKeySerializer = StringRedisSerializer()
+            this.hashValueSerializer = StringRedisSerializer()
         }
     }
-
 }

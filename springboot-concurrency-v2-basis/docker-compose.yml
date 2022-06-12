@@ -1,18 +1,17 @@
 version: "3.7"
 services:
 
-  concurrency-redis:
-    image: redis:5.0.3
+  concurrency-v2-redis:
+    image: redis:6.2.7
     labels:
       - "name=redis"
       - "mode=standalone"
     environment:
       - REDIS_REPLICATION_MODE=master
-    container_name: springboot-concurrency-basis-redis
     ports:
-      - "16380:6379"
+      - "17380:6379"
 
-  concurrency-mysql:
+  concurrency-v2-mysql:
     image: library/mysql:8.0
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     restart: always
@@ -20,6 +19,5 @@ services:
       - MYSQL_ROOT_PASSWORD=rootpass
       - MYSQL_ROOT_HOST=%
       - MYSQL_DATABASE=testdb
-    container_name: springboot-concurrency-basis-mysql
     ports:
       - "13311:3306"

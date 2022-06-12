@@ -4,6 +4,7 @@ import org.springframework.data.redis.core.RedisOperations
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.core.SessionCallback
 import org.springframework.stereotype.Repository
+import java.time.Duration
 
 @Repository
 class BagRedisRepository(
@@ -11,35 +12,40 @@ class BagRedisRepository(
 ) {
 
     fun addItemOrThrow(id: Long) {
-
-        val results = bagRedisTemplate.execute(object: SessionCallback<List<Any>>{
+        val results = bagRedisTemplate.execute(object: SessionCallback<String>{
             @JvmName("executeByStringOperation")
-            fun <K : String?, V : String?> execute(operations: RedisOperations<String, String>): List<Any>? {
-                val key = "bag:$id"
-                // operations.watch(key)
-                // operations.expire(key, Duration.ofMinutes(5))
-                // operations.multi()
+            fun <K : String?, V : String?> execute(operations: RedisOperations<String, String>): String {
+                val bagKey = "bag:$id"
+                val callKey = "bag:$id:call"
 
-                operations.execute { conn ->
-                    conn.watch(key.toByteArray())
-                    conn.expire(key.toByteArray(), 300L)
-                    conn.multi()
-                    conn.incr(key.toByteArray())
-                    conn.exec()
-                }
+                operations.watch(callKey)
+                operations.expire(callKey, Duration.ofMinutes(5))
 
-                return null
+                operations.watch(bagKey)
+                operations.expire(bagKey, Duration.ofMinutes(5))
+
+                // 1개인경우 에러가 발생하여야 하는데, 에러가 발생하지 않는다. ?
+                operations.multi()
+
+                val size = operations.opsForValue().get(bagKey) ?: "0"
+                operations.opsForValue().set(bagKey, "${size.toInt() + 1}")
+
+                val bool = operations.opsForValue().get(callKey)?.toBoolean() ?: false
+                operations.opsForValue().set(callKey, "${!bool}")
+
+                operations.exec()
+                return "true"
             }
 
             @Suppress("UNCHECKED_CAST")
-            override fun <K : Any?, V : Any?> execute(operations: RedisOperations<K, V>): List<Any>? {
+            override fun <K : Any?, V : Any?> execute(operations: RedisOperations<K, V>): String? {
                 return this.execute<String, String>(operations as RedisOperations<String, String>)
             }
         })
 
-        results?.forEachIndexed { index, result ->
-            println("$index : $result")
-        }
-
+        println("result : $results")
+//        results?.forEachIndexed { index, result ->
+//            println("$index : $result")
+//        }
     }
 }

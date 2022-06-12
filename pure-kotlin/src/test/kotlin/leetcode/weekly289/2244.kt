@@ -3,6 +3,7 @@ package leetcode.weekly289
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
+@Deprecated("어려움")
 class `2244` {
 
     @Test

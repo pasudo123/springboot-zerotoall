@@ -1,8 +1,6 @@
 package leetcode.weekly288
 
-import io.kotest.assertions.timing.eventually
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.shouldHave
 import org.junit.jupiter.api.Test
 
 class `2231` {
@@ -16,9 +14,11 @@ class `2231` {
 }
 
 fun largestInteger(num: Int): Int {
+
     val numsString = num.toString()
     val evenArray = mutableListOf<Int>()
     val oddArray = mutableListOf<Int>()
+
     numsString.forEach { char ->
         if (char.toString().toInt() % 2 == 0) {
             evenArray.add(char.toString().toInt())
@@ -29,6 +29,7 @@ fun largestInteger(num: Int): Int {
 
     evenArray.sortDescending()
     oddArray.sortDescending()
+
     var originIndex = 0
     var evenIndex = 0
     var oddIndex = 0

@@ -27,6 +27,6 @@ class Bag {
     }
 
     companion object {
-        private const val MAX_SIZE = 5L
+        private const val MAX_SIZE = 10L
     }
 }

@@ -9,9 +9,6 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.serializer.StringRedisSerializer
-import redis.clients.jedis.JedisPool
-
-
 
 
 @Configuration
@@ -24,15 +21,33 @@ class CustomRedisConfiguration(
         return LettuceConnectionFactory(redisProperties.host, redisProperties.port)
     }
 
-    @Bean
-    fun jedisConnectionFactory(): JedisConnectionFactory {
-        return JedisConnectionFactory(
-            RedisStandaloneConfiguration(redisProperties.host, redisProperties.port)
-        )
-    }
+//    @Bean
+//    fun jedisConnectionFactory(): JedisConnectionFactory {
+//        return JedisConnectionFactory(
+//            RedisStandaloneConfiguration(redisProperties.host, redisProperties.port).apply {
+//                this.database = 0
+//            }
+//        )
+//    }
+//
+//    @Bean
+//    fun bagRedisJedisTemplate(): RedisTemplate<String, String> {
+//        val connectionFactory = jedisConnectionFactory().apply {
+//            this.afterPropertiesSet()
+//        }
+//
+//        return RedisTemplate<String, String>().apply {
+//            setConnectionFactory(connectionFactory)
+//            this.keySerializer = StringRedisSerializer()
+//            this.valueSerializer = StringRedisSerializer()
+//            this.hashKeySerializer = StringRedisSerializer()
+//            this.hashValueSerializer = StringRedisSerializer()
+//            this.afterPropertiesSet()
+//        }
+//    }
 
     @Bean
-    fun bagRedisTemplate(): RedisTemplate<String, String> {
+    fun bagRedisLettuceTemplate(): RedisTemplate<String, String> {
         val connectionFactory = lettuceConnectionFactory().apply {
             this.database = 0
             this.afterPropertiesSet()
@@ -44,6 +59,7 @@ class CustomRedisConfiguration(
             this.valueSerializer = StringRedisSerializer()
             this.hashKeySerializer = StringRedisSerializer()
             this.hashValueSerializer = StringRedisSerializer()
+            this.afterPropertiesSet()
         }
     }
 }

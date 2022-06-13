@@ -53,6 +53,10 @@ val mockkVersion: String = System.getProperty("version.mocckVersion")
 val springmockkVersion: String = System.getProperty("version.springmockkVersion")
 val queryDslVersion: String = System.getProperty("version.queryDslVersion")
 
+configurations {
+    all {}
+}
+
 dependencies {
 
     // jpa & mysql
@@ -72,8 +76,12 @@ dependencies {
 
     // redis + lettuce
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
-    // redis client + jedis
-    implementation("redis.clients:jedis:4.2.0")
+
+    // spring-data-redis 이랑 버전호환을 맞추어야 함
+    // redis jedis client + apache commons pool : jedis pool config 에서 아파치 풀 필요
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-pool2
+    implementation("redis.clients:jedis:3.8.0")
+    implementation("org.apache.commons:commons-pool2:2.11.1")
 
     // implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive")
 

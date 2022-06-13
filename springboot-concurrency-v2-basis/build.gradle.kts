@@ -70,8 +70,11 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit-mock:$retrofitVersion")
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
 
-    // redis
+    // redis + lettuce
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
+    // redis client + jedis
+    implementation("redis.clients:jedis:4.2.0")
+
     // implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive")
 
     // logging

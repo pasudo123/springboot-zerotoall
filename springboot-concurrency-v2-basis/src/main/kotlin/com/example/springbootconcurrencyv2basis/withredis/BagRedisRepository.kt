@@ -12,40 +12,49 @@ class BagRedisRepository(
 ) {
 
     fun addItemOrThrow(id: Long) {
-        val results = bagRedisTemplate.execute(object: SessionCallback<String>{
-            @JvmName("executeByStringOperation")
-            fun <K : String?, V : String?> execute(operations: RedisOperations<String, String>): String {
-                val bagKey = "bag:$id"
-                val callKey = "bag:$id:call"
+        val bagKey = "bag:$id"
 
-                operations.watch(callKey)
-                operations.expire(callKey, Duration.ofMinutes(5))
+        val bagKeyByteArray = bagKey.toByteArray()
+        val results = bagRedisTemplate.execute ({ redisConn ->
+            try {
+                redisConn.watch(bagKeyByteArray)
+                val value = redisConn.get(bagKeyByteArray)
+                val assign = value?.toString()?.toInt() ?: 0
 
-                operations.watch(bagKey)
-                operations.expire(bagKey, Duration.ofMinutes(5))
-
-                // 1개인경우 에러가 발생하여야 하는데, 에러가 발생하지 않는다. ?
-                operations.multi()
-
-                val size = operations.opsForValue().get(bagKey) ?: "0"
-                operations.opsForValue().set(bagKey, "${size.toInt() + 1}")
-
-                val bool = operations.opsForValue().get(callKey)?.toBoolean() ?: false
-                operations.opsForValue().set(callKey, "${!bool}")
-
-                operations.exec()
-                return "true"
+                redisConn.multi()
+                redisConn.setNX(bagKeyByteArray, (assign + 1).toString().toByteArray())
+                redisConn.exec()
+            } catch (exception: Exception) {
+                println("error occur : ${exception.message}")
+            } finally {
+                redisConn.close()
             }
+        }, true)
 
-            @Suppress("UNCHECKED_CAST")
-            override fun <K : Any?, V : Any?> execute(operations: RedisOperations<K, V>): String? {
-                return this.execute<String, String>(operations as RedisOperations<String, String>)
-            }
-        })
+//        val results = bagRedisTemplate.execute(object: SessionCallback<String> {
+//            @JvmName("executeByStringOperation")
+//            fun <K : String?, V : String?> execute(operations: RedisOperations<String, String>): String {
+//
+//                val size = bagRedisTemplate.opsForValue().get(bagKey)
+//
+//                operations.watch(bagKey)
+//                operations.expire(bagKey, Duration.ofMinutes(5))
+//
+//                operations.multi()
+//                operations.opsForValue().set(bagKey, "${(size?.toIntOrNull() ?: 0) + 1}")
+//                val result = operations.exec()
+//
+//                println(result.toString())
+//
+//                return "true"
+//            }
+//
+//            @Suppress("UNCHECKED_CAST")
+//            override fun <K : Any?, V : Any?> execute(operations: RedisOperations<K, V>): String {
+//                return this.execute<String, String>(operations as RedisOperations<String, String>)
+//            }
+//        })
 
         println("result : $results")
-//        results?.forEachIndexed { index, result ->
-//            println("$index : $result")
-//        }
     }
 }

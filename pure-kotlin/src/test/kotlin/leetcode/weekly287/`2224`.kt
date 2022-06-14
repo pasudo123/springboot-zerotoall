@@ -2,6 +2,7 @@ package leetcode.weekly287
 
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
+import kotlin.math.abs
 
 class `2224` {
 
@@ -25,7 +26,15 @@ fun convertTime(current: String, correct: String): Int {
         correctMinute += 60
     }
 
-    val diffHour = if (correctHour - currentHour < 0) 0 else correctHour - currentHour
+    val diffHour = if (correctHour - currentHour < 0) {
+        if (correctHour - currentHour == -1) {
+            0
+        } else {
+            abs(correctHour - currentHour) - 1
+        }
+    } else {
+        correctHour - currentHour
+    }
     var diffMinute = correctMinute - currentMinute
 
     var count = 0

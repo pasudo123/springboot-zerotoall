@@ -2,7 +2,6 @@ package leetcode.weekly287
 
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
-import kotlin.math.abs
 
 class `2224` {
 
@@ -15,31 +14,44 @@ class `2224` {
 }
 
 fun convertTime(current: String, correct: String): Int {
-    var currentHour = current.split(":").first().toInt()
-    var currentMinute = current.split(":").last().toInt()
+    val currentHour = current.split(":").first().toInt()
+    val currentMinute = current.split(":").last().toInt()
+    val correctHour = correct.split(":").first().toInt()
+    val correctMinute = correct.split(":").last().toInt()
 
-    var correctHour = correct.split(":").first().toInt()
-    var correctMinute = correct.split(":").last().toInt()
-
-    if (currentMinute > correctMinute) {
-        correctHour =- 1
-        correctMinute += 60
-    }
-
-    val diffHour = if (correctHour - currentHour < 0) {
-        if (correctHour - currentHour == -1) {
+    if (currentHour == correctHour) {
+        return if (currentMinute == correctMinute) {
             0
+        } else if (currentMinute > correctMinute) {
+            // 하루
+            23 + getCountByMinute(60 - currentMinute + correctMinute)
         } else {
-            abs(correctHour - currentHour) - 1
+            getCountByMinute(correctMinute - currentMinute)
         }
-    } else {
-        correctHour - currentHour
     }
-    var diffMinute = correctMinute - currentMinute
 
+    if (currentHour < correctHour) {
+        return if (currentMinute == correctMinute) {
+            correctHour - currentHour
+        } else if (currentMinute > correctMinute) {
+            (correctHour - currentHour - 1) + getCountByMinute(60 - currentMinute + correctMinute)
+        } else {
+            (correctHour - currentHour) + getCountByMinute(correctMinute - currentMinute)
+        }
+    }
+
+    return if (currentMinute == correctMinute) {
+        (24 - currentHour) + correctHour
+    } else if (currentMinute > correctMinute) {
+        (23 - currentHour + getCountByMinute(60 - currentMinute + correctMinute) - 1) + correctHour
+    } else {
+        (23 - currentHour + getCountByMinute(60 - currentMinute + correctMinute) - 1) + correctHour
+    }
+}
+
+private fun getCountByMinute(paramDiffMinute: Int): Int {
+    var diffMinute = paramDiffMinute
     var count = 0
-
-    count += diffHour
     var share = diffMinute / 15
     if (share != 0) {
         count += share

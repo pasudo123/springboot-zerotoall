@@ -3,6 +3,9 @@ package leetcode.weekly286
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
+/**
+ * https://leetcode.com/contest/weekly-contest-286/problems/minimum-deletions-to-make-array-beautiful/
+ */
 @Deprecated("다시 풀기 모르겠음")
 class `2216` {
 
@@ -15,32 +18,63 @@ class `2216` {
 
 fun minDeletion(nums: IntArray): Int {
 
-    if (nums.size % 2 == 0) {
-        var isGood = true
-        for (index in 0 until nums.size - 1) {
-            if (index % 2 == 0 && nums[index] == nums[index + 1]) {
-                isGood = false
+    var isChange = true
+    var count = 0
+    val prevResult = nums.toMutableList()
+    val nextResult = mutableListOf<Int>()
+
+    while(true) {
+
+        for (index in prevResult.indices step 2) {
+            val result = recursive(prevResult, index)
+            nextResult.addAll(result)
+
+            if (result.size == 0) {
+                break
+            }
+
+            if (result.size == 1) {
+                val startIndex = if (index + 2 >= prevResult.size + 1) prevResult.size else index + 2
+                nextResult.addAll(prevResult.subList(startIndex, prevResult.size))
                 break
             }
         }
 
-        if (isGood) {
-            return 0
+        if (prevResult.size == nextResult.size && prevResult.containsAll(nextResult)) {
+            isChange = false
         }
+
+        count += (prevResult.size - nextResult.size)
+
+        if (isChange.not()) {
+            if (nextResult.size % 2 == 1) {
+                count += 1
+            }
+
+            break
+        }
+
+        prevResult.clear()
+        prevResult.addAll(nextResult)
+        nextResult.clear()
     }
 
-    var currentSize = nums.size
-    var result = mutableListOf<Int>()
+    return count
+}
 
-    for (index in 0 until nums.size - 1) {
-        if (index % 2 != 0) {
-            continue
-        }
+private fun recursive(nums: MutableList<Int>, currentIndex: Int): MutableList<Int> {
 
-        if (nums[index] == nums[index + 1]) {
-        }
+    if (currentIndex >= nums.size) {
+        return mutableListOf()
     }
 
+    if (currentIndex + 1 >= nums.size) {
+        return mutableListOf(nums[currentIndex])
+    }
 
-    return 0
+    if (nums[currentIndex] == nums[currentIndex + 1]) {
+        return mutableListOf(nums[currentIndex])
+    }
+
+    return mutableListOf(nums[currentIndex], nums[currentIndex + 1])
 }

@@ -3,7 +3,9 @@ package com.example.springbootconcurrencyv2basis.withredis
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Repository
+import java.util.*
 import javax.annotation.PostConstruct
+import kotlin.random.Random
 
 @Repository
 class BagRedisRepository(
@@ -21,6 +23,7 @@ class BagRedisRepository(
         for (id in 0..10) {
             val bagKey = "bag:$id"
             bagRedisLettuceTemplate.unlink(bagKey)
+            bagRedisLettuceTemplate.opsForValue().set(bagKey, "0")
         }
     }
 
@@ -39,23 +42,24 @@ class BagRedisRepository(
 
                 redisConn.watch(bagKeyByteArray)
 
+                // watch 이후에 조회되고 증감되어야 함
+                val value = redisConn.get(bagKeyByteArray)
+                val assign = if (value == null) 0 else String(value).split(":").first().toInt()
+                val newSizeWithUUID = "${assign + 1}:${UUID.randomUUID().toString().substring(0, 5)}"
+
                 redisConn.multi()
-                // (1) 아래의 방식은 완전한 동시성을 보장하지 않는걸로 보임... 내가 잘 못쓰는건지
-                // redisConn.set(bagKeyByteArray, newSizeWithUUID.toByteArray())
-
-                // (2) 아래의 방식도 완전한 동시성을 보장하지 않는다. 별도 요청이 동시에 multi block 으로 들어오면? null 반환없이 올바르게 수행됨
-                // redis 를 이용하더라도 씹히는 경우가 계속 발생한다.
-                val newSize = redisConn.incr(bagKeyByteArray) ?: 0
-
-                // exec 를 수행이전이기 때문에 이전 데이터
-                if (newSize + 1 != bag.size + 1) {
-                    // mysql 에 저장된 데이터와 같이 보완해서 처리가 될 수 있도록 한다.
-                    throw RuntimeException("레디스 incr 로 증가된 값과 아이템 증가될 예측 사이즈 값이 서로 다릅니다.")
-                }
+                redisConn.set(bagKeyByteArray, newSizeWithUUID.toByteArray())
 
                 // When using WATCH, EXEC can return a Null reply if the execution was aborted.
                 // https://redis.io/commands/exec/ 참고, null 이 반환되면 애플리케이션 단에서는 에러를 발생시킬 수 있도록 한다.
-                redisConn.exec() ?: throw RuntimeException("레디스에 클라이언트 동시 요청이 들어왔습니다.")
+                // 완전한 동시성 처리가 안된다.?
+                try {
+                    val results = redisConn.exec()
+                    println("Result :: $results")
+                } catch (exception: Exception) {
+                    // redisConn.exec() must not be null
+                    throw RuntimeException("레디스에 클라이언트 동시 요청이 들어왔습니다. : ${exception.message}")
+                }
             }
         }
 

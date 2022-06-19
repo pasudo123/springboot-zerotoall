@@ -31,7 +31,7 @@
 * watch -> multi -> {operation} -> exec 순으로 동작시킨다.
   * 트랜잭션 내에서 exec command 가 실패하는 경우에는 null 이 반환된다.
     * https://redis.io/commands/exec/
-    * 애플리케이션 코드레벨에서 래핑된 redisTemplate 단에서는 에러가 발생하지 않는다 : 이거 때문에 계속 삽질한듯..
+    * 애플리케이션 코드레벨에서 래핑된 redisTemplate 단에서는 에러가 발생하지 않는다 : 그냥 널을 반환한다.
 
 ---
 ### PessimisticLock : 비관적 락

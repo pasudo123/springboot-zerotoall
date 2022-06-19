@@ -29,6 +29,9 @@
 * WATCH command 를 이용해 레디스 트랜잭션 내에서 CAS (compare and set) 를 수행할 수 있도록 도와준다.
   * redis key 값이 변경되는 것을 exec() 되는 시점에 탐지한다. 그리고 그 사이에 key 값이 변경 되었다면 트랜잭션을 실패한다.
 * watch -> multi -> {operation} -> exec 순으로 동작시킨다.
+  * 트랜잭션 내에서 exec command 가 실패하는 경우에는 null 이 반환된다.
+    * https://redis.io/commands/exec/
+    * 애플리케이션 코드레벨에서 래핑된 redisTemplate 단에서는 에러가 발생하지 않는다 : 이거 때문에 계속 삽질한듯..
 
 ---
 ### PessimisticLock : 비관적 락

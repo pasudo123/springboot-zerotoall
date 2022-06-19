@@ -22,7 +22,7 @@ internal class BagControllerTest {
 
         // when
         runBlocking(Dispatchers.IO) {
-            (1..10).map {
+            (1..5).map {
                 async {
                     khttp.post("$itemHost/$id")
                 }

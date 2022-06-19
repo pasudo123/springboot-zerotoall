@@ -1,7 +1,6 @@
 package com.example.springbootconcurrencyv2basis.withredis
 
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -20,7 +19,6 @@ class BagController(
         return bagRepository.save(Bag())
     }
 
-    @Transactional
     @PostMapping("{id}")
     fun addBagByInventoryId(@PathVariable id: Long): Bag {
         return this.bagService.addItemByBagId(id)

@@ -1,9 +1,11 @@
 package com.example.springbootconcurrencyv2basis.withredis
 
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Repository
 import java.util.*
+import java.util.concurrent.TimeUnit
 import javax.annotation.PostConstruct
 
 @Repository
@@ -11,6 +13,8 @@ class BagRedisRepository(
     @Qualifier("bagRedisLettuceTemplate")
     private val bagRedisLettuceTemplate: RedisTemplate<String, String>,
 ) {
+
+    private val log = LoggerFactory.getLogger(javaClass)
 
     fun getItem(id: Long): Long {
         val bagKey = "bag:$id"
@@ -27,13 +31,15 @@ class BagRedisRepository(
 
     /**
      * 레디스 싱글 스레드 동작 및 incr 을 통해서 원자성을 보장토록 한다.
-     * 다만, 레디스 내에서는 싱글스레드지만, 애플리케이션 레벨에서는 병렬이라 원자성 보장이 안됨..
+     * 1초 내에 특정 키에 대한 동시요청을 허용하지 않는다.
      */
     fun incrItemOrThrow(bag: Bag): Long {
         val bagKey = "bag:${bag.id!!}"
 
+        bagRedisLettuceTemplate.expire(bagKey, 500L, TimeUnit.MILLISECONDS)
         val incrSize = bagRedisLettuceTemplate.opsForValue().increment(bagKey)!!
 
+        log.info("incrSize : $incrSize")
         if (incrSize > 1) {
             throw RuntimeException("아이템을 다시 추가해주세요.")
         }

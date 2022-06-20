@@ -15,7 +15,7 @@ class BagService(
     private val log = LoggerFactory.getLogger(javaClass)
 
     fun addItemByBagId(id: Long, withWatch: Boolean): Bag {
-        println("called")
+        log.info("called")
 
         val bag = bagRepository.findByIdOrNull(id)
             ?: throw RuntimeException("가방 미확인 : $id")
@@ -29,9 +29,8 @@ class BagService(
         try {
             bagRedisRepository.incrItemOrThrow(bag)
             bag.addItemIfPossibleOrThrow()
-            bagRedisRepository.unlinkItem(bag)
         } catch (exception: Exception) {
-            println("error : ${exception.message}")
+            log.info("error : ${exception.message}")
         }
 
         return bag

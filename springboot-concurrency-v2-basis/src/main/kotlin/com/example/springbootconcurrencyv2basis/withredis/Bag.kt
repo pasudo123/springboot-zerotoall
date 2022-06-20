@@ -19,7 +19,7 @@ class Bag {
         protected set
 
     fun addItemIfPossibleOrThrow() {
-        if (size > MAX_SIZE) {
+        if (size >= MAX_SIZE) {
             throw RuntimeException("인벤토리에 아이템이 가득 찼습니다.")
         }
 

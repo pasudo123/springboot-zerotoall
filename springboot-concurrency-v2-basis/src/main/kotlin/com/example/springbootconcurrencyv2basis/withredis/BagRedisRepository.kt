@@ -5,7 +5,6 @@ import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Repository
 import java.util.*
 import javax.annotation.PostConstruct
-import kotlin.random.Random
 
 @Repository
 class BagRedisRepository(
@@ -23,16 +22,31 @@ class BagRedisRepository(
         for (id in 0..10) {
             val bagKey = "bag:$id"
             bagRedisLettuceTemplate.unlink(bagKey)
-            bagRedisLettuceTemplate.opsForValue().set(bagKey, "0")
         }
     }
 
-    fun decrItem(id: Long) {
-        val bagKey = "bag:$id"
-        bagRedisLettuceTemplate.opsForValue().decrement(bagKey)
+    /**
+     * 레디스 싱글 스레드 동작 및 incr 을 통해서 원자성을 보장토록 한다.
+     * 다만, 레디스 내에서는 싱글스레드지만, 애플리케이션 레벨에서는 병렬이라 원자성 보장이 안됨..
+     */
+    fun incrItemOrThrow(bag: Bag): Long {
+        val bagKey = "bag:${bag.id!!}"
+
+        val incrSize = bagRedisLettuceTemplate.opsForValue().increment(bagKey)!!
+
+        if (incrSize > 1) {
+            throw RuntimeException("아이템을 다시 추가해주세요.")
+        }
+
+        return incrSize
     }
 
-    fun incrItemOrThrow(bag: Bag) {
+    fun unlinkItem(bag: Bag) {
+        val bagKey = "bag:${bag.id!!}"
+        bagRedisLettuceTemplate.unlink(bagKey)
+    }
+
+    fun incrItemWithWatchOrThrow(bag: Bag) {
         val bagKey = "bag:${bag.id!!}"
 
         val bagKeyByteArray = bagKey.toByteArray()

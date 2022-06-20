@@ -14,20 +14,24 @@ class BagService(
 
     private val log = LoggerFactory.getLogger(javaClass)
 
-    fun addItemByBagId(id: Long): Bag {
+    fun addItemByBagId(id: Long, withWatch: Boolean): Bag {
         println("called")
 
         val bag = bagRepository.findByIdOrNull(id)
             ?: throw RuntimeException("가방 미확인 : $id")
 
-        bagRedisRepository.incrItemOrThrow(bag)
-
+        if (withWatch) {
+            bagRedisRepository.incrItemWithWatchOrThrow(bag)
+            bag.addItemIfPossibleOrThrow()
+            return bag
+        }
 
         try {
+            bagRedisRepository.incrItemOrThrow(bag)
             bag.addItemIfPossibleOrThrow()
+            bagRedisRepository.unlinkItem(bag)
         } catch (exception: Exception) {
-            bagRedisRepository.decrItem(id)
-            throw RuntimeException("가방에 아이템이 가득찼습니다.")
+            println("error : ${exception.message}")
         }
 
         return bag

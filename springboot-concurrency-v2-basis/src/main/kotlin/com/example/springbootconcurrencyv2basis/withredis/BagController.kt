@@ -21,7 +21,12 @@ class BagController(
 
     @PostMapping("{id}")
     fun addBagByInventoryId(@PathVariable id: Long): Bag {
-        return this.bagService.addItemByBagId(id)
+        return this.bagService.addItemByBagId(id, withWatch = false)
+    }
+
+    @PostMapping("{id}/with-watch")
+    fun addBagByInventoryIdWithWatch(@PathVariable id: Long): Bag {
+        return this.bagService.addItemByBagId(id, withWatch = true)
     }
 
     @GetMapping("{id}")

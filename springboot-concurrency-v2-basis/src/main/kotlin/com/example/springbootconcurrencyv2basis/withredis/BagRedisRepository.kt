@@ -2,7 +2,9 @@ package com.example.springbootconcurrencyv2basis.withredis
 
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.data.redis.core.RedisOperations
 import org.springframework.data.redis.core.RedisTemplate
+import org.springframework.data.redis.core.SessionCallback
 import org.springframework.stereotype.Repository
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -52,6 +54,44 @@ class BagRedisRepository(
         bagRedisLettuceTemplate.unlink(bagKey)
     }
 
+    /**
+     * 이렇게 한다한들? mysql 은 race condition 에 취약함.
+     */
+    fun incrItemWithWatchAndZPopMaxOrThrow(bag: Bag): Long? {
+        val zSetBag = "z:bag:${bag.id!!}"
+        val bagKey = "bag:${bag.id!!}"
+
+        return bagRedisLettuceTemplate.execute(object: SessionCallback<Long> {
+            @JvmName("executeByCustomOperation")
+            fun <K : String?, V : String?> execute(operations: RedisOperations<String, String>): Long? {
+
+                return try {
+                    operations.watch(bagKey)
+
+                    // value 를 가변적으로 바꾸려고 한다면
+                    val randomUUID = UUID.randomUUID().toString().substring(0, 5)
+                    val size = operations.opsForValue().get(bagKey)
+                    val newSize = if (size == null) 1 else size.split(":").first().toInt() + 1
+                    val newSizeWithUUID = "$newSize:$randomUUID"
+
+                    operations.multi()
+                    operations.opsForValue().set(bagKey, newSizeWithUUID)
+                    operations.opsForZSet().add(bagKey, randomUUID, newSize.toDouble())
+                    operations.exec()
+
+                    operations.opsForZSet().zCard(bagKey)
+                } catch (exception: Exception) {
+                    throw RuntimeException("레디스에 클라이언트 동시 요청이 들어왔습니다. : ${exception.message}")
+                }
+            }
+
+            @Suppress("UNCHECKED_CAST")
+            override fun <K : Any?, V : Any?> execute(operations: RedisOperations<K, V>): Long? {
+                return this.execute<String, String>(operations as RedisOperations<String, String>)
+            }
+        })
+    }
+
     fun incrItemWithWatchOrThrow(bag: Bag) {
         val bagKey = "bag:${bag.id!!}"
 
@@ -82,35 +122,5 @@ class BagRedisRepository(
                 }
             }
         }
-
-//        bagRedisLettuceTemplate.execute(object: SessionCallback<String> {
-//            @JvmName("executeByStringOperation")
-//            fun <K : String?, V : String?> execute(operations: RedisOperations<String, String>): String {
-//
-//                // value 를 가변적으로 바꾸려고 한다면
-//                val size = operations.opsForValue().get(bagKey)
-//                val newSize = if (size == null) 1 else size.split(":").first().toInt() + 1
-//                val newSizeWithUUID = "$newSize:${UUID.randomUUID().toString().substring(0, 5)}"
-//
-//                try {
-//                    // 미리 세팅을 해놓음
-//                    operations.watch(bagKey)
-//
-//                    operations.multi()
-//                    operations.opsForValue().set(bagKey, newSizeWithUUID)
-//                    operations.exec()
-//                } catch (exception: Exception) {
-//                    println("${exception.message}")
-//                    throw RuntimeException("동시에 값을 바꾸려고 하네?!")
-//                }
-//
-//                return "true"
-//            }
-//
-//            @Suppress("UNCHECKED_CAST")
-//            override fun <K : Any?, V : Any?> execute(operations: RedisOperations<K, V>): String {
-//                return this.execute<String, String>(operations as RedisOperations<String, String>)
-//            }
-//        })
     }
 }

@@ -31,7 +31,9 @@
 * watch -> multi -> {operation} -> exec 순으로 동작시킨다.
   * 트랜잭션 내에서 exec command 가 실패하는 경우에는 null 이 반환된다.
     * https://redis.io/commands/exec/
-    * 애플리케이션 코드레벨에서 래핑된 redisTemplate 단에서는 에러가 발생하지 않는다 : 그냥 널을 반환한다.
+    * 애플리케이션 코드레벨에서 래핑된 redisTemplate 단에서는 에러가 발생하지 않는다 : 그냥 널을 반환한다. 그래서 널을 반환하면 에러를 만들어주면된다.
+* `MySQL 과 같이 쓰려면?`
+  * Redis 의 optimistic lock 을 씀과 동시에 Mysql 은 단순 update query 를 쓰려고 한다면 레디스의 경우 원자성이 보장되는데 반해, MySQL 은 보장되지 못한다.
 
 ---
 ### PessimisticLock : 비관적 락

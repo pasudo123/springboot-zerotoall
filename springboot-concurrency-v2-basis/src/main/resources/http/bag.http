@@ -1,0 +1,2 @@
+### bag 조회
+GET localhost:18801/bags/1

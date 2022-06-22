@@ -22,7 +22,7 @@ internal class BagControllerTest {
 
         // when
         runBlocking(Dispatchers.IO) {
-            (1..1).map {
+            (1..30).map {
                 async {
                     khttp.post("$itemHost/$id/with-watch")
                 }

@@ -72,12 +72,12 @@ class BagRedisRepository(
 
                 // When using WATCH, EXEC can return a Null reply if the execution was aborted.
                 // https://redis.io/commands/exec/ 참고, null 이 반환되면 애플리케이션 단에서는 에러를 발생시킬 수 있도록 한다.
-                // 완전한 동시성 처리가 안된다.?
+                // ** 요청으로 인한 redis 는 race condition 에 락을 적용시킬 수 있더라도 mysql 데이터의 정합성까지 같이 맞출 순 없다. 그래서 mysql lock 도 같이처리?
                 try {
                     val results = redisConn.exec()
-                    println("Result :: $results")
+                    log.info("Result :: $results")
                 } catch (exception: Exception) {
-                    // redisConn.exec() must not be null
+                    // exception.message : "redisConn.exec() must not be null"
                     throw RuntimeException("레디스에 클라이언트 동시 요청이 들어왔습니다. : ${exception.message}")
                 }
             }

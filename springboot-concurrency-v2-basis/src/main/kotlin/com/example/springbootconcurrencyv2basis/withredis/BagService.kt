@@ -21,8 +21,13 @@ class BagService(
             ?: throw RuntimeException("가방 미확인 : $id")
 
         if (withWatch) {
-            bagRedisRepository.incrItemWithWatchOrThrow(bag)
-            bag.addItemIfPossibleOrThrow()
+            try {
+                bagRedisRepository.incrItemWithWatchOrThrow(bag)
+                bag.addItemIfPossibleOrThrow()
+            } catch (exception: Exception) {
+                log.info("error : ${exception.message}")
+            }
+
             return bag
         }
 

@@ -29,7 +29,15 @@ val kotestVersion: String = System.getProperty("version.kotestVersion")
 val mockkVersion: String = System.getProperty("version.mocckVersion")
 val springmockkVersion: String = System.getProperty("version.springmockkVersion")
 
+val hadoopVersion: String = "3.3.3"
+
 dependencies {
+    // hadoop
+    // https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-client
+    implementation("org.apache.hadoop:hadoop-client:$hadoopVersion")
+    implementation("org.apache.hadoop:hadoop-annotations:$hadoopVersion")
+    testImplementation("org.apache.hadoop:hadoop-hdfs:$hadoopVersion")
+
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")

@@ -12,8 +12,8 @@ class `2211` {
     @Test
     fun leetcodeTest() {
 
-//        countCollisions("RLRSLL") shouldBe 5
-//        countCollisions("LLRR") shouldBe 0
+        countCollisions("RLRSLL") shouldBe 5
+        countCollisions("LLRR") shouldBe 0
         countCollisions("SSRSSRLLRSLLRSRSSRLRRRRLLRRLSSRR") shouldBe 20
 
         /**
@@ -24,46 +24,59 @@ class `2211` {
 }
 
 fun countCollisions(directions: String): Int {
-    return recursive(directions, 0)
-}
-
-private fun recursive(directions: String, sum: Int): Int {
 
     if (directions.count() <= 1) {
-        return sum
+        return 0
     }
 
     var count = 0
-    var lastDirection = directions.first()
-    var newDirections = ""
+    var newDirections = directions.first().toString()
+    var colison = false
+    var index = 1
 
-    for (index in 1 until directions.count()) {
+    while (index < directions.count()) {
         val currentDirection = directions[index]
 
-        if (lastDirection == 'R' && currentDirection == 'L') {
+        if (newDirections.last() == 'R' && currentDirection == 'L') {
+            newDirections = "${newDirections}S"
+            index += 2
             count += 2
-            lastDirection = 'S'
-            newDirections = if (newDirections.isNotEmpty() && newDirections.last() == 'S') newDirections else "$newDirections$lastDirection"
+            count += doRecursive(newDirections.substring(0, newDirections.length - 1), 0)
             continue
         }
 
-        if (lastDirection == 'S' && currentDirection == 'L') {
+        if (newDirections.last() == 'S' && currentDirection == 'L') {
+            newDirections = "${newDirections}S"
+            index += 1
             count += 1
-            lastDirection = 'S'
-            newDirections = if (newDirections.isNotEmpty() && newDirections.last() == 'S') newDirections else "$newDirections$lastDirection"
+            count += doRecursive(newDirections.substring(0, newDirections.length - 1), 0)
             continue
         }
 
-        if (lastDirection == 'R' && currentDirection == 'S') {
+        if (newDirections.last() == 'R' && currentDirection == 'S') {
+            newDirections = "${newDirections}S"
+            index += 1
             count += 1
-            lastDirection = 'S'
-            newDirections = if (newDirections.isNotEmpty() && newDirections.last() == 'S') newDirections else "$newDirections$lastDirection"
+            count += doRecursive(newDirections.substring(0, newDirections.length - 1), 0)
             continue
         }
 
-        lastDirection = currentDirection
-        // newDirections = if (newDirections.isNotEmpty() && newDirections.last() == 'S') newDirections else "$newDirections$lastDirection"
+        newDirections = "$newDirections$currentDirection"
+        index += 1
     }
 
-    return recursive(newDirections, count)
+    return count
+}
+
+private fun doRecursive(newDirections: String, count: Int): Int {
+
+    if (newDirections.isEmpty()) {
+        return count
+    }
+
+    if (newDirections.last() == 'R') {
+        return doRecursive(newDirections.substring(0, newDirections.length - 1), count + 1)
+    }
+
+    return count
 }

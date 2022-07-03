@@ -79,6 +79,9 @@ dependencies {
     // @TestContainer 및 @Container 를 사용할 수 있도록 해줌
     testImplementation("org.testcontainers:mysql:1.16.3")
     testImplementation("org.testcontainers:junit-jupiter:1.16.3")
+
+    // json test : https://github.com/lukas-krecan/JsonUnit
+    testImplementation("net.javacrumbs.json-unit:json-unit-assertj:2.35.0")
 }
 
 tasks.withType<KotlinCompile> {

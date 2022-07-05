@@ -27,27 +27,22 @@ class `2181` {
 
 fun mergeNodes(head: ListNode?): ListNode? {
 
-    val sumGroup = mutableListOf<Int>()
+    val resultHead = ListNode(0)
+    var loopHead = resultHead
     var sum = 0
     var current = head!!.next
+
     while(current != null) {
 
         if (current.`val` == 0) {
-            sumGroup.add(sum)
+            loopHead.next = ListNode(sum)
+            loopHead = loopHead.next!!
             sum = 0
         } else {
             sum += current.`val`
         }
 
         current = current.next
-    }
-
-    val resultHead = ListNode(0)
-    var loopHead = resultHead
-
-    sumGroup.forEach { element ->
-        loopHead.next = ListNode(element)
-        loopHead = loopHead.next!!
     }
 
     return resultHead.next

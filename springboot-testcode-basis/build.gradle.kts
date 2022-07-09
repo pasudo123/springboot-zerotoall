@@ -82,6 +82,11 @@ dependencies {
 
     // json test : https://github.com/lukas-krecan/JsonUnit
     testImplementation("net.javacrumbs.json-unit:json-unit-assertj:2.35.0")
+
+    // arch unit : https://github.com/TNG/ArchUnit-Examples
+    // https://www.archunit.org/userguide/html/000_Index.html#_introduction
+    // testImplementation("com.tngtech.archunit:archunit-junit5:0.23.1")
+    testImplementation("com.tngtech.archunit:archunit:0.23.1")
 }
 
 tasks.withType<KotlinCompile> {

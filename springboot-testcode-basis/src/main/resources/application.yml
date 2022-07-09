@@ -3,4 +3,6 @@ spring:
     open-in-view: false
     show-sql: true
 
-
+logging:
+  level:
+    com.tngtech.archunit: INFO

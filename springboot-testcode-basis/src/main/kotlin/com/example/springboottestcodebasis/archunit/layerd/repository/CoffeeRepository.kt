@@ -1,0 +1,3 @@
+package com.example.springboottestcodebasis.archunit.layerd.repository
+
+class CoffeeRepository

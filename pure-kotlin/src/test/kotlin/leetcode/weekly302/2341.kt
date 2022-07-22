@@ -1,4 +1,4 @@
-package leetcode.weekly303
+package leetcode.weekly302
 
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName

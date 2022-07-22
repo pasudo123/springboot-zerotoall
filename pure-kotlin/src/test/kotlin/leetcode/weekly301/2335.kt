@@ -9,8 +9,8 @@ class `2335` {
     @Test
     @DisplayName("테스트코드")
     fun leetcodeTest() {
-//        fillCups(intArrayOf(1, 4, 2)) shouldBe 4
-//        fillCups(intArrayOf(5, 4, 4)) shouldBe 7
+        fillCups(intArrayOf(1, 4, 2)) shouldBe 4
+        fillCups(intArrayOf(5, 4, 4)) shouldBe 7
         fillCups(intArrayOf(5, 0, 0)) shouldBe 5
     }
 }

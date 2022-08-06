@@ -43,7 +43,7 @@ class RetrofitCustomLoggingInterceptor : Interceptor {
             {
                 "external.response.request.uri": "${response.request().url()}",
                 "external.response.httpStatus": "${response.code()}",
-                "external.response.body": "${response.body()}",
+                "external.response.body": "${response.payload()}",
                 "external.response.latency": "${endExec - startExec}ms",
             }
         """.trimIndent()

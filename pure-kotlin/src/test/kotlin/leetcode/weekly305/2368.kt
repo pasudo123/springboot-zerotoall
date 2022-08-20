@@ -14,13 +14,14 @@ class `2368` {
     @DisplayName("테스트코드")
     fun leetcodeTest() {
         reachableNodes(7, arrayOf(intArrayOf(0, 1), intArrayOf(1, 2), intArrayOf(3, 1), intArrayOf(4, 0), intArrayOf(0, 5), intArrayOf(5, 6)), intArrayOf(4, 5)) shouldBe 4
-//        reachableNodes(7, arrayOf(intArrayOf(0, 1), intArrayOf(0, 2), intArrayOf(0, 5), intArrayOf(0, 4), intArrayOf(3, 2), intArrayOf(6, 5)), intArrayOf(4, 2, 1)) shouldBe 3
+        reachableNodes(7, arrayOf(intArrayOf(0, 1), intArrayOf(0, 2), intArrayOf(0, 5), intArrayOf(0, 4), intArrayOf(3, 2), intArrayOf(6, 5)), intArrayOf(4, 2, 1)) shouldBe 3
     }
 }
 
+val visited = mutableSetOf<Int>()
+
 fun reachableNodes(n: Int, edges: Array<IntArray>, restricted: IntArray): Int {
 
-    val visited = mutableSetOf<Int>()
     val group = mutableMapOf<Int, MutableSet<Int>>()
 
     (0..n).forEach {
@@ -32,38 +33,32 @@ fun reachableNodes(n: Int, edges: Array<IntArray>, restricted: IntArray): Int {
         group[edge.last()]!!.add(edge.first())
     }
 
-    return recursive(0, group, restricted, visited, 1)
+    visited.add(0)
+    recursive(0, group, restricted)
+
+    return visited.count()
 }
 
 private fun recursive(
     startNodeNumber: Int,
     group: Map<Int,MutableSet<Int>>,
-    restricted: IntArray,
-    visited: MutableSet<Int>,
-    count: Int
-): Int {
+    restricted: IntArray
+) {
 
     // 해당노드는 제한된 노드
-    if (restricted.contains(startNodeNumber)) {
-        return -count
-    }
-
     val toBeNodes = group[startNodeNumber]!!
 
     val filteredToBeNodes = toBeNodes.filter { node ->
         visited.contains(node).not()
+    }.filter { node ->
+        restricted.contains(node).not()
     }
 
-    // 모두 방문
-    if (filteredToBeNodes.isEmpty()) {
-        return count
-    }
-
-    var subCount = 0
-    visited.add(startNodeNumber)
     filteredToBeNodes.forEach { node ->
-        subCount += recursive(node, group, restricted, visited, count + 1)
+        // node 는 방문한다.
+        visited.add(node)
+        recursive(node, group, restricted)
     }
 
-    return 1
+    return
 }

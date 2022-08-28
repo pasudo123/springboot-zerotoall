@@ -1,4 +1,4 @@
-package exercise01
+package exercise01.reified
 
 import io.kotest.assertions.asClue
 import io.kotest.matchers.shouldBe

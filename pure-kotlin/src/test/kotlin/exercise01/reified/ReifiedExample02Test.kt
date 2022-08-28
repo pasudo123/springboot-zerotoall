@@ -1,4 +1,4 @@
-package exercise01
+package exercise01.reified
 
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

@@ -2,7 +2,6 @@ package com.example.springbootretrofitbasis.api
 
 import com.example.springbootretrofitbasis.client.shortnews.ShortNewsClient
 import com.example.springbootretrofitbasis.client.shortnews.model.ShortNewsResponse
-import kotlinx.coroutines.delay
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -39,7 +38,7 @@ class DevVersion2Controller(
         val result = shortNewsClient.getNewsByCategory(ShortNewsClient.Category.random()).await()
         responseEntity = ResponseEntity.ok(result)
 
-        delay(500)
+        // delay(500)
 
         return responseEntity
     }

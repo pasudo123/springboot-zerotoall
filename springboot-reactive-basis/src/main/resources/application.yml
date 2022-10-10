@@ -1,1 +1,4 @@
-
+spring:
+  redis:
+    port: 23479
+    host: localhost

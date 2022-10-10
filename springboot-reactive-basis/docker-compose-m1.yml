@@ -1,0 +1,9 @@
+# docker-compose -f docker-compose-m1.yaml up -d
+version: '3.7'
+services:
+  redis:
+    image: arm64v8/redis:5.0.14
+    container_name: springboot-reactive-basis-redis
+    restart: always
+    ports:
+      - "23479:6379"

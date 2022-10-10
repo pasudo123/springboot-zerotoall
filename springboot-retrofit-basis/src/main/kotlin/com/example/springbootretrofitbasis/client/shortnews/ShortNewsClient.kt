@@ -24,10 +24,10 @@ interface ShortNewsClient {
     }
 
     @GET("news")
-    fun getNewsByCategory(@Query("category") category: String): Call<ShortNewsResponse>
+    fun getNewsByCategory(@Query("type") category: String): Call<ShortNewsResponse>
 
     @GET("news")
-    suspend fun getNewsByCategoryWithCoroutine(@Query("category") category: String): ShortNewsResponse
+    suspend fun getNewsByCategoryWithCoroutine(@Query("type") category: String): ShortNewsResponse
 
     @GET("result-200")
     fun result200(): Call<SampleResponse>

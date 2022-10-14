@@ -99,7 +99,7 @@ class PersonRepository(
     companion object {
         private const val KEY = "person"
         private const val KEY_PATTERN = "$KEY:*"
-        private const val TTL_SECONDS = 300L
+        private const val TTL_SECONDS = 3000L
         private const val COUNT = 1000000000000L
     }
 }

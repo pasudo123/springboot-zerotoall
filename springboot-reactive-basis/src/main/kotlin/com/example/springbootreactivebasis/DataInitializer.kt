@@ -16,7 +16,7 @@ class DataInitializer(
 
     override fun run(vararg args: String?): Unit = runBlocking(Dispatchers.IO) {
 
-        val persons = (1..500000).map { _ ->
+        val persons = (1..10).map { _ ->
             Person.random()
         }
 

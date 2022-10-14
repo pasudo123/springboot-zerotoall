@@ -52,12 +52,11 @@ dependencies {
 
     // reactor : https://godekdls.github.io/Reactor%20Core/gettingstarted/
     // https://mvnrepository.com/artifact/io.projectreactor/reactor-bom
-     implementation(platform("io.projectreactor:reactor-bom:2020.0.23"))
-     implementation("io.projectreactor:reactor-core")
+    implementation(platform("io.projectreactor:reactor-bom:2020.0.23"))
+    implementation("io.projectreactor:reactor-core")
 
     // https://mvnrepository.com/artifact/io.netty/netty-resolver-dns-native-macos
     // m1 에서 netty 실행 시 문제가 되는 부분을 수정한다. : This may result in incorrect DNS resolutions on MacOS
-
 
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")

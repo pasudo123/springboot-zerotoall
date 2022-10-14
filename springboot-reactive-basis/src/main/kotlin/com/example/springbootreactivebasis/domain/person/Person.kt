@@ -14,7 +14,7 @@ data class Person(
             return Person(
                 id = UUID.randomUUID().toString(),
                 name = "홍길동-${Random.nextLong(1000000000L)}",
-                age =  Random.nextInt(100)
+                age = Random.nextInt(100)
             )
         }
     }

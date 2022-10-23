@@ -12,10 +12,10 @@ class Lecture private constructor(
 
     @Id
     var id: String? = null
-        private set
+        protected  set
 
     var score: Int? = null
-        private set
+        protected  set
 
     fun changeScore(score: Int) {
         this.score = score

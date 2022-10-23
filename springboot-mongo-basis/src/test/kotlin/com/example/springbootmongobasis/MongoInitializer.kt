@@ -1,5 +1,6 @@
 package com.example.springbootmongobasis
 
+import org.slf4j.LoggerFactory
 import org.springframework.boot.test.util.TestPropertyValues
 import org.springframework.context.ApplicationContextInitializer
 import org.springframework.context.ConfigurableApplicationContext
@@ -20,9 +21,15 @@ class MongoInitializer : ApplicationContextInitializer<ConfigurableApplicationCo
 
 object MongoContainerSingleton {
 
+    private val log = LoggerFactory.getLogger(javaClass)
     val instance: MongoDBContainer by lazy { startMongoContainer() }
 
     private fun startMongoContainer(): MongoDBContainer {
+
+        log.info("\nos.name ==> ${System.getProperty("os.name")}\n" +
+                "os.arch ==> ${System.getProperty("os.arch")}\n" +
+                "os.version ==> ${System.getProperty("os.arch")}")
+
         return MongoDBContainer("mongo:4.4.2")
             .withReuse(true)
             .apply {

@@ -17,9 +17,9 @@ class DataInitializer(
     companion object : KLogging()
 
     override fun run(vararg args: String?) {
-        dataStudentInitializer.process()
-        dataBannerInitializer.process()
-        dataLectureInitializer.process()
-        dataBusInitializer.process()
+//        dataStudentInitializer.process()
+//        dataBannerInitializer.process()
+//        dataLectureInitializer.process()
+//        dataBusInitializer.process()
     }
 }

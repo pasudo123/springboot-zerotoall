@@ -9,9 +9,15 @@ spring:
       password: rootpass
       database: mytestdb
       host: localhost
-      port: 27017
+      port: 27018
       auto-index-creation: true
 
 app:
   schedule:
     banner.enabled: false
+    busmove.enabled: false
+
+logging:
+  level:
+    com.example.springbootmongobasis: DEBUG
+    org.springframework.data.mongodb: DEBUG

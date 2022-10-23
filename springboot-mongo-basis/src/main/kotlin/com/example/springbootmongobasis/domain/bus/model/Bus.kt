@@ -14,15 +14,15 @@ class Bus private constructor(
 
     @Id
     var id: String? = null
-        private set
+        protected  set
 
     @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2D)
     var location: Array<Double>? = null
-        private set
+        protected  set
 
     @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
     var location2dSphere: Array<Double>? = null
-        private set
+        protected set
 
     var available: Boolean = false
 

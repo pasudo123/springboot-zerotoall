@@ -1,6 +1,6 @@
 package com.example.springbootmongobasis.domain.bus.task
 
-import com.example.springbootmongobasis.MongoRepositoryTest
+import com.example.springbootmongobasis.MongoRepositorySupport
 import com.example.springbootmongobasis.domain.bus.api.dto.BusDto
 import com.example.springbootmongobasis.domain.bus.model.Bus
 import com.example.springbootmongobasis.domain.bus.model.BusLocation
@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.TestPropertySource
 import java.util.*
 
-@MongoRepositoryTest
+@MongoRepositorySupport
 @DisplayName("BusMoveScheduler 는")
 @TestPropertySource(
     locations = ["/application.yml", "/application-test.yml"],

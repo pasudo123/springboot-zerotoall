@@ -1,6 +1,6 @@
 package com.example.springbootmongobasis.domain.banner.repository
 
-import com.example.springbootmongobasis.MongoRepositoryTest
+import com.example.springbootmongobasis.MongoRepositorySupport
 import com.example.springbootmongobasis.domain.banner.api.dto.BannerDto
 import com.example.springbootmongobasis.domain.banner.model.Banner
 import io.kotest.matchers.shouldBe
@@ -10,9 +10,8 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 import org.springframework.beans.factory.annotation.Autowired
 import kotlin.system.measureNanoTime
-import kotlin.time.measureTimedValue
 
-@MongoRepositoryTest
+@MongoRepositorySupport
 @DisplayName("BannerRepository 는")
 class BannerRepositoryTest {
 

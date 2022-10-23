@@ -20,7 +20,7 @@ class Banner private constructor(
 
     @Id
     var id: String? = null
-        private set
+        protected set
 
     companion object {
         fun from(bannerDto: BannerDto.CreateRequest): Banner {

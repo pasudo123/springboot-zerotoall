@@ -42,8 +42,10 @@ dependencies {
 
     // mongo
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
-    implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
+
+    // mongo reactive
+    // implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
 
     // logging
     implementation("io.github.microutils:kotlin-logging:1.12.5")
@@ -75,4 +77,8 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+allOpen {
+    this.annotation("org.springframework.data.mongodb.core.mapping.Document")
 }

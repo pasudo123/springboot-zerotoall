@@ -1,13 +1,12 @@
 package com.example.springbootmongobasis.domain.student.api
 
-import com.example.springbootmongobasis.MongoRepositoryTest
+import com.example.springbootmongobasis.MongoRepositorySupport
 import com.example.springbootmongobasis.domain.lecture.api.dto.LectureDto
 import com.example.springbootmongobasis.domain.student.api.dto.StudentDto
 import com.example.springbootmongobasis.domain.student.model.Gender
 import com.example.springbootmongobasis.domain.student.model.Student
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
@@ -18,7 +17,7 @@ import org.springframework.http.HttpStatus
 import kotlin.random.Random
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@MongoRepositoryTest
+@MongoRepositorySupport
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("StudentController 는")
 internal class StudentControllerTest {

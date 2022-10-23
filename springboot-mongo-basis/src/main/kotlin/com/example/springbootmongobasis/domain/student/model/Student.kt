@@ -19,11 +19,11 @@ class Student private constructor(
 
     @Id
     var id: String? = null
-        private set
+        protected  set
 
     @DBRef(lazy = true)
     var lectures: MutableList<Lecture>? = null
-        private set
+        protected  set
 
 
     fun addLecture(lecture: Lecture) {

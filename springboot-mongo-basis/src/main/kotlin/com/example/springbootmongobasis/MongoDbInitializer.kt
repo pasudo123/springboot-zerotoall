@@ -22,10 +22,13 @@ class MongoDbInitializer(
     }
 
     private fun bulkInsertUsers() {
-        val users = (1..100).map { sequence ->
+        userRepository.deleteAll()
+
+        val users = (1..31234).map { sequence ->
             User(
                 userUniqueId = UUID.randomUUID().toString(),
-                name = "홍길동-${UUID.randomUUID().toString().substring(1, 5)}"
+                name = "홍길동-${UUID.randomUUID().toString().substring(1, 5)}",
+                sequence = sequence.toLong()
             )
         }
 

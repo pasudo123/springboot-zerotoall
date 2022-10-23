@@ -48,6 +48,11 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
 
+    // querydsl
+    kapt("com.querydsl:querydsl-jpa:4.4.0")
+    implementation("com.querydsl:querydsl-jpa:4.4.0")
+    implementation("com.querydsl:querydsl-apt:4.4.0")
+
     // mongo reactive
     // implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
 
@@ -85,4 +90,8 @@ tasks.withType<Test> {
 
 allOpen {
     this.annotation("org.springframework.data.mongodb.core.mapping.Document")
+}
+
+kapt {
+    annotationProcessors("org.springframework.data.mongodb.repository.support.MongoAnnotationProcessor")
 }

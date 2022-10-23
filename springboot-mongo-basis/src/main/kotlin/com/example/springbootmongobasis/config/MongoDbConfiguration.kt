@@ -1,16 +1,7 @@
 package com.example.springbootmongobasis.config
 
-import com.mongodb.ConnectionString
-import com.mongodb.MongoClientSettings
-import com.mongodb.client.MongoClient
-import com.mongodb.client.MongoClients
-import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Value
-import org.springframework.context.annotation.Configuration
-import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration
-
-//@Configuration
-//class MongoDbConfiguration : AbstractMongoClientConfiguration() {
+// @Configuration
+// class MongoDbConfiguration : AbstractMongoClientConfiguration() {
 //
 //    private val log = LoggerFactory.getLogger(javaClass)
 //
@@ -36,4 +27,4 @@ import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration
 //
 //        return MongoClients.create(setting)
 //    }
-//}
+// }

@@ -26,9 +26,11 @@ object MongoContainerSingleton {
 
     private fun startMongoContainer(): MongoDBContainer {
 
-        log.info("\nos.name ==> ${System.getProperty("os.name")}\n" +
+        log.info(
+            "\nos.name ==> ${System.getProperty("os.name")}\n" +
                 "os.arch ==> ${System.getProperty("os.arch")}\n" +
-                "os.version ==> ${System.getProperty("os.arch")}")
+                "os.version ==> ${System.getProperty("os.arch")}"
+        )
 
         return MongoDBContainer("mongo:4.4.2")
             .withReuse(true)

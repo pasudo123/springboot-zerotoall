@@ -65,7 +65,6 @@ internal class StudentControllerTest {
         val studentId = restTemplate.postForEntity("/students", studentRequest, Student::class.java).body!!.id
         val lectureRequest = LectureDto.CreateRequest(name = "math")
 
-
         // when
         val response = restTemplate.postForEntity("/students/$studentId/lecture", lectureRequest, Student::class.java)
 

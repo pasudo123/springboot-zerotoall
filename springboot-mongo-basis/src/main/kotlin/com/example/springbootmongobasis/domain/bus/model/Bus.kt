@@ -10,15 +10,15 @@ import org.springframework.data.mongodb.core.mapping.Document
 @Document(collection = "bus")
 class Bus private constructor(
     val name: String,
-): BaseDocument() {
+) : BaseDocument() {
 
     @Id
     var id: String? = null
-        protected  set
+        protected set
 
     @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2D)
     var location: Array<Double>? = null
-        protected  set
+        protected set
 
     @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
     var location2dSphere: Array<Double>? = null

@@ -4,7 +4,7 @@ import com.example.springbootmongobasis.domain.student.model.Gender
 import com.example.springbootmongobasis.domain.student.model.Student
 import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.stereotype.Repository
-import java.util.*
+import java.util.Optional
 
 @Repository
 interface StudentRepository : MongoRepository<Student, String> {

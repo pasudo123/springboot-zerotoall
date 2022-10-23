@@ -1,6 +1,6 @@
 package com.example.springbootmongobasis.util
 
-import java.util.*
+import java.util.UUID
 
 object UuidUtils
 

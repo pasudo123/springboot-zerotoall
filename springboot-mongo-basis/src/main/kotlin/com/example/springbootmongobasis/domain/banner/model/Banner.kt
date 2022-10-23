@@ -16,7 +16,7 @@ class Banner private constructor(
     @Field(name = "hash_name")
     val hashName: String,
     val desc: String
-): BaseDocument() {
+) : BaseDocument() {
 
     @Id
     var id: String? = null

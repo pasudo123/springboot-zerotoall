@@ -8,14 +8,14 @@ import org.springframework.data.mongodb.core.mapping.Document
 @Document(collection = "lecture")
 class Lecture private constructor(
     val name: String
-): BaseDocument() {
+) : BaseDocument() {
 
     @Id
     var id: String? = null
-        protected  set
+        protected set
 
     var score: Int? = null
-        protected  set
+        protected set
 
     fun changeScore(score: Int) {
         this.score = score

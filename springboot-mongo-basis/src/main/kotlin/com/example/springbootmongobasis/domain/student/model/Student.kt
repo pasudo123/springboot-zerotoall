@@ -15,19 +15,18 @@ class Student private constructor(
     val age: Int,
     @Indexed(unique = true)
     val email: String,
-): BaseDocument() {
+) : BaseDocument() {
 
     @Id
     var id: String? = null
-        protected  set
+        protected set
 
     @DBRef(lazy = true)
     var lectures: MutableList<Lecture>? = null
-        protected  set
-
+        protected set
 
     fun addLecture(lecture: Lecture) {
-        if(lectures == null) {
+        if (lectures == null) {
             lectures = mutableListOf()
         }
 

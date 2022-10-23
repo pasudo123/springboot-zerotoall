@@ -6,7 +6,7 @@ import com.example.springbootmongobasis.domain.bus.repository.BusRepository
 import com.example.springbootmongobasis.util.toLineString
 import mu.KLogging
 import org.springframework.stereotype.Component
-import java.util.*
+import java.util.UUID
 
 @Component
 class DataBusInitializer(

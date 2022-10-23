@@ -12,7 +12,7 @@ class DataInitializer(
     private val dataBannerInitializer: DataBannerInitializer,
     private val dataLectureInitializer: DataLectureInitializer,
     private val dataBusInitializer: DataBusInitializer
-) : CommandLineRunner{
+) : CommandLineRunner {
 
     companion object : KLogging()
 

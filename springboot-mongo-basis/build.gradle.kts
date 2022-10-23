@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
 
     val kotlinVersion = System.getProperty("version.kotlinVersion")
+    val ktlintVersion = System.getProperty("version.ktlintVersion")
     val springBootVersion = System.getProperty("version.springBootVersion")
     val springBootManagementVersion = System.getProperty("version.springDependencyManagementVersion")
 
@@ -20,6 +21,9 @@ plugins {
     // https://kotlinlang.org/docs/all-open-plugin.html
     // kotlin jpa 사용 시, allopen final 키워드를 특정 애노테이션 기준으로 제거해주기 위함
     id("org.jetbrains.kotlin.plugin.allopen") version kotlinVersion
+
+    // kotlin lint
+    id("org.jlleitschuh.gradle.ktlint") version ktlintVersion
 }
 
 group = "com.example"
@@ -36,9 +40,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
 
     // swagger
-    //https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
-    implementation ("io.springfox:springfox-swagger-ui:2.9.2")
-    implementation ("io.springfox:springfox-swagger2:2.9.2")
+    // https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
+    implementation("io.springfox:springfox-swagger-ui:2.9.2")
+    implementation("io.springfox:springfox-swagger2:2.9.2")
 
     // mongo
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")

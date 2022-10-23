@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query
 import org.springframework.stereotype.Component
-import java.util.*
+import java.util.UUID
 import kotlin.random.Random
 
 @Component
@@ -38,7 +38,7 @@ class DataStudentInitializer(
         val email = "$name@naver.com"
         val request = StudentDto.CreateRequest(
             name = name,
-            gender = if(Random.nextBoolean()) Gender.MALE else Gender.FEMALE,
+            gender = if (Random.nextBoolean()) Gender.MALE else Gender.FEMALE,
             email = email,
             age = Random.nextInt(99)
         )
@@ -59,7 +59,7 @@ class DataStudentInitializer(
         if (students.isNotEmpty()) {
             DataInitializer.logger.info("find all by email[$email]")
             students.forEach { student ->
-                DataInitializer.logger.info ("find one : ${student.toJsonString()}")
+                DataInitializer.logger.info("find one : ${student.toJsonString()}")
             }
         }
     }
@@ -72,7 +72,7 @@ class DataStudentInitializer(
         if (students.isNotEmpty()) {
             DataInitializer.logger.info("find all by gender[$gender]")
             students.forEach { student ->
-                DataInitializer.logger.info ("find one : ${student.toJsonString()}")
+                DataInitializer.logger.info("find one : ${student.toJsonString()}")
             }
         }
     }

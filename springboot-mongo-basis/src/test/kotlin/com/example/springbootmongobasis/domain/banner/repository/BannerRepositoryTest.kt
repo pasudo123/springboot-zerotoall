@@ -48,7 +48,7 @@ class BannerRepositoryTest {
         // 1000개, 34778067 nano second
         // 10000개, 13417059 nano second
         // 100000개, 101310293 nano second
-        logger.info { "count[$repeatCount], nanotime elapse[${nanoTime}]" }
+        logger.info { "count[$repeatCount], nanotime elapse[$nanoTime]" }
     }
 
     @ParameterizedTest
@@ -79,7 +79,7 @@ class BannerRepositoryTest {
         // 1000개,  49459147 nano second
         // 10000개,  8566209 nano second
         // 100000개,  121183446 nano second
-        logger.info { "count[$repeatCount], nanotime elapse[${nanoTime}]" }
+        logger.info { "count[$repeatCount], nanotime elapse[$nanoTime]" }
     }
 
     private fun createBanner(sequence: Int): Banner {

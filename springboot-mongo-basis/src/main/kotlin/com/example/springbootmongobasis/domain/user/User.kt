@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document
 class User(
     val userUniqueId: String,
     val name: String
-): BaseDocument() {
+) : BaseDocument() {
 
     @Id
     var id: ObjectId = ObjectId()

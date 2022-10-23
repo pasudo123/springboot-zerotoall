@@ -1,5 +1,5 @@
 package com.example.springbootmongobasis.exception
 
-class DocumentNotFoundException (
+class DocumentNotFoundException(
     override val message: String
 ) : RuntimeException(message)

@@ -2,7 +2,6 @@ package com.example.springbootmongobasis.domain.banner.task
 
 import com.example.springbootmongobasis.domain.banner.repository.BannerRepository
 import mu.KLogging
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component

@@ -8,7 +8,7 @@ import com.example.springbootmongobasis.util.toLineString
 import mu.KLogging
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.stereotype.Component
-import java.util.*
+import java.util.UUID
 
 @Component
 class DataBannerInitializer(
@@ -21,7 +21,7 @@ class DataBannerInitializer(
     fun process() {
         bannerRepository.deleteAll()
         val banners = insert()
-        for((currentIndex, banner) in banners.withIndex()){
+        for ((currentIndex, banner) in banners.withIndex()) {
             logger.debug { "banner[$currentIndex] : ${banner.toJsonString()}" }
         }
     }

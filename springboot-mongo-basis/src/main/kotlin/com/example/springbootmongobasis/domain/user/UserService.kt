@@ -13,7 +13,7 @@ class UserService(
 
         // page 는 1부터 받도록 한다.
         val pageable = PageRequest.of((page - 1), size, Direction.ASC, "id")
-        val pageResponse = userRepository.findAll(pageable)
+        val pageResponse = userRepository.findAllByNameStartsWith("홍길동-00", pageable)
 
         return UserResponses(
             users = pageResponse.content,

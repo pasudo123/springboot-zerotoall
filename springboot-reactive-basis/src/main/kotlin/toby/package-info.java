@@ -1,4 +1,4 @@
-package com.example.springbootreactivebasis.toby;
+package toby;
 
 /**
  * 토비의 리액티브 스트림 유튜브 강의를 듣고 정리한 패키지

@@ -1,4 +1,4 @@
-package com.example.springbootreactivebasis.toby.chapter01
+package toby.chapter01
 
 import java.util.Observer
 import java.util.concurrent.Executors

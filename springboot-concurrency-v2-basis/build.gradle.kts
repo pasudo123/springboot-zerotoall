@@ -53,10 +53,6 @@ val mockkVersion: String = System.getProperty("version.mocckVersion")
 val springmockkVersion: String = System.getProperty("version.springmockkVersion")
 val queryDslVersion: String = System.getProperty("version.queryDslVersion")
 
-configurations {
-    all {}
-}
-
 dependencies {
 
     // jpa & mysql

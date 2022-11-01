@@ -1,0 +1,1 @@
+INSERT INTO posts (title, contents, votes) VALUES ('Hello', 'Hello Contents', 0);

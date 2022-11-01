@@ -44,22 +44,20 @@
 * > 동시읽기 < 동시쓰기 인 경우에 유리하다고 한다.
 
 ### PessimisticLock with JPA
-* __LockModeType.PESSIMISTIC_READ__
+* __LockModeType.PESSIMISTIC_READ__ (=S-LOCK : 읽기잠금)
   * Query 로 SELECT ... FOR SHARE 가 날라간다.
-    * 읽는건 제한이 없지만, 커밋되기 이전까지 다른 트랜잭션이 커밋하지 못한다. 현재 수행중인 세션의 커밋이 완료될때까지 기다려야 한다.
-  * 동시에 업데이트 수행 시 에러가 발생함
+    * 서로다른 두 개의 트랜잭션이 읽는건 제한이 없다. 하지만 다른 트랜잭션에서 INSERT/UPDATE/DELETE 를 하는 경우에는 현재 수행중인 트랜잭션이 커밋될때까지 기다려야 한다.
+  * 두 개이상의 트랜잭션에서 S-LOCK 으로 SELECT 한 뒤에, 업데이트 수행 시 에러가 발생함
     * `MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction` 에러가 발생한다.
     * [Deadlock found when trying to get lock : mysql doc](https://dev.mysql.com/doc/refman/8.0/en/innodb-deadlock-example.html)
     * SHARE MODE 로 table row 락 획득, 타 트랜잭션에서 처리하려고 하는 경우라서 발생한다.
     * MySQL 기준으로, Shared Lock 이라고 표현한다.
-      * 읽기잠금 (= S-Lock)
-* __LockModeType.PESSIMISTIC_WRITE__
+* __LockModeType.PESSIMISTIC_WRITE__ (=X-LOCK : 쓰기잠금)
   * Query 로 SELECT ... FOR UPDATE 가 날라간다. (=@SelectBeforeUpdate)
   * 현재 수행중인 세션이 작업을 완료하기 이전까지 데이터 로우를 수정하지 못한다. 
-    * 결과적으로 대기를 하기 때문에 동시에 업데이트 수행 시 에러는 발생하지 않는다. 그리고 동시요청에 대해서도 업데이트는 잘된다.
+    * `결과적으로 대기를 하기 때문에 동시에 업데이트 수행 시 에러는 발생하지 않는다. 그리고 동시요청에 대해서도 업데이트 수행이 잘 됨`
   * row exclusive lock
   * MySQL 기준으로, Exclusive Lock 이라고 표현한다.
-    * 쓰기잠금 (= X-Lock)
 
 ---
 ### JPA Lock Error & Retry

@@ -3,7 +3,7 @@ package com.example.springbootconcurrencyv2basis.withredis
 import org.springframework.data.redis.core.RedisOperations
 import org.springframework.data.redis.core.SessionCallback
 
-interface StringSessionCallback: SessionCallback<List<Any>> {
+interface StringSessionCallback : SessionCallback<List<Any>> {
 
     fun <K : String?, V : String?> execute(operations: StringRedisOperation): List<Any>?
 

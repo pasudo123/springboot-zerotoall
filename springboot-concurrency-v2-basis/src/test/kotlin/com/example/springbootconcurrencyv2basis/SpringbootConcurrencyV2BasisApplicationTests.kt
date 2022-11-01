@@ -9,5 +9,4 @@ class SpringbootConcurrencyV2BasisApplicationTests {
     @Test
     fun contextLoads() {
     }
-
 }

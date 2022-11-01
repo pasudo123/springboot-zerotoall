@@ -89,9 +89,9 @@ dependencies {
     implementation("io.github.microutils:kotlin-logging:1.12.5")
 
     // swagger
-    //https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
-    implementation ("io.springfox:springfox-swagger-ui:2.9.2")
-    implementation ("io.springfox:springfox-swagger2:2.9.2")
+    // https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
+    implementation("io.springfox:springfox-swagger-ui:2.9.2")
+    implementation("io.springfox:springfox-swagger2:2.9.2")
 
     // querydsl : kapt 를 gradle.build.kts 에 추가
     kapt("org.springframework.boot:spring-boot-configuration-processor")
@@ -108,7 +108,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
     // redis-test
-    testImplementation("it.ozimov:embedded-redis:0.7.3"){
+    testImplementation("it.ozimov:embedded-redis:0.7.3") {
         exclude(group = "org.slf4j", module = "slf4j-simple")
     }
 

@@ -34,4 +34,3 @@ class BagController(
         return bagRepository.findByIdOrNull(id) ?: throw RuntimeException("가방 미확인 : $id")
     }
 }
-

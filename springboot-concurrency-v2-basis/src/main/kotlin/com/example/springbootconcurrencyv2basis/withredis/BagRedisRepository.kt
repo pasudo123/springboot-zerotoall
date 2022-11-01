@@ -6,7 +6,7 @@ import org.springframework.data.redis.core.RedisOperations
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.core.SessionCallback
 import org.springframework.stereotype.Repository
-import java.util.*
+import java.util.UUID
 import java.util.concurrent.TimeUnit
 import javax.annotation.PostConstruct
 
@@ -61,7 +61,7 @@ class BagRedisRepository(
         val zSetBag = "z:bag:${bag.id!!}"
         val bagKey = "bag:${bag.id!!}"
 
-        return bagRedisLettuceTemplate.execute(object: SessionCallback<Long> {
+        return bagRedisLettuceTemplate.execute(object : SessionCallback<Long> {
             @JvmName("executeByCustomOperation")
             fun <K : String?, V : String?> execute(operations: RedisOperations<String, String>): Long? {
 

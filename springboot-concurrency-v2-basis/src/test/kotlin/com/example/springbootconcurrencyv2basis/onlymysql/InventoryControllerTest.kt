@@ -8,7 +8,6 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import kotlin.system.measureTimeMillis
 
-
 internal class InventoryControllerTest {
 
     private val inventoryV1Host = "http://localhost:18801/inventory/v1"
@@ -74,7 +73,7 @@ internal class InventoryControllerTest {
         val stopWatch = measureTimeMillis {
             runBlocking(Dispatchers.IO) {
                 // inventory 의 size 보다 더 큰 값을 요청
-                (1..10).map {
+                (1..1).map {
                     async {
                         khttp.post("$inventoryV3Host/$id/ps-read")
                     }
@@ -98,7 +97,7 @@ internal class InventoryControllerTest {
         val stopWatch = measureTimeMillis {
             runBlocking(Dispatchers.IO) {
                 // inventory 의 size 보다 더 큰 값을 요청
-                (1..10).map {
+                (1..5).map {
                     async {
                         khttp.post("$inventoryV3Host/$id/ps-write")
                     }

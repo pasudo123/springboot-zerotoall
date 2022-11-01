@@ -37,7 +37,7 @@ class InventoryV3Controller(
     fun addItemByInventoryIdWithPsWrite(@PathVariable id: Long): InventoryV3 {
         // x-lock timeout 설정
         val properties: Map<String, Any> = mutableMapOf<String, Long>().apply {
-            this["javax.persistence.lock.timeout"] = 1000L
+            this["javax.persistence.lock.timeout"] = 1L
         }
         val inventoryV3 = entityManager.find(InventoryV3::class.java, id, LockModeType.PESSIMISTIC_WRITE, properties)
             ?: throw RuntimeException("인벤토리 미확인 : $id")

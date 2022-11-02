@@ -2,6 +2,7 @@ package com.example.springbootredisbasis.config.domain.snack
 
 import com.example.springbootredisbasis.CustomRedisContainer.Companion.REDIS_CONTAINER
 import com.example.springbootredisbasis.RedisRepositorySupport
+import com.example.springbootredisbasis.config.toJson
 import com.example.springbootredisbasis.repository.RedisDefaultRepository
 import io.kotest.assertions.asClue
 import io.kotest.matchers.shouldBe
@@ -24,6 +25,7 @@ internal class SnackRedisRepositoryTest(
 
     @BeforeEach
     fun initTest() {
+        snackRedisRepository.flush()
         REDIS_CONTAINER shouldNotBe null
         logger.info { "redis host : ${REDIS_CONTAINER.host}" }
         logger.info { "redis firstMappedPort : ${REDIS_CONTAINER.firstMappedPort}" }
@@ -61,5 +63,24 @@ internal class SnackRedisRepositoryTest(
             it.name shouldBe snack.name
             it.price shouldBe snack.price
         }
+    }
+
+    @Test
+    @DisplayName("저장하고 전체 키를 scan 을 통해 조회한다.")
+    fun saveAndScanTest() {
+
+        // given
+        (1..123).forEach {
+            val snack = Snack(atomicId.getAndIncrement(), "포카칩-$it", 1300)
+            val redisTTL = RedisDefaultRepository.RedisTTL(30, TimeUnit.SECONDS)
+            snackRedisRepository.save(snack, redisTTL)
+        }
+
+        // when
+        val keys = snackRedisRepository.findKeys()
+
+        // then
+        logger.info { keys.toJson() }
+        keys.size shouldBe 123
     }
 }

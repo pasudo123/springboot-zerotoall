@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   redis-single-01:
-    image: redis:5.0.3
+    image: arm64v8/redis:5.0.14
     labels:
       - "name=redis"
       - "mode=standalone"
@@ -11,7 +11,7 @@ services:
       - "16379:6379"
 
   redis-single-02:
-    image: redis:5.0.3
+    image: arm64v8/redis:5.0.14
     labels:
       - "name=redis"
       - "mode=standalone"
@@ -21,7 +21,7 @@ services:
       - "16380:6379"
 
   redis-single-03:
-    image: redis:5.0.3
+    image: arm64v8/redis:5.0.14
     labels:
       - "name=redis"
       - "mode=standalone"

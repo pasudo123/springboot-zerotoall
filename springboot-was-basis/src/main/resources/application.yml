@@ -1,0 +1,12 @@
+logging:
+  level:
+    io.undertow: DEBUG
+
+server:
+  undertow:
+    no-request-timeout: 50
+
+spring:
+  mvc:
+    async:
+      request-timeout: 3000

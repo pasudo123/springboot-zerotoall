@@ -6,6 +6,7 @@ class FlowExample01
 
 fun main() = runBlocking {
     simpleSequence().forEach { value -> println("==> $value") }
+    println("\n************************************************\n")
     simpleCollection().forEach { value -> println("==> $value") }
 }
 

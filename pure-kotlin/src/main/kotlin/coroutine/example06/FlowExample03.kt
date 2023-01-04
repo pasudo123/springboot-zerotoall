@@ -23,7 +23,7 @@ fun main() = runBlocking {
 fun simpleFlow(): Flow<Int> = flow {
     for (i in 1..3) {
         // Thread.sleep 을 붙이게 되면 메인스레드가 블럭킹 된다.
-//        Thread.sleep(1000)
+        // Thread.sleep(1000)
         delay(1000)
         emit(i)
     }

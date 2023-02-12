@@ -18,3 +18,10 @@ class Flow05 {
             .collect { value -> printlnWithThreadName("[2] current value :: $value") }
     }
 }
+
+fun main() {
+    val flows05 = Flow05().run {
+        this.flowBuilder01()
+        this.flowBuilder02()
+    }
+}

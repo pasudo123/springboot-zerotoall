@@ -278,7 +278,7 @@ fun main() {
   * `coldStreamFlow()` 는 빠르게 값을 반환하고, 어떤 것도 기다리지 않는다.
   * flow 는 매시간 collected 처리될 수 있다. 해당 부분이 `collect` 를 재호출하면 Flow started 가 출력되는 이유다. 
 
-### Flow Builder
+### Flow Builder(https://kotlinlang.org/docs/flow.html#flow-builders)
 * `flow { ... }` builder 는 가장 기본적인 플로우 빌더다. flow { } builder 형태로 선언하기 쉬운 다른 빌더들도 살펴본다.
     * `flowOf` builder
     * `asFlow()` builder

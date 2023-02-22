@@ -26,12 +26,21 @@ repositories {
     mavenCentral()
 }
 
+val springStatemachineVersion = "2.2.3.RELEASE"
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.statemachine:spring-statemachine-starter")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.statemachine:spring-statemachine-bom:${springStatemachineVersion}")
+    }
 }
 
 tasks.withType<KotlinCompile> {

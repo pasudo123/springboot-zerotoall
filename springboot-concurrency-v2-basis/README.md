@@ -16,7 +16,7 @@
 * @Version 을 붙임으로써 JPA 단에서 OptimisticLock 이 적용된다.
 * @Version 은 없고, @OptimisticLocking(type = OptimisticLockType.NONE) 만 붙이면 별도 에러가 나지 않는다.
 * @Version 은 없고, @OptimisticLocking(type = OptimisticLockType.VERSION) 만 붙이면 별도 에러가 나지 않는다.
-  * @Version 이랑 같이 적용되어야 한다.
+  * 하지만 없으면 낙관적락이 적용이 안된다. @Version 이랑 같이 있어야 한다.
 * @OptimisticLocking(type = OptimisticLockType.DIRTY), @OptimisticLocking(type = OptimisticLockType.ALL)
   * DIRTY 의 경우 변경하는 특정 컬럼의 값을 통해 업데이트 여부를 확인한다.
   * ALL 의 경우 특정 테이블의 모든 컬럼의 값을 통해 업데이트 여부를 확인한다.

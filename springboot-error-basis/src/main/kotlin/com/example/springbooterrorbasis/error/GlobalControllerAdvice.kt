@@ -1,6 +1,5 @@
 package com.example.springbooterrorbasis.error
 
-import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
@@ -10,8 +9,6 @@ import org.springframework.web.context.request.WebRequest
 @RestControllerAdvice
 class GlobalControllerAdvice {
 
-    private val log = LoggerFactory.getLogger(javaClass)
-
     @ExceptionHandler(value = [AException::class])
     fun handleAException(
         aException: AException, request: WebRequest
@@ -20,6 +17,7 @@ class GlobalControllerAdvice {
             this.requestUri = request.toRequestUri()
             this.requestMethod = request.toRequestMethod()
         }
+
 
         return ResponseEntity
             .status(aException.errorDetail.httpStatus)

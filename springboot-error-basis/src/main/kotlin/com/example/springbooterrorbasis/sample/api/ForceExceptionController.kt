@@ -25,7 +25,7 @@ class ForceExceptionController {
         val errorDetail = ErrorDetail(
             ErrorCode.A_EXCEPTION.code,
             message = "A 익셉션을 강제로 에러를 발생시킵니다.",
-            HttpStatus.INTERNAL_SERVER_ERROR,
+            HttpStatus.BAD_REQUEST,
             mapOf("sample-key1" to "sample-value1", "sample-key2" to "sample-value2")
         )
 

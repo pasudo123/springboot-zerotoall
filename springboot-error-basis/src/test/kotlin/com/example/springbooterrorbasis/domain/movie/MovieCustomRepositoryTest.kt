@@ -63,25 +63,25 @@ class MovieCustomRepositoryTest : RepositoryTestSupport() {
         foundMovie.id!! shouldBe movie.id!!
 
         /****
-        select
-        distinct movie0_.id as id1_1_0_,
-        songs1_.id as id1_2_1_,
-        movie0_.created_at as created_2_1_0_,
-        movie0_.modified_at as modified3_1_0_,
-        movie0_.title as title4_1_0_,
-        songs1_.created_at as created_2_2_1_,
-        songs1_.modified_at as modified3_2_1_,
-        songs1_.movie_id as movie_id5_2_1_,
-        songs1_.name as name4_2_1_,
-        songs1_.movie_id as movie_id5_2_0__,
-        songs1_.id as id1_2_0__
-        from
-        movie movie0_
-        inner join
-        song songs1_
-        on movie0_.id=songs1_.movie_id
-        where
-        movie0_.id=?
+         select
+         distinct movie0_.id as id1_1_0_,
+         songs1_.id as id1_2_1_,
+         movie0_.created_at as created_2_1_0_,
+         movie0_.modified_at as modified3_1_0_,
+         movie0_.title as title4_1_0_,
+         songs1_.created_at as created_2_2_1_,
+         songs1_.modified_at as modified3_2_1_,
+         songs1_.movie_id as movie_id5_2_1_,
+         songs1_.name as name4_2_1_,
+         songs1_.movie_id as movie_id5_2_0__,
+         songs1_.id as id1_2_0__
+         from
+         movie movie0_
+         inner join
+         song songs1_
+         on movie0_.id=songs1_.movie_id
+         where
+         movie0_.id=?
          */
     }
 
@@ -89,51 +89,51 @@ class MovieCustomRepositoryTest : RepositoryTestSupport() {
     @DisplayName("join 쿼리를 확인한다.")
     fun joinTest() {
         /**
-        select
-            distinct movie0_.id as id1_1_0_,
-            songs1_.id as id1_2_1_,
-            movie0_.created_at as created_2_1_0_,
-            movie0_.modified_at as modified3_1_0_,
-            movie0_.title as title4_1_0_,
-            songs1_.created_at as created_2_2_1_,
-            songs1_.modified_at as modified3_2_1_,
-            songs1_.movie_id as movie_id5_2_1_,
-            songs1_.name as name4_2_1_,
-            songs1_.movie_id as movie_id5_2_0__,
-            songs1_.id as id1_2_0__
-        from
-        movie movie0_
-                inner join
-                song songs1_
-                on movie0_.id=songs1_.movie_id
-                where
-        movie0_.id=?
-        **/
+         select
+         distinct movie0_.id as id1_1_0_,
+         songs1_.id as id1_2_1_,
+         movie0_.created_at as created_2_1_0_,
+         movie0_.modified_at as modified3_1_0_,
+         movie0_.title as title4_1_0_,
+         songs1_.created_at as created_2_2_1_,
+         songs1_.modified_at as modified3_2_1_,
+         songs1_.movie_id as movie_id5_2_1_,
+         songs1_.name as name4_2_1_,
+         songs1_.movie_id as movie_id5_2_0__,
+         songs1_.id as id1_2_0__
+         from
+         movie movie0_
+         inner join
+         song songs1_
+         on movie0_.id=songs1_.movie_id
+         where
+         movie0_.id=?
+         **/
     }
 
     fun leftJoinTest() {
         /**
 
-        select
-            distinct movie0_.id as id1_1_0_,
-            songs1_.id as id1_2_1_,
-            movie0_.created_at as created_2_1_0_,
-            movie0_.modified_at as modified3_1_0_,
-            movie0_.title as title4_1_0_,
-            songs1_.created_at as created_2_2_1_,
-            songs1_.modified_at as modified3_2_1_,
-            songs1_.movie_id as movie_id5_2_1_,
-            songs1_.name as name4_2_1_,
-            songs1_.movie_id as movie_id5_2_0__,
-            songs1_.id as id1_2_0__
-        from
-        movie movie0_
-                left outer join
-        song songs1_
-                on movie0_.id=songs1_.movie_id
-                where
-        movie0_.id=?
+         select
+         distinct movie0_.id as id1_1_0_,
+         songs1_.id as id1_2_1_,
+         movie0_.created_at as created_2_1_0_,
+         movie0_.modified_at as modified3_1_0_,
+         movie0_.title as title4_1_0_,
+         songs1_.created_at as created_2_2_1_,
+         songs1_.modified_at as modified3_2_1_,
+         songs1_.movie_id as movie_id5_2_1_,
+         songs1_.name as name4_2_1_,
+         songs1_.movie_id as movie_id5_2_0__,
+         songs1_.id as id1_2_0__
+         from
+         movie movie0_
+         left outer join
+         song songs1_
+         on movie0_.id=songs1_.movie_id
+         where
+         movie0_.id=?
 
-        **/
+         **/
     }
 }

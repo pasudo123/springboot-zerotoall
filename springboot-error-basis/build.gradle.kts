@@ -1,5 +1,22 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
-    kotlin("jvm")
+    val kotlinVersion = System.getProperty("version.kotlinVersion")
+    val springBootVersion = System.getProperty("version.springBootVersion")
+    val springBootManagementVersion = System.getProperty("version.springDependencyManagementVersion")
+    val klintVersion = System.getProperty("version.ktlintVersion")
+
+    id("org.springframework.boot") version springBootVersion
+    id("io.spring.dependency-management") version springBootManagementVersion
+
+    kotlin("jvm") version kotlinVersion
+    kotlin("plugin.spring") version kotlinVersion
+    kotlin("kapt") version kotlinVersion
+
+    // kotlin lint
+    // id("org.jlleitschuh.gradle.ktlint") version klintVersion
+
+    application
 }
 
 allOpen {
@@ -13,9 +30,17 @@ kotlin.sourceSets.main {
     setBuildDir("$buildDir")
 }
 
-val junitJupiterVersion = "5.4.2"
-val kotestVersion = "4.6.1"
-val mockkVersion = "1.12.0"
+group = "com.example"
+version = "0.0.1-SNAPSHOT"
+java.sourceCompatibility = JavaVersion.VERSION_11
+
+repositories {
+    mavenCentral()
+}
+
+val kotestVersion: String = System.getProperty("version.kotestVersion")
+val mockkVersion: String = System.getProperty("version.mocckVersion")
+val springmockkVersion: String = System.getProperty("version.springmockkVersion")
 
 dependencies {
 
@@ -55,4 +80,15 @@ dependencies {
 
     // h2
     testImplementation("com.h2database:h2")
+}
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs = listOf("-Xjsr305=strict")
+        jvmTarget = "11"
+    }
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }

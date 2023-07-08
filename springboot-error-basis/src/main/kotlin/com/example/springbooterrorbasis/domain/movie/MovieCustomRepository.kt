@@ -6,11 +6,11 @@ import com.example.springbooterrorbasis.domain.song.QSong.song
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
-import java.util.*
+import java.util.Optional
 
 @Repository
 @Transactional(readOnly = true)
-class MovieCustomRepository: QuerydslRepositorySupport(Movie::class.java) {
+class MovieCustomRepository : QuerydslRepositorySupport(Movie::class.java) {
 
     fun findOneWithSongs(id: Long): Optional<Movie> {
         return Optional.ofNullable(

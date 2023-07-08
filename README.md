@@ -1,32 +1,7 @@
 # springboot-kotlin-zerotoall
 
 ## project
-```
 springboot-kotlin-zerotoall
-    |
-    |-- pure-kotlin
-    |-- springboot-basis
-    |-- springboot-cloud-client-basis 
-    |-- springboot-cloud-server-basis
-    |-- springboot-concurrency-basis
-    |-- springboot-concurrency-v2-basis
-    |-- springboot-error-basis
-    |-- springboot-gql-basis
-    |-- springboot-hadoop-basis
-    |-- springboot-jpa-basis
-    |-- springboot-jvm-basis
-    |-- springboot-mongo-basis
-    |-- springboot-pageable-basis
-    |-- springboot-quartz-basis
-    |-- springboot-query-perf-basis 
-    |-- springboot-reactive-basis
-    |-- springboot-redis-basis
-    |-- springboot-retrofit-basis
-    |-- springboot-retry-basis
-    |-- springboot-swagger-basis
-    |-- springboot-testcode-basis
-    |-- springboot-testcontainer-basis
-```
 
 ## 참고
 > 싱글 모듈 프로젝트는 build.gradle.kts 깨진다.

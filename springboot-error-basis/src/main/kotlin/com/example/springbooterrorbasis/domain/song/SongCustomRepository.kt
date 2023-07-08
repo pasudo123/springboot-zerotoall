@@ -6,5 +6,4 @@ import org.springframework.transaction.annotation.Transactional
 
 @Repository
 @Transactional(readOnly = true)
-class SongCustomRepository: QuerydslRepositorySupport(Song::class.java) {
-}
+class SongCustomRepository : QuerydslRepositorySupport(Song::class.java)

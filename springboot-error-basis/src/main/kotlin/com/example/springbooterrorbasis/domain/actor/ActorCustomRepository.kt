@@ -6,6 +6,4 @@ import org.springframework.transaction.annotation.Transactional
 
 @Repository
 @Transactional(readOnly = true)
-class ActorCustomRepository: QuerydslRepositorySupport(Actor::class.java) {
-
-}
+class ActorCustomRepository : QuerydslRepositorySupport(Actor::class.java)

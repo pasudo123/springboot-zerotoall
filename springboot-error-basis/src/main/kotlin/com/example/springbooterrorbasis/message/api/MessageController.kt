@@ -1,5 +1,7 @@
 package com.example.springbooterrorbasis.message.api
 
+import com.example.springbooterrorbasis.error.CustomException
+import com.example.springbooterrorbasis.error.ErrorDetail
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -23,7 +25,7 @@ class MessageController {
     fun getMessageWithPath(
         @PathVariable("id") id: Long
     ): ResponseEntity<String> {
-        return ResponseEntity.ok("[${id}] : ${UUID.randomUUID()}")
+        return ResponseEntity.ok("[$id] : ${UUID.randomUUID()}")
     }
 
     @GetMapping("param")

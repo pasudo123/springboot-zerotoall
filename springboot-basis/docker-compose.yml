@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   redis:
-    image: idock.daumkakao.io/airport-docker/redis5.0
+    image: library/mysql:8.0
     labels:
       - "name=redis"
       - "mode=standalone"

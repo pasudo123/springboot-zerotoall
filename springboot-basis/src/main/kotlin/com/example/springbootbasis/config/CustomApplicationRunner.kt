@@ -22,7 +22,7 @@ class CustomApplicationRunner(
     override fun run(args: ApplicationArguments?) {
 
         if (isNoArgsScheduleRun(env)) {
-            log.info("is default run !!")
+            log.info("does not create schedule bean !!")
             return
         }
 

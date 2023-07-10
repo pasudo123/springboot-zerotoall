@@ -17,6 +17,9 @@ repositories {
 
 dependencies {
 
+    // web
+    implementation("org.springframework.boot:spring-boot-starter-web")
+
     // https://github.com/lukas-krecan/ShedLock
     // https://mvnrepository.com/artifact/net.javacrumbs.shedlock/shedlock-spring
     // https://mvnrepository.com/artifact/net.javacrumbs.shedlock/shedlock-provider-redis-spring

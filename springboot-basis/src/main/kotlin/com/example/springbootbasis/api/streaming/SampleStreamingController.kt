@@ -27,7 +27,7 @@ class SampleStreamingController {
                 (1..Long.MAX_VALUE).forEach {
                     val person = Person("홍길동", it)
                     val event = SseEmitter.event()
-                        // .data(person.toJson().replace(Regex("\\s"), ""))
+                        // .data("hello-$it")
                         .data(person, MediaType.APPLICATION_JSON)
                         .name(EmitterEvent.USER_NAME_EVENT.name)
                         .id(UUID.randomUUID().toString())

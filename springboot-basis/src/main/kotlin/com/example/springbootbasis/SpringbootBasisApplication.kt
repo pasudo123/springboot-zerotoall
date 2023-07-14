@@ -9,7 +9,6 @@ import org.springframework.scheduling.annotation.EnableScheduling
  * - defaultLockAtMostFor : 락이 죽어버린 경우 어느정도까지 락을 유지할 것인지 결정. PT0S, 죽으면 락을 0초만 유지
  */
 @SpringBootApplication
-@EnableScheduling
 @EnableSchedulerLock(defaultLockAtMostFor = "PT0S")
 class SpringbootBasisApplication
 

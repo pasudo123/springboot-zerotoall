@@ -1,13 +1,12 @@
-version: '3.7'
+version: "3.7"
 services:
-  db:
-    image: arm64v8/mysql:8.0
-    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-    restart: always
+  redis:
+    image: arm64v8/redis:5.0.14
+    labels:
+      - "name=redis"
+      - "mode=standalone"
     environment:
-      - MYSQL_ROOT_PASSWORD=rootpass
-      - MYSQL_ROOT_HOST=%
-      - MYSQL_DATABASE=testdb
-    container_name: springboot-basis-mysql
+      - REDIS_REPLICATION_MODE=master
+    container_name: "springboot-basis-redis"
     ports:
       - "6379:6379"

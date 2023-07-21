@@ -1,5 +1,6 @@
 package com.example.springbootbasis.config
 
+import com.example.springbootbasis.config.CustomObjectMapperConfiguration.Companion.mapper
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
@@ -25,3 +26,5 @@ class CustomObjectMapperConfiguration {
         return mapper
     }
 }
+
+inline fun <reified T: Any> T.toJson(): String = mapper.writeValueAsString(this)

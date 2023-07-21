@@ -10,7 +10,7 @@ app:
   scheduler:
     use:
       default: false
-      args: true
+      args: false
 
 logging:
   level:

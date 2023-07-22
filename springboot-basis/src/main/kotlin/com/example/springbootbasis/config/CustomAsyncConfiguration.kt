@@ -16,6 +16,8 @@ class CustomAsyncConfiguration: AsyncConfigurer {
             this.corePoolSize = 1
             this.maxPoolSize = 5
             this.setQueueCapacity(10)
+//            this.keepAliveSeconds = 2
+//            this.setAllowCoreThreadTimeOut(true)
             this.initialize()
         }
     }

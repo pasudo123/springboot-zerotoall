@@ -23,7 +23,7 @@ class TaskService {
         name: String,
         jobId: String
     ) {
-        log.info("process name=$name, jobId=$jobId")
         Thread.sleep(5000)
+        log.info("process name=$name, jobId=$jobId")
     }
 }

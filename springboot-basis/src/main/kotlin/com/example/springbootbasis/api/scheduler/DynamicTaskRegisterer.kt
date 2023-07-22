@@ -56,5 +56,6 @@ class DynamicTaskRegisterer(
      * 3개 -> 3/5
      * 4개 -> 4/5
      */
-    private fun cronExpression(): String = "${this.jobGroup.size % 5}/5 * * * * *"
+    // private fun cronExpression(): String = "${this.jobGroup.size % 5}/5 * * * * *"
+    private fun cronExpression(): String = "0/5 * * * * *"
 }

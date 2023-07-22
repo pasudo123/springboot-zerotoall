@@ -3,7 +3,7 @@ package com.example.springbootbasis.api.scheduler
 import org.junit.jupiter.api.Test
 import java.util.TimeZone
 
-class DynamicTaskRegisterTest {
+class DynamicTaskRegistererTest {
 
     @Test
     fun `아시아 서울 타임존 세팅`() {

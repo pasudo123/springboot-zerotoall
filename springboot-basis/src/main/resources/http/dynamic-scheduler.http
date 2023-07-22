@@ -1,13 +1,38 @@
+###
 POST localhost:8080/sample-scheduler
 Content-Type: application/json
 
-{
-  "name": "hello88",
-  "properties": {
-    "sample1": 1,
-    "sample2": 2
-  }
-}
+{ "name": "hello1" }
 
 ###
-DELETE localhost:8080/sample-scheduler/fdfcbbb0-b6ae-4cb0-a084-c01cddb2ade4
+POST localhost:8080/sample-scheduler
+Content-Type: application/json
+
+{ "name": "hello2" }
+
+###
+POST localhost:8080/sample-scheduler
+Content-Type: application/json
+
+{ "name": "hello3" }
+
+###
+POST localhost:8080/sample-scheduler
+Content-Type: application/json
+
+{ "name": "hello4" }
+
+###
+POST localhost:8080/sample-scheduler
+Content-Type: application/json
+
+{ "name": "hello5" }
+
+###
+POST localhost:8080/sample-scheduler
+Content-Type: application/json
+
+{ "name": "hello6" }
+
+###
+### DELETE localhost:8080/sample-scheduler/fdfcbbb0-b6ae-4cb0-a084-c01cddb2ade4

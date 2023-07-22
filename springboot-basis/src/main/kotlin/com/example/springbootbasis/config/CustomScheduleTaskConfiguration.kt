@@ -16,7 +16,7 @@ class CustomScheduleTaskConfiguration {
     @Bean
     fun taskScheduler(): TaskScheduler {
         return ThreadPoolTaskScheduler().apply {
-            this.poolSize = 10
+            this.poolSize = 1
             this.setThreadNamePrefix("pasudoSche-")
             this.setErrorHandler(errorHandler())
         }

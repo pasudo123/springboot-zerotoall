@@ -10,21 +10,21 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("sample-scheduler")
 class SampleDynamicScheduleController(
-    private val dynamicTaskRegister: DynamicTaskRegister
+    private val dynamicTaskRegisterer: DynamicTaskRegisterer
 ) {
 
     @PostMapping
     fun addScheduler(
         @RequestBody request: DynamicTaskRequest
     ) {
-        dynamicTaskRegister.register(request)
+        dynamicTaskRegisterer.register(request)
     }
 
     @DeleteMapping("{jobId}")
     fun deleteScheduler(
         @PathVariable jobId: String
     ) {
-        dynamicTaskRegister.delete(jobId)
+        dynamicTaskRegisterer.delete(jobId)
     }
 
     data class DynamicTaskRequest(
@@ -32,8 +32,9 @@ class SampleDynamicScheduleController(
         val properties: Map<String, Any> = emptyMap()
     ) {
 
-        fun toDynamicTask(): DynamicTask {
+        fun toDynamicTask(taskService: TaskService): DynamicTask {
             return DynamicTask(
+                taskService,
                 name = this.name,
                 properties = this.properties
             )

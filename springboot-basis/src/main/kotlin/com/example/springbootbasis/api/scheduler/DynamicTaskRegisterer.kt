@@ -10,8 +10,9 @@ import java.util.UUID
 import java.util.concurrent.ScheduledFuture
 
 @Component
-class DynamicTaskRegister(
-    private val taskScheduler: TaskScheduler
+class DynamicTaskRegisterer(
+    private val taskScheduler: TaskScheduler,
+    private val taskService: TaskService
 ) {
 
     private val log = LoggerFactory.getLogger(javaClass)
@@ -25,7 +26,7 @@ class DynamicTaskRegister(
 
         log.info("# register task: ${request.toJson()}")
 
-        val dynamicTask = request.toDynamicTask().apply {
+        val dynamicTask = request.toDynamicTask(taskService).apply {
             this.jobId = jobId
         }
 

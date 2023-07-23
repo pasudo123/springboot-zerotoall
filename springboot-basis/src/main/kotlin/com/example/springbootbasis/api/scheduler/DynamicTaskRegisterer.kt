@@ -3,6 +3,7 @@ package com.example.springbootbasis.api.scheduler
 import com.example.springbootbasis.config.toJson
 import org.slf4j.LoggerFactory
 import org.springframework.scheduling.TaskScheduler
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 import org.springframework.scheduling.support.CronTrigger
 import org.springframework.stereotype.Component
 import java.util.TimeZone
@@ -12,6 +13,7 @@ import java.util.concurrent.ScheduledFuture
 @Component
 class DynamicTaskRegisterer(
     private val taskScheduler: TaskScheduler,
+    private val currentPoolTaskExecutor: ThreadPoolTaskExecutor,
     private val taskService: TaskService
 ) {
 
@@ -27,6 +29,7 @@ class DynamicTaskRegisterer(
         log.info("# register task: ${request.toJson()}")
 
         val dynamicTask = request.toDynamicTask(taskService).apply {
+            this.threadPoolTaskExecutor = currentPoolTaskExecutor
             this.jobId = jobId
         }
 
@@ -41,11 +44,20 @@ class DynamicTaskRegisterer(
         }
     }
 
+    fun findAll(): Map<String, Any> {
+        return jobGroup
+    }
+
     fun delete(
         jobId: String
     ) {
         val scheduledFuture = jobGroup.remove(jobId) ?: return
         scheduledFuture.cancel(true)
+    }
+
+    fun deleteAll() {
+        val jobIds = jobGroup.keys.map { it }
+        jobIds.forEach { delete (it) }
     }
 
     /**

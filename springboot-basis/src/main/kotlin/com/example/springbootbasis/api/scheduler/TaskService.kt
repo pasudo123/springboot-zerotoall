@@ -1,7 +1,10 @@
 package com.example.springbootbasis.api.scheduler
 
 import org.slf4j.LoggerFactory
+import org.springframework.core.task.AsyncTaskExecutor
+import org.springframework.scheduling.TaskScheduler
 import org.springframework.scheduling.annotation.Async
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 import org.springframework.stereotype.Service
 
 @Service
@@ -14,16 +17,18 @@ class TaskService {
         name: String,
         jobId: String
     ) {
-        log.info("@@ start run name=$name, jobId=$jobId")
+//        throw RuntimeException("hello")
+//        log.info("@@ start run name=$name, jobId=$jobId")
+        // log.info("## start run name=$name, ququeSize=${threadPoolTaskExecutor.threadPoolExecutor.queue.size}, activeCount=${threadPoolTaskExecutor.activeCount}, poolSize=${threadPoolTaskExecutor.poolSize}")
         task(name, jobId)
-        log.info("@@ end run name=$name, jobId=$jobId")
+        log.info("@@ end run name=$name")
     }
 
     private fun task(
         name: String,
         jobId: String
     ) {
-        Thread.sleep(5000)
-        log.info("process name=$name, jobId=$jobId")
+        Thread.sleep(6000)
+//        log.info("process name=$name, jobId=$jobId")
     }
 }

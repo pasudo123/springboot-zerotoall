@@ -2,6 +2,7 @@ package com.example.springbootbasis.exception
 
 import org.slf4j.LoggerFactory
 import org.springframework.util.ErrorHandler
+import java.util.concurrent.RejectedExecutionException
 
 class CustomScheduleErrorHandler : ErrorHandler {
 
@@ -10,12 +11,20 @@ class CustomScheduleErrorHandler : ErrorHandler {
     override fun handleError(throwable: Throwable) {
 
         if (throwable is CustomException) {
-            log.info("[customException] error handler called !!")
-            log.info(throwable.message)
+            log.error("[customException] error handler called !! : ${throwable.message}")
             return
         }
 
-        log.info("[runtimeException] error handler called !!")
-        log.info(throwable.message)
+        if (throwable is RejectedExecutionException) {
+            val errorMessage = """
+                {
+                    "cause.message": "${throwable.cause?.message}",
+                }
+            """.trimIndent()
+            log.error("[RejectedExecutionException] error handler called !! :\n$errorMessage")
+            return
+        }
+
+        log.error("[runtimeException] error handler called !! : ${throwable.message}")
     }
 }

@@ -1,6 +1,7 @@
 package com.example.springbootbasis.api.scheduler
 
 import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -25,6 +26,16 @@ class SampleDynamicScheduleController(
         @PathVariable jobId: String
     ) {
         dynamicTaskRegisterer.delete(jobId)
+    }
+
+    @DeleteMapping("delete-all")
+    fun deleteAll() {
+        dynamicTaskRegisterer.deleteAll()
+    }
+
+    @GetMapping
+    fun findAll(): Map<String, Any> {
+        return dynamicTaskRegisterer.findAll()
     }
 
     data class DynamicTaskRequest(

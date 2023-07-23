@@ -1,10 +1,8 @@
 package com.example.springbootbasis.api.scheduler
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 import org.slf4j.LoggerFactory
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 import java.time.LocalDateTime
 
 class DynamicTask(
@@ -14,15 +12,15 @@ class DynamicTask(
     val createdAt: LocalDateTime = LocalDateTime.now(),
 ) : Runnable {
 
+    lateinit var threadPoolTaskExecutor: ThreadPoolTaskExecutor
     lateinit var jobId: String
     private val log = LoggerFactory.getLogger(javaClass)
 
-    override fun run() = runBlocking(Dispatchers.IO) {
-        // taskService.doSomething(name, jobId)
-
-        log.info("@@ start run name=$name, jobId=$jobId")
-        async(Dispatchers.IO) { doSomething() }
-        log.info("@@ end run name=$name, jobId=$jobId")
+    override fun run() {
+        taskService.doSomething(name, jobId)
+//        log.info("@@ start run name=$name, jobId=$jobId")
+//        async(Dispatchers.IO) { doSomething() }
+//        log.info("@@ end run name=$name, jobId=$jobId")
     }
 
     private suspend fun doSomething() {

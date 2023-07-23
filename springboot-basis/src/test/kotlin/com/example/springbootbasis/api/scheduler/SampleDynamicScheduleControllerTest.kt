@@ -11,9 +11,9 @@ class SampleDynamicScheduleControllerTest {
     )
 
     @Test
-    fun `thread 를 10개 만들어서 동시에 수행시킵니다`() {
+    fun `thread 를 n개 만들어서 동시에 수행시킵니다`() {
 
-        (1..15).forEach {
+        (1..2).forEach {
             val map = mapOf<String, Any>("name" to "hello-$it")
             post(host, headers = headers, json = map)
         }

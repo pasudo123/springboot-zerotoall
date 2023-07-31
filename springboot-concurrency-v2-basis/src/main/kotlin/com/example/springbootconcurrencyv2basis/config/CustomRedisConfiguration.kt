@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory
 import org.springframework.data.redis.core.RedisTemplate
+import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.data.redis.serializer.StringRedisSerializer
 
 @Configuration
@@ -55,6 +56,19 @@ class CustomRedisConfiguration(
             this.valueSerializer = StringRedisSerializer()
             this.hashKeySerializer = StringRedisSerializer()
             this.hashValueSerializer = StringRedisSerializer()
+            this.afterPropertiesSet()
+        }
+    }
+
+    @Bean
+    fun stringRedisTemplate(): StringRedisTemplate {
+        val connectionFactory = lettuceConnectionFactory().apply {
+            this.database = 0
+            this.afterPropertiesSet()
+        }
+
+        return StringRedisTemplate().apply {
+            setConnectionFactory(connectionFactory)
             this.afterPropertiesSet()
         }
     }

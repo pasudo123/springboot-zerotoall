@@ -3,9 +3,9 @@ server:
   port: 9991
 
 spring:
-#  redis:
-#    host: localhost
-#    port: 16379
+  redis:
+    host: localhost
+    port: 16379
   jackson:
     serialization:
       indent_output: true
@@ -33,19 +33,3 @@ app:
     port: 16381
     password: ''
     database: 5
-    -
-      host: localhost
-      port: 16379
-      password: ''
-      database: 0
-    -
-      host: localhost
-      port: 16380
-      password: ''
-      database: 1
-    -
-      host: localhost
-      port: 16381
-      password: ''
-      database: 2
-

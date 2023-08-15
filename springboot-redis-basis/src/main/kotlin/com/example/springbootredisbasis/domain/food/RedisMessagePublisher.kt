@@ -13,7 +13,11 @@ class RedisMessagePublisher(
     private val log = LoggerFactory.getLogger(javaClass)
 
     override fun sendMessage(message: String, topic: ChannelTopic) {
-        log.info("publish to topic[${topic.topic}] : $message")
-        stringRedisTemplate.convertAndSend(topic.topic, message)
+        try {
+            stringRedisTemplate.convertAndSend(topic.topic, message)
+            log.info("publish to topic[${topic.topic}] : $message")
+        } catch (exception: Exception) {
+            log.error("redis pub error : ${exception.message}")
+        }
     }
 }

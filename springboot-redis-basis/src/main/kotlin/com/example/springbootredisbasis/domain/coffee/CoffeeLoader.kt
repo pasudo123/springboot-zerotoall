@@ -1,4 +1,4 @@
-package com.example.springbootredisbasis.config.domain.coffee
+package com.example.springbootredisbasis.domain.coffee
 
 import org.springframework.context.annotation.Profile
 import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory

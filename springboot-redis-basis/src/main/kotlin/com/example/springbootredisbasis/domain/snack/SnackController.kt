@@ -1,4 +1,4 @@
-package com.example.springbootredisbasis.config.domain.snack
+package com.example.springbootredisbasis.domain.snack
 
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController

@@ -1,17 +1,18 @@
 package com.example.springbootredisbasis.config
 
-import com.example.springbootredisbasis.config.domain.coffee.Coffee
+import com.example.springbootredisbasis.domain.coffee.Coffee
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.ser.std.StdKeySerializers
 import mu.KotlinLogging
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory
+import org.springframework.data.redis.connection.RedisPassword
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory
 import org.springframework.data.redis.core.ReactiveRedisTemplate
 import org.springframework.data.redis.core.RedisTemplate
+import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer
 import org.springframework.data.redis.serializer.RedisSerializationContext
 import org.springframework.data.redis.serializer.StringRedisSerializer
@@ -24,6 +25,25 @@ class CustomRedisConfiguration(
 ) {
 
     private val logger = KotlinLogging.logger {}
+
+    @Bean
+    fun stringRedisTemplate(): StringRedisTemplate {
+        val standaloneConfiguration = RedisStandaloneConfiguration(
+            redisProperties.host,
+            redisProperties.port
+        ).apply {
+            this.password = RedisPassword.none()
+            this.database = 0
+        }
+
+        val connectionFactory = LettuceConnectionFactory(standaloneConfiguration).apply {
+            this.afterPropertiesSet()
+        }
+
+        return StringRedisTemplate(connectionFactory).apply {
+            this.afterPropertiesSet()
+        }
+    }
 
     @Bean
     fun redisTemplate(): RedisTemplate<String, String> {

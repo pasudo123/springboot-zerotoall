@@ -3,6 +3,8 @@ package com.example.springbootredisbasis.config.domain.snack
 import com.example.springbootredisbasis.CustomRedisContainer.Companion.REDIS_CONTAINER
 import com.example.springbootredisbasis.RedisRepositorySupport
 import com.example.springbootredisbasis.config.toJson
+import com.example.springbootredisbasis.domain.snack.Snack
+import com.example.springbootredisbasis.domain.snack.SnackRedisRepository
 import com.example.springbootredisbasis.repository.RedisDefaultRepository
 import io.kotest.assertions.asClue
 import io.kotest.matchers.shouldBe

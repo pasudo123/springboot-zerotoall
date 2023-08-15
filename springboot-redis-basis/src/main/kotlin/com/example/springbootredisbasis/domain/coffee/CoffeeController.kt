@@ -1,4 +1,4 @@
-package com.example.springbootredisbasis.config.domain.coffee
+package com.example.springbootredisbasis.domain.coffee
 
 import org.springframework.data.redis.core.ReactiveRedisTemplate
 import org.springframework.web.bind.annotation.GetMapping

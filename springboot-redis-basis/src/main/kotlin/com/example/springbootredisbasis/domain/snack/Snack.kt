@@ -1,4 +1,4 @@
-package com.example.springbootredisbasis.config.domain.snack
+package com.example.springbootredisbasis.domain.snack
 
 data class Snack(
     val id: Long,

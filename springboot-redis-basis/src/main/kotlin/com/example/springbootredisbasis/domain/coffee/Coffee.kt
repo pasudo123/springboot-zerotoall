@@ -1,4 +1,4 @@
-package com.example.springbootredisbasis.config.domain.coffee
+package com.example.springbootredisbasis.domain.coffee
 
 import java.util.*
 

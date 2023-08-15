@@ -1,9 +1,8 @@
-package com.example.springbootredisbasis.config.domain.snack
+package com.example.springbootredisbasis.domain.snack
 
 import com.example.springbootredisbasis.config.toJson
 import com.example.springbootredisbasis.config.toObject
 import com.example.springbootredisbasis.repository.RedisDefaultRepository
-import org.springframework.data.redis.connection.StringRedisConnection
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.core.ScanOptions
 import org.springframework.stereotype.Repository

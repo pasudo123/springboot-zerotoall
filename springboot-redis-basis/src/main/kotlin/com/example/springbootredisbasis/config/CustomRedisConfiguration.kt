@@ -2,19 +2,17 @@ package com.example.springbootredisbasis.config
 
 import com.example.springbootredisbasis.domain.coffee.Coffee
 import com.fasterxml.jackson.databind.ObjectMapper
-import io.lettuce.core.ClientOptions
-import io.lettuce.core.SocketOptions
-import io.lettuce.core.TimeoutOptions
-import io.lettuce.core.resource.ClientResources
-import io.lettuce.core.resource.DefaultClientResources
-import mu.KotlinLogging
+import io.lettuce.core.RedisChannelHandler
+import io.lettuce.core.RedisConnectionStateListener
+import io.lettuce.core.event.command.CommandListener
+import io.lettuce.core.event.command.CommandStartedEvent
+import org.slf4j.LoggerFactory
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory
 import org.springframework.data.redis.connection.RedisPassword
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration
-import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory
 import org.springframework.data.redis.core.ReactiveRedisTemplate
 import org.springframework.data.redis.core.RedisTemplate
@@ -22,7 +20,7 @@ import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer
 import org.springframework.data.redis.serializer.RedisSerializationContext
 import org.springframework.data.redis.serializer.StringRedisSerializer
-import java.util.Optional
+import java.net.SocketAddress
 
 @Configuration
 class CustomRedisConfiguration(
@@ -31,10 +29,11 @@ class CustomRedisConfiguration(
     private val objectMapper: ObjectMapper,
 ) {
 
-    private val logger = KotlinLogging.logger {}
+    private val log = LoggerFactory.getLogger(javaClass)
 
     @Bean
     fun stringRedisTemplate(): StringRedisTemplate {
+
         val standaloneConfiguration = RedisStandaloneConfiguration(
             redisProperties.host,
             redisProperties.port
@@ -49,35 +48,29 @@ class CustomRedisConfiguration(
             this.afterPropertiesSet()
         }
 
+//        connectionFactory.nativeClient?.addListener(object: CommandListener {
+//            override fun commandStarted(event: CommandStartedEvent?) {
+//                log.info("@@@@@@ commandStarted")
+//            }
+//        })
+//
+//        connectionFactory.nativeClient?.addListener(
+//            object: RedisConnectionStateListener {
+//                override fun onRedisDisconnected(connection: RedisChannelHandler<*, *>?) {
+//                    log.info("@@@@@@ onRedisDisconnected")
+//                }
+//
+//                override fun onRedisExceptionCaught(connection: RedisChannelHandler<*, *>?, cause: Throwable?) {
+//                    log.info("@@@@@@ onRedisExceptionCaught")
+//                }
+//
+//                override fun onRedisConnected(connection: RedisChannelHandler<*, *>?, socketAddress: SocketAddress?) {
+//                    log.info("@@@@@@ onRedisConnected")
+//                }
+//            }
+//        )
+
         return StringRedisTemplate(connectionFactory).apply {
-            this.afterPropertiesSet()
-        }
-    }
-
-    @Bean
-    fun redisTemplate(): RedisTemplate<String, String> {
-
-        logger.info { "redis props size : ${multipleRedisProps.redisGroup.size}" }
-
-        val node = multipleRedisProps.redisGroup.first()
-
-        val standaloneConfiguration = RedisStandaloneConfiguration(
-            node.host!!,
-            node.port!!,
-        ).apply {
-            this.password = node.getRedisPassword()
-            this.database = node.database!!
-        }
-
-        val connectionFactory = LettuceConnectionFactory(standaloneConfiguration)
-            .apply {
-                this.afterPropertiesSet()
-            }
-
-        return RedisTemplate<String, String>().apply {
-            this.setConnectionFactory(connectionFactory)
-            this.keySerializer = StringRedisSerializer()
-            this.valueSerializer = StringRedisSerializer()
             this.afterPropertiesSet()
         }
     }

@@ -28,5 +28,5 @@ class ObjectMapperConfiguration {
     }
 }
 
-inline fun <reified T: Any> T.toJson(): String = mapper.writeValueAsString(this)
-inline fun <reified T: Any> String.toObject(): T = mapper.readValue(this, T::class.java)
+inline fun <reified T : Any> T.toJson(): String = mapper.writeValueAsString(this)
+inline fun <reified T : Any> String.toObject(): T = mapper.readValue(this, T::class.java)

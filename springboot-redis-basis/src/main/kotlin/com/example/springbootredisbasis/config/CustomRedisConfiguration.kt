@@ -61,7 +61,7 @@ class CustomRedisConfiguration(
      * https://lettuce.io/core/release/reference/#events.before-3.44.1
      */
     private fun LettuceConnectionFactory.applyNotifyListener() {
-        this.requiredNativeClient.addListener(object: RedisConnectionStateListener {
+        this.requiredNativeClient.addListener(object : RedisConnectionStateListener {
             override fun onRedisConnected(connection: RedisChannelHandler<*, *>?, socketAddress: SocketAddress?) {
                 log.info("@@@@@@@@@@@@@@@@@@ onRedisConnected")
                 super.onRedisConnected(connection, socketAddress)
@@ -75,44 +75,44 @@ class CustomRedisConfiguration(
     }
 
 /**
- * since 3.4/4.1
- * https://lettuce.io/core/release/reference/#events.since-3.44.1
- */
-private fun LettuceConnectionFactory.applyEventBus() {
-    this.connection
-    val eventBus = this.requiredNativeClient.resources.eventBus()
-    eventBus.get().subscribe { event ->
-        when (event) {
-            is ConnectEvent -> {
-                log.error("@@@@@@@@@@@@@@@@@@ ConnectEvent")
-            }
-            is ConnectedEvent -> {
-                log.error("@@@@@@@@@@@@@@@@@@ ConnectedEvent")
-            }
-            is ConnectionActivatedEvent -> {
-                log.error("@@@@@@@@@@@@@@@@@@ ConnectionActivatedEvent")
-            }
-            is ConnectionCreatedEvent -> {
-                log.error("@@@@@@@@@@@@@@@@@@ ConnectionCreatedEvent")
-            }
-            is ConnectionDeactivatedEvent -> {
-                log.error("@@@@@@@@@@@@@@@@@@ ConnectionDeactivatedEvent")
-            }
-            is DisconnectedEvent -> {
-                log.error("@@@@@@@@@@@@@@@@@@ DisconnectedEvent")
-            }
-            is ReconnectAttemptEvent -> {
-                log.error("@@@@@@@@@@@@@@@@@@ ReconnectAttemptEvent")
-            }
-            is ReconnectFailedEvent -> {
-                log.error("@@@@@@@@@@@@@@@@@@ ReconnectFailedEvent")
-            }
-            else -> {
-                log.error("@@@@@@@@@@@@@@@@@@ [$event]")
+     * since 3.4/4.1
+     * https://lettuce.io/core/release/reference/#events.since-3.44.1
+     */
+    private fun LettuceConnectionFactory.applyEventBus() {
+        this.connection
+        val eventBus = this.requiredNativeClient.resources.eventBus()
+        eventBus.get().subscribe { event ->
+            when (event) {
+                is ConnectEvent -> {
+                    log.error("@@@@@@@@@@@@@@@@@@ ConnectEvent")
+                }
+                is ConnectedEvent -> {
+                    log.error("@@@@@@@@@@@@@@@@@@ ConnectedEvent")
+                }
+                is ConnectionActivatedEvent -> {
+                    log.error("@@@@@@@@@@@@@@@@@@ ConnectionActivatedEvent")
+                }
+                is ConnectionCreatedEvent -> {
+                    log.error("@@@@@@@@@@@@@@@@@@ ConnectionCreatedEvent")
+                }
+                is ConnectionDeactivatedEvent -> {
+                    log.error("@@@@@@@@@@@@@@@@@@ ConnectionDeactivatedEvent")
+                }
+                is DisconnectedEvent -> {
+                    log.error("@@@@@@@@@@@@@@@@@@ DisconnectedEvent")
+                }
+                is ReconnectAttemptEvent -> {
+                    log.error("@@@@@@@@@@@@@@@@@@ ReconnectAttemptEvent")
+                }
+                is ReconnectFailedEvent -> {
+                    log.error("@@@@@@@@@@@@@@@@@@ ReconnectFailedEvent")
+                }
+                else -> {
+                    log.error("@@@@@@@@@@@@@@@@@@ [$event]")
+                }
             }
         }
     }
-}
 
 //    @Bean
 //    fun reactiveRedisTemplate(

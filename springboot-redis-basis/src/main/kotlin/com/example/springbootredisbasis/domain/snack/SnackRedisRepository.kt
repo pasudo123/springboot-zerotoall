@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository
 @Repository
 class SnackRedisRepository(
     private val redisTemplate: RedisTemplate<String, String>
-): RedisDefaultRepository {
+) : RedisDefaultRepository {
 
     private fun generateKey(id: Long): String {
         return "$REDIS_KEY:$id"
@@ -47,7 +47,7 @@ class SnackRedisRepository(
         redisTemplate.execute { conn ->
             val cursor = conn.scan(scanOptions)
 
-            while(cursor.hasNext()) {
+            while (cursor.hasNext()) {
                 val next = cursor.next()
                 val currentKey = String(next, Charsets.UTF_8)
                 keys.add(currentKey)

@@ -19,7 +19,7 @@ class CustomLettuceConfiguration(
     @Bean
     fun redisClient(): RedisClient {
         return RedisClient.create("redis://${redisProperties.host}:${redisProperties.port}/0").apply {
-            this.addListener(object: RedisConnectionStateListener {
+            this.addListener(object : RedisConnectionStateListener {
                 override fun onRedisConnected(connection: RedisChannelHandler<*, *>?, socketAddress: SocketAddress?) {
                     log.info("#### onRedisConnected")
                     super.onRedisConnected(connection, socketAddress)

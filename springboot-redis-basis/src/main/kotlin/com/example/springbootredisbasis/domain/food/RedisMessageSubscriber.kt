@@ -4,7 +4,6 @@ import org.slf4j.LoggerFactory
 import org.springframework.data.redis.connection.Message
 import org.springframework.data.redis.connection.MessageListener
 import org.springframework.data.redis.core.StringRedisTemplate
-import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 
 @Component

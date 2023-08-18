@@ -10,8 +10,7 @@ import org.springframework.data.redis.core.RedisTemplate
 class IntergrationTestConfiguration {
 
     @Bean
-    fun redisConnectionFactory(
-    ): LettuceConnectionFactory {
+    fun redisConnectionFactory(): LettuceConnectionFactory {
         return LettuceConnectionFactory(REDIS_CONTAINER.host, REDIS_CONTAINER.firstMappedPort)
             .apply {
                 this.database = 0

@@ -1,25 +1,24 @@
 package com.example.springbootredisbasis.config
 
-import com.example.springbootredisbasis.domain.coffee.Coffee
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.lettuce.core.RedisChannelHandler
 import io.lettuce.core.RedisConnectionStateListener
-import io.lettuce.core.event.command.CommandListener
-import io.lettuce.core.event.command.CommandStartedEvent
+import io.lettuce.core.event.connection.ConnectEvent
+import io.lettuce.core.event.connection.ConnectedEvent
+import io.lettuce.core.event.connection.ConnectionActivatedEvent
+import io.lettuce.core.event.connection.ConnectionCreatedEvent
+import io.lettuce.core.event.connection.ConnectionDeactivatedEvent
+import io.lettuce.core.event.connection.DisconnectedEvent
+import io.lettuce.core.event.connection.ReconnectAttemptEvent
+import io.lettuce.core.event.connection.ReconnectFailedEvent
 import org.slf4j.LoggerFactory
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory
 import org.springframework.data.redis.connection.RedisPassword
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory
-import org.springframework.data.redis.core.ReactiveRedisTemplate
-import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.core.StringRedisTemplate
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer
-import org.springframework.data.redis.serializer.RedisSerializationContext
-import org.springframework.data.redis.serializer.StringRedisSerializer
 import java.net.SocketAddress
 
 @Configuration
@@ -46,52 +45,92 @@ class CustomRedisConfiguration(
             standaloneConfiguration
         ).apply {
             this.afterPropertiesSet()
+            // this.applyNotifyListener()
+            this.applyEventBus()
         }
 
-//        connectionFactory.nativeClient?.addListener(object: CommandListener {
-//            override fun commandStarted(event: CommandStartedEvent?) {
-//                log.info("@@@@@@ commandStarted")
-//            }
-//        })
-//
-//        connectionFactory.nativeClient?.addListener(
-//            object: RedisConnectionStateListener {
-//                override fun onRedisDisconnected(connection: RedisChannelHandler<*, *>?) {
-//                    log.info("@@@@@@ onRedisDisconnected")
-//                }
-//
-//                override fun onRedisExceptionCaught(connection: RedisChannelHandler<*, *>?, cause: Throwable?) {
-//                    log.info("@@@@@@ onRedisExceptionCaught")
-//                }
-//
-//                override fun onRedisConnected(connection: RedisChannelHandler<*, *>?, socketAddress: SocketAddress?) {
-//                    log.info("@@@@@@ onRedisConnected")
-//                }
-//            }
-//        )
-
-        return StringRedisTemplate(connectionFactory).apply {
+        val stringRedisTemplate = StringRedisTemplate(connectionFactory).apply {
             this.afterPropertiesSet()
         }
+
+        return stringRedisTemplate
     }
 
-    @Bean
-    fun reactiveRedisTemplate(
-        reactiveRedisConnectionFactory: ReactiveRedisConnectionFactory
-    ): ReactiveRedisTemplate<String, Coffee> {
+    /**
+     * before 3.4/4.1
+     * https://lettuce.io/core/release/reference/#events.before-3.44.1
+     */
+    private fun LettuceConnectionFactory.applyNotifyListener() {
+        this.requiredNativeClient.addListener(object: RedisConnectionStateListener {
+            override fun onRedisConnected(connection: RedisChannelHandler<*, *>?, socketAddress: SocketAddress?) {
+                log.info("@@@@@@@@@@@@@@@@@@ onRedisConnected")
+                super.onRedisConnected(connection, socketAddress)
+            }
 
-        val keySerializer = StringRedisSerializer()
-        val serializer: Jackson2JsonRedisSerializer<Coffee> = Jackson2JsonRedisSerializer(Coffee::class.java).apply {
-            this.setObjectMapper(objectMapper)
+            override fun onRedisDisconnected(connection: RedisChannelHandler<*, *>?) {
+                log.error("@@@@@@@@@@@@@@@@@@ onRedisDisconnected")
+            }
+            override fun onRedisExceptionCaught(connection: RedisChannelHandler<*, *>?, cause: Throwable?) {}
+        })
+    }
+
+/**
+ * since 3.4/4.1
+ * https://lettuce.io/core/release/reference/#events.since-3.44.1
+ */
+private fun LettuceConnectionFactory.applyEventBus() {
+    this.connection
+    val eventBus = this.requiredNativeClient.resources.eventBus()
+    eventBus.get().subscribe { event ->
+        when (event) {
+            is ConnectEvent -> {
+                log.error("@@@@@@@@@@@@@@@@@@ ConnectEvent")
+            }
+            is ConnectedEvent -> {
+                log.error("@@@@@@@@@@@@@@@@@@ ConnectedEvent")
+            }
+            is ConnectionActivatedEvent -> {
+                log.error("@@@@@@@@@@@@@@@@@@ ConnectionActivatedEvent")
+            }
+            is ConnectionCreatedEvent -> {
+                log.error("@@@@@@@@@@@@@@@@@@ ConnectionCreatedEvent")
+            }
+            is ConnectionDeactivatedEvent -> {
+                log.error("@@@@@@@@@@@@@@@@@@ ConnectionDeactivatedEvent")
+            }
+            is DisconnectedEvent -> {
+                log.error("@@@@@@@@@@@@@@@@@@ DisconnectedEvent")
+            }
+            is ReconnectAttemptEvent -> {
+                log.error("@@@@@@@@@@@@@@@@@@ ReconnectAttemptEvent")
+            }
+            is ReconnectFailedEvent -> {
+                log.error("@@@@@@@@@@@@@@@@@@ ReconnectFailedEvent")
+            }
+            else -> {
+                log.error("@@@@@@@@@@@@@@@@@@ [$event]")
+            }
         }
-
-        val serializerContext = RedisSerializationContext.newSerializationContext<String, Coffee>(serializer).apply {
-            this.key(keySerializer)
-            this.hashKey(keySerializer)
-            this.value(serializer)
-            this.hashValue(serializer)
-        }.build()
-
-        return ReactiveRedisTemplate(reactiveRedisConnectionFactory, serializerContext)
     }
+}
+
+//    @Bean
+//    fun reactiveRedisTemplate(
+//        reactiveRedisConnectionFactory: ReactiveRedisConnectionFactory
+//    ): ReactiveRedisTemplate<String, Coffee> {
+//
+//        val keySerializer = StringRedisSerializer()
+//        val serializer: Jackson2JsonRedisSerializer<Coffee> = Jackson2JsonRedisSerializer(Coffee::class.java).apply {
+//            this.setObjectMapper(objectMapper)
+//        }
+//
+//        val serializerContext = RedisSerializationContext.newSerializationContext<String, Coffee>(serializer).apply {
+//            this.key(keySerializer)
+//            this.hashKey(keySerializer)
+//            this.value(serializer)
+//            this.hashValue(serializer)
+//        }.build()
+//
+//        return ReactiveRedisTemplate(reactiveRedisConnectionFactory, serializerContext)
+//    }
 }

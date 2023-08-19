@@ -13,6 +13,7 @@ import io.lettuce.core.event.connection.ReconnectAttemptEvent
 import io.lettuce.core.event.connection.ReconnectFailedEvent
 import org.slf4j.LoggerFactory
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.redis.connection.RedisPassword
@@ -25,6 +26,7 @@ import java.net.SocketAddress
 class CustomRedisConfiguration(
     private val multipleRedisProps: CustomMultipleRedisProps,
     private val redisProperties: RedisProperties,
+    private val eventPublisher: ApplicationEventPublisher,
     private val objectMapper: ObjectMapper,
 ) {
 
@@ -80,17 +82,7 @@ class CustomRedisConfiguration(
         this.connection
         val eventBus = this.requiredNativeClient.resources.eventBus()
         eventBus.get().subscribe { event ->
-            when (event) {
-                is ConnectEvent -> {}
-                is ConnectedEvent -> {}
-                is ConnectionActivatedEvent -> {}
-                is ConnectionCreatedEvent -> {}
-                is ConnectionDeactivatedEvent -> {}
-                is DisconnectedEvent -> {}
-                is ReconnectAttemptEvent -> {}
-                is ReconnectFailedEvent -> {}
-                else -> {}
-            }
+            eventPublisher.publishEvent(CustomREvent(event))
         }
     }
 

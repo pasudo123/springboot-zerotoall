@@ -63,18 +63,16 @@ class CustomRedisConfiguration(
     private fun LettuceConnectionFactory.applyNotifyListener() {
         this.requiredNativeClient.addListener(object : RedisConnectionStateListener {
             override fun onRedisConnected(connection: RedisChannelHandler<*, *>?, socketAddress: SocketAddress?) {
-                log.info("@@@@@@@@@@@@@@@@@@ onRedisConnected")
                 super.onRedisConnected(connection, socketAddress)
             }
 
             override fun onRedisDisconnected(connection: RedisChannelHandler<*, *>?) {
-                log.error("@@@@@@@@@@@@@@@@@@ onRedisDisconnected")
             }
             override fun onRedisExceptionCaught(connection: RedisChannelHandler<*, *>?, cause: Throwable?) {}
         })
     }
 
-/**
+    /**
      * since 3.4/4.1
      * https://lettuce.io/core/release/reference/#events.since-3.44.1
      */
@@ -83,33 +81,15 @@ class CustomRedisConfiguration(
         val eventBus = this.requiredNativeClient.resources.eventBus()
         eventBus.get().subscribe { event ->
             when (event) {
-                is ConnectEvent -> {
-                    log.error("@@@@@@@@@@@@@@@@@@ ConnectEvent")
-                }
-                is ConnectedEvent -> {
-                    log.error("@@@@@@@@@@@@@@@@@@ ConnectedEvent")
-                }
-                is ConnectionActivatedEvent -> {
-                    log.error("@@@@@@@@@@@@@@@@@@ ConnectionActivatedEvent")
-                }
-                is ConnectionCreatedEvent -> {
-                    log.error("@@@@@@@@@@@@@@@@@@ ConnectionCreatedEvent")
-                }
-                is ConnectionDeactivatedEvent -> {
-                    log.error("@@@@@@@@@@@@@@@@@@ ConnectionDeactivatedEvent")
-                }
-                is DisconnectedEvent -> {
-                    log.error("@@@@@@@@@@@@@@@@@@ DisconnectedEvent")
-                }
-                is ReconnectAttemptEvent -> {
-                    log.error("@@@@@@@@@@@@@@@@@@ ReconnectAttemptEvent")
-                }
-                is ReconnectFailedEvent -> {
-                    log.error("@@@@@@@@@@@@@@@@@@ ReconnectFailedEvent")
-                }
-                else -> {
-                    log.error("@@@@@@@@@@@@@@@@@@ [$event]")
-                }
+                is ConnectEvent -> {}
+                is ConnectedEvent -> {}
+                is ConnectionActivatedEvent -> {}
+                is ConnectionCreatedEvent -> {}
+                is ConnectionDeactivatedEvent -> {}
+                is DisconnectedEvent -> {}
+                is ReconnectAttemptEvent -> {}
+                is ReconnectFailedEvent -> {}
+                else -> {}
             }
         }
     }

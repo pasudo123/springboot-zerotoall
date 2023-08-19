@@ -2,7 +2,6 @@ package com.example.springbootredisbasis.domain.coffee
 
 import java.util.UUID
 
-
 data class Coffee(
     val name: String
 ) {

@@ -18,9 +18,11 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.redis.connection.RedisPassword
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration
+import org.springframework.data.redis.connection.lettuce.LettuceConnection
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory
 import org.springframework.data.redis.core.StringRedisTemplate
 import java.net.SocketAddress
+import java.util.Optional
 
 @Configuration
 class CustomRedisConfiguration(
@@ -42,6 +44,14 @@ class CustomRedisConfiguration(
             this.password = RedisPassword.none()
             this.database = 0
         }
+
+//        val connectionFactory = LettuceConnectionFactory(
+//            standaloneConfiguration,
+//            CustomLettuceClientConfiguration()
+//        ).apply {
+//            this.afterPropertiesSet()
+//            this.applyEventBus()
+//        }
 
         val connectionFactory = LettuceConnectionFactory(
             standaloneConfiguration
@@ -79,7 +89,13 @@ class CustomRedisConfiguration(
      * https://lettuce.io/core/release/reference/#events.since-3.44.1
      */
     private fun LettuceConnectionFactory.applyEventBus() {
-        this.connection
+        // 미동작 : LettuceConnectionFactory 만들 시, CustomLettuceClientConfiguration() 도 생성자에 넣어준다.
+//        this.clientConfiguration.clientResources.ifPresent {
+//            it.eventBus().get().subscribe { event ->
+//                eventPublisher.publishEvent(CustomREvent(event))
+//            }
+//        }
+
         val eventBus = this.requiredNativeClient.resources.eventBus()
         eventBus.get().subscribe { event ->
             eventPublisher.publishEvent(CustomREvent(event))

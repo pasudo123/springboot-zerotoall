@@ -1,0 +1,31 @@
+server:
+  port: 8080
+
+management:
+  endpoints.web.exposure.include: health, circuitbreakers
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+    circuitbreakers.enabled: true
+  health:
+    defaults:
+      enabled: false
+
+### resiliecn4j
+resilience4j:
+  circuitbreaker:
+    instances:
+      coffeeService:
+        registerHealthIndicator: true
+        slidingWindowType: TIME_BASED
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 10
+        permittedNumberOfCallsInHalfOpenState: 3
+        waitDurationInOpenState: 5s
+        failureRateThreshold: 50
+        automatic-transition-from-open-to-half-open-enabled: true
+        record-exceptions:
+          - com.example.springboot3reactivewithresilience4j.circuitbreaker.CoffeeRecordException
+        ignore-exceptions:
+          - com.example.springboot3reactivewithresilience4j.circuitbreaker.CoffeeIgnoreException

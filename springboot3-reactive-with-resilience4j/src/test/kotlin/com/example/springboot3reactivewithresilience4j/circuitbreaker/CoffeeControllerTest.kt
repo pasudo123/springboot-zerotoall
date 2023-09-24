@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.slf4j.LoggerFactory
-import org.springframework.boot.test.autoconfigure.actuate.observability.AutoConfigureObservability
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
@@ -21,7 +20,6 @@ import org.springframework.web.client.getForEntity
 
 @ExtendWith(SpringExtension::class)
 @AutoConfigureWebTestClient
-@AutoConfigureObservability
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
     classes = [Springboot3ReactiveWithResilience4jApplication::class]

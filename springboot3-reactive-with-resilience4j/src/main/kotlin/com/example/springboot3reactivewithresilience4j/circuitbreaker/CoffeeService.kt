@@ -5,6 +5,7 @@ import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker
 import jakarta.annotation.PostConstruct
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
+import java.time.Duration
 import java.time.LocalTime
 
 @Service
@@ -41,9 +42,8 @@ class CoffeeService(
 
     @CircuitBreaker(name = COFFEE_SERVICE, fallbackMethod = COFFEE_FALLBACK_METHOD)
     fun slow(): Mono<CoffeeDto> {
-        // 10초 대기
-        Thread.sleep(10000L)
         return Mono.just(CoffeeDto.of("slow OK", circuitBreakerOfCoffeeService))
+            .delayElement(Duration.ofSeconds(10))
     }
 
     fun coffeeFallbackMethod(exception: Throwable): Mono<CoffeeDto> {

@@ -1,8 +1,7 @@
 ## springboot3 reactive with resilience4j project
 - 스프링부트3와 리액티브, resilience4j 적용샘플
 
-## resilience4j-circuitbreaker properties
-yml 의 속성값을 이해한다.
+## resilience4j-circuitbreaker
 ```yml
 resilience4j:
   circuitbreaker:
@@ -28,6 +27,25 @@ resilience4j:
   * `automatic-transition-from-open-to-half-open-enabled` 가 true 면 서킷 뒷단에 별도 스레드가 작동한다. (https://resilience4j.readme.io/docs/circuitbreaker)
 * HALF_OPEN 상태에서 호출 시, permittedNumberOfCallsInHalfOpenState 만큼 호출되고 그 집계가 failureRateThreshold 보다 크거나 같다면 OPEN, 그렇지 않다면 CLOSE 로 상태전이
 
+## resilience4j-timelimiter
+* 주어진 메소드나 함수의 실행시간을 제한하는데 사용.
+* exception 을 throw 하여도 FallbackMethod 설정 시 작동된다.
+```yml
+resilience4j:
+  timelimiter:
+    instances:
+      snackService:
+        cancelRunningFuture: false  # 실행중인 작업을 취소할지 여부 (리턴타입이 Future 인 경우에 해당)
+        timeoutDuration: 2s         # 얼만큼 시간을 제한할건지
+```
+
+## resilience4j pattern 우선순위
+resilience4j 의 우선순위가 존재한다. 필요에 따라 yml 에서 변경이 가능하다.
+- 1순위, resilience4j.bulkhead.bulkheadAspectOrder
+- 2순위, resilience4j.timelimiter.timeLimiterAspectOrder
+- 3순위, resilience4j.ratelimiter.rateLimiterAspectOrder
+- 4순위, resilience4j.circuitbreaker.circuitBreakerAspectOrder
+- 5순위, resilience4j.retry.retryAspectOrder
 
 ## 참고
 * https://resilience4j.readme.io/

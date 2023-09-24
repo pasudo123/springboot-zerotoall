@@ -47,5 +47,10 @@ resilience4j 의 우선순위가 존재한다. 필요에 따라 yml 에서 변�
 - 4순위, resilience4j.circuitbreaker.circuitBreakerAspectOrder
 - 5순위, resilience4j.retry.retryAspectOrder
 
+## resilience4j module, cache
+- 공식문서에선 JCache 를 래핑해서 쓰고 있는데, 프로덕션 환경에선 사용을 추천하지 않는다 (동시성 이슈가 있는듯)
+- 따라서 다른 캐시를 쓰도록 권장한다. ex) Ehcache, Caffenine, Redisson, etc
+- https://resilience4j.readme.io/docs/cache#ehcache-example
+
 ## 참고
 * https://resilience4j.readme.io/

@@ -48,7 +48,7 @@ class CoffeeService(
 
     fun coffeeFallbackMethod(exception: Throwable): Mono<CoffeeDto> {
         val message = exception.message ?: "empty error, ${LocalTime.now()}"
-        val coffeeDto = CoffeeDto.of("##fallback## ${message}", circuitBreakerOfCoffeeService)
+        val coffeeDto = CoffeeDto.of("##fallback## $message", circuitBreakerOfCoffeeService)
         return Mono.just(coffeeDto)
     }
 }

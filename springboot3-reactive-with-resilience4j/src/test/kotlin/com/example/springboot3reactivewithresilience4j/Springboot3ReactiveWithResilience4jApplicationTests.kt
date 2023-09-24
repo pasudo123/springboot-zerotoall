@@ -9,5 +9,4 @@ class Springboot3ReactiveWithResilience4jApplicationTests {
     @Test
     fun contextLoads() {
     }
-
 }

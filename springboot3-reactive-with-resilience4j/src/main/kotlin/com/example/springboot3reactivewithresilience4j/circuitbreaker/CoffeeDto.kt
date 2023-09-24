@@ -14,7 +14,7 @@ data class CoffeeDto(
         val numberOfSlowCalls: String,
         val numberOfSuccessCalls: String,
         val numberOfNotPermittedCalls: String,
-        val numberOfBufferedCalls: String,
+        val numberOfBufferedCalls: String
     )
 
     companion object {

@@ -47,12 +47,16 @@ dependencies {
     // resilience4j reactor : reactive 처리 시 필요.
     implementation("io.github.resilience4j:resilience4j-reactor:${property("resilience4jVersion")}")
 
-
     // implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-reactor-resilience4j")
     // developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 
+    // reactor test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
+
+    // https://mockk.io/ & https://kotest.io/
+    testImplementation("io.mockk:mockk:1.12.8")
+    testImplementation("io.kotest:kotest-assertions-core:5.6.2")
 }
 
 dependencyManagement {

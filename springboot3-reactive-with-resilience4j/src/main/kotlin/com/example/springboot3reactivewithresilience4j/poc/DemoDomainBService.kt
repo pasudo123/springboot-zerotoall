@@ -21,8 +21,8 @@ class DemoDomainBService(
         cause: String
     ): Mono<DemoResources.DemoResponse> {
         val result = Random.nextBoolean()
-        log.info("BBB doSomething, result=$result")
-        if (result) {
+        // log.info("BBB doSomething, result=$result")
+        if (true) {
             val response = DemoResources.DemoResponse(
                 text = "B Service OK!",
                 time = LocalTime.now(),

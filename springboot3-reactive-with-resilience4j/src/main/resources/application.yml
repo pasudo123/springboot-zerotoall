@@ -37,8 +37,9 @@ resilience4j:
           - com.example.springboot3reactivewithresilience4j.circuitbreaker.CoffeeIgnoreException
       demoService:
         base-config: default
-        failureRateThreshold: 30
-        permittedNumberOfCallsInHalfOpenState: 1
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 3
+        permittedNumberOfCallsInHalfOpenState: 3
         automatic-transition-from-open-to-half-open-enabled: false # 최소 한번은 호출되어야 함
 
 

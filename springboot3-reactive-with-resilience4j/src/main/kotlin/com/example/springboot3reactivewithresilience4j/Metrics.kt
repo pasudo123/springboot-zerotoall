@@ -17,8 +17,8 @@ data class Metrics(
             if (circuitBreaker == null) {
                 return null
             }
-            
-            return Metrics (
+
+            return Metrics(
                 circuitState = circuitBreaker.state.toString(),
                 failureRate = "${circuitBreaker.metrics.failureRate}%",
                 numberOfFailedCalls = "${circuitBreaker.metrics.numberOfFailedCalls}",

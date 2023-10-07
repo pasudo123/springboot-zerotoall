@@ -5,7 +5,7 @@ import io.github.resilience4j.circuitbreaker.CircuitBreaker
 
 data class CoffeeDto(
     val message: String,
-    val metrics: Metrics
+    val metrics: Metrics? = null
 ) {
     companion object {
         fun of(message: String, circuitBreaker: CircuitBreaker): CoffeeDto {

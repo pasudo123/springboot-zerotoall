@@ -13,8 +13,12 @@ data class Metrics(
     val numberOfBufferedCalls: String
 ) {
     companion object {
-        fun of(circuitBreaker: CircuitBreaker): Metrics {
-            return Metrics(
+        fun of(circuitBreaker: CircuitBreaker? = null): Metrics? {
+            if (circuitBreaker == null) {
+                return null
+            }
+            
+            return Metrics (
                 circuitState = circuitBreaker.state.toString(),
                 failureRate = "${circuitBreaker.metrics.failureRate}%",
                 numberOfFailedCalls = "${circuitBreaker.metrics.numberOfFailedCalls}",

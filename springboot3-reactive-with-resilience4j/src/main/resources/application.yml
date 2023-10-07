@@ -39,8 +39,11 @@ resilience4j:
         base-config: default
         failureRateThreshold: 50
         minimumNumberOfCalls: 3
+        waitDurationInOpenState: 10s
         permittedNumberOfCallsInHalfOpenState: 3
         automatic-transition-from-open-to-half-open-enabled: false # 최소 한번은 호출되어야 함
+        record-exceptions:
+          - com.example.springboot3reactivewithresilience4j.poc.DemoRecordException
 
 
   timelimiter:

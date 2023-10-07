@@ -10,7 +10,7 @@ class DemoResources {
     data class DemoResponse(
         val text: String,
         val time: LocalTime,
-        val metrics: Metrics,
+        val metrics: Metrics? = null,
         val cause: String? = null
     )
 }

@@ -26,6 +26,7 @@ resilience4j:
 
 #### waitDurationInOpenState
 * OPEN 상태에서도 최소 1번 호출되고, 해당 시간만큼 fallback 처리하다가 HALF_OPEN 으로 전이된다.
+* OPEN 상태에서 외부 요청을 하지 않는다고 하는데? 그게 맞나?
 * 만약 `automatic-transition-from-open-to-half-open-enabled` 값이 true 면 호출없이 시간이 지나면 알아서 OPEN -> HALF_OPEN 으로 전이된다.
   * `automatic-transition-from-open-to-half-open-enabled` 가 true 면 서킷 뒷단에 별도 스레드가 작동한다. (https://resilience4j.readme.io/docs/circuitbreaker)
    

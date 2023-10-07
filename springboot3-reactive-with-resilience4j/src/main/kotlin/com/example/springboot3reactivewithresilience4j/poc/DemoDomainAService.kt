@@ -21,7 +21,7 @@ class DemoDomainAService(
     fun doSomething(): Mono<DemoResources.DemoResponse> {
         val result = Random.nextBoolean()
         log.info("AAA doSomething, result=$result")
-        if (result) {
+        if (false) {
             val response = DemoResources.DemoResponse(
                 text = "A Service OK!",
                 time = LocalTime.now(),

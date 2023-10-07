@@ -1,17 +1,16 @@
 package com.example.springboot3reactivewithresilience4j.poc
 
-import com.example.springboot3reactivewithresilience4j.Metrics
 import com.example.springboot3reactivewithresilience4j.poc.DemoApplicationService.Companion.DEMO_SERVICE
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
 import java.time.LocalTime
-import kotlin.random.Random
 
 @Service
 class DemoDomainAService(
-    private val circuitBreakerRegistry: CircuitBreakerRegistry
+    private val circuitBreakerRegistry: CircuitBreakerRegistry,
+    private val demoClient: DemoClient
 ) {
 
     private val log = LoggerFactory.getLogger(javaClass)
@@ -21,12 +20,15 @@ class DemoDomainAService(
     fun doSomething(result: Boolean): Mono<DemoResources.DemoResponse> {
         if (result) {
             log.info("AAA doSomething success, result=$result")
-            val response = DemoResources.DemoResponse(
-                text = "A Service OK!",
-                time = LocalTime.now(),
-                metrics = Metrics.of(circuitBreaker)
-            )
-            return Mono.just(response)
+            return demoClient.apiCall()
+            /** 여기까지 메소드는 들어오지만 Mono.just() 가 호출되지 않음
+             val response = DemoResources.DemoResponse(
+             text = "A Service OK!",
+             time = LocalTime.now(),
+             metrics = Metrics.of(circuitBreaker)
+             )
+             return Mono.just(response)
+             **/
         }
 
         log.info("AAA doSomething failed, result=$result")

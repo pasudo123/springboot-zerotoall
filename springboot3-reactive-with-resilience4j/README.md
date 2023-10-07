@@ -26,7 +26,6 @@ resilience4j:
 
 #### waitDurationInOpenState
 * OPEN 상태에서도 최소 1번 호출되고, 해당 시간만큼 fallback 처리하다가 HALF_OPEN 으로 전이된다.
-* OPEN 상태에서 외부 요청을 하지 않는다고 하는데? 그게 맞나?
 * 만약 `automatic-transition-from-open-to-half-open-enabled` 값이 true 면 호출없이 시간이 지나면 알아서 OPEN -> HALF_OPEN 으로 전이된다.
   * `automatic-transition-from-open-to-half-open-enabled` 가 true 면 서킷 뒷단에 별도 스레드가 작동한다. (https://resilience4j.readme.io/docs/circuitbreaker)
    
@@ -34,7 +33,8 @@ resilience4j:
 * HALF_OPEN 상태에서 호출 시, 해당 값만큼 호출되고 그 집계가 failureRateThreshold 보다 크거나 같다면 OPEN, 그렇지 않다면 CLOSE 로 상태전이
 
 #### CallNotPermittedException
-* 외부 API 호출이 성공해도 서킷의 상태가 __`OPEN`__ 이라서 __`CallNotPermittedException`__ 이 fallbackMethod 에서 인자로 받는다.
+* 상태가 __`OPEN`__ 이라서 __`CallNotPermittedException`__ 이 fallbackMethod 에서 인자로 받는다.
+* 그리고 외부 API 호출은 되지 않는다. 
 * 따라서 fallbackMethod 는 익셉션을 받을 때 최상위 Exception 을 받아야 CallNotPermittedException 에 대한 처리가 가능함. (아래코드 참고)
 
 ```kotlin
@@ -64,6 +64,21 @@ class DemoApplicationService(
         }
         return bService.doSomething(cause)
     }
+}
+
+@Component
+class DemoClient(
+  private val demoWebClient: WebClient
+) {
+
+  // 서킷브레이커 상태가 OPEN 일때 외부 API 는 호출이 안된다.
+  fun apiCall(): Mono<DemoResources.DemoResponse> {
+    return demoWebClient
+      .get()
+      .uri("/demo/dummy")
+      .retrieve()
+      .bodyToMono(DemoResources.DemoResponse::class.java)
+  }
 }
 ```
 

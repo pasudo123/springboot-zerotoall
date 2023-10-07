@@ -20,12 +20,52 @@ resilience4j:
         ignore-exceptions:              # error/slow rate 에 기록이 무시되는 익셉션
           - com.example.springboot3reactivewithresilience4j.circuitbreaker.CoffeeIgnoreException
 ```
+#### failureRate 계산
 * failureRate = `numberOfFailedCalls` / `numberOfBufferedCalls`
-  * failureRate >= failureRateThreshold 로 된다면 OPEN 상태로 전이
-* OPEN 상태에서도 최소 1번 호출되고, waitDurationInOpenState 시간만큼 계속 fallback 처리 하다가 이후에 HALF_OPEN 으로 전이
-* 만약 `automatic-transition-from-open-to-half-open-enabled` 값이 true 면 최소 1번 호출 없이 자동으로 OPEN -> HALF_OPEN 으로 전이
+* failureRate >= failureRateThreshold 로 된다면 OPEN 상태로 전이된다.
+
+#### waitDurationInOpenState
+* OPEN 상태에서도 최소 1번 호출되고, 해당 시간만큼 fallback 처리하다가 HALF_OPEN 으로 전이된다.
+* 만약 `automatic-transition-from-open-to-half-open-enabled` 값이 true 면 호출없이 시간이 지나면 알아서 OPEN -> HALF_OPEN 으로 전이된다.
   * `automatic-transition-from-open-to-half-open-enabled` 가 true 면 서킷 뒷단에 별도 스레드가 작동한다. (https://resilience4j.readme.io/docs/circuitbreaker)
-* HALF_OPEN 상태에서 호출 시, permittedNumberOfCallsInHalfOpenState 만큼 호출되고 그 집계가 failureRateThreshold 보다 크거나 같다면 OPEN, 그렇지 않다면 CLOSE 로 상태전이
+   
+#### permittedNumberOfCallsInHalfOpenState
+* HALF_OPEN 상태에서 호출 시, 해당 값만큼 호출되고 그 집계가 failureRateThreshold 보다 크거나 같다면 OPEN, 그렇지 않다면 CLOSE 로 상태전이
+* HALF_OPEN 상태에서 서킷은 클라이언트 호출 카운트가 permittedNumberOfCalls 만큼 넘어가면 fallbackMethod 에서 `~~CallNotPermittedException~~` 익셉션이 발생됨.
+  * 외부 API 호출이 성공해도 permittedNumberOfCalls 갔기 때문에 fallbackMethod 호출
+  * 따라서 fallbackMethod 는 익셉션을 받을 때 최상위 Exception 을 받아야 CallNotPermittedException 에 대한 처리가 가능함. (아래코드 참고)
+```kotlin
+@Service
+class DemoApplicationService(
+    private val aService: DemoDomainAService,
+    private val bService: DemoDomainBService
+) {
+
+    companion object {
+        const val DEMO_SERVICE = "demoService"
+    }
+
+    @CircuitBreaker(name = DEMO_SERVICE, fallbackMethod = "fallbackCircuit")
+    fun doSomething(): Mono<DemoResources.DemoResponse> {
+        return aService.doSomething()
+    }
+
+    // fallbackMethod 인자에 Exception 을 받도록 처리.
+    fun fallbackCircuit(
+        exception: Exception 
+    ): Mono<DemoResources.DemoResponse> {
+        val cause = when (exception) {
+            is DemoRecordException -> exception.message ?: "empty-message"
+            is CallNotPermittedException -> "not permitted : ${exception.message}"
+            else -> "알 수 없는 에러?!"
+        }
+        return bService.doSomething(cause)
+    }
+}
+```
+
+#### fallbackMethod 에서 에러 발생시
+> 이건 어떻게 할 방도가 없음. 거기서 try/catch 로 묶거서 throw 하는게 최선임.
 
 ## resilience4j-timelimiter
 * 주어진 메소드나 함수의 실행시간을 제한하는데 사용.

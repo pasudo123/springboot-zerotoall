@@ -2,12 +2,15 @@ server:
   port: 8080
 
 management:
-  endpoints.web.exposure.include: health, circuitbreakers
+  endpoints.web.exposure.include: health, circuitbreakers, prometheus, heapdump, metrics
   endpoint:
     health:
       enabled: true
       show-details: always
     circuitbreakers.enabled: true
+    prometheus.enabled: true
+    heapdump.enabled: true
+    metrics.enabled: true
   health:
     defaults:
       enabled: false
@@ -15,8 +18,8 @@ management:
 ### resiliecn4j
 resilience4j:
   circuitbreaker:
-    instances:
-      coffeeService:
+    configs:
+      default:
         registerHealthIndicator: true
         slidingWindowType: TIME_BASED
         slidingWindowSize: 10
@@ -25,10 +28,20 @@ resilience4j:
         waitDurationInOpenState: 5s
         failureRateThreshold: 50
         automatic-transition-from-open-to-half-open-enabled: true
+    instances:
+      coffeeService:
+        base-config: default
         record-exceptions:
           - com.example.springboot3reactivewithresilience4j.circuitbreaker.CoffeeRecordException
         ignore-exceptions:
           - com.example.springboot3reactivewithresilience4j.circuitbreaker.CoffeeIgnoreException
+      demoService:
+        base-config: default
+        failureRateThreshold: 30
+        permittedNumberOfCallsInHalfOpenState: 1
+        automatic-transition-from-open-to-half-open-enabled: false # 최소 한번은 호출되어야 함
+
+
   timelimiter:
     instances:
       snackService:

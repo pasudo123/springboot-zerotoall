@@ -50,6 +50,9 @@ dependencies {
     // implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-reactor-resilience4j")
     // developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 
+    // prometheus
+    implementation("io.micrometer:micrometer-registry-prometheus")
+
     // reactor test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")

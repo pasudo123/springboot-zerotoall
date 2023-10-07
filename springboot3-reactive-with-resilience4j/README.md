@@ -31,7 +31,7 @@ resilience4j:
    
 #### permittedNumberOfCallsInHalfOpenState
 * HALF_OPEN 상태에서 호출 시, 해당 값만큼 호출되고 그 집계가 failureRateThreshold 보다 크거나 같다면 OPEN, 그렇지 않다면 CLOSE 로 상태전이
-* HALF_OPEN 상태에서 서킷은 클라이언트 호출 카운트가 permittedNumberOfCalls 만큼 넘어가면 fallbackMethod 에서 `~~CallNotPermittedException~~` 익셉션이 발생됨.
+* HALF_OPEN 상태에서 서킷은 클라이언트 호출 카운트가 permittedNumberOfCalls 만큼 넘어가면 fallbackMethod 에서 __`CallNotPermittedException`__ 익셉션이 발생됨.
   * 외부 API 호출이 성공해도 permittedNumberOfCalls 갔기 때문에 fallbackMethod 호출
   * 따라서 fallbackMethod 는 익셉션을 받을 때 최상위 Exception 을 받아야 CallNotPermittedException 에 대한 처리가 가능함. (아래코드 참고)
 ```kotlin

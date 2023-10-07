@@ -18,10 +18,9 @@ class DemoDomainAService(
     val circuitBreaker = circuitBreakerRegistry.circuitBreaker(DEMO_SERVICE)
 
     @Throws(DemoRecordException::class)
-    fun doSomething(): Mono<DemoResources.DemoResponse> {
-        val result = Random.nextBoolean()
-        log.info("AAA doSomething, result=$result")
-        if (false) {
+    fun doSomething(result: Boolean): Mono<DemoResources.DemoResponse> {
+        if (result) {
+            log.info("AAA doSomething success, result=$result")
             val response = DemoResources.DemoResponse(
                 text = "A Service OK!",
                 time = LocalTime.now(),
@@ -30,6 +29,7 @@ class DemoDomainAService(
             return Mono.just(response)
         }
 
+        log.info("AAA doSomething failed, result=$result")
         return Mono.error(DemoRecordException("A Service 에서 에러 발생, time=${LocalTime.now()}"))
     }
 }

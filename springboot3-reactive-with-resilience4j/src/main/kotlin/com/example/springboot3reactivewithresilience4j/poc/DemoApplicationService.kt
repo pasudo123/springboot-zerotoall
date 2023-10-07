@@ -19,12 +19,13 @@ class DemoApplicationService(
     }
 
     @CircuitBreaker(name = DEMO_SERVICE, fallbackMethod = "fallbackDemoService")
-    fun doSomething(): Mono<DemoResources.DemoResponse> {
+    fun doSomething(result: Boolean): Mono<DemoResources.DemoResponse> {
         log.info("circuit doSomething!!!")
-        return aService.doSomething()
+        return aService.doSomething(result)
     }
 
     private fun fallbackDemoService(
+        result: Boolean,
         exception: Exception
     ): Mono<DemoResources.DemoResponse> {
         val cause = exception.message ?: "empty-message"
@@ -32,6 +33,7 @@ class DemoApplicationService(
     }
 
     private fun fallbackDemoService(
+        result: Boolean,
         exception: CallNotPermittedException
     ): Mono<DemoResources.DemoResponse> {
         val cause = "not permitted : ${exception.message}"

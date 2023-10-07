@@ -2,6 +2,7 @@ package com.example.springboot3reactivewithresilience4j.poc
 
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Mono
 
@@ -12,7 +13,9 @@ class DemoController(
 ) {
 
     @GetMapping
-    fun getSample(): Mono<DemoResources.DemoResponse> {
-        return demoApplicationService.doSomething()
+    fun getSample(
+        @RequestParam result: Boolean
+    ): Mono<DemoResources.DemoResponse> {
+        return demoApplicationService.doSomething(result)
     }
 }

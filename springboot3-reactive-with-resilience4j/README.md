@@ -35,8 +35,10 @@ resilience4j:
 #### CallNotPermittedException
 * 상태가 __`OPEN`__ 이라서 __`CallNotPermittedException`__ 이 fallbackMethod 에서 인자로 받는다.
 * 그리고 외부 API 호출은 되지 않는다. 
-* 따라서 fallbackMethod 는 익셉션을 받을 때 최상위 Exception 을 받아야 CallNotPermittedException 에 대한 처리가 가능함. (아래코드 참고)
+  * DemoApplicationService -> DemoDomainAService -> DemoClient 순이다.
+* 따라서 fallbackMethod 는 익셉션을 받을 때 최상위 Exception 을 받아야 CallNotPermittedException 에 대한 처리가 가능함. (아래코드 참고)=
 
+#### DemoApplicationService
 ```kotlin
 @Service
 class DemoApplicationService(
@@ -65,13 +67,16 @@ class DemoApplicationService(
         return bService.doSomething(cause)
     }
 }
+```
 
+#### DemoClient
+```kotlin
 @Component
 class DemoClient(
   private val demoWebClient: WebClient
 ) {
 
-  // 서킷브레이커 상태가 OPEN 일때 외부 API 는 호출이 안된다.
+  // 서킷브레이커 상태가 OPEN 일때 외부 API 는 호출이 안된다. : 포트 두개 다르게 띄어놓고 확인하니, /demo/dummy 쪽으로 요청이 안들어옴 
   fun apiCall(): Mono<DemoResources.DemoResponse> {
     return demoWebClient
       .get()

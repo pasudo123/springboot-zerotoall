@@ -1,10 +1,10 @@
 plugins {
-    kotlin("jvm") version "1.5.30"
+    kotlin("jvm") version "1.6.21"
     java
 
     // benchmark
     id("org.jetbrains.kotlinx.benchmark") version "0.4.0"
-    id("org.jetbrains.kotlin.plugin.allopen") version "1.5.30"
+    id("org.jetbrains.kotlin.plugin.allopen") version "1.6.21"
 }
 
 group = "org.example"

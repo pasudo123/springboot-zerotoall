@@ -5,3 +5,7 @@ spring:
       auto-create: true
     producer:
       bootstrap-servers: localhost:29092
+    consumer:
+      bootstrap-servers: localhost:29092
+      auto-offset-reset: latest
+      group-id: coffee-consumer-group-1

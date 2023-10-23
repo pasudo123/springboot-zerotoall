@@ -32,6 +32,7 @@ class Springboot3KafkaBasisApplication {
 }
 
 inline fun <reified T : Any> T.toJson(): String = mapper.writeValueAsString(this)
+inline fun <reified T : Any> String.toObject(): T = mapper.readValue(this, T::class.java)
 
 fun main(args: Array<String>) {
     runApplication<Springboot3KafkaBasisApplication>(*args)

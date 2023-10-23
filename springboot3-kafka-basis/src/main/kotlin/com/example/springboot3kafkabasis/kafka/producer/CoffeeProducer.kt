@@ -1,5 +1,6 @@
 package com.example.springboot3kafkabasis.kafka.producer
 
+import com.example.springboot3kafkabasis.kafka.KafkaConstant.COFFEE_TOPIC
 import com.example.springboot3kafkabasis.model.Coffee
 import com.example.springboot3kafkabasis.toJson
 import org.slf4j.LoggerFactory
@@ -17,12 +18,10 @@ class CoffeeProducer(
         val future = kafkaTemplate.send(COFFEE_TOPIC, coffee.key, coffee.toJson())
         future.whenComplete { result, exception ->
             if (exception == null) {
-              log.info("offset=${result.recordMetadata.offset()}, coffee.name=${coffee.name}, coffee.price=${coffee.price}")
+                log.info("[send] offset=${result.recordMetadata.offset()}, coffee.name=${coffee.name}, coffee.price=${coffee.price}")
+                return@whenComplete
             }
+            log.error("[send] exception.message=${exception.message}")
         }
-    }
-
-    companion object {
-        const val COFFEE_TOPIC = "coffee-topic-1"
     }
 }

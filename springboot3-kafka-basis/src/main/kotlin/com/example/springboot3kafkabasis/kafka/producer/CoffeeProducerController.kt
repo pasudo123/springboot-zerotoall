@@ -23,7 +23,8 @@ class CoffeeProducerController(
             runCatching {
                 coffeeProducer.produceCoffee(Coffee.create())
             }.onFailure {
-                log.error("produceCoffee exception : ${it.message}")
+                val stackTrace = it.stackTraceToString()
+                log.error("produceCoffee exception : ${it.message}, stacktrace=${stackTrace}")
             }
         }
     }

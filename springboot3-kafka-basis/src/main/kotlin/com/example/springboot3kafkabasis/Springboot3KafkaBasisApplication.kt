@@ -11,11 +11,11 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.kafka.annotation.EnableKafka
 
+// @EnableKafkaStreams
+// @EnableKafkaRetryTopic
 @SpringBootApplication
 @Configuration
 @EnableKafka
-// @EnableKafkaStreams
-// @EnableKafkaRetryTopic
 class Springboot3KafkaBasisApplication {
 
     companion object {
@@ -37,5 +37,3 @@ inline fun <reified T : Any> String.toObject(): T = mapper.readValue(this, T::cl
 fun main(args: Array<String>) {
     runApplication<Springboot3KafkaBasisApplication>(*args)
 }
-
-

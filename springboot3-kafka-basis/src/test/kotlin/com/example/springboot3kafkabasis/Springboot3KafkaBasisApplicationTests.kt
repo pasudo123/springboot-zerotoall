@@ -9,5 +9,4 @@ class Springboot3KafkaBasisApplicationTests {
     @Test
     fun contextLoads() {
     }
-
 }

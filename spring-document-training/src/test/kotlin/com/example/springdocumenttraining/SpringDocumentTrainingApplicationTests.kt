@@ -9,5 +9,4 @@ class SpringDocumentTrainingApplicationTests {
     @Test
     fun contextLoads() {
     }
-
 }

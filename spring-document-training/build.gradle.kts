@@ -5,6 +5,9 @@ plugins {
     id("io.spring.dependency-management") version "1.1.3"
     kotlin("jvm") version "1.8.22"
     kotlin("plugin.spring") version "1.8.22"
+
+    // kotlin lint
+    id("org.jlleitschuh.gradle.ktlint") version "11.5.1"
 }
 
 group = "com.example"
@@ -22,6 +25,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+    // https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all
+    implementation("org.codehaus.groovy:groovy-all:3.0.19")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

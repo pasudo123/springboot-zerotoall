@@ -10,4 +10,7 @@
     </bean>
 
     <bean id="coffeeRepository" class="com.example.springdocumenttraining.chapter01.CoffeeRepository"/>
+
+    <!-- id, name(별칭) 같이쓰면 별칭으로 빈을 사용할 수 있음. 다만 실제 식별은 coffeeFindService 로 처리됨-->
+    <bean id="coffeeFindService" name="coffeeFindServiceCustom" class="com.example.springdocumenttraining.chapter01.CoffeeFindService" />
 </beans>

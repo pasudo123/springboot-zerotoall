@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:13306/testdb
+    username: root
+    password: rootpass
+
+org:
+  jobrunr:
+    database:
+      database-name: testdb
+      datasource: jdbc:mysql://localhost:13306/testdb
+    background-job-server:
+      enabled: true
+    dashboard:
+      enabled: true

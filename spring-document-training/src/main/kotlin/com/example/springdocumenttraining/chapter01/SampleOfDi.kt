@@ -1,6 +1,6 @@
 package com.example.springdocumenttraining.chapter01
 
-class DISample
+class SampleOfDi
 
 fun main() {
     val myController = MyController()

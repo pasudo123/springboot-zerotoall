@@ -32,4 +32,3 @@ abstract class SingleTonSampleBean2th {
     @Lookup("protoTypeSampleBean")
     abstract fun createProtoType(): ProtoTypeSampleBean
 }
-

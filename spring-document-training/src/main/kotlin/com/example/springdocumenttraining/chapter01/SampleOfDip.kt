@@ -1,38 +1,38 @@
-//package com.example.springdocumenttraining.chapter01
+// package com.example.springdocumenttraining.chapter01
 //
-//class SampleOfDip
+// class SampleOfDip
 //
-//fun main() {
+// fun main() {
 //
-//}
+// }
 //
-//interface DiscountPolicy {
+// interface DiscountPolicy {
 //    fun discount(): Long
-//}
+// }
 //
-//class AmountDiscountPolicy : DiscountPolicy {
+// class AmountDiscountPolicy : DiscountPolicy {
 //    override fun discount(): Long {
 //        TODO("Not yet implemented")
 //    }
-//}
+// }
 //
-//class PercentDiscountPolicy : DiscountPolicy {
+// class PercentDiscountPolicy : DiscountPolicy {
 //    override fun discount(): Long {
 //        TODO("Not yet implemented")
 //    }
-//}
+// }
 //
-//class NoneDiscountPolicy : DiscountPolicy {
+// class NoneDiscountPolicy : DiscountPolicy {
 //    override fun discount(): Long {
 //        TODO("Not yet implemented")
 //    }
-//}
+// }
 //
-//class MovieDiscountService(
+// class MovieDiscountService(
 //    private val discountPolicy: DiscountPolicy
-//) {
+// ) {
 //
 //    fun discountFrom(product: Any) {
 //        discountPolicy.discount(/** 파라미터 설정 **/)
 //    }
-//}
+// }

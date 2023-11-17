@@ -1,29 +1,29 @@
-//package com.example.springdocumenttraining.chapter01
+// package com.example.springdocumenttraining.chapter01
 //
-//class SampleOfDi
+// class SampleOfDi
 //
-//fun main() {
+// fun main() {
 //    val myController = MyController()
 //    myController.index()
-//}
+// }
 //
-//interface MyService {
+// interface MyService {
 //    fun task()
-//}
+// }
 //
-//class MyCoffeeService : MyService {
+// class MyCoffeeService : MyService {
 //    override fun task() {}
-//}
+// }
 //
-//class MySnackService : MyService  {
+// class MySnackService : MyService  {
 //    override fun task() {}
-//}
+// }
 //
-//class MyController{
+// class MyController{
 //
 //    private val myService: MyService = MyCoffeeService()
 //
 //    fun index() {
 //        myService.task()
 //    }
-//}
+// }

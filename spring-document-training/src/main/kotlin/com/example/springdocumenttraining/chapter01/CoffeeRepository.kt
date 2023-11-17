@@ -1,8 +1,8 @@
-//package com.example.springdocumenttraining.chapter01
+// package com.example.springdocumenttraining.chapter01
 //
-//import kotlin.random.Random
+// import kotlin.random.Random
 //
-//class CoffeeRepository {
+// class CoffeeRepository {
 //
 //    fun findCoffee(): Coffee {
 //        return Coffee(
@@ -10,4 +10,4 @@
 //            price = (Random.nextLong(100000) / 100)
 //        )
 //    }
-//}
+// }

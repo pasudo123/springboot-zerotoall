@@ -1,10 +1,10 @@
-//package com.example.springdocumenttraining.chapter01
+// package com.example.springdocumenttraining.chapter01
 //
-//import org.springframework.beans.factory.FactoryBean
-//import org.springframework.stereotype.Component
+// import org.springframework.beans.factory.FactoryBean
+// import org.springframework.stereotype.Component
 //
-//@Component
-//class CoffeeFactoryBean : FactoryBean<CoffeeController> {
+// @Component
+// class CoffeeFactoryBean : FactoryBean<CoffeeController> {
 //
 //    private val id = "coffeeController"
 //
@@ -19,4 +19,4 @@
 //    override fun isSingleton(): Boolean {
 //        return true
 //    }
-//}
+// }

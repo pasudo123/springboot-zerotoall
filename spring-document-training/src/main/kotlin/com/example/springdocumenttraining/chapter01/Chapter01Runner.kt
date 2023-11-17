@@ -1,17 +1,17 @@
-//package com.example.springdocumenttraining.chapter01
+// package com.example.springdocumenttraining.chapter01
 //
-//import org.slf4j.LoggerFactory
-//import org.springframework.boot.ApplicationArguments
-//import org.springframework.boot.ApplicationRunner
-//import org.springframework.context.ApplicationContext
-//import org.springframework.context.support.ClassPathXmlApplicationContext
-//import org.springframework.context.support.GenericGroovyApplicationContext
-//import org.springframework.stereotype.Component
+// import org.slf4j.LoggerFactory
+// import org.springframework.boot.ApplicationArguments
+// import org.springframework.boot.ApplicationRunner
+// import org.springframework.context.ApplicationContext
+// import org.springframework.context.support.ClassPathXmlApplicationContext
+// import org.springframework.context.support.GenericGroovyApplicationContext
+// import org.springframework.stereotype.Component
 //
-//@Component
-//class Chapter01Runner(
+// @Component
+// class Chapter01Runner(
 //    private val applicationContext: ApplicationContext
-//) : ApplicationRunner {
+// ) : ApplicationRunner {
 //
 //    private val log = LoggerFactory.getLogger(javaClass)
 //
@@ -83,4 +83,4 @@
 //        private const val COFFEE_FIND_SERVICE = "coffeeFindService"
 //        private const val COFFEE_REPOSITORY = "coffeeRepository"
 //    }
-//}
+// }

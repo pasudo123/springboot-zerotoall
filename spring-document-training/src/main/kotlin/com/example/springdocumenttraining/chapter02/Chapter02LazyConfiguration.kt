@@ -10,13 +10,13 @@ class Chapter02LazyConfiguration {
     @Bean
     @Lazy
     fun motherLazyBean(): MotherLazyBean {
-        println("create motherLazyBean")
+        // println("create motherLazyBean")
         return MotherLazyBean()
     }
 
     @Bean
     fun motherNowBean(): MotherNowBean {
-        println("create motherNowBean")
+        // println("create motherNowBean")
         return MotherNowBean()
     }
 

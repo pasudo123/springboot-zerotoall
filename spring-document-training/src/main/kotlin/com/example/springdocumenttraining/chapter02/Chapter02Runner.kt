@@ -5,22 +5,25 @@ import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
 import org.springframework.context.ApplicationContext
 import org.springframework.stereotype.Component
+import org.springframework.util.ObjectUtils
 
 @Component
 class Chapter02Runner(
-    private val applicationContext: ApplicationContext,
+    private val singleTonSampleBean1th: SingleTonSampleBean1th,
+    private val singleTonSampleBean2th: SingleTonSampleBean2th
 ): ApplicationRunner {
 
+    private val log = LoggerFactory.getLogger(javaClass)
+
     override fun run(args: ApplicationArguments?) {
+        log.info("args runner")
+        log.info("(1) prototype : ${ObjectUtils.getIdentityHexString(singleTonSampleBean1th.createProtoType())}")
+        log.info("(2) prototype : ${ObjectUtils.getIdentityHexString(singleTonSampleBean1th.createProtoType())}")
+        log.info("(3) prototype : ${ObjectUtils.getIdentityHexString(singleTonSampleBean1th.createProtoType())}")
 
-        println("chapter02 runner >>>")
-
-        applicationContext.getBean(Chapter02LazyConfiguration.MotherLazyBean::class.java).run {
-            this.use()
-        }
-
-        applicationContext.getBean(Chapter02LazyConfiguration.MotherNowBean::class.java).run {
-            this.use()
-        }
+        log.info("--")
+        log.info("(1) prototype : ${ObjectUtils.getIdentityHexString(singleTonSampleBean2th.createProtoType())}")
+        log.info("(2) prototype : ${ObjectUtils.getIdentityHexString(singleTonSampleBean2th.createProtoType())}")
+        log.info("(3) prototype : ${ObjectUtils.getIdentityHexString(singleTonSampleBean2th.createProtoType())}")
     }
 }

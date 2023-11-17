@@ -28,7 +28,7 @@ class Chapter02DependsConfiguration {
     ) {
         @PostConstruct
         fun init() {
-            log.info("mother bean init")
+            // log.info("mother bean init")
         }
     }
 
@@ -37,7 +37,7 @@ class Chapter02DependsConfiguration {
     ) {
         @PostConstruct
         fun init() {
-            log.info("father bean init")
+            // log.info("father bean init")
         }
     }
 }

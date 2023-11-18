@@ -15,18 +15,18 @@ class ParentBean(
 
     init {
         applicationContext.getBean(ChildBean::class.java).also {
-            println("init >> ${ObjectUtils.identityToString(it)}")
+            // println("init >> ${ObjectUtils.identityToString(it)}")
         }
-        println("init childBean : $childBean")
+        // println("init childBean : $childBean")
     }
 
     @Autowired
     fun setChildBean(childBean: ChildBean) {
         applicationContext.getBean(ChildBean::class.java).also {
-            println("setter >> ${ObjectUtils.identityToString(it)}")
+            // println("setter >> ${ObjectUtils.identityToString(it)}")
         }
 
-        println("setter childBean : $childBean")
+        // println("setter childBean : $childBean")
         this.childBean = childBean
     }
 }

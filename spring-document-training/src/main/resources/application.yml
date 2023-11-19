@@ -3,3 +3,8 @@ spring:
   groovy:
     template:
       check-template-location: false
+
+
+logging:
+  level:
+    org.springframework.context.LifecycleProcessor: DEBUG

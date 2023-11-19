@@ -9,13 +9,13 @@ class LifeCycle01Sample
 @Component
 class LifeCycleInitBean : InitializingBean {
     override fun afterPropertiesSet() {
-        println("init")
+        // println("init")
     }
 }
 
 @Component
 class LifeCycleDestroyBean : DisposableBean {
     override fun destroy() {
-        println("destroy")
+        // println("destroy")
     }
 }

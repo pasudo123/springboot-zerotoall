@@ -1,43 +1,37 @@
-package com.example.springdocumenttraining.chapter02
-
-import jakarta.annotation.PostConstruct
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.DependsOn
-
-@Configuration
-class Chapter02DependsConfiguration {
-
-    private val log = LoggerFactory.getLogger(javaClass)
-
-    @Bean
-    @DependsOn(value = ["motherBean"])
-    fun fatherBean(): FatherBean {
-        return FatherBean(log)
-    }
-
-    @Bean
-    fun motherBean(): MotherBean {
-        return MotherBean(log)
-    }
-
-    class MotherBean(
-        private val log: Logger
-    ) {
-        @PostConstruct
-        fun init() {
-            // log.info("mother bean init")
-        }
-    }
-
-    class FatherBean(
-        private val log: Logger
-    ) {
-        @PostConstruct
-        fun init() {
-            // log.info("father bean init")
-        }
-    }
-}
+//package com.example.springdocumenttraining.chapter02
+//
+//import jakarta.annotation.PostConstruct
+//import org.springframework.context.annotation.Bean
+//import org.springframework.context.annotation.Configuration
+//import org.springframework.core.annotation.Order
+//
+//@Configuration
+//class Chapter02DependsConfiguration {
+//
+//    class ABean(
+//        private val dBean: DBean
+//    ) {
+//        @PostConstruct
+//        fun init() {
+//             println(">>> ABean bean init")
+//        }
+//    }
+//
+//    class DBean {
+//        @PostConstruct
+//        fun init() {
+//            println(">>> DBean bean init")
+//        }
+//    }
+//
+//    @Bean
+//    fun aBean(
+//    ): ABean {
+//        return ABean(dBean())
+//    }
+//
+//    @Bean
+//    fun dBean(): DBean {
+//        return DBean()
+//    }
+//}

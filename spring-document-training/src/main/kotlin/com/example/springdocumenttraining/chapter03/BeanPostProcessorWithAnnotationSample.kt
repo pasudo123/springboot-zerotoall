@@ -41,14 +41,14 @@ class MyAnnotationBeanPostProcessor: AutowiredAnnotationBeanPostProcessor() {
 
     override fun postProcessBeforeInitialization(bean: Any, beanName: String): Any? {
         if (bean is Apple) {
-            log.info("== before init bean, bean.name=${beanName}")
+            // log.info("== before init bean, bean.name=${beanName}")
         }
         return bean
     }
 
     override fun postProcessAfterInitialization(bean: Any, beanName: String): Any? {
         if (bean is Apple) {
-            log.info("== after init bean, bean.name=${beanName}")
+            // log.info("== after init bean, bean.name=${beanName}")
         }
         return bean
     }

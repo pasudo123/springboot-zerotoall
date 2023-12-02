@@ -31,7 +31,7 @@ class CustomBeanPostProcessorConfiguration {
 class Water {
     @PostConstruct
     fun init() {
-        log.info("@@ water postConstruct")
+        // log.info("@@ water postConstruct")
     }
 }
 
@@ -39,14 +39,14 @@ class MyCustomBeanPostProcessor: BeanPostProcessor {
 
     override fun postProcessBeforeInitialization(bean: Any, beanName: String): Any? {
         if (bean is Water) {
-            log.info("before init bean, bean.name=${beanName}")
+            // log.info("before init bean, bean.name=${beanName}")
         }
         return bean
     }
 
     override fun postProcessAfterInitialization(bean: Any, beanName: String): Any? {
         if (bean is Water) {
-            log.info("after init bean, bean.name=${beanName}")
+            // log.info("after init bean, bean.name=${beanName}")
         }
         return bean
     }

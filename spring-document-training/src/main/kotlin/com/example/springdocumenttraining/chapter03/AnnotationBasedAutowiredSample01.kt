@@ -16,7 +16,7 @@ class MovieRecommender {
         catalog: MovieCatalog,
         preference: MoviePreference
     ) {
-        println("autowired prepare")
+        // println("autowired prepare")
         this.catalog = catalog
         this.preference = preference
     }

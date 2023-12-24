@@ -1,7 +1,4 @@
-# springboot-kotlin-zerotoall
-
-## project
-springboot-kotlin-zerotoall
+# springboot-zerotoall
 
 ## 참고
 > 싱글 모듈 프로젝트는 build.gradle.kts 깨진다.

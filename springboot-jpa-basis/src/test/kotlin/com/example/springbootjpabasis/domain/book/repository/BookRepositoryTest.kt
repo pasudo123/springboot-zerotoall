@@ -53,28 +53,28 @@ internal class BookRepositoryTest(
     @Test
     @Disabled("테스트코드가 원래 동작했는데, 다시 안된다.. ㅠ")
     fun findAllWithDetailTest() {
-//        repeat(5) {
-//            val book = Book.from(
-//                BookCreateDto(
-//                    "책이름-${Random.nextLong(10, 99)}",
-//                    "작가-${Random.nextLong(10, 99)}",
-//                    "출발판-${Random.nextLong(10, 99)}",
-//                    Random.nextLong(10000, 99999)
-//                )
-//            )
-//            entityManager.persist(book)
-//            val detail = BookDetail("책상세-${Random.nextLong(10000, 99999)}")
-//            detail.setBy(book)
-//            entityManager.persist(detail)
-//        }
-//
-//        log.info("flush & clear start ========================================================================")
-//        entityManager.flush()
-//        entityManager.clear()
-//        log.info("flush & clear end ========================================================================")
-//
-//        // when
-//        log.info("findAll() ========================================================================")
+        repeat(5) {
+            val book = Book.from(
+                BookCreateDto(
+                    "책이름-${Random.nextLong(10, 99)}",
+                    "작가-${Random.nextLong(10, 99)}",
+                    "출발판-${Random.nextLong(10, 99)}",
+                    Random.nextLong(10000, 99999)
+                )
+            )
+            entityManager.persist(book)
+            val detail = BookDetail("책상세-${Random.nextLong(10000, 99999)}")
+            detail.setBy(book)
+            entityManager.persist(detail)
+        }
+
+        log.info("flush & clear start ========================================================================")
+        entityManager.flush()
+        entityManager.clear()
+        log.info("flush & clear end ========================================================================")
+
+        // when
+        log.info("findAll() ========================================================================")
 //        val books = bookCustomRepository.findAllWithDetail()
 //
 //        // then

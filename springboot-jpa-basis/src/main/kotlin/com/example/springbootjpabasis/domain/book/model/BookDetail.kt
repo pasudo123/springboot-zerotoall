@@ -6,8 +6,7 @@ import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
-import jakarta.persistence.MapsId
-import jakarta.persistence.OneToOne
+import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
 import org.hibernate.envers.Audited
 import org.hibernate.envers.RelationTargetAuditMode
@@ -24,8 +23,7 @@ class BookDetail(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
 
-    @OneToOne(targetEntity = Book::class)
-    @MapsId
+    @ManyToOne(targetEntity = Book::class)
     var book: Book? = null
         protected set
 

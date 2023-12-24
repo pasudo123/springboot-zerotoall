@@ -13,7 +13,7 @@ import jakarta.persistence.Id
 import jakarta.persistence.Index
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
-import jakarta.persistence.OneToOne
+import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 import org.hibernate.envers.Audited
 import java.util.UUID
@@ -45,13 +45,12 @@ class Book(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
 
-    @OneToOne(
+    @OneToMany(
         mappedBy = "book",
         fetch = FetchType.LAZY,
-        targetEntity = BookDetail::class,
-        optional = true
+        targetEntity = BookDetail::class
     )
-    var detail: BookDetail? = null
+    var detail: MutableList<BookDetail> = mutableListOf()
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
@@ -68,7 +67,7 @@ class Book(
     }
 
     fun setBy(detail: BookDetail) {
-        this.detail = detail
+        this.detail.add(detail)
     }
 
     companion object {

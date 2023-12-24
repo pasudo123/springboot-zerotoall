@@ -26,12 +26,6 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version klintVersion
 }
 
-allOpen {
-    annotation("javax.persistence.Entity")
-    annotation("javax.persistence.MappedSuperclass")
-    annotation("javax.persistence.Embeddable")
-}
-
 kotlin.sourceSets.main {
     println("kotlin sourceSets buildDir :: $buildDir")
     // querydsl QClass 생성
@@ -68,7 +62,6 @@ dependencies {
     // springboot 3.x 부터 javax -> jakarta 로 넘어감
     // https://mvnrepository.com/artifact/com.querydsl/querydsl-jpa
     implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
-//    kapt("org.springframework.boot:spring-boot-configuration-processor")
     kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
     kapt("jakarta.annotation:jakarta.annotation-api")
     kapt("jakarta.persistence:jakarta.persistence-api")

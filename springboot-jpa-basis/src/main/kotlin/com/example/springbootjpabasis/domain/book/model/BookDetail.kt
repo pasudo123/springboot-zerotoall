@@ -1,16 +1,16 @@
 package com.example.springbootjpabasis.domain.book.model
 
 import com.example.springbootjpabasis.domain.BaseEntity
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.MapsId
+import jakarta.persistence.OneToOne
+import jakarta.persistence.Table
 import org.hibernate.envers.Audited
 import org.hibernate.envers.RelationTargetAuditMode
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
-import javax.persistence.MapsId
-import javax.persistence.OneToOne
-import javax.persistence.Table
 
 @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 @Entity

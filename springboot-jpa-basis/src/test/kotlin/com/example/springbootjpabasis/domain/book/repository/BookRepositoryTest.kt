@@ -14,8 +14,8 @@ import kotlin.random.Random
 @RepositorySupport
 internal class BookRepositoryTest(
     private val entityManager: TestEntityManager,
-    private val bookRepository: BookRepository,
-    //private val bookCustomRepository: BookCustomRepository
+    private val bookRepository: BookRepository
+    // private val bookCustomRepository: BookCustomRepository
 ) {
 
     private val log = LoggerFactory.getLogger(javaClass)

@@ -1,12 +1,12 @@
 package com.example.springbootjpabasis.domain.library.api.dto
 
-import io.swagger.annotations.ApiModel
-import io.swagger.annotations.ApiModelProperty
+import io.swagger.v3.oas.annotations.media.Schema
+import io.swagger.v3.oas.annotations.media.SchemaProperty
 
-@ApiModel("LibraryCreateDto")
+@Schema(name = "LibraryCreateDto")
 data class LibraryCreateDto(
-    @ApiModelProperty("서점이름", example = "교보문고")
+    @SchemaProperty(name = "서점이름")
     val name: String,
-    @ApiModelProperty("주소", example = "서울특별시 종로구 종로1가 종로 1")
+    @SchemaProperty(name = "주소")
     val address: String
 )

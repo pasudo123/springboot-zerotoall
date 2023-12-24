@@ -4,19 +4,19 @@ import com.example.springbootjpabasis.domain.BaseEntity
 import com.example.springbootjpabasis.domain.book.api.dto.BookCreateDto
 import com.example.springbootjpabasis.domain.library.model.Library
 import com.fasterxml.jackson.annotation.JsonBackReference
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.Index
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.ManyToOne
+import jakarta.persistence.OneToOne
+import jakarta.persistence.Table
 import org.hibernate.envers.Audited
 import java.util.UUID
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.FetchType
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
-import javax.persistence.Index
-import javax.persistence.JoinColumn
-import javax.persistence.ManyToOne
-import javax.persistence.OneToOne
-import javax.persistence.Table
 
 @Audited
 @Entity
@@ -49,7 +49,7 @@ class Book(
         mappedBy = "book",
         fetch = FetchType.LAZY,
         targetEntity = BookDetail::class,
-        optional = true,
+        optional = true
     )
     var detail: BookDetail? = null
 

@@ -1,10 +1,10 @@
 package com.example.springbootjpabasis.domain.post.api.dto
 
-import io.swagger.annotations.ApiModel
-import io.swagger.annotations.ApiModelProperty
+import io.swagger.v3.oas.annotations.media.Schema
+import io.swagger.v3.oas.annotations.media.SchemaProperty
 
-@ApiModel("PostCreateDto")
+@Schema(name = "PostCreateDto")
 class PostCreateDto(
-    @ApiModelProperty("게시글 내용")
+    @SchemaProperty(name = "게시글 내용")
     val contents: String
 )

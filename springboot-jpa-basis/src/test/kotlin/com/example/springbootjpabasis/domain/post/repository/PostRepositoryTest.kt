@@ -8,6 +8,7 @@ import io.kotest.assertions.asClue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.string.shouldContain
+import jakarta.persistence.EntityExistsException
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -15,7 +16,6 @@ import org.junit.jupiter.api.assertThrows
 import org.slf4j.LoggerFactory
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
 import org.springframework.dao.DataIntegrityViolationException
-import javax.persistence.EntityExistsException
 
 @RepositorySupport
 internal class PostRepositoryTest(
@@ -27,7 +27,7 @@ internal class PostRepositoryTest(
     private val log = LoggerFactory.getLogger(javaClass)
 
     @BeforeEach
-    fun init () {
+    fun init() {
         postDetailRepository.deleteAll()
         postRepository.deleteAll()
     }
@@ -35,7 +35,6 @@ internal class PostRepositoryTest(
     @Test
     @DisplayName("post 를 저장/조회한다.")
     fun saveAndFindAllTest() {
-
         // given
         val content = "안녕하세요."
         postRepository.saveAndFlush(Post(content))
@@ -51,7 +50,6 @@ internal class PostRepositoryTest(
     @Test
     @DisplayName("post 를 저장, postDetail 도 같이 저장한다.")
     fun saveAndPostDetailSaveTest() {
-
         // given
         val content = "안녕하세요."
         val post = Post(content)
@@ -72,7 +70,6 @@ internal class PostRepositoryTest(
     @Test
     @DisplayName("post 를 저장, postDetail 의 식별자가 존재함에도 불구하고 저장하려고 해서 에러 발생")
     fun saveAndPostDetailDupSaveErrorTest() {
-
         val post = Post("안녕하세요.")
         postRepository.saveAndFlush(post)
         entityManager.clear()
@@ -103,7 +100,6 @@ internal class PostRepositoryTest(
     @Test
     @DisplayName("post 를 저장, postDetail 의 식별자가 존재하는지 확인 후 다시 저장. 에러는 발생 안함")
     fun saveAndPostDetailDupSaveTest() {
-
         val post = Post("안녕하세요.")
         postRepository.saveAndFlush(post)
         entityManager.clear()

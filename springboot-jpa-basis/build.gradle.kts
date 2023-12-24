@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 
 plugins {
@@ -39,7 +40,10 @@ kotlin.sourceSets.main {
 
 group = "com.example"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_17
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+}
 
 repositories {
     mavenCentral()
@@ -54,29 +58,31 @@ dependencies {
 
     // jpa & mysql
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("mysql:mysql-connector-java")
+    implementation("mysql:mysql-connector-java:8.0.32")
 
     // jpa envers
     // https://mvnrepository.com/artifact/org.springframework.data/spring-data-envers
-    implementation("org.springframework.data:spring-data-envers:2.4.0")
+    implementation("org.springframework.data:spring-data-envers:3.1.7")
 
     // querydsl : kapt 를 gradle.build.kts 에 추가
-    kapt("org.springframework.boot:spring-boot-configuration-processor")
-    kapt("com.querydsl:querydsl-apt:$queryDslVersion:jpa")
-    implementation("com.querydsl:querydsl-jpa:$queryDslVersion")
+    // springboot 3.x 부터 javax -> jakarta 로 넘어감
+    // https://mvnrepository.com/artifact/com.querydsl/querydsl-jpa
+    implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
+//    kapt("org.springframework.boot:spring-boot-configuration-processor")
+    kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
+    kapt("jakarta.annotation:jakarta.annotation-api")
+    kapt("jakarta.persistence:jakarta.persistence-api")
 
     // web
     implementation("org.springframework.boot:spring-boot-starter-web")
 
-    // swagger
-    // https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
-    implementation("io.springfox:springfox-swagger-ui:2.9.2")
-    implementation("io.springfox:springfox-swagger2:2.9.2")
+    // swagger : springboot3.x 에서 이것만 있어도 됨
+    // https://springdoc.org/#Introduction
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
 
     // h2
     testImplementation("com.h2database:h2")
@@ -84,10 +90,24 @@ dependencies {
     // logging
     implementation("io.github.microutils:kotlin-logging-jvm:2.0.10")
 
+    // springboot starter-test
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+
     // mock & kotest
     testImplementation("io.mockk:mockk:$mockkVersion")
     testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
     testImplementation("com.ninja-squad:springmockk:$springmockkVersion")
 
-    testImplementation("mysql:mysql-connector-java")
+    testImplementation("mysql:mysql-connector-java:8.0.32")
+}
+
+tasks.withType<KotlinCompile> {
+    this.kotlinOptions {
+        freeCompilerArgs += "-Xjsr305=strict"
+        jvmTarget = "17"
+    }
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }

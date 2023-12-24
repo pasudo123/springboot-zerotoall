@@ -19,7 +19,7 @@ import org.springframework.test.context.TestConstructor
 class BaseTests
 
 /**
- * 테스트 관련 메타 애노테이션에서 사용하기 위한 최상위 애노테이션
+ * 테스트 관련 메타 애노테이션에서 사용하기 위한 최oot상위 애노테이션
  */
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)

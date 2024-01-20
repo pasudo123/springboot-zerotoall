@@ -1,10 +1,10 @@
 package com.example.springbootbasis.scheduler
 
+import jakarta.annotation.PostConstruct
 import net.javacrumbs.shedlock.spring.annotation.SchedulerLock
 import org.slf4j.LoggerFactory
 import org.springframework.scheduling.annotation.Scheduled
 import java.time.LocalDateTime
-import javax.annotation.PostConstruct
 
 /**
  * AOP 기반으로 동작하기 위해 해당 클래스에 open 키워드 필요.

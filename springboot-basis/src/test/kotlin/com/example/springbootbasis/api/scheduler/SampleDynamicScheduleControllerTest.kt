@@ -1,7 +1,7 @@
 package com.example.springbootbasis.api.scheduler
 
-import khttp.post
 import org.junit.jupiter.api.Test
+import org.springframework.web.client.RestTemplate
 
 class SampleDynamicScheduleControllerTest {
 
@@ -13,9 +13,11 @@ class SampleDynamicScheduleControllerTest {
     @Test
     fun `thread 를 n개 만들어서 동시에 수행시킵니다`() {
 
+        val restTemplate = RestTemplate()
+
         (1..2).forEach {
             val map = mapOf<String, Any>("name" to "hello-$it")
-            post(host, headers = headers, json = map)
+            restTemplate.postForObject(host, map, Map::class.java)
         }
     }
 }

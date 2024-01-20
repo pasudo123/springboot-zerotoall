@@ -1,13 +1,13 @@
 package com.example.springbootbasis.config.redis
 
 import com.example.springbootbasis.util.EnvUtil.getFirstElementByProperty
+import jakarta.annotation.PostConstruct
 import net.javacrumbs.shedlock.core.LockProvider
 import net.javacrumbs.shedlock.provider.redis.spring.RedisLockProvider
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.env.Environment
 import org.springframework.data.redis.connection.RedisConnectionFactory
-import javax.annotation.PostConstruct
 
 @Configuration
 class ShedLockConfiguration(

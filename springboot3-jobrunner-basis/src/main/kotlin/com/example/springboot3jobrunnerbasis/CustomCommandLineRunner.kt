@@ -28,7 +28,5 @@ class CustomCommandLineRunner(
 
         // 시간이 너무 짧으면 런타임 에러가 발생함 : The smallest interval for recurring jobs is 5 seconds
         jobScheduler.scheduleRecurrently("*/3 * * * * *") { shortTermTask.task("every 5 seconds") }
-
-        jobScheduler.
     }
 }

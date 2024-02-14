@@ -3,8 +3,10 @@ package com.example.springbootjpabasis.domain.post.api
 import com.example.springbootjpabasis.domain.post.api.dto.PostCreateDto
 import com.example.springbootjpabasis.domain.post.model.Post
 import com.example.springbootjpabasis.domain.post.repository.PostRepository
+import com.example.springbootjpabasis.event.PostEventPublisher
 import jakarta.persistence.EntityNotFoundException
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.GetMapping
@@ -13,16 +15,18 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("posts")
-@Transactional
 class PostController(
-    private val postRepository: PostRepository
+    private val postRepository: PostRepository,
+    private val postEventPublisher: PostEventPublisher
 ) {
 
     @PostMapping
+    @Transactional
     fun create(
         @RequestBody postCreateDto: PostCreateDto
     ): ResponseEntity<Post> {
@@ -31,7 +35,16 @@ class PostController(
         return ResponseEntity.ok().body(post)
     }
 
+    @PostMapping("with-event")
+    @ResponseStatus(value = HttpStatus.CREATED)
+    fun createWithEvent(
+        @RequestBody postCreateDto: PostCreateDto
+    ) {
+        postEventPublisher.publish(postCreateDto)
+    }
+
     @PatchMapping("{id}/contents")
+    @Transactional
     fun updateContents(
         @PathVariable("id") id: Long,
         @RequestBody postCreateDto: PostCreateDto

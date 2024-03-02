@@ -6,7 +6,7 @@ class MorakBase64
 
 fun main() {
 //    val origin = "Many hands make light work."
-    val origin = "M"
+    val origin = "갈"
     val originByteArray = origin.toByteArray()
     val asciiNumbers = originByteArray.map { byte -> byte.toUInt() }
 

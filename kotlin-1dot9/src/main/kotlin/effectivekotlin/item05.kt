@@ -1,4 +1,4 @@
-package chapter01
+package effectivekotlin
 
 class item05
 

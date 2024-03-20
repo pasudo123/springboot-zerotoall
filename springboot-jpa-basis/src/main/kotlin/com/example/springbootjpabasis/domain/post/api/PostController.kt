@@ -1,5 +1,6 @@
 package com.example.springbootjpabasis.domain.post.api
 
+import com.example.springbootjpabasis.domain.post.PostService
 import com.example.springbootjpabasis.domain.post.api.dto.PostCreateDto
 import com.example.springbootjpabasis.domain.post.model.Post
 import com.example.springbootjpabasis.domain.post.repository.PostRepository
@@ -22,7 +23,8 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("posts")
 class PostController(
     private val postRepository: PostRepository,
-    private val postEventPublisher: PostEventPublisher
+    private val postEventPublisher: PostEventPublisher,
+    private val postService: PostService,
 ) {
 
     @PostMapping
@@ -41,6 +43,13 @@ class PostController(
         @RequestBody postCreateDto: PostCreateDto
     ) {
         postEventPublisher.publish(postCreateDto)
+    }
+
+    @PostMapping("with-error")
+    fun createWithError(
+        @RequestBody postCreateDto: PostCreateDto
+    ) {
+        postService.create(postCreateDto)
     }
 
     @PatchMapping("{id}/contents")

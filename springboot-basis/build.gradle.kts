@@ -46,6 +46,7 @@ dependencies {
 
     // coroutine
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
 
     // springboot3 에서 jakarta 필요.
     kapt("jakarta.annotation:jakarta.annotation-api")

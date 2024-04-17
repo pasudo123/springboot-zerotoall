@@ -32,7 +32,6 @@ class CustomBeanDefRegistryPostProcessor : BeanDefinitionRegistryPostProcessor, 
     }
 
     override fun postProcessBeanDefinitionRegistry(registry: BeanDefinitionRegistry) {
-
         val services = env.getProperty(Constant.SERVICES)?.split(Constant.COMMA) ?: emptyList()
         this.logging(services.joinToString(", "))
 
@@ -50,8 +49,6 @@ class CustomBeanDefRegistryPostProcessor : BeanDefinitionRegistryPostProcessor, 
 
             registry.registerBeanDefinition(createBeanName(serviceName), beanDef)
         }
-
-
 
         this.logging("[beanDef] postProcessBeanDefinitionRegistry ...")
     }

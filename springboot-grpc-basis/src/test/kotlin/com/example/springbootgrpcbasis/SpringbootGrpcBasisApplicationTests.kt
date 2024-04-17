@@ -1,12 +1,13 @@
-package com.example.springbootbasis
+package com.example.springbootgrpcbasis
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class SpringbootBasisApplicationTests {
+class SpringbootGrpcBasisApplicationTests {
 
     @Test
     fun contextLoads() {
     }
+
 }

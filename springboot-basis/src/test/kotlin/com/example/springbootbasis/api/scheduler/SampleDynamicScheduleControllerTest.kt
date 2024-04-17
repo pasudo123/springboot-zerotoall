@@ -12,7 +12,6 @@ class SampleDynamicScheduleControllerTest {
 
     @Test
     fun `thread 를 n개 만들어서 동시에 수행시킵니다`() {
-
         val restTemplate = RestTemplate()
 
         (1..2).forEach {

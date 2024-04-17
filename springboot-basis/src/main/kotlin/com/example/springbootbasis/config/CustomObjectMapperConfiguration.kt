@@ -14,17 +14,17 @@ class CustomObjectMapperConfiguration {
     companion object {
         val mapper: ObjectMapper = ObjectMapper().registerModules(
             JavaTimeModule(),
-            KotlinModule(),
+            KotlinModule()
         ).apply {
             this.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
             this.enable(SerializationFeature.INDENT_OUTPUT)
         }
     }
-    
+
     @Bean
     fun objectMapper(): ObjectMapper {
         return mapper
     }
 }
 
-inline fun <reified T: Any> T.toJson(): String = mapper.writeValueAsString(this)
+inline fun <reified T : Any> T.toJson(): String = mapper.writeValueAsString(this)

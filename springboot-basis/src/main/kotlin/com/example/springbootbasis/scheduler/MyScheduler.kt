@@ -25,8 +25,8 @@ open class MyScheduler {
     @Scheduled(initialDelay = 3000, fixedDelay = 3000, zone = "Asia/Seoul")
     @SchedulerLock(
         name = "test",
-        lockAtMostFor = "PT3S",     // 최소 실행노드가 죽었을 때, 락을 얼만큼 유지할 건지
-        lockAtLeastFor = "PT2S"     // 최소 얼만큼 락을 유지할 건지
+        lockAtMostFor = "PT3S", // 최소 실행노드가 죽었을 때, 락을 얼만큼 유지할 건지
+        lockAtLeastFor = "PT2S" // 최소 얼만큼 락을 유지할 건지
     )
     open fun task() {
         log.info("task... :: $name :: ${LocalDateTime.now()}")

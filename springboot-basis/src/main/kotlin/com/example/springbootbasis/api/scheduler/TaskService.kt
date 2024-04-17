@@ -1,10 +1,7 @@
 package com.example.springbootbasis.api.scheduler
 
 import org.slf4j.LoggerFactory
-import org.springframework.core.task.AsyncTaskExecutor
-import org.springframework.scheduling.TaskScheduler
 import org.springframework.scheduling.annotation.Async
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 import org.springframework.stereotype.Service
 
 @Service

@@ -9,7 +9,7 @@ class DynamicTask(
     val taskService: TaskService,
     val name: String,
     val properties: Map<String, Any> = emptyMap(),
-    val createdAt: LocalDateTime = LocalDateTime.now(),
+    val createdAt: LocalDateTime = LocalDateTime.now()
 ) : Runnable {
 
     lateinit var threadPoolTaskExecutor: ThreadPoolTaskExecutor

@@ -5,9 +5,15 @@ import org.slf4j.LoggerFactory
 
 class CustomExtension
 
-val logger: Logger  = LoggerFactory.getLogger(CustomExtension::class.java)
+val logger: Logger = LoggerFactory.getLogger(CustomExtension::class.java)
 
-fun Person.toBatMan(): Person {
+data class PersonTest1(
+    val name: String,
+    val age: Int,
+    var mind: String? = null
+)
+
+fun PersonTest1.toBatMan(): PersonTest1 {
     logger.info("person -> batman")
     return this.copy(
         name = "batman",

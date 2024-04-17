@@ -20,7 +20,6 @@ class CustomApplicationRunner(
     private val log = LoggerFactory.getLogger(javaClass)
 
     override fun run(args: ApplicationArguments?) {
-
         if (isNoArgsScheduleRun(env)) {
             log.info("does not create schedule bean !!")
             return

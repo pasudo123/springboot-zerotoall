@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package com.example.springbootbasis.protobuf;
+
+option java_multiple_files = true;
+
+service GrpcPersonService {
+  rpc hello (HelloRequest) returns (HelloResponse) {}
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloResponse {
+  string message = 1;
+}

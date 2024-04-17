@@ -25,7 +25,6 @@ class DynamicTaskRegisterer(
         request: SampleDynamicScheduleController.DynamicTaskRequest,
         jobId: String = UUID.randomUUID().toString()
     ) {
-
         log.info("# register task: ${request.toJson()}")
 
         val dynamicTask = request.toDynamicTask(taskService).apply {
@@ -57,7 +56,7 @@ class DynamicTaskRegisterer(
 
     fun deleteAll() {
         val jobIds = jobGroup.keys.map { it }
-        jobIds.forEach { delete (it) }
+        jobIds.forEach { delete(it) }
     }
 
     /**

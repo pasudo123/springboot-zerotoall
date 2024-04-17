@@ -9,7 +9,6 @@ class CustomScheduleErrorHandler : ErrorHandler {
     private val log = LoggerFactory.getLogger(javaClass)
 
     override fun handleError(throwable: Throwable) {
-
         if (throwable is CustomException) {
             log.error("[customException] error handler called !! : ${throwable.message}")
             return

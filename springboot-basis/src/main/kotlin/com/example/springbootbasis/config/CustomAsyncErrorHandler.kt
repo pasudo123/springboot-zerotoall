@@ -4,7 +4,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler
 import java.lang.reflect.Method
 
-class CustomAsyncErrorHandler: AsyncUncaughtExceptionHandler {
+class CustomAsyncErrorHandler : AsyncUncaughtExceptionHandler {
 
     private val log = LoggerFactory.getLogger(javaClass)
 

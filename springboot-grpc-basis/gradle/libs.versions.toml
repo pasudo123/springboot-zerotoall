@@ -1,0 +1,6 @@
+[plugins]
+protobuf = { id = "com.google.protobuf", version = "0.9.4" }
+
+[libraries]
+protoc-gen-grpc-java = { group = "io.grpc", name = "protoc-gen-grpc-java", version = "1.62.2" }
+protoc = { group = "com.google.protobuf", name = "protoc", version = "3.25.3" }

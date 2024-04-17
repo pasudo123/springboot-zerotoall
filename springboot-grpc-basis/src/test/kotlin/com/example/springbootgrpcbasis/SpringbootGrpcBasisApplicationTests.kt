@@ -9,5 +9,4 @@ class SpringbootGrpcBasisApplicationTests {
     @Test
     fun contextLoads() {
     }
-
 }

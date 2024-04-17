@@ -74,14 +74,28 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-// protobuf 설정
+ktlint.filter {
+    // generated 경로에 생성된 파일은 ktlint 검사 제외
+    // https://github.com/JLLeitschuh/ktlint-gradle/issues/522#issuecomment-958756817
+    exclude {
+        val path = it.file.canonicalPath
+        path.contains("generated")
+    }
+}
+
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:3.25.3"
+        println("### protoc=${libs.protoc.asProvider().get()}")
+        artifact = libs.protoc.asProvider().get().toString()
+        // 아래처럼 사용가능
+        // artifact = "com.google.protobuf:protoc:3.25.3"
     }
     plugins {
         create("grpc") {
-            artifact = "io.grpc:protoc-gen-grpc-java:1.62.2"
+            println("### grpc create()=${libs.protoc.gen.grpc.java.get()}")
+            artifact = libs.protoc.gen.grpc.java.get().toString()
+            // 아래처럼 사용가능
+            // artifact = "io.grpc:protoc-gen-grpc-java:1.62.2"
         }
         create("grpckt") {
             artifact = "io.grpc:protoc-gen-grpc-kotlin:1.3.1:jdk8@jar"

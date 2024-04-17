@@ -15,9 +15,6 @@ plugins {
 
     // kotlin lint
     id("org.jlleitschuh.gradle.ktlint") version klintVersion
-
-    // https://github.com/grpc/grpc-kotlin/blob/master/compiler/README.md
-    id("com.google.protobuf") version "0.9.4"
 }
 
 group = "com.example"
@@ -63,12 +60,6 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
-    // grpc & protobuf
-    // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-kotlin
-    implementation("io.grpc:grpc-kotlin-stub:1.3.1")
-    implementation("io.grpc:grpc-protobuf:1.62.2")
-    implementation("com.google.protobuf:protobuf-kotlin:3.25.3")
-
     // mock & kotest
     testImplementation("io.mockk:mockk:$mockkVersion")
     testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
@@ -86,30 +77,4 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
-}
-
-// protobuf 설정
-protobuf {
-    protoc {
-        artifact = "com.google.protobuf:protoc:3.25.3"
-    }
-    plugins {
-        create("grpc") {
-            artifact = "io.grpc:protoc-gen-grpc-java:1.62.2"
-        }
-        create("grpckt") {
-            artifact = "io.grpc:protoc-gen-grpc-kotlin:1.3.1:jdk8@jar"
-        }
-    }
-    generateProtoTasks {
-        all().forEach {
-            it.plugins {
-                create("grpc")
-                create("grpckt")
-            }
-            it.builtins {
-                create("kotlin")
-            }
-        }
-    }
 }

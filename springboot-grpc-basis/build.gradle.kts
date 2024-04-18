@@ -55,6 +55,12 @@ dependencies {
     implementation("io.grpc:grpc-protobuf:1.62.2")
     implementation("com.google.protobuf:protobuf-kotlin:3.25.3")
 
+    // grpc server
+    implementation("net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE")
+
+    // grpc client
+    implementation("net.devh:grpc-client-spring-boot-starter:3.1.0.RELEASE")
+
     // mock & kotest
     testImplementation("io.mockk:mockk:$mockkVersion")
     testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")

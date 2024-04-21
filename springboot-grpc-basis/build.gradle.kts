@@ -55,11 +55,15 @@ dependencies {
     implementation("io.grpc:grpc-protobuf:1.62.2")
     implementation("com.google.protobuf:protobuf-kotlin:3.25.3")
 
-    // grpc server
-    implementation("net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE")
+//    // grpc server, grpc client
+//    implementation("net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE")
+//    implementation("net.devh:grpc-client-spring-boot-starter:3.1.0.RELEASE")
 
-    // grpc client
-    implementation("net.devh:grpc-client-spring-boot-starter:3.1.0.RELEASE")
+    // retrofit2 : for api communicate
+    // https://square.github.io/retrofit/
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-protobuf:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor")
 
     // mock & kotest
     testImplementation("io.mockk:mockk:$mockkVersion")

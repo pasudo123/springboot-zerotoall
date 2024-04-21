@@ -1,2 +1,10 @@
 server:
   port: 8080
+
+app:
+  client:
+    mock-api:
+      host: http://localhost:8080/
+      connection-timeout: 6000
+      read-timeout: 6000
+      write-timeout: 6000

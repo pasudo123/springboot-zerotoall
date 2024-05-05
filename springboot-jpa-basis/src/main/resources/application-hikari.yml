@@ -4,6 +4,13 @@ spring:
     password: rootpass
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:13310/testdb?useSSL=false&allowPublicKeyRetrieval=true&useTimezone=true&serverTimezone=Asia/Seoul
+    hikari:
+      connection-timeout: 60000 # client <-> server 연결 최대 허용 시간.
+      maximum-pool-size: 22 # maximum 과 minimum-idle 을 동일 값으로 처리하는게 나음
+      minimum-idle: 22
+
+  jpa:
+    open-in-view: false
 
 server:
   port: 8080

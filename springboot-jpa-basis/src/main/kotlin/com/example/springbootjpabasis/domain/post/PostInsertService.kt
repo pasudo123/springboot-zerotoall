@@ -17,7 +17,7 @@ class PostInsertService(
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     fun createIndependently(dto: PostCreateDto): Post {
-        log.info("#### createIndependently")
+        log.info("#### 다른 클래스, @Transactional 호출")
         return postRepository.saveAndFlush(Post.from(dto))
     }
 }

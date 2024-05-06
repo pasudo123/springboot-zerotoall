@@ -3,9 +3,8 @@ spring:
     username: root
     password: rootpass
     driver-class-name: com.mysql.cj.jdbc.Driver
-    hikari:
-      auto-commit: true
-      jdbc-url: jdbc:mysql://localhost:13310/testdb?useSSL=false&allowPublicKeyRetrieval=true&useTimezone=true&serverTimezone=Asia/Seoul
+    # CustomEnversConfiguration 의 내용에 따라 jdbc-url 로 설정한다.
+    jdbc-url: jdbc:mysql://localhost:13310/testdb?useSSL=false&allowPublicKeyRetrieval=true&useTimezone=true&serverTimezone=Asia/Seoul
 
   jpa:
     open-in-view: true
@@ -16,4 +15,4 @@ springdoc:
     path: /swagger-ui.html
 
 server:
-  port: 48081
+  port: 8080

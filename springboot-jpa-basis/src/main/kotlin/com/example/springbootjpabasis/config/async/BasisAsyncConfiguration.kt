@@ -10,7 +10,7 @@ import java.util.concurrent.ThreadPoolExecutor
 
 @Configuration
 @EnableAsync
-class BasisAsyncConfiguration: AsyncConfigurer {
+class BasisAsyncConfiguration : AsyncConfigurer {
 
     override fun getAsyncExecutor(): Executor {
         return ThreadPoolTaskExecutor().apply {

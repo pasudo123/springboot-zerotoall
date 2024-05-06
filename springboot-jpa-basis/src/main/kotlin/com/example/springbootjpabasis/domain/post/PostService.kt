@@ -17,7 +17,6 @@ class PostService(
 
     @Transactional
     fun create(dto: PostCreateDto) {
-
         val initPost = postInsertService.createIndependently(dto)
 
         try {
@@ -34,6 +33,5 @@ class PostService(
     @Transactional
     fun createWithDetail(dto: PostCreateDto) {
         val post = postRepository.save(Post.from(dto))
-
     }
 }

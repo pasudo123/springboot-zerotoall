@@ -6,47 +6,54 @@ class SampleTest {
 
     @Test
     fun `알고리즘`() {
-        canMakeSquare(grid = arrayOf(
-            charArrayOf('B','W','B'),
-            charArrayOf('W','B','W'),
-            charArrayOf('B','W','B'),
-            ))
     }
 
-    fun canMakeSquare(grid: Array<CharArray>): Boolean {
+    fun numberOfRightTriangles(grid: Array<IntArray>): Long {
+        val rows = grid.size
+        val cols = grid[0].size
+        var result = 0L
 
-        for (row in 0 until (grid.size - 1)) {
-            var blackCount = 0
-            var whiteCount = 0
+        for (row in 0 until rows - 1) {
+            val startPointRows = mutableListOf<Pair<Int, Int>>()
 
-            for (col in 0 until (grid[row].size - 1)) {
-                val color1 = grid[row][col]
-                val color2 = grid[row][col + 1]
-                val color3 = grid[row + 1][col]
-                val color4 = grid[row + 1][col + 1]
+            for (col in 0 until cols - 1) {
+                val point = grid[row][col]
 
-                if (color1 == 'B') blackCount++ else whiteCount++
-                if (color2 == 'B') blackCount++ else whiteCount++
-                if (color3 == 'B') blackCount++ else whiteCount++
-                if (color4 == 'B') blackCount++ else whiteCount++
-
-                if (blackCount == 4 || whiteCount == 4) {
-                    return true
+                if (point != 1) {
+                    continue
                 }
 
-                if (blackCount == 3 && whiteCount == 1) {
-                    return true
-                }
+                startPointRows.add(Pair(row, col))
+            }
 
-                if (blackCount == 1 && whiteCount == 3) {
-                    return true
-                }
+            result += startPointRows.sumOf { count(it, grid) }
+        }
 
-                blackCount = 0
-                whiteCount = 0
+        return result
+    }
+
+    private fun count(pair: Pair<Int, Int>, grid: Array<IntArray>): Long {
+        // left
+        for (index in 0 until pair.first) {
+            for (subIndex in 0 until pair.second) {
+                if (grid[index][subIndex] == 0) {
+                    continue
+                }
+            }
+
+            for (subIndex in pair.second until grid[0].size) {
             }
         }
 
-        return false
+        // right
+        for (index in (pair.first + 1) until grid.size) {
+            for (subIndex in 0 until pair.second) {
+            }
+
+            for (subIndex in (pair.second + 1) until grid[0].size) {
+            }
+        }
+
+        return 0L
     }
 }

@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController
 class PostController(
     private val postRepository: PostRepository,
     private val postEventPublisher: PostEventPublisher,
-    private val postService: PostService,
+    private val postService: PostService
 ) {
 
     @PostMapping

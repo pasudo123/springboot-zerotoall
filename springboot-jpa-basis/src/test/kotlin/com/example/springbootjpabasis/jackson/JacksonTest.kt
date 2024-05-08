@@ -9,14 +9,15 @@ class JacksonTest {
     @Test
     fun `databind test`() {
         // 직렬화 : single lowercase 에는 문제가 있음. @get:JsonProperty or @JvmField 적용이 필요.
-        val dummy = Dummy(aName = "hello", bName = "hi")
+        val dummy = Dummy(aName = "hello", bName = "hi", aaName = "sorry")
         println(dummy.toJson())
 
         // 역직렬화 : single lowercase 에는 문제가 없음
         val json = """
             {
                 "aName": "hello-aName",
-                "bName": "hello-bName"
+                "bName": "hello-bName",
+                "aaName": "sorry-aaName"
             }
         """.trimIndent()
 
@@ -30,5 +31,8 @@ data class Dummy(
     val aName: String,
 //    @get:JsonProperty("bName")
     @JvmField
-    var bName: String
-)
+    var bName: String,
+    var aaName: String? = null,
+) {
+    fun getaaName(): String? = aaName
+}

@@ -7,8 +7,8 @@ spring:
     jdbc-url: jdbc:mysql://localhost:13310/testdb?useSSL=false&allowPublicKeyRetrieval=true&useTimezone=true&serverTimezone=Asia/Seoul
 
   jpa:
-    open-in-view: true
-    ## 다른 속성들은 CustomEnversConfiguration.kt 참고
+    open-in-view: false
+    ## 그 외 다른 속성들은 CustomEnversConfiguration.kt 참고
 
 springdoc:
   swagger-ui:

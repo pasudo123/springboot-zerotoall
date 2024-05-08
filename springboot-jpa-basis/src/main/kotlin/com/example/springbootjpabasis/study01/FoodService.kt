@@ -19,7 +19,7 @@ class FoodService(
             this.toGood()
         }
 
-        foodRepository.save(food)
+        foodRepository.saveAndFlush(food)
 
         return changedFood.id!!
     }

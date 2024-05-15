@@ -1,11 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-
 plugins {
     val kotlinVersion = System.getProperty("version.kotlinVersion")
     val springBootVersion = System.getProperty("version.springBootVersion")
     val springBootManagementVersion = System.getProperty("version.springDependencyManagementVersion")
-    val klintVersion = System.getProperty("version.ktlintVersion")
+    val ktlintVersion = System.getProperty("version.ktlintVersion")
+    val kotlinBenchMarkVersion = System.getProperty("version.kotlinBenchMarkVersion")
 
     id("org.springframework.boot") version springBootVersion
     id("io.spring.dependency-management") version springBootManagementVersion
@@ -23,13 +23,12 @@ plugins {
     id("org.jetbrains.kotlin.plugin.allopen") version kotlinVersion
 
     // kotlin lint
-    id("org.jlleitschuh.gradle.ktlint") version klintVersion
-}
+    id("org.jlleitschuh.gradle.ktlint") version ktlintVersion
 
-kotlin.sourceSets.main {
-    println("kotlin sourceSets buildDir :: $buildDir")
-    // querydsl QClass 생성
-    setBuildDir("$buildDir")
+    // jmh : 성능측정
+    // id("me.champeau.jmh") version "0.7.2"
+    // https://github.com/Kotlin/kotlinx-benchmark 참고
+    id("org.jetbrains.kotlinx.benchmark") version kotlinBenchMarkVersion
 }
 
 group = "com.example"
@@ -37,6 +36,10 @@ version = "0.0.1-SNAPSHOT"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
+}
+
+allOpen {
+    annotation("org.openjdk.jmh.annotations.State")
 }
 
 repositories {
@@ -47,6 +50,21 @@ val kotestVersion: String = System.getProperty("version.kotestVersion")
 val mockkVersion: String = System.getProperty("version.mocckVersion")
 val springmockkVersion: String = System.getProperty("version.springmockkVersion")
 val queryDslVersion: String = System.getProperty("version.queryDslVersion")
+val kotlinBenchMarkVersion: String = System.getProperty("version.kotlinBenchMarkVersion")
+
+kotlin {
+    this.sourceSets {
+        // querydsl QClass 생성
+        println("@@ kotlin sourceSets buildDir :: $buildDir")
+        setBuildDir("$buildDir")
+    }
+}
+
+benchmark {
+    targets {
+        register("jvm")
+    }
+}
 
 dependencies {
 
@@ -85,6 +103,9 @@ dependencies {
 
     // springboot starter-test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    // benchMark
+    implementation("org.jetbrains.kotlinx:kotlinx-benchmark-runtime:$kotlinBenchMarkVersion")
 
     // mock & kotest
     testImplementation("io.mockk:mockk:$mockkVersion")

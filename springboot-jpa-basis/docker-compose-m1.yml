@@ -1,7 +1,8 @@
 version: '3.7'
 services:
-  db:
-    image: arm64v8/mysql:8.0
+  mysql:
+    image: mysql:8.0.37-debian # mysqlbinlog 커맨드가능
+    platform: linux/amd64 # 해당 명령어로 인해서 m1 에서 컨테이너 실행가능.
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     restart: always
     environment:
@@ -9,5 +10,16 @@ services:
       - MYSQL_ROOT_HOST=%
       - MYSQL_DATABASE=testdb
     container_name: study-mysql
+    ports:
+      - "13311:3306"
+  mysql-ar64v8:
+    image: arm64v8/mysql:8.0
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpass
+      - MYSQL_ROOT_HOST=%
+      - MYSQL_DATABASE=testdb
+    container_name: study-mysql-m1
     ports:
       - "13310:3306"

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("v1/foods")
 @RestController
 class FoodController(
-    private val foodService: FoodService,
+    private val foodService: FoodService
 ) {
 
     @PostMapping

@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class FoodService(
     private val foodRepository: FoodRepository,
-    private val foodInitializer: FoodInitializer,
+    private val foodInitializer: FoodInitializer
 ) {
 
     @Transactional

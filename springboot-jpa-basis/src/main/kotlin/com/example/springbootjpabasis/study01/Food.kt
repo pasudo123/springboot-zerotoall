@@ -13,7 +13,8 @@ import jakarta.persistence.Table
 
 @Entity
 @Table(
-    name = "food", indexes = [
+    name = "food",
+    indexes = [
         Index(name = "food_name_unique_idx", unique = true, columnList = "name")
     ]
 )

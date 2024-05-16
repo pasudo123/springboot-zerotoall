@@ -32,7 +32,7 @@ data class Dummy(
 //    @get:JsonProperty("bName")
     @JvmField
     var bName: String,
-    var aaName: String? = null,
+    var aaName: String? = null
 ) {
     fun getaaName(): String? = aaName
 }

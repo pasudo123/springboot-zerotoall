@@ -21,6 +21,6 @@ class FoodInitializer(
 
     @Transactional
     fun doSomething(food: Food) {
-        log.info("food=${food}")
+        log.info("food=$food")
     }
 }

@@ -13,6 +13,7 @@ import java.util.UUID
 class CoffeeController {
 
     @GetMapping
+    @PathTracker
     fun findRandomOne(): Coffee {
         val randomUUID = UUID.randomUUID().toString()
         return Coffee(
@@ -35,6 +36,7 @@ class CoffeeController {
     }
 
     @GetMapping("{coffeeId}/managers/{managerId}")
+    @PathTracker
     fun findManagerByCoffeeId(
         @PathVariable coffeeId: Long,
         @PathVariable managerId: Long

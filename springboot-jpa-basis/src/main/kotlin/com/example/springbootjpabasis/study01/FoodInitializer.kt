@@ -18,9 +18,4 @@ class FoodInitializer(
 
         return foodRepository.save(food)
     }
-
-    @Transactional
-    fun doSomething(food: Food) {
-        log.info("food=$food")
-    }
 }

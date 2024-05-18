@@ -13,6 +13,8 @@ class MyUndertowCustomizer : WebServerFactoryCustomizer<UndertowServletWebServer
 
     override fun customize(factory: UndertowServletWebServerFactory?) {
 
+        log.info("@@@@@ undertow customize")
+
         factory?.apply {
             this.port = 8080
             this.setIoThreads(2)

@@ -1,3 +1,7 @@
+logging:
+  level:
+    org.springframework.transaction: DEBUG
+
 spring:
   datasource:
     username: root

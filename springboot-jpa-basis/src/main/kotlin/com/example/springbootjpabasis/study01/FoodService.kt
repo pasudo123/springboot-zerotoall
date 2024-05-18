@@ -12,17 +12,10 @@ class FoodService(
     @Transactional
     fun create(dto: FoodDto): Long {
         val food = foodInitializer.init(dto)
-        foodInitializer.doSomething(food)
 
-        val changedFood = changeStatus(food)
+        val changedFood = food.apply { this.toGood() }
         foodRepository.saveAndFlush(food)
 
         return changedFood.id!!
-    }
-
-    private fun changeStatus(food: Food): Food {
-        return food.apply {
-            this.toGood()
-        }
     }
 }

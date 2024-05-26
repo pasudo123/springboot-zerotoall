@@ -26,3 +26,5 @@ class CustomObjectMapperConfiguration {
 
 inline fun <reified T : Any> T.toJson(): String = mapper.writeValueAsString(this)
 inline fun <reified T : Any> String.toObject(): T = mapper.readValue(this, T::class.java)
+inline fun <reified T : Any> String?.toObjectList(): List<T> =
+    this?.let { mapper.readerForListOf(T::class.java).readValue(it) } ?: emptyList()

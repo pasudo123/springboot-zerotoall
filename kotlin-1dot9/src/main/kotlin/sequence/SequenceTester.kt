@@ -1,4 +1,0 @@
-package sequence
-
-class SequenceTester {
-}

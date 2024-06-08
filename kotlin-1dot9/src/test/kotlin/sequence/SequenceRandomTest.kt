@@ -10,14 +10,13 @@ class SequenceRandomTest {
         val randomSequence = sequence {
             while (true) {
                 val number = Random.nextLong(0, 10001)
-                println("hello-$number")
                 yield(number)
             }
         }
 
         repeat(100) {
-            val it = randomSequence.iterator()
-            println(it.next())
+            val current = randomSequence.iterator()
+            println(current.next())
         }
     }
 }

@@ -2,7 +2,16 @@ server:
   port: 28080
 
 spring:
+  config:
+    import: optional:zookeeper:localhost:22181
   cloud:
+    zookeeper:
+      # connect-string: localhost:22181
+      config:
+        fail-fast: true
+        enabled: true
+        root: /apache-zookeeper-3.7.2-bin/config
+        name: ztest
     config:
       server:
         bootstrap: true

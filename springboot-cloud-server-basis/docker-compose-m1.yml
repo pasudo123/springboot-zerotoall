@@ -1,0 +1,8 @@
+services:
+  zookeeper:
+    image: zookeeper:3.7.2
+    platform: linux/amd64 # 해당 명령어로 인해서 m1 에서 컨테이너 실행가능.
+    restart: always
+    container_name: study-zookeeper
+    ports:
+      - "22181:2181"

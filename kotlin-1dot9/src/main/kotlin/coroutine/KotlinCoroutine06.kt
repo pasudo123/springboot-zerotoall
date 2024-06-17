@@ -28,5 +28,5 @@ suspend fun runBlockingFunc() = runBlocking {
  * 없다면 컴파일 에러가 발생한다. (아래 코드는 컴파일 에러가 발생하는 코드이다.)
  */
 //suspend fun basicFunc() {
-//    launch {  } -> 컴파일 에러 발생.
+//    launch {  } -> 코루틴 빌더(launch or await) 를 사용할 수 없다. 컴파일 에러 발생.
 //}

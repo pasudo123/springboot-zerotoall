@@ -1,4 +1,4 @@
-package com.example.springbootmongobasis.runner
+package com.example.springbootmongobasis.init.sub
 
 import com.example.springbootmongobasis.domain.bus.api.dto.BusDto
 import com.example.springbootmongobasis.domain.bus.model.Bus

@@ -26,6 +26,10 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version ktlintVersion
 }
 
+allOpen {
+    annotation("javax.persistence.MappedSuperclass")
+}
+
 group = "com.example"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11

@@ -1,9 +1,9 @@
-package com.example.springbootmongobasis.runner
+package com.example.springbootmongobasis.init.sub
 
+import com.example.springbootmongobasis.config.toJson
 import com.example.springbootmongobasis.domain.banner.api.dto.BannerDto
 import com.example.springbootmongobasis.domain.banner.model.Banner
 import com.example.springbootmongobasis.domain.banner.repository.BannerRepository
-import com.example.springbootmongobasis.util.toJsonString
 import com.example.springbootmongobasis.util.toLineString
 import mu.KLogging
 import org.springframework.data.mongodb.core.MongoTemplate
@@ -22,7 +22,7 @@ class DataBannerInitializer(
         bannerRepository.deleteAll()
         val banners = insert()
         for ((currentIndex, banner) in banners.withIndex()) {
-            logger.debug { "banner[$currentIndex] : ${banner.toJsonString()}" }
+            logger.debug { "banner[$currentIndex] : ${banner.toJson()}" }
         }
     }
 

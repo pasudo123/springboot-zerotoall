@@ -1,14 +1,16 @@
-package com.example.springbootmongobasis
+package com.example.springbootmongobasis.init
 
 import com.example.springbootmongobasis.domain.user.User
 import com.example.springbootmongobasis.domain.user.UserRepository
 import org.slf4j.LoggerFactory
 import org.springframework.boot.CommandLineRunner
+import org.springframework.context.annotation.Profile
 import org.springframework.data.mongodb.core.BulkOperations.BulkMode
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.stereotype.Component
 import java.util.UUID
 
+@Profile("mongo-insert-test")
 @Component
 class MongoDbInitializer(
     private val mongoTemplate: MongoTemplate,

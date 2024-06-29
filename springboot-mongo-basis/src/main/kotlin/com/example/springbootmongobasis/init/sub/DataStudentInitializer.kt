@@ -1,10 +1,11 @@
-package com.example.springbootmongobasis.runner
+package com.example.springbootmongobasis.init.sub
 
+import com.example.springbootmongobasis.config.toJson
 import com.example.springbootmongobasis.domain.student.api.dto.StudentDto
 import com.example.springbootmongobasis.domain.student.model.Gender
 import com.example.springbootmongobasis.domain.student.model.Student
 import com.example.springbootmongobasis.domain.student.repository.StudentRepository
-import com.example.springbootmongobasis.util.toJsonString
+import com.example.springbootmongobasis.init.DataInitializer
 import com.example.springbootmongobasis.util.toLineString
 import mu.KLogging
 import org.springframework.data.mongodb.core.MongoTemplate
@@ -44,7 +45,7 @@ class DataStudentInitializer(
         )
         val student = studentRepository.save(Student.from(request))
         logger.info { "===================================" }
-        logger.info { "student : ${student.toJsonString()}" }
+        logger.info { "student : ${student.toJson()}" }
         return student
     }
 
@@ -59,7 +60,7 @@ class DataStudentInitializer(
         if (students.isNotEmpty()) {
             DataInitializer.logger.info("find all by email[$email]")
             students.forEach { student ->
-                DataInitializer.logger.info("find one : ${student.toJsonString()}")
+                DataInitializer.logger.info("find one : ${student.toJson()}")
             }
         }
     }
@@ -72,7 +73,7 @@ class DataStudentInitializer(
         if (students.isNotEmpty()) {
             DataInitializer.logger.info("find all by gender[$gender]")
             students.forEach { student ->
-                DataInitializer.logger.info("find one : ${student.toJsonString()}")
+                DataInitializer.logger.info("find one : ${student.toJson()}")
             }
         }
     }

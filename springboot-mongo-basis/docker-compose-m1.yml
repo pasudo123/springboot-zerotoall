@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   mongodb:
     image: arm64v8/mongo:4.0.28

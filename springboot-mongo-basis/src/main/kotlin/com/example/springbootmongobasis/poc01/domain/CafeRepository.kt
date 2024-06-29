@@ -5,5 +5,4 @@ import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface CafeRepository : MongoRepository<Cafe, ObjectId> {
-}
+interface CafeRepository : MongoRepository<Cafe, ObjectId>

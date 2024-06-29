@@ -15,6 +15,6 @@ class DataInitializer(
     companion object : KLogging()
 
     override fun run(vararg args: String?) {
-        dataCafeInitializer.bulkInsert()
+        // dataCafeInitializer.bulkInsert()
     }
 }

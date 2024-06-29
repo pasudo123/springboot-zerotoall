@@ -1,6 +1,6 @@
-package com.example.springbootmongobasis.poc01.api
+package com.example.springbootmongobasis.poc01.domain
 
-data class CafeDto(
+data class CafeCreateDto(
     val name: String,
     val coffees: List<CoffeeDto>,
     val beverages: List<BeverageDto>,

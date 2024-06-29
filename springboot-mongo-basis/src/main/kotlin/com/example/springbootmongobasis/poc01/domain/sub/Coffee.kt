@@ -1,6 +1,6 @@
 package com.example.springbootmongobasis.poc01.domain.sub
 
-import com.example.springbootmongobasis.poc01.api.CafeDto
+import com.example.springbootmongobasis.poc01.domain.CafeCreateDto
 import org.bson.types.ObjectId
 import org.springframework.data.mongodb.core.mapping.Field
 
@@ -17,7 +17,7 @@ data class Coffee(
         private set
 
     companion object {
-        fun from(coffeeDto: CafeDto.CoffeeDto): Coffee {
+        fun from(coffeeDto: CafeCreateDto.CoffeeDto): Coffee {
             return Coffee(
                 name = coffeeDto.name,
                 price = coffeeDto.price,

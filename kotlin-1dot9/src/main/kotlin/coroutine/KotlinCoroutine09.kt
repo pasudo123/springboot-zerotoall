@@ -10,29 +10,35 @@ import kotlin.coroutines.cancellation.CancellationException
 class KotlinCoroutine09
 
 fun main() = runBlocking(Dispatchers.IO) {
-    val job = launch { processFileWithRepeat("file123") }
+    val job = launch { processFileWithRepeat("sample.txt") }
     job.invokeOnCompletion { throwable ->
-        println("invokeOnCompletion, throwable=${throwable?.message}")
+        if (throwable != null) {
+            println("## 코루틴 수행 실패. throwable=${throwable.message}")
+        } else {
+            println("## 코루틴 수행 성공.")
+        }
     }
-    delay(1200)
-    job.cancelAndJoin()
-//    job.join()
+    delay(1000)
+//    job.cancel()
+//    job.cancelAndJoin()
+    job.join()
 
     println("done")
 }
 
 suspend fun processFileWithRepeat(file: String) {
     try {
-        repeat(5) {
+        repeat(15) {
             println("$it process file=$file ...")
-            delay(500)
+            delay(100)
+            Thread.sleep(100)
             println("$it process file=$file done")
         }
     } catch (exception: CancellationException) {
-        println("cancellationException message=${exception.message}")
+        println("## cancellationException message=${exception.message}")
     } catch (exception: Exception) {
-        println("exception message=${exception.message}")
+        println("## exception message=${exception.message}")
     } finally {
-        println("finally")
+        println("## finally")
     }
 }

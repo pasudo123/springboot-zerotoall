@@ -11,6 +11,9 @@ import kotlinx.coroutines.supervisorScope
 
 class KotlinCoroutine11_1
 
+/**
+ * 에러가 부모 코루틴까지 전파되지 않는다.
+ */
 fun printHelloWorldWithSupervisorScope() = runBlocking {
     supervisorScope {
         launch {
@@ -32,13 +35,18 @@ fun printHelloWorldWithSupervisorScope() = runBlocking {
 
 val personalCoroutineScope = CoroutineScope(context = SupervisorJob())
 val personalCoroutineScopeIO = CoroutineScope(context = SupervisorJob() + Dispatchers.IO)
+
 suspend fun printHelloWorldWithSupervisorScope2() = coroutineScope {
 
     delay(500)
     println("Do something...")
 
     // personalCoroutineScope.launch { notifyToUser() }
-    CoroutineScope(Dispatchers.IO).launch { notifyToUser() }
+    // personalCoroutineScopeIO.launch { notifyToUser() }
+    CoroutineScope(Dispatchers.IO).launch {
+        // 에러가 부모코루틴으로 전파된다.
+        notifyToUser()
+    }
 
     println("Done")
 }

@@ -31,6 +31,8 @@ suspend fun getTweets(): List<Tweet> {
 
 /**
  * 아래 내용을 coroutineScope, 코루틴 스코프 함수로 변경하면 예외에도 유연하게 대처할 수 있다.
+ * AS-IS : suspend fun CoroutineScope.getUserDetails(): Details {}
+ * TO-BE : suspend fun getUserDetails() = coroutineScope {}
  */
 suspend fun CoroutineScope.getUserDetails(): Details {
     val userName = async(Dispatchers.IO) { getUserName() }
@@ -38,7 +40,7 @@ suspend fun CoroutineScope.getUserDetails(): Details {
     return Details(userName.await(), followersNumber.await())
 }
 
-fun main() = runBlocking {
+fun main11() = runBlocking {
     val details = try {
         getUserDetails()
     } catch (exception: Exception) {

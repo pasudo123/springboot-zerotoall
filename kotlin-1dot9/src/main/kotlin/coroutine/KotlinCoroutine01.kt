@@ -2,7 +2,7 @@ package coroutine
 
 import kotlinx.coroutines.delay
 
-suspend fun main() {
+suspend fun main1() {
     println("Hello")
     delay(500L)
     println("Kotlin")

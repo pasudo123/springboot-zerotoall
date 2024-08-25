@@ -13,7 +13,7 @@ class KotlinCoroutine08
  *         async { processFile(file) }
  *     }.awaitAll()
  */
-fun main() = runBlocking(Dispatchers.IO) {
+fun main8() = runBlocking(Dispatchers.IO) {
     val files = listOf("file1", "file2", "file3", "file4", "file5")
 
     val jobs = files.map { file ->

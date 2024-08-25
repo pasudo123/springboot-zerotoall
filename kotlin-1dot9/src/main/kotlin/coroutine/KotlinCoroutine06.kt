@@ -6,7 +6,7 @@ import kotlinx.coroutines.runBlocking
 
 class KotlinCoroutine06
 
-fun main() {
+fun main6() {
     runBlocking {
         coroutineScopeFunc()
         runBlockingFunc()

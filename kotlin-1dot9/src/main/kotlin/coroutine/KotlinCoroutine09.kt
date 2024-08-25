@@ -1,7 +1,6 @@
 package coroutine
 
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -9,7 +8,7 @@ import kotlin.coroutines.cancellation.CancellationException
 
 class KotlinCoroutine09
 
-fun main() = runBlocking(Dispatchers.IO) {
+fun main9() = runBlocking(Dispatchers.IO) {
     val job = launch { processFileWithRepeat("sample.txt") }
     job.invokeOnCompletion { throwable ->
         if (throwable != null) {

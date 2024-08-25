@@ -13,7 +13,7 @@ class ChatGPTLocalScope
  * 아래코드는 권장되는 방식이 아니다.
  * 차라리 하려면 구조화된 코루틴 형식으로 바꿔야한다.
  */
-fun main() = runBlocking {
+fun mainLocalScope() = runBlocking {
     val localScope = CoroutineScope(Dispatchers.IO)
 
     localScope.launch {

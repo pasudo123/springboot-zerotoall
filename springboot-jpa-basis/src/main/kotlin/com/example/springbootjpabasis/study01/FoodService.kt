@@ -18,4 +18,8 @@ class FoodService(
 
         return changedFood.id!!
     }
+
+    fun findAll(): List<Food> {
+        return foodRepository.findAll()
+    }
 }

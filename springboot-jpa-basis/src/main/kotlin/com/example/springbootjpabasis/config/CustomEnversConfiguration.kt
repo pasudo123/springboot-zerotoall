@@ -26,7 +26,7 @@ import javax.sql.DataSource
     basePackages = ["com.example.springbootjpabasis"]
 )
 @EnableTransactionManagement
-@Profile("default")
+@Profile("alpha")
 class CustomEnversConfiguration {
 
     @Bean
@@ -59,7 +59,7 @@ class CustomEnversConfiguration {
             this.jpaVendorAdapter = vendorAdapter
             this.dataSource = dataSource()
             this.setPackagesToScan("com.example.springbootjpabasis")
-            this.setJpaProperties(properties)
+//            this.setJpaProperties(properties)
         }
     }
 

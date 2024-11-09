@@ -5,37 +5,22 @@ class LeetCodeLauncher {
 
     @Test
     fun `leetcode 풀이`() {
-        Solution().run { println(minSizeSubarray(nums = intArrayOf(1,2,2,2,1,2,1,2,1,2,1), 83)) }
+        println(Solution().increasingTriplet(intArrayOf(0,4,2,1,0,-1,-3)))
     }
 }
 
 class Solution {
-    fun minSizeSubarray(nums: IntArray, target: Int): Int {
-        val infiArray = nums + nums
-        var result = Int.MAX_VALUE
-        infiArray.forEachIndexed { index, _ ->
-            result = min(infiArray.checkLength(index, target), result)
+    fun increasingTriplet(nums: IntArray): Boolean {
+
+        var first = Int.MAX_VALUE
+        var second = Int.MAX_VALUE
+
+        for (index in nums.indices) when {
+            nums[index] <= first -> first = nums[index]
+            nums[index] <= second -> second = nums[index]
+            else -> return true
         }
 
-        if (result == Int.MAX_VALUE) return -1
-        return result
-    }
-
-    private fun IntArray.checkLength(index: Int, target: Int): Int {
-        var sum = 0
-        for (currentIndex in index until this.count()) {
-            if (sum == target) {
-                val previousIndex = currentIndex - 1
-                return (previousIndex - index + 1)
-            }
-
-            if (sum > target) {
-                break
-            }
-
-            sum += this[currentIndex]
-        }
-
-        return Int.MAX_VALUE
+        return false
     }
 }

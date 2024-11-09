@@ -1,4 +1,3 @@
-CREATE DATABASE IF NOT EXISTS `testdb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
 USE `testdb`;
 
 CREATE TABLE IF NOT EXISTS person
@@ -12,5 +11,3 @@ CREATE TABLE IF NOT EXISTS person
     PRIMARY KEY (`id`),
     unique KEY (`name`, `email`)
 )   COMMENT = '사람' ENGINE = InnoDB
-    DEFAULT CHARSET = utf8mb4
-    COLLATE = utf8mb4_unicode_ci;

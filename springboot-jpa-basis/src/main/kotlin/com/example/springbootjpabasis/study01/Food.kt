@@ -21,7 +21,7 @@ import jakarta.persistence.Table
 class Food(
     @Column(name = "name", length = 32, nullable = false)
     val name: String,
-    @Column(name = "sub_name", length = 32, nullable = true)
+    @Column(name = "sub_name")
     val subName: String? = null
 ) : BaseEntity() {
     @Id

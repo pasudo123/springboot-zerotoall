@@ -1,5 +1,6 @@
 package com.example.springbootjpabasis.study01
 
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -16,5 +17,10 @@ class FoodController(
         @RequestBody dto: FoodDto
     ): Long {
         return foodService.create(dto)
+    }
+
+    @GetMapping
+    fun findAll(): List<Food> {
+        return foodService.findAll()
     }
 }

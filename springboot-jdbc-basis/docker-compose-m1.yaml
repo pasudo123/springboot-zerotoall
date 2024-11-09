@@ -1,6 +1,5 @@
 # https://hub.docker.com/_/mysql
 # docker-compose -f docker-compose-m1.yaml up -d
-version: '3.7'
 services:
   db:
     image: arm64v8/mysql:8.0
@@ -11,4 +10,4 @@ services:
       - MYSQL_DATABASE=testdb
     container_name: springboot-jdbc-basis-mysql
     ports:
-      - "23311:3306"
+      - "3306:3306"

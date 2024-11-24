@@ -1,4 +1,4 @@
-package com.example.springbootjpabasis.study01
+package com.example.springbootjpabasis.study
 
 data class FoodDto(
     val name: String,

@@ -1,4 +1,4 @@
-package com.example.springbootjpabasis.study01
+package com.example.springbootjpabasis.study
 
 import com.example.springbootjpabasis.domain.BaseEntity
 import jakarta.persistence.Column

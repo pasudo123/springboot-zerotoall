@@ -1,5 +1,8 @@
-package com.example.springbootjpabasis.study01
+package com.example.springbootjpabasis.study.chapter01
 
+import com.example.springbootjpabasis.study.Food
+import com.example.springbootjpabasis.study.FoodDto
+import com.example.springbootjpabasis.study.FoodRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 

@@ -27,20 +27,4 @@ class Food(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
-
-    @Column(name = "state")
-    @Enumerated(EnumType.STRING)
-    var state: State = State.INIT
-
-    enum class State {
-        INIT, GOOD, BAD
-    }
-
-    fun toGood() {
-        this.state = State.GOOD
-    }
-
-    fun toBad() {
-        this.state = State.BAD
-    }
 }

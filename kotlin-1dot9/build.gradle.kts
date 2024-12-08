@@ -2,7 +2,7 @@ plugins {
     application
     kotlin("jvm") version "1.9.20"
     kotlin("plugin.allopen") version "1.9.20"
-    id("org.jetbrains.kotlinx.benchmark") version "0.4.10"
+    // id("org.jetbrains.kotlinx.benchmark") version "0.4.10"
 }
 
 group = "org.example"
@@ -23,9 +23,9 @@ dependencies {
     implementation(kotlin("reflect"))
 
     // benchmark
-    implementation("org.jetbrains.kotlinx:kotlinx-benchmark-runtime:0.4.10")
+    // implementation("org.jetbrains.kotlinx:kotlinx-benchmark-runtime:0.4.10")
 
-    testImplementation(kotlin("test"))
+    // testImplementation(kotlin("test"))
 }
 
 tasks.test {
@@ -43,9 +43,9 @@ application {
 /**
  * https://github.com/Kotlin/kotlinx-benchmark/blob/master/docs/configuration-options.md
  */
-benchmark {
-    targets {
-        register("main")
-        register("jvm")
-    }
-}
+//benchmark {
+//    targets {
+//        register("main")
+//        register("jvm")
+//    }
+//}

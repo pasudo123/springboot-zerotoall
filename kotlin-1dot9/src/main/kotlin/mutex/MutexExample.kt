@@ -2,7 +2,6 @@ package mutex
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.internal.AtomicOp
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -11,7 +10,7 @@ import kotlinx.coroutines.sync.withLock
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.random.Random
 
-class Mutex01
+class MutexExample
 
 var counter = 0
 val counterAtomic = AtomicInteger(0)

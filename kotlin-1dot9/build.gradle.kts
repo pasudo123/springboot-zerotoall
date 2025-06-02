@@ -26,6 +26,7 @@ dependencies {
     // implementation("org.jetbrains.kotlinx:kotlinx-benchmark-runtime:0.4.10")
 
     // testImplementation(kotlin("test"))
+    testImplementation(kotlin("test"))
 }
 
 tasks.test {
